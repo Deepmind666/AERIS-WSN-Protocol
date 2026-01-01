@@ -1,0 +1,2255 @@
+{
+  "config": {
+    "dataset": "Intel Lab",
+    "replicates": 50,
+    "rounds": 200,
+    "positions": 54,
+    "channel_env": "indoor_office"
+  },
+  "runs": [
+    {
+      "replicate": 0,
+      "seed": 24680,
+      "temperature_c": 25.0942,
+      "humidity_ratio": 0.284735,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9840856481481481,
+          "energy": 33.83752429809569,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 0.995,
+          "energy": 21.198169386708805,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9906481481481482,
+          "energy": 11.328218300689697,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9854695293862503,
+          "energy": 35.7056472560188,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.784020764202744,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.61225002401985,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 1,
+      "seed": 25677,
+      "temperature_c": 122.153,
+      "humidity_ratio": 0.0,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9879181228157763,
+          "energy": 94.61318388792738,
+          "lifetime": 200,
+          "alive_nodes": 48
+        },
+        "PEGASIS": {
+          "pdr_end2end": 0.9899628252788104,
+          "energy": 60.793303828743674,
+          "lifetime": 200,
+          "alive_nodes": 50
+        },
+        "HEED": {
+          "pdr_end2end": 0.9740740740740741,
+          "energy": 11.54449936973519,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9723564445443308,
+          "energy": 100.23160628047626,
+          "lifetime": 200,
+          "alive_nodes": 36
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.4352192904021,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.53234435762718,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 2,
+      "seed": 26674,
+      "temperature_c": 25.2608,
+      "humidity_ratio": 0.370933,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9863805604546345,
+          "energy": 33.50838118851911,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 0.995,
+          "energy": 21.336565857868646,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9894444444444445,
+          "energy": 11.311266407813612,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9869043688786178,
+          "energy": 35.40829628734532,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.43533661603452,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.29898767357262,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 3,
+      "seed": 27671,
+      "temperature_c": 25.2118,
+      "humidity_ratio": 0.285449,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9867582636399841,
+          "energy": 32.78814341769859,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 1.0,
+          "energy": 21.34197975169524,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9844444444444445,
+          "energy": 11.435698897896504,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9921149276301577,
+          "energy": 35.90213325553796,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.67034322716677,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.41697961830698,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 4,
+      "seed": 28668,
+      "temperature_c": 24.7904,
+      "humidity_ratio": 0.382922,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9899078973153047,
+          "energy": 33.34368192541766,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 0.99,
+          "energy": 21.39082389577735,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9927777777777778,
+          "energy": 11.207162503832356,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.99221958072185,
+          "energy": 36.03943437409237,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.53118659384112,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.60689446113175,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 5,
+      "seed": 29665,
+      "temperature_c": 21.0468,
+      "humidity_ratio": 0.460655,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9865231723870468,
+          "energy": 36.348587016628784,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 0.995,
+          "energy": 22.912694333290535,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.979537037037037,
+          "energy": 11.352066907413569,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9871431684462846,
+          "energy": 38.36023698217854,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.67166627908865,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.5102537223898,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 6,
+      "seed": 30662,
+      "temperature_c": 26.3584,
+      "humidity_ratio": 0.307486,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9847847847847848,
+          "energy": 33.58409506806977,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 0.995,
+          "energy": 21.869256221044914,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9878703703703704,
+          "energy": 11.284440415431186,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9867670790747713,
+          "energy": 37.01156064259122,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.54327788629101,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.44855837530187,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 7,
+      "seed": 31659,
+      "temperature_c": 122.153,
+      "humidity_ratio": 0.0,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9805835010060362,
+          "energy": 93.97981300534039,
+          "lifetime": 200,
+          "alive_nodes": 49
+        },
+        "PEGASIS": {
+          "pdr_end2end": 0.9900539133667968,
+          "energy": 61.04837697355733,
+          "lifetime": 200,
+          "alive_nodes": 49
+        },
+        "HEED": {
+          "pdr_end2end": 0.9838888888888889,
+          "energy": 11.358422166810191,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9650522530621418,
+          "energy": 99.8666850753297,
+          "lifetime": 200,
+          "alive_nodes": 32
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.751722120103274,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.559358528218375,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 8,
+      "seed": 32656,
+      "temperature_c": 27.7794,
+      "humidity_ratio": 0.359221,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9825315005727376,
+          "energy": 35.97432550318381,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 1.0,
+          "energy": 22.532521740296254,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9896296296296296,
+          "energy": 11.28806974871464,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9841922910350801,
+          "energy": 37.665180748090386,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.490841721461834,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.423653746025025,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 9,
+      "seed": 33653,
+      "temperature_c": 21.3604,
+      "humidity_ratio": 0.38803899999999997,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9882422104644327,
+          "energy": 35.67908097257637,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 0.995,
+          "energy": 22.90522156732956,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9932407407407408,
+          "energy": 11.429485694889728,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9860314022739578,
+          "energy": 38.30513781233757,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.648557778799315,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.42635041761594,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 10,
+      "seed": 34650,
+      "temperature_c": 23.3792,
+      "humidity_ratio": 0.352995,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9850465438700733,
+          "energy": 34.009493235409174,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 1.0,
+          "energy": 21.903987871356293,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9893518518518518,
+          "energy": 11.341116905145975,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9832613390928726,
+          "energy": 37.05475776275383,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.66748688744593,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 42.004742865176944,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 11,
+      "seed": 35647,
+      "temperature_c": 39.4316,
+      "humidity_ratio": 0.494199,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9869506812511993,
+          "energy": 43.78485785984763,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 1.0,
+          "energy": 27.225256648343848,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9755555555555555,
+          "energy": 11.345999725461736,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.992437337942956,
+          "energy": 46.24274732986802,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.479181186715735,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.6642482678331,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 12,
+      "seed": 36644,
+      "temperature_c": 16.1566,
+      "humidity_ratio": 0.461312,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.983963344788087,
+          "energy": 40.21384738592607,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 1.0,
+          "energy": 24.852656505216615,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9887037037037038,
+          "energy": 11.198474380955737,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9915520415899491,
+          "energy": 41.94619465098193,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.45135176307131,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.60537671803197,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 13,
+      "seed": 37641,
+      "temperature_c": 19.224,
+      "humidity_ratio": 0.413771,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9877523025671174,
+          "energy": 37.0243213969258,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 1.0,
+          "energy": 23.636168483989675,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9876851851851852,
+          "energy": 11.260470860824734,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9898400345871163,
+          "energy": 39.99326486931308,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.48872034553756,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.4245156770797,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 14,
+      "seed": 38638,
+      "temperature_c": 23.9868,
+      "humidity_ratio": 0.396878,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9888490641178813,
+          "energy": 33.367216383303266,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 0.995,
+          "energy": 21.71016649944648,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9829629629629629,
+          "energy": 11.192975821461625,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.98758233452111,
+          "energy": 36.7339315038601,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.45272653569291,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.54634187947304,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 15,
+      "seed": 39635,
+      "temperature_c": 22.2228,
+      "humidity_ratio": 0.403652,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9876213111507229,
+          "energy": 34.678052706671004,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 0.995,
+          "energy": 22.394234112779262,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9877777777777778,
+          "energy": 11.185955419130426,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.987433647492146,
+          "energy": 37.7890319017145,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.56652200661211,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.446144524719124,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 16,
+      "seed": 40632,
+      "temperature_c": 30.2588,
+      "humidity_ratio": 0.276144,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.982085346215781,
+          "energy": 35.7074574562877,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 0.995,
+          "energy": 23.42169130717354,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9862037037037037,
+          "energy": 11.066945622253298,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9917514729512587,
+          "energy": 39.97662134002523,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.64116442430166,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.848569830463724,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 17,
+      "seed": 41629,
+      "temperature_c": 18.4204,
+      "humidity_ratio": 0.487408,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9836145045569129,
+          "energy": 38.102716331783256,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 1.0,
+          "energy": 24.07235655773447,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.987037037037037,
+          "energy": 11.437932725386148,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9952473536400951,
+          "energy": 40.667976267474685,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.651523369656246,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.52860317473487,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 18,
+      "seed": 42626,
+      "temperature_c": 27.5344,
+      "humidity_ratio": 0.27039799999999997,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9781501077797374,
+          "energy": 34.93249259160489,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 1.0,
+          "energy": 22.31915723368457,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9843518518518518,
+          "energy": 11.248050475811151,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9921841076856275,
+          "energy": 37.57636655516594,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.499172258438975,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.49542320504294,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 19,
+      "seed": 43623,
+      "temperature_c": 19.2436,
+      "humidity_ratio": 0.413771,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.990588949605343,
+          "energy": 35.748195808786484,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 0.99,
+          "energy": 23.593813716937422,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9786111111111111,
+          "energy": 11.444080622746204,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9879269088536001,
+          "energy": 39.80099102994678,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.48938702838396,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.63012650593561,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 20,
+      "seed": 44620,
+      "temperature_c": 122.153,
+      "humidity_ratio": 0.0,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9780542071197411,
+          "energy": 94.34278746804236,
+          "lifetime": 200,
+          "alive_nodes": 40
+        },
+        "PEGASIS": {
+          "pdr_end2end": 1.0,
+          "energy": 60.714856114347626,
+          "lifetime": 200,
+          "alive_nodes": 49
+        },
+        "HEED": {
+          "pdr_end2end": 0.9979629629629629,
+          "energy": 11.31793340960219,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9667785234899329,
+          "energy": 100.5951026297264,
+          "lifetime": 200,
+          "alive_nodes": 33
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.59240287385971,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.40307901006966,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 21,
+      "seed": 45617,
+      "temperature_c": 122.153,
+      "humidity_ratio": 0.0,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9820781510136127,
+          "energy": 96.38844435149281,
+          "lifetime": 200,
+          "alive_nodes": 45
+        },
+        "PEGASIS": {
+          "pdr_end2end": 1.0,
+          "energy": 64.22711799785135,
+          "lifetime": 200,
+          "alive_nodes": 49
+        },
+        "HEED": {
+          "pdr_end2end": 0.9878703703703704,
+          "energy": 11.355893506500948,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9683558558558558,
+          "energy": 100.44102721145153,
+          "lifetime": 200,
+          "alive_nodes": 32
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.666183416455254,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.56533189125086,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 22,
+      "seed": 46614,
+      "temperature_c": 26.3192,
+      "humidity_ratio": 0.322293,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9864522417153996,
+          "energy": 34.474199628302706,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 1.0,
+          "energy": 21.81832202317796,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9812037037037037,
+          "energy": 11.471550341961848,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9926668823465976,
+          "energy": 36.723888843768556,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.61633552234263,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.29677980160852,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 23,
+      "seed": 47611,
+      "temperature_c": 15.3922,
+      "humidity_ratio": 0.475383,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9856505720380065,
+          "energy": 40.173065017976576,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 0.995,
+          "energy": 25.284886156591092,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9839814814814815,
+          "energy": 11.262225691636868,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9879739978331528,
+          "energy": 42.66514051539116,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.63428355717744,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.59880991697997,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 24,
+      "seed": 48608,
+      "temperature_c": 18.4106,
+      "humidity_ratio": 0.46557699999999996,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9888117283950617,
+          "energy": 38.36932392844393,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 0.995,
+          "energy": 24.08251679190123,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9838888888888889,
+          "energy": 11.193071458068427,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9932163238936147,
+          "energy": 40.605631376750665,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.523784561315026,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.46696998875178,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 25,
+      "seed": 49605,
+      "temperature_c": 23.2126,
+      "humidity_ratio": 0.281517,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9912280701754386,
+          "energy": 34.62189437796424,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 1.0,
+          "energy": 21.984006052145702,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9882407407407408,
+          "energy": 11.124900266011059,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.980994787141616,
+          "energy": 37.16927869647366,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.62358316049714,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.4756292972724,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 26,
+      "seed": 50602,
+      "temperature_c": 41.6562,
+      "humidity_ratio": 0.494199,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9871261635967519,
+          "energy": 43.78671917038933,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 0.995,
+          "energy": 28.123199671699048,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9880555555555556,
+          "energy": 11.250356401574539,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.990952175786299,
+          "energy": 47.74396493796801,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.53335424317065,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.576228541393135,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 27,
+      "seed": 51599,
+      "temperature_c": 24.3592,
+      "humidity_ratio": 0.40669299999999997,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9844365642237982,
+          "energy": 33.58545595761895,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 0.995,
+          "energy": 21.45948867346171,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9838888888888889,
+          "energy": 11.44578042916909,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9843107552477819,
+          "energy": 36.339946669150386,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.58695016706783,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.67785786807211,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 28,
+      "seed": 52596,
+      "temperature_c": 26.1134,
+      "humidity_ratio": 0.34536,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9876207729468599,
+          "energy": 33.117887544059926,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 1.0,
+          "energy": 21.67937226196206,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9695370370370371,
+          "energy": 11.25519481608039,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9873101952277658,
+          "energy": 36.459859745669014,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.704613609109785,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.57588653044932,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 29,
+      "seed": 53593,
+      "temperature_c": 28.7104,
+      "humidity_ratio": 0.311021,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9823680063041765,
+          "energy": 35.508879670298384,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 1.0,
+          "energy": 22.760492025585926,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9931481481481481,
+          "energy": 11.513040734770431,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9841458153580673,
+          "energy": 38.60594926942663,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.29720746298533,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.45244110780925,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 30,
+      "seed": 54590,
+      "temperature_c": 122.153,
+      "humidity_ratio": 0.0,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9824167236495067,
+          "energy": 97.25603061928629,
+          "lifetime": 200,
+          "alive_nodes": 38
+        },
+        "PEGASIS": {
+          "pdr_end2end": 0.9852367688022284,
+          "energy": 61.28324642477612,
+          "lifetime": 200,
+          "alive_nodes": 49
+        },
+        "HEED": {
+          "pdr_end2end": 0.9961111111111111,
+          "energy": 11.478093166504545,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9663646659116648,
+          "energy": 100.35968397840907,
+          "lifetime": 200,
+          "alive_nodes": 33
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.54293348385062,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.562034073437616,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 31,
+      "seed": 55587,
+      "temperature_c": 22.2228,
+      "humidity_ratio": 0.476687,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9867446393762184,
+          "energy": 35.20511161874121,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 0.995,
+          "energy": 22.46779026158093,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9927777777777778,
+          "energy": 11.34055203340488,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9801905174280148,
+          "energy": 37.863379468718705,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.75939440197863,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.56563633037521,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 32,
+      "seed": 56584,
+      "temperature_c": 16.2154,
+      "humidity_ratio": 0.553582,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9878142391095759,
+          "energy": 40.145761769783036,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 0.995,
+          "energy": 24.871079892064554,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9785185185185186,
+          "energy": 11.348900282068456,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9909100746672438,
+          "energy": 42.23130759647737,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.62157762536754,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.53681858656658,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 33,
+      "seed": 57581,
+      "temperature_c": 21.8112,
+      "humidity_ratio": 0.420824,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9893200078385264,
+          "energy": 35.449064471787395,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 1.0,
+          "energy": 22.694076571964043,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.986574074074074,
+          "energy": 11.182386559054732,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9783690244430023,
+          "energy": 37.838461704889866,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.60531049431729,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.57830728820702,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 34,
+      "seed": 58578,
+      "temperature_c": 122.153,
+      "humidity_ratio": 0.0,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9793026101141925,
+          "energy": 93.13114370405009,
+          "lifetime": 200,
+          "alive_nodes": 47
+        },
+        "PEGASIS": {
+          "pdr_end2end": 0.9752948825113773,
+          "energy": 60.74745674153623,
+          "lifetime": 200,
+          "alive_nodes": 50
+        },
+        "HEED": {
+          "pdr_end2end": 0.9899074074074075,
+          "energy": 11.027737615093242,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9809074573225517,
+          "energy": 99.999958294584,
+          "lifetime": 200,
+          "alive_nodes": 37
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.54637783535527,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.5189013022641,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 35,
+      "seed": 59575,
+      "temperature_c": 22.0758,
+      "humidity_ratio": 0.436521,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9860383944153578,
+          "energy": 35.56851708435088,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 1.0,
+          "energy": 22.383861860265004,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9886111111111111,
+          "energy": 11.429878444947477,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9873431414971874,
+          "energy": 37.97293295205994,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.71451700185617,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.55009523331752,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 36,
+      "seed": 60572,
+      "temperature_c": 25.202,
+      "humidity_ratio": 0.36749499999999996,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9857033199002111,
+          "energy": 34.26235399173067,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 1.0,
+          "energy": 21.299109140385028,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.994537037037037,
+          "energy": 11.255723610636784,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9835693438547184,
+          "energy": 35.762944819566314,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.6598385892551,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.57184547308156,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 37,
+      "seed": 61569,
+      "temperature_c": 17.3326,
+      "humidity_ratio": 0.455391,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9862096138691884,
+          "energy": 38.14212006360973,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 1.0,
+          "energy": 24.436251041777005,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9917592592592592,
+          "energy": 11.215640748769346,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9889908256880734,
+          "energy": 41.241471959561686,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.545997252372125,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.44576176578028,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 38,
+      "seed": 62566,
+      "temperature_c": 20.1746,
+      "humidity_ratio": 0.481893,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9824311490978158,
+          "energy": 37.659562152435576,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 1.0,
+          "energy": 23.261801390155888,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9902777777777778,
+          "energy": 11.20438637151683,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9904462056237108,
+          "energy": 39.09525151608773,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.56091076786117,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.61850161242564,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 39,
+      "seed": 63563,
+      "temperature_c": 23.5752,
+      "humidity_ratio": 0.402976,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9891010802469136,
+          "energy": 34.87033132953969,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 1.0,
+          "energy": 21.87835668682106,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9912037037037037,
+          "energy": 11.25762938152227,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9797495917256396,
+          "energy": 36.25269992592082,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.619111728081606,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.69237408000534,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 40,
+      "seed": 64560,
+      "temperature_c": 33.042,
+      "humidity_ratio": 0.469505,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9881091617933723,
+          "energy": 38.62242441421721,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 0.99,
+          "energy": 24.534441795017376,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9850925925925926,
+          "energy": 11.405760870462267,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9884098786828422,
+          "energy": 41.51739165797257,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.57647453637951,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.706607811146235,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 41,
+      "seed": 65557,
+      "temperature_c": 29.7492,
+      "humidity_ratio": 0.286163,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9902018420536939,
+          "energy": 36.53027542402091,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 0.99,
+          "energy": 23.119741762179807,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9948148148148148,
+          "energy": 11.19403799159854,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9820482318589813,
+          "energy": 39.17403926038268,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.55980922078299,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.58203891186716,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 42,
+      "seed": 66554,
+      "temperature_c": 19.2534,
+      "humidity_ratio": 0.37505099999999997,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9868173258003766,
+          "energy": 34.99859778418407,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 1.0,
+          "energy": 23.62165286234011,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9847222222222223,
+          "energy": 11.302304776095244,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9930502769030296,
+          "energy": 39.638345521053246,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.447670055308954,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.38894388306251,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 43,
+      "seed": 67551,
+      "temperature_c": 26.3682,
+      "humidity_ratio": 0.332108,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9893048128342246,
+          "energy": 33.843708530372126,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 1.0,
+          "energy": 21.907131629008962,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9906481481481482,
+          "energy": 11.481331386973455,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9851731601731601,
+          "energy": 36.782130033514676,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.44735488022026,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.74726097188305,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 44,
+      "seed": 68548,
+      "temperature_c": 122.153,
+      "humidity_ratio": 0.0,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9837701612903226,
+          "energy": 93.74672025803669,
+          "lifetime": 200,
+          "alive_nodes": 44
+        },
+        "PEGASIS": {
+          "pdr_end2end": 0.9950743494423792,
+          "energy": 60.984566325965105,
+          "lifetime": 200,
+          "alive_nodes": 49
+        },
+        "HEED": {
+          "pdr_end2end": 0.9791666666666666,
+          "energy": 11.216033474117436,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9744492391551215,
+          "energy": 98.59990333730136,
+          "lifetime": 200,
+          "alive_nodes": 37
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.69112299596193,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.57630447488184,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 45,
+      "seed": 69545,
+      "temperature_c": 22.5168,
+      "humidity_ratio": 0.273273,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9827419042078728,
+          "energy": 35.01709191301615,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 1.0,
+          "energy": 22.361442074371983,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9856481481481482,
+          "energy": 11.291548663730328,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9813074014046461,
+          "energy": 37.730989095692216,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.44343285564249,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.74283364583298,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 46,
+      "seed": 70542,
+      "temperature_c": 122.153,
+      "humidity_ratio": 0.0,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9824773413897281,
+          "energy": 95.11639612385427,
+          "lifetime": 200,
+          "alive_nodes": 47
+        },
+        "PEGASIS": {
+          "pdr_end2end": 1.0,
+          "energy": 60.69234851841399,
+          "lifetime": 200,
+          "alive_nodes": 50
+        },
+        "HEED": {
+          "pdr_end2end": 0.9883333333333333,
+          "energy": 11.192625776188716,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.964457898867586,
+          "energy": 100.2635919344273,
+          "lifetime": 200,
+          "alive_nodes": 35
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.650314691483786,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.56435057638195,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 47,
+      "seed": 71539,
+      "temperature_c": 122.153,
+      "humidity_ratio": 0.0,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9815732118089955,
+          "energy": 95.94662212267725,
+          "lifetime": 200,
+          "alive_nodes": 40
+        },
+        "PEGASIS": {
+          "pdr_end2end": 0.9949758094529215,
+          "energy": 64.29264348025498,
+          "lifetime": 200,
+          "alive_nodes": 49
+        },
+        "HEED": {
+          "pdr_end2end": 0.9882407407407408,
+          "energy": 10.957398165652616,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.971815107102593,
+          "energy": 99.4983436763419,
+          "lifetime": 200,
+          "alive_nodes": 32
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.42851545607289,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.58558958236489,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 48,
+      "seed": 72536,
+      "temperature_c": 26.0546,
+      "humidity_ratio": 0.359221,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9898542159180457,
+          "energy": 33.85860315288418,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 0.995,
+          "energy": 21.726417997921835,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9887962962962963,
+          "energy": 11.124908321696672,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.9901483165529934,
+          "energy": 36.54754791755044,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.51561774203779,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.526743751135946,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    },
+    {
+      "replicate": 49,
+      "seed": 73533,
+      "temperature_c": 27.1228,
+      "humidity_ratio": 0.33909300000000003,
+      "protocols": {
+        "LEACH": {
+          "pdr_end2end": 0.9919945987654321,
+          "energy": 35.17406223209287,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "PEGASIS": {
+          "pdr_end2end": 1.0,
+          "energy": 22.116490554506992,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "HEED": {
+          "pdr_end2end": 0.9821296296296296,
+          "energy": 11.295230716449906,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "TEEN": {
+          "pdr_end2end": 0.985463551200603,
+          "energy": 37.54333148754957,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_energy": {
+          "pdr_end2end": 1.0,
+          "energy": 41.49753358379724,
+          "lifetime": 200,
+          "alive_nodes": 54
+        },
+        "AERIS_robust": {
+          "pdr_end2end": 1.0,
+          "energy": 41.62122119561381,
+          "lifetime": 200,
+          "alive_nodes": 54
+        }
+      }
+    }
+  ],
+  "summary": {
+    "LEACH": {
+      "pdr_mean": 0.9857618129700032,
+      "pdr_std": 0.003325227509991044,
+      "energy_mean": 46.602772466305254,
+      "energy_std": 22.781354449809676,
+      "n": 50
+    },
+    "PEGASIS": {
+      "pdr_mean": 0.9963119709770903,
+      "pdr_std": 0.004842296896313354,
+      "energy_mean": 29.9054513454601,
+      "energy_std": 14.946176805374987,
+      "n": 50
+    },
+    "HEED": {
+      "pdr_mean": 0.9867888888888889,
+      "pdr_std": 0.00562735821623496,
+      "energy_mean": 11.293067767685264,
+      "energy_std": 0.12455126228019084,
+      "n": 50
+    },
+    "TEEN": {
+      "pdr_mean": 0.9843467369130843,
+      "pdr_std": 0.007977621137895198,
+      "energy_mean": 49.710825959178784,
+      "energy_std": 23.68093710073856,
+      "n": 50
+    },
+    "AERIS_energy": {
+      "pdr_mean": 1.0,
+      "pdr_std": 0.0,
+      "energy_mean": 41.57123843710424,
+      "energy_std": 0.10093171198575208,
+      "n": 50
+    },
+    "AERIS_robust": {
+      "pdr_mean": 1.0,
+      "pdr_std": 0.0,
+      "energy_mean": 41.556018161519766,
+      "energy_std": 0.12489650316917952,
+      "n": 50
+    }
+  }
+}

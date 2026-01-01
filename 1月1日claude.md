@@ -324,6 +324,21 @@ AERIS-WSN-Protocol/
 | 投稿材料 | `for_submission/` |
 | 复现指南 | `docs/Reproduction_Table.md` |
 
+## 进展记录: 实验补齐 (2026-01-01)
+
+已补充/生成:
+- 基线对比复现实验: `results/baseline_comparison.json` (Intel Lab几何 + 环境采样, 50次复现)
+- 参数敏感性ANOVA: `results/sensitivity_anova_results.json`
+- 可扩展性实验: `results/scalability_experiment.json` (30/50/70/100节点, 每规模30次)
+
+新增脚本:
+- `scripts/run_baseline_comparison_intel.py`
+- `scripts/run_scalability_experiment.py`
+
+下一步:
+- 依据新数据更新图表与正文叙述 (基线对比、可扩展性、统计检验)
+- 补充实验结果到 `for_submission/final_paper.tex` 并编译
+
 ## 附录B: 常用命令
 
 ```bash

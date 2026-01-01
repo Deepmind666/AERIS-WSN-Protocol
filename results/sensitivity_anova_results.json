@@ -1,0 +1,28 @@
+{
+  "gateway_anova": {
+    "f_statistic": 698.1473428462729,
+    "p_value": 4.199271850714174e-124,
+    "significant": true,
+    "group_means": {
+      "G1": 0.5604583333333333,
+      "G2": 0.4966234567901235,
+      "G3": 0.4544807098765432
+    }
+  },
+  "packet_size_anova": {
+    "f_statistic": 0.22289299682025754,
+    "p_value": 0.8003117423440227,
+    "significant": false,
+    "group_means": {
+      "P256": 0.5052962962962962,
+      "P512": 0.5048356481481482,
+      "P1024": 0.5014305555555556
+    }
+  },
+  "effect_sizes": {
+    "gateway_effect": {
+      "hedges_g": 4.863452408149006,
+      "interpretation": "large"
+    }
+  }
+}
