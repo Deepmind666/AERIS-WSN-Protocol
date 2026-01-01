@@ -365,5 +365,121 @@ python scripts/run_significance_intel.py
 
 ---
 
+## 十一、M0里程碑完成记录 (2026-01-01 续)
+
+### 11.1 代码可运行性验证 ✅
+
+**烟雾测试结果**:
+```
+>>> Starting AERIS simulation (profile: default, max rounds: 100)
+   Environment type: outdoor_open
+   Node count: 25
+   Round 0: alive nodes 25, remaining energy 49.903 J
+[SUCCESS] Simulation completed: network ended after 100 rounds.
+{'packet_delivery_ratio': 0.9525, 'total_energy_consumed': 10.30J, 'network_lifetime': 100}
+```
+
+**基线协议验证**:
+| 协议 | PDR | 能耗(J) | 状态 |
+|------|-----|---------|------|
+| LEACH | 0.00* | 2.29 | ⚠️ 返回值问题 |
+| HEED | 0.58 | 7.89 | ✅ 可运行 |
+| PEGASIS | 0.96 | 2.23 | ✅ 可运行 |
+| AERIS | 0.95 | 10.30 | ✅ 可运行 |
+
+*注：LEACH的PDR=0可能是API返回值问题，协议本身可执行。
+
+### 11.2 已有实验数据盘点
+
+**JSON结果文件**: 85+ 个
+**PDF图表文件**: 77 个
+
+**关键数据完整性**:
+| 数据集 | 文件 | 样本量 | 状态 |
+|--------|------|--------|------|
+| 消融实验 | intel_ablation.json | n=50×5=250 | ✅ |
+| 效应量 | effect_sizes_summary.json | 5组对比 | ✅ |
+| 基线对比 | baseline_comparison.json | n=50×6=300 | ✅ |
+| 多拓扑显著性 | significance_compare_multi_topo_50x200.json | n=10×2 | ✅ |
+| 动态场景 | dynamic_*_compare.json | 3场景×50 | ✅ |
+| 大规模 | large_scale_long.json | 300/500节点 | ✅ |
+
+### 11.3 图表质量严格评估 (按规范要求)
+
+**评估标准** (来自 `项目开发规范提示词.md`):
+- 信息结构：至少1组"同类多面板组合图"（建议≥8子图）
+- 对比充分：每子图≥3条对比线
+- 统计可信：误差带/置信区间/多seed，且标注n和统计口径
+- 可读性：统一坐标范围/刻度、图例不遮挡
+- 可复现：图由脚本生成
+
+**现有图表评估结果**:
+
+| 图表类别 | 代表文件 | 子图数 | 对比线数 | 误差带 | 判定 |
+|----------|----------|--------|----------|--------|------|
+| Intel基线面板 | paper_intel_baselines_panels.pdf | 2 | 6 | ✅ | ⚠️ 需扩展子图 |
+| 消融PDR | paper_intel_ablation_pdr.pdf | 1 | 5 | ✅ | ❌ 单图不足 |
+| 多拓扑显著性 | paper_multi_topo_sig_pdr.pdf | 1 | 2 | ✅ | ❌ 单图不足 |
+| 动态场景 | paper_dynamic_corridor_curated.pdf | 2 | 3 | ✅ | ⚠️ 需合并 |
+| 网关热力图 | paper_gateway_limit_heatmap_*.pdf | 1 | - | ✅ | ❌ 需组合 |
+| 流程图 | paper_method_flowchart.pdf | 1 | - | - | ✅ 架构图可单独 |
+
+**图表质量总结**:
+- **Pass**: 0 个完全符合多面板标准
+- **需改进**: 77 个 (全部需要重新组织为多面板组合)
+
+### 11.4 图表改进计划
+
+按规范要求，重新规划5组多面板图表：
+
+**图组1: 环境-链路关联 (3×2=6子图)**
+- 子图1-3: 温度/湿度/RSSI三指标的时序变化
+- 子图4-6: 三种环境类型下的PDR-距离关系
+- 对比线: Intel实测 vs Log-Normal模型 vs AERIS预测
+
+**图组2: 消融实验森林图 (2×4=8子图)**
+- 子图1-4: 各组件效应量(Hedges' g)及95%CI
+- 子图5-8: PDR/Energy/Lifetime/Fairness四指标对比
+- 对比线: FULL vs 各消融配置
+
+**图组3: 基线对比全景 (3×3=9子图)**
+- 行: Uniform/Corridor31/Corridor41 三拓扑
+- 列: PDR/Energy/Lifetime 三指标
+- 对比线: LEACH/HEED/PEGASIS/TEEN/AERIS-E/AERIS-R
+
+**图组4: 动态场景综合 (2×3=6子图)**
+- 行: 走廊渐变/基站移动/节点掉线
+- 列: PDR时序/能耗累积
+- 对比线: Baseline vs AERIS，含阶段分界
+
+**图组5: 统计验证汇总 (2×4=8子图)**
+- 子图1-4: Gardner-Altman配对差异图
+- 子图5-8: Bootstrap分布/p值热力图/效应量森林图
+
+---
+
+## 十二、下一步行动计划
+
+### 12.1 立即执行 (同事任务)
+
+**任务1**: 验证LEACH的PDR返回值问题
+- 输入: `src/baseline_protocols/leach_protocol.py`
+- 产出: 修复后的协议或问题报告
+- 验收: LEACH PDR > 0
+
+**任务2**: 生成多面板图表脚本
+- 输入: 现有绘图脚本 `scripts/plot_paper_figures.py`
+- 产出: 新脚本生成5组多面板图
+- 验收: 每组图≥6子图，每子图≥3对比线
+
+### 12.2 等待审查
+
+以下事项等待用户确认后执行：
+1. 是否需要补充2023-2025年新基线方法？（已确认：是）
+2. 图表配色方案偏好？
+3. 是否需要中文版本图表？
+
+---
+
 *本文档将持续更新，记录项目完善过程中的所有重要信息。*
-*最后更新: 2026-01-01*
+*最后更新: 2026-01-01 (M0完成)*
