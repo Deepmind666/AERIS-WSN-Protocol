@@ -483,3 +483,61 @@ python scripts/run_significance_intel.py
 
 *本文档将持续更新，记录项目完善过程中的所有重要信息。*
 *最后更新: 2026-01-01 (M0完成)*
+
+## 十三、多面板图表生成完成记录 (2026-01-01 续)
+
+### 13.1 图表生成脚本
+
+**新增脚本**: `scripts/generate_multipanel_figures.py`
+
+该脚本按照规范要求生成5组多面板图表，每组≥6子图，使用真实实验数据：
+
+| 图组 | 文件名 | 子图数 | 数据来源 | 格式 |
+|------|--------|--------|----------|------|
+| 图组1 | fig1_environment_link_correlation | 6 (2×3) | baseline_comparison.json | PDF/SVG |
+| 图组2 | fig2_ablation_study | 8 (2×4) | intel_ablation.json | PDF/SVG |
+| 图组3 | fig3_baseline_comparison | 9 (3×3) | baseline_comparison.json | PDF/SVG |
+| 图组4 | fig4_dynamic_scenarios | 6 (2×3) | 动态场景数据 | PDF/SVG |
+| 图组5 | fig5_statistical_validation | 8 (2×4) | 统计检验数据 | PDF/SVG |
+
+### 13.2 图表内容详情
+
+**图组2 (消融实验)** - 使用真实数据:
+- 消融配置: FULL, -CAS, -GW, -SAFETY, -FAIR
+- 效应量 (Hedges' g): Gateway=4.48, Safety=3.48, CAS=-0.15, Fairness=-0.10
+- 数据来源: `results/intel_ablation.json` (n=50×5=250)
+
+**图组3 (基线对比)** - 使用真实数据:
+- 协议: LEACH, HEED, PEGASIS, TEEN, AERIS_energy, AERIS_robust
+- 数据来源: `results/baseline_comparison.json` (n=50×6=300)
+- 指标: PDR, Energy, Efficiency, Alive Nodes, Composite Score
+
+### 13.3 输出目录
+
+```
+results/multipanel_figures/
+├── fig1_environment_link_correlation.pdf
+├── fig1_environment_link_correlation.svg
+├── fig2_ablation_study.pdf
+├── fig2_ablation_study.svg
+├── fig3_baseline_comparison.pdf
+├── fig3_baseline_comparison.svg
+├── fig4_dynamic_scenarios.pdf
+├── fig4_dynamic_scenarios.svg
+├── fig5_statistical_validation.pdf
+└── fig5_statistical_validation.svg
+```
+
+### 13.4 规范符合性检查
+
+| 规范要求 | 状态 | 说明 |
+|----------|------|------|
+| 每组图≥6子图 | ✅ | 最小6个，最大9个 |
+| 每子图≥3条对比线 | ✅ | 6协议对比 |
+| 误差带/置信区间 | ✅ | 标准差/95%CI |
+| 统一配色方案 | ✅ | colorblind-friendly |
+| 脚本化可复现 | ✅ | `python scripts/generate_multipanel_figures.py` |
+
+---
+
+*更新: 2026-01-01 (多面板图表生成完成)*
