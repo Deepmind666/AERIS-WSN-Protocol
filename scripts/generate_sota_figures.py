@@ -189,17 +189,9 @@ def create_sota_figure():
             capthick=1.2,
             linewidth=1.2
         )
-        # Connector line and delta label
+        # Connector line (no in-plot delta labels to avoid occlusion)
         ax3.plot([base_mean, aeris_mean_pdr], [y_pos[i], y_pos[i]],
                  color='#BBBBBB', linewidth=1.0, zorder=0)
-        ax3.text(
-            max(base_mean, aeris_mean_pdr) + 0.25,
-            y_pos[i],
-            f"{dpp:+.1f} pp",
-            va='center',
-            fontsize=7,
-            color='#444444'
-        )
 
     ax3.set_yticks(y_pos)
     ax3.set_yticklabels(comparisons)
@@ -208,10 +200,11 @@ def create_sota_figure():
     x_min = min(base_means + [aeris_mean_pdr]) - max(base_cis + [aeris_ci_pdr]) - 1.0
     x_max = max(base_means + [aeris_mean_pdr]) + max(base_cis + [aeris_ci_pdr]) + 3.0
     ax3.set_xlim(x_min, x_max)
-    # Small legend for markers
+    # Small legend for markers (placed outside to avoid overlap)
     ax3.scatter([], [], color='#888888', marker='o', label='Baseline mean')
     ax3.scatter([], [], color=COLORS['AERIS'], marker='D', label='AERIS mean')
-    ax3.legend(loc='lower right', frameon=True, fontsize=7, edgecolor='black')
+    ax3.legend(loc='upper left', bbox_to_anchor=(1.02, 1.0),
+               frameon=True, fontsize=7, edgecolor='black')
 
     # ========== Panel (d): Survival Curves / End-of-Run Survival ==========
     ax4 = fig.add_subplot(gs[1, 0])
@@ -275,7 +268,8 @@ def create_sota_figure():
         ax4.set_ylabel('PDR (%)')
         ax4.set_ylim(85, 100)
         ax4.set_title(f'(d) PDR–Energy Trade-off\n(Mean ± 95% CI, n={run_count})', fontweight='bold')
-        ax4.legend(loc='lower left', ncol=2, frameon=True, fancybox=False, edgecolor='black',
+        ax4.legend(loc='upper left', bbox_to_anchor=(1.02, 1.0), ncol=1,
+                   frameon=True, fancybox=False, edgecolor='black',
                    handletextpad=0.4, columnspacing=0.8, borderaxespad=0.4)
 
     # ========== Panel (e): Energy Comparison ==========
@@ -330,8 +324,8 @@ def create_sota_figure():
         bbox=[0.01, 0.02, 0.98, 0.92],
     )
     table.auto_set_font_size(False)
-    table.set_fontsize(9.2)
-    table.scale(1.15, 1.80)
+    table.set_fontsize(9.6)
+    table.scale(1.20, 1.90)
 
     # Color cells
     for i in range(len(table_data)):
@@ -358,7 +352,7 @@ def create_sota_figure():
         y=0.988,
     )
 
-    fig.subplots_adjust(top=0.91, bottom=0.06, left=0.06, right=0.98)
+    fig.subplots_adjust(top=0.91, bottom=0.06, left=0.06, right=0.92)
 
     # Save
     out_dirs = [
