@@ -60,6 +60,20 @@ def load_data():
         return json.load(f)
 
 
+def bootstrap_mean_diff(a, b, n_boot=2000, seed=42):
+    """Bootstrap 95% CI for mean difference (a - b)."""
+    rng = np.random.default_rng(seed)
+    a = np.asarray(a)
+    b = np.asarray(b)
+    diffs = []
+    for _ in range(n_boot):
+        a_s = rng.choice(a, size=len(a), replace=True)
+        b_s = rng.choice(b, size=len(b), replace=True)
+        diffs.append(np.mean(a_s) - np.mean(b_s))
+    diffs = np.array(diffs)
+    return np.mean(a) - np.mean(b), np.percentile(diffs, 2.5), np.percentile(diffs, 97.5)
+
+
 def create_sota_figure():
     """Create comprehensive SOTA comparison figure."""
     data = load_data()
@@ -122,27 +136,32 @@ def create_sota_figure():
     ax2.set_ylabel('PDR (%)')
     ax2.set_ylim(80, 100)
     ax2.set_title(f'(b) PDR Distribution\n(Box Plot, n={run_count})', fontweight='bold')
+    # Add jittered points to show distribution density (esp. near 100% PDR)
+    for i, vals in enumerate(box_data, start=1):
+        jitter = np.random.normal(loc=i, scale=0.04, size=len(vals))
+        ax2.scatter(jitter, vals, s=12, color=colors[i - 1], alpha=0.6, edgecolors='none')
 
     # ========== Panel (c): Forest Plot (Effect Sizes) ==========
     ax3 = fig.add_subplot(gs[0, 2])
 
     comparisons = ['LEACH', 'HEED', 'PEGASIS', 'SEP']
-    effect_sizes = []
+    diff_means = []
     ci_lows = []
     ci_highs = []
 
-    for baseline in ['LEACH', 'HEED', 'PEGASIS', 'SEP']:
-        key = f'AERIS_vs_{baseline}'
-        stat = data['statistics'][key]
-        effect_sizes.append(stat['cohens_d'])
-        ci_lows.append(stat['cohens_d_ci_low'])
-        ci_highs.append(stat['cohens_d_ci_high'])
+    aeris_vals = np.array(data['protocols']['AERIS']['pdr_values']) * 100
+    for baseline in comparisons:
+        base_vals = np.array(data['protocols'][baseline]['pdr_values']) * 100
+        diff, ci_low, ci_high = bootstrap_mean_diff(aeris_vals, base_vals, n_boot=2000, seed=42)
+        diff_means.append(diff)
+        ci_lows.append(ci_low)
+        ci_highs.append(ci_high)
 
     y_pos = np.arange(len(comparisons))
 
-    for i, (es, lo, hi) in enumerate(zip(effect_sizes, ci_lows, ci_highs)):
-        color = COLORS['AERIS'] if es > 0 else '#888888'
-        ax3.errorbar(es, y_pos[i], xerr=[[es - lo], [hi - es]],
+    for i, (diff, lo, hi) in enumerate(zip(diff_means, ci_lows, ci_highs)):
+        color = COLORS['AERIS'] if diff > 0 else '#888888'
+        ax3.errorbar(diff, y_pos[i], xerr=[[diff - lo], [hi - diff]],
                      fmt='D', color=color, markersize=8, capsize=4,
                      capthick=1.5, linewidth=1.5)
 
@@ -150,13 +169,12 @@ def create_sota_figure():
 
     ax3.set_yticks(y_pos)
     ax3.set_yticklabels(comparisons)
-    ax3.set_xlabel("Cohen's d (AERIS − baseline)")
-    ax3.set_title("(c) Effect Size Analysis", fontweight='bold')
-    # Dynamic symmetric limits to avoid clipping large effect sizes
+    ax3.set_xlabel("ΔPDR (AERIS − baseline, pp)")
+    ax3.set_title("(c) PDR Gain vs Baselines", fontweight='bold')
     min_x = min(ci_lows)
     max_x = max(ci_highs)
-    bound = max(abs(min_x), abs(max_x), 1.0)
-    ax3.set_xlim(-1.05 * bound, 1.05 * bound)
+    pad = 0.5
+    ax3.set_xlim(min_x - pad, max_x + pad)
     ax3.text(
         0.98,
         -0.18,
@@ -252,13 +270,13 @@ def create_sota_figure():
 
     # Create summary table
     table_data = []
-    headers = ['Baseline', 'Test', 'p', 'd', 'Outcome']
+    headers = ['Baseline', 'Test', 'p', 'ΔPDR (pp)', 'Direction']
 
-    for baseline in ['LEACH', 'HEED', 'PEGASIS', 'SEP']:
+    for baseline, diff in zip(['LEACH', 'HEED', 'PEGASIS', 'SEP'], diff_means):
         key = f'AERIS_vs_{baseline}'
         stat = data['statistics'][key]
         p_str = f"{stat['p_value']:.1e}"
-        d_str = f"{stat['cohens_d']:.2f}"
+        d_str = f"{diff:.2f}"
         # Fix test name formatting
         test_name = stat['test_used']
         if 'Independent' in test_name:
@@ -270,11 +288,11 @@ def create_sota_figure():
             test_name,
             p_str,
             d_str,
-            'AERIS wins' if stat['cohens_d'] > 0 else f'{baseline} wins'
+            'AERIS higher' if diff > 0 else f'{baseline} higher'
         ])
 
     # Draw table
-    col_widths = [0.22, 0.18, 0.24, 0.14, 0.22]
+    col_widths = [0.22, 0.18, 0.22, 0.18, 0.20]
     table = ax6.table(
         cellText=table_data,
         colLabels=headers,
@@ -306,7 +324,7 @@ def create_sota_figure():
     # Main title
     fig.suptitle(
         'AERIS: SOTA Protocol Comparison with Rigorous Statistical Testing\n'
-        f'(Fair comparison: all protocols use identical channel models, n={run_count} runs each)',
+        f'(Same geometry/energy model; AERIS includes full reliability stack, n={run_count} runs each)',
         fontsize=11,
         fontweight='bold',
         y=0.988,
