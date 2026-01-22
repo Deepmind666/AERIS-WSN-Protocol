@@ -79,14 +79,14 @@ def create_sota_figure():
     data = load_data()
 
     # Create 2x3 grid (extra space for titles/legends and table layout)
-    fig = plt.figure(figsize=(15.2, 10.2))
+    fig = plt.figure(figsize=(15.8, 10.6))
     gs = GridSpec(
         2,
         3,
         figure=fig,
         hspace=0.70,
         wspace=0.35,
-        width_ratios=[1, 1, 1.5],
+        width_ratios=[1, 1, 1.7],
         height_ratios=[1.0, 1.12],
     )
 
@@ -141,50 +141,62 @@ def create_sota_figure():
         jitter = np.random.normal(loc=i, scale=0.04, size=len(vals))
         ax2.scatter(jitter, vals, s=12, color=colors[i - 1], alpha=0.6, edgecolors='none')
 
-    # ========== Panel (c): Forest Plot (Effect Sizes) ==========
+    # ========== Panel (c): AERIS vs Baseline PDR (mean ± CI) ==========
     ax3 = fig.add_subplot(gs[0, 2])
 
     comparisons = ['LEACH', 'HEED', 'PEGASIS', 'SEP']
-    diff_means = []
-    ci_lows = []
-    ci_highs = []
-
-    aeris_vals = np.array(data['protocols']['AERIS']['pdr_values']) * 100
-    for baseline in comparisons:
-        base_vals = np.array(data['protocols'][baseline]['pdr_values']) * 100
-        diff, ci_low, ci_high = bootstrap_mean_diff(aeris_vals, base_vals, n_boot=2000, seed=42)
-        diff_means.append(diff)
-        ci_lows.append(ci_low)
-        ci_highs.append(ci_high)
+    base_means = [data['protocols'][p]['pdr_mean'] * 100 for p in comparisons]
+    base_cis = [data['protocols'][p]['pdr_ci95'] * 100 for p in comparisons]
+    aeris_mean_pdr = data['protocols']['AERIS']['pdr_mean'] * 100
+    aeris_ci_pdr = data['protocols']['AERIS']['pdr_ci95'] * 100
+    delta_pp = [aeris_mean_pdr - m for m in base_means]
 
     y_pos = np.arange(len(comparisons))
 
-    for i, (diff, lo, hi) in enumerate(zip(diff_means, ci_lows, ci_highs)):
-        color = COLORS['AERIS'] if diff > 0 else '#888888'
-        ax3.errorbar(diff, y_pos[i], xerr=[[diff - lo], [hi - diff]],
-                     fmt='D', color=color, markersize=8, capsize=4,
-                     capthick=1.5, linewidth=1.5)
-
-    ax3.axvline(x=0, color='gray', linestyle='--', linewidth=1, alpha=0.7)
+    for i, (base_mean, base_ci, dpp) in enumerate(zip(base_means, base_cis, delta_pp)):
+        # Baseline mean ± CI (grey circle)
+        ax3.errorbar(
+            base_mean,
+            y_pos[i],
+            xerr=base_ci,
+            fmt='o',
+            color='#888888',
+            markersize=6,
+            capsize=3,
+            capthick=1.2,
+            linewidth=1.2
+        )
+        # AERIS mean ± CI (red diamond)
+        ax3.errorbar(
+            aeris_mean_pdr,
+            y_pos[i],
+            xerr=aeris_ci_pdr,
+            fmt='D',
+            color=COLORS['AERIS'],
+            markersize=7,
+            capsize=3,
+            capthick=1.2,
+            linewidth=1.2
+        )
+        # Connector line and delta label
+        ax3.plot([base_mean, aeris_mean_pdr], [y_pos[i], y_pos[i]],
+                 color='#BBBBBB', linewidth=1.0, zorder=0)
+        ax3.text(
+            max(base_mean, aeris_mean_pdr) + 0.25,
+            y_pos[i],
+            f"{dpp:+.1f} pp",
+            va='center',
+            fontsize=7,
+            color='#444444'
+        )
 
     ax3.set_yticks(y_pos)
     ax3.set_yticklabels(comparisons)
-    ax3.set_xlabel("ΔPDR (AERIS − baseline, pp)")
-    ax3.set_title("(c) PDR Gain vs Baselines", fontweight='bold')
-    min_x = min(ci_lows)
-    max_x = max(ci_highs)
-    pad = 0.5
-    ax3.set_xlim(min_x - pad, max_x + pad)
-    ax3.text(
-        0.98,
-        -0.18,
-        "Positive favors AERIS",
-        transform=ax3.transAxes,
-        ha='right',
-        va='top',
-        fontsize=7.5,
-        color='gray',
-    )
+    ax3.set_xlabel("PDR (%)")
+    ax3.set_title("(c) AERIS vs Baselines\n(Mean ± 95% CI)", fontweight='bold')
+    x_min = min(base_means + [aeris_mean_pdr]) - max(base_cis + [aeris_ci_pdr]) - 1.0
+    x_max = max(base_means + [aeris_mean_pdr]) + max(base_cis + [aeris_ci_pdr]) + 3.0
+    ax3.set_xlim(x_min, x_max)
 
     # ========== Panel (d): Survival Curves / End-of-Run Survival ==========
     ax4 = fig.add_subplot(gs[1, 0])
@@ -272,7 +284,7 @@ def create_sota_figure():
     table_data = []
     headers = ['Baseline', 'Test', 'p', 'ΔPDR (pp)', 'Direction']
 
-    for baseline, diff in zip(['LEACH', 'HEED', 'PEGASIS', 'SEP'], diff_means):
+    for baseline, diff in zip(['LEACH', 'HEED', 'PEGASIS', 'SEP'], delta_pp):
         key = f'AERIS_vs_{baseline}'
         stat = data['statistics'][key]
         p_str = f"{stat['p_value']:.1e}"
@@ -299,11 +311,11 @@ def create_sota_figure():
         loc='center',
         cellLoc='center',
         colWidths=col_widths,
-        bbox=[0.01, 0.08, 0.98, 0.86],
+        bbox=[0.01, 0.02, 0.98, 0.92],
     )
     table.auto_set_font_size(False)
-    table.set_fontsize(7.0)
-    table.scale(1.05, 1.55)
+    table.set_fontsize(8.5)
+    table.scale(1.10, 1.70)
 
     # Color cells
     for i in range(len(table_data)):
