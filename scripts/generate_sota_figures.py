@@ -73,13 +73,24 @@ def bootstrap_mean_diff(a, b, n_boot=2000, seed=42):
     diffs = np.array(diffs)
     return np.mean(a) - np.mean(b), np.percentile(diffs, 2.5), np.percentile(diffs, 97.5)
 
+def mean_ci(values, alpha=0.05):
+    """Mean and two-sided CI using t distribution."""
+    values = np.asarray(values)
+    n = len(values)
+    mean = np.mean(values)
+    if n < 2:
+        return mean, 0.0
+    se = np.std(values, ddof=1) / np.sqrt(n)
+    t = stats.t.ppf(1 - alpha / 2, df=n - 1)
+    return mean, t * se
+
 
 def create_sota_figure():
     """Create comprehensive SOTA comparison figure."""
     data = load_data()
 
     # Create 2x3 grid (extra space for titles/legends and table layout)
-    fig = plt.figure(figsize=(15.8, 10.6))
+    fig = plt.figure(figsize=(16.2, 10.8))
     gs = GridSpec(
         2,
         3,
@@ -197,6 +208,10 @@ def create_sota_figure():
     x_min = min(base_means + [aeris_mean_pdr]) - max(base_cis + [aeris_ci_pdr]) - 1.0
     x_max = max(base_means + [aeris_mean_pdr]) + max(base_cis + [aeris_ci_pdr]) + 3.0
     ax3.set_xlim(x_min, x_max)
+    # Small legend for markers
+    ax3.scatter([], [], color='#888888', marker='o', label='Baseline mean')
+    ax3.scatter([], [], color=COLORS['AERIS'], marker='D', label='AERIS mean')
+    ax3.legend(loc='lower right', frameon=True, fontsize=7, edgecolor='black')
 
     # ========== Panel (d): Survival Curves / End-of-Run Survival ==========
     ax4 = fig.add_subplot(gs[1, 0])
@@ -238,28 +253,29 @@ def create_sota_figure():
         max_nodes = max(max(survival_curves[p]) for p in protocols)
         ax4.set_ylim(0, max_nodes * 1.1)
     else:
-        # If all curves are identical, replace with a per-run PDR-energy scatter
+        # Summary trade-off: mean ± 95% CI in both axes
         for name in protocols:
             pdr_vals = np.array(data['protocols'][name]['pdr_values']) * 100
             energy_vals = np.array(data['protocols'][name]['energy_values'])
-            size = 45 if name == 'AERIS' else 30
-            ax4.scatter(
-                energy_vals,
-                pdr_vals,
-                s=size,
+            pdr_mean, pdr_ci = mean_ci(pdr_vals)
+            e_mean, e_ci = mean_ci(energy_vals)
+
+            ax4.errorbar(
+                e_mean, pdr_mean,
+                xerr=e_ci, yerr=pdr_ci,
+                fmt=MARKERS[name],
                 color=COLORS[name],
-                marker=MARKERS[name],
-                alpha=0.8,
-                edgecolor='white',
-                linewidth=0.4,
+                markersize=7 if name == 'AERIS' else 6,
+                capsize=3,
+                linewidth=1.2,
                 label=name
             )
 
         ax4.set_xlabel('Total Energy (J)')
         ax4.set_ylabel('PDR (%)')
         ax4.set_ylim(85, 100)
-        ax4.set_title(f'(d) PDR–Energy Trade-off\n({run_count} runs per protocol)', fontweight='bold')
-        ax4.legend(loc='upper left', ncol=2, frameon=True, fancybox=False, edgecolor='black',
+        ax4.set_title(f'(d) PDR–Energy Trade-off\n(Mean ± 95% CI, n={run_count})', fontweight='bold')
+        ax4.legend(loc='lower left', ncol=2, frameon=True, fancybox=False, edgecolor='black',
                    handletextpad=0.4, columnspacing=0.8, borderaxespad=0.4)
 
     # ========== Panel (e): Energy Comparison ==========
@@ -314,8 +330,8 @@ def create_sota_figure():
         bbox=[0.01, 0.02, 0.98, 0.92],
     )
     table.auto_set_font_size(False)
-    table.set_fontsize(8.5)
-    table.scale(1.10, 1.70)
+    table.set_fontsize(9.2)
+    table.scale(1.15, 1.80)
 
     # Color cells
     for i in range(len(table_data)):
