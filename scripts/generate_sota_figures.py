@@ -94,14 +94,14 @@ def create_sota_figure():
     data = load_data()
 
     # Create 2x3 grid (extra space for titles/legends and table layout)
-    fig = plt.figure(figsize=(18.6, 11.2))
+    fig = plt.figure(figsize=(19.2, 11.2))
     gs = GridSpec(
         2,
         3,
         figure=fig,
         hspace=0.62,
-        wspace=0.35,
-        width_ratios=[1, 1, 2.4],
+        wspace=0.32,
+        width_ratios=[1.0, 1.05, 2.8],
         height_ratios=[1.0, 1.18],
     )
 
@@ -167,13 +167,12 @@ def create_sota_figure():
 
     comparisons = [p for p in ['LEACH', 'HEED', 'PEGASIS', 'SEP', 'TEEN'] if p in data['protocols']]
     profiles = ['AERIS-E', 'AERIS-R']
-    offsets = {'AERIS-E': -0.12, 'AERIS-R': 0.12}
+    offsets = {'AERIS-E': -0.18, 'AERIS-R': 0.18}
     y_pos = np.arange(len(comparisons))
 
     all_diffs = []
     for i, baseline in enumerate(comparisons):
         base_vals = np.array(data['protocols'][baseline]['pdr_values'])
-        profile_diffs = {}
         for profile in profiles:
             aeris_vals = np.array(data['protocols'][profile]['pdr_values'])
             diff, ci_low, ci_high = bootstrap_mean_diff(aeris_vals, base_vals)
@@ -181,7 +180,6 @@ def create_sota_figure():
             ci_low_pp = ci_low * 100
             ci_high_pp = ci_high * 100
             all_diffs.extend([ci_low_pp, ci_high_pp])
-            profile_diffs[profile] = diff_pp
             ax3.errorbar(
                 diff_pp,
                 y_pos[i] + offsets[profile],
@@ -195,26 +193,26 @@ def create_sota_figure():
                 label=profile if i == 0 else None,
                 zorder=3,
             )
-        # Connect AERIS-E and AERIS-R means for each baseline
-        if all(p in profile_diffs for p in profiles):
-            ax3.plot(
-                [profile_diffs['AERIS-E'], profile_diffs['AERIS-R']],
-                [y_pos[i], y_pos[i]],
-                color='#999999',
-                linewidth=1.0,
-                zorder=1,
-            )
+        # Keep panel clean: paired markers already indicate the two profiles
 
     ax3.axvline(0, color='#666666', linestyle='--', linewidth=1.0)
     ax3.set_yticks(y_pos)
     ax3.set_yticklabels(comparisons)
-    ax3.set_xlabel("ΔPDR (AERIS profile − protocol, percentage points)")
+    ax3.set_xlabel("ΔPDR (AERIS profile − protocol, pp)")
     ax3.set_title("(c) AERIS Profiles vs Protocols\n(Mean ΔPDR ± 95% CI)", fontweight='bold')
-    x_min = min(all_diffs) - 1.0
-    x_max = max(all_diffs) + 1.0
+    x_min = min(all_diffs) - 1.5
+    x_max = max(all_diffs) + 1.5
     ax3.set_xlim(x_min, x_max)
-    ax3.legend(loc='upper right',
-               frameon=True, fontsize=7, edgecolor='black')
+    ax3.legend(loc='upper right', frameon=True, fontsize=7, edgecolor='black')
+    ax3.text(
+        x_max,
+        -0.55,
+        "Positive favors AERIS",
+        ha='right',
+        va='center',
+        fontsize=7,
+        color='#555555',
+    )
 
     # ========== Panel (d): Survival Curves / End-of-Run Survival ==========
     ax4 = fig.add_subplot(gs[1, 0])
@@ -260,7 +258,7 @@ def create_sota_figure():
         max_nodes = max(max(survival_curves[p]) for p in protocols)
         ax4.set_ylim(0, max_nodes * 1.1)
     else:
-        # Summary trade-off: mean ± 95% CI in both axes
+        # Trade-off scatter with mean ± 95% CI overlay (avoid overlapping labels)
         all_pdr = []
         all_energy = []
         for name in protocols:
@@ -269,20 +267,17 @@ def create_sota_figure():
             pdr_mean, pdr_ci = mean_ci(pdr_vals)
             e_mean, e_ci = mean_ci(energy_vals)
 
-            pdr_vals = np.array(data['protocols'][name]['pdr_values']) * 100
-            energy_vals = np.array(data['protocols'][name]['energy_values'])
+            # Per-run scatter for transparency
             ax4.scatter(
                 energy_vals,
                 pdr_vals,
-                s=16,
-                alpha=0.45,
+                s=18,
                 color=COLORS[name],
-                marker=MARKERS[name],
+                alpha=0.45,
                 edgecolors='none',
-                label=name,
+                zorder=2,
             )
-            pdr_mean, pdr_ci = mean_ci(pdr_vals)
-            e_mean, e_ci = mean_ci(energy_vals)
+            # Mean ± CI overlay
             ax4.errorbar(
                 e_mean,
                 pdr_mean,
@@ -295,10 +290,11 @@ def create_sota_figure():
                 linewidth=1.2,
                 markeredgecolor='black',
                 markeredgewidth=0.4,
-                zorder=3,
+                zorder=4,
+                label=name,
             )
-            all_pdr.extend([pdr_mean - pdr_ci, pdr_mean + pdr_ci, pdr_vals.min(), pdr_vals.max()])
-            all_energy.extend([e_mean - e_ci, e_mean + e_ci, energy_vals.min(), energy_vals.max()])
+            all_pdr.extend([pdr_mean - pdr_ci, pdr_mean + pdr_ci])
+            all_energy.extend([e_mean - e_ci, e_mean + e_ci])
 
         ax4.set_xlabel('Total Energy (J)')
         ax4.set_ylabel('PDR (%)')
@@ -356,8 +352,8 @@ def create_sota_figure():
         bbox=[0.02, 0.10, 0.96, 0.84],
     )
     table.auto_set_font_size(False)
-    table.set_fontsize(11.2)
-    table.scale(1.35, 1.90)
+    table.set_fontsize(13.2)
+    table.scale(1.6, 2.2)
 
     # Color ΔPDR cells by sign (E and R)
     for i in range(len(table_data)):
