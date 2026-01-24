@@ -1,0 +1,64 @@
+﻿# Baseline parameter configuration (audited against code defaults)
+# Sources: results/sota_comparison.json (metadata), src/baseline_protocols/*.py
+
+common:
+  include_phy_energy: configs/phy_energy.yaml
+  rounds: 200
+  nodes: 54
+  area_m: 100            # square area_width/height in most scripts
+  base_station_xy: [50.0, 175.0]
+
+protocols:
+  LEACH:
+    params:
+      p_ch: 0.10
+      initial_energy_j: 2.0
+      packet_bits: 4000
+      source: src/baseline_protocols/leach_protocol.py
+  HEED:
+    params:
+      c_prob: 0.05
+      cluster_radius_m: 50.0
+      initial_energy_j: 2.0
+      packet_bits: 4000
+      source: src/baseline_protocols/heed_protocol.py
+  PEGASIS:
+    params:
+      initial_energy_j: 2.0
+      packet_bits: 4000
+      source: src/baseline_protocols/pegasis_protocol.py
+  TEEN:
+    params:
+      hard_threshold: 45.0
+      soft_threshold: 0.5
+      max_time_interval: 3
+      ch_percentage: 0.08
+      tx_power_dbm: 0.0
+      initial_energy_j: 2.0
+      packet_bytes: 1024
+      transmission_range_m: 30.0
+      source: src/teen_protocol.py
+  SEP:
+    params:
+      p_opt: 0.10
+      hetero_ratio_m: 0.10
+      alpha: 1.0
+      initial_energy_j: 2.0
+      packet_bits: 4000
+      source: src/baseline_protocols/sep_protocol.py
+  AERIS_E:
+    params:
+      profile: energy
+      enable_cas: true
+      enable_skeleton: true
+      enable_gateway: true
+      enable_fairness: true
+      source: src/aeris_protocol.py (AerisProtocol + NetworkConfig)
+  AERIS_R:
+    params:
+      profile: robust
+      enable_cas: true
+      enable_skeleton: true
+      enable_gateway: true
+      enable_fairness: true
+      source: src/aeris_protocol.py (AerisProtocol + NetworkConfig)

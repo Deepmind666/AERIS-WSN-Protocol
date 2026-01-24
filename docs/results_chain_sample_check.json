@@ -1,0 +1,77 @@
+{
+  "generated_at": "2026-01-24T11:11:19.726185",
+  "figure_samples": [
+    {
+      "file": "results\\publication_figures\\paper_baseline_pdr_corridor31_50x200.svg",
+      "exists": true,
+      "size_bytes": 7668
+    },
+    {
+      "file": "for_submission\\figures\\aeris_professional_12panel.svg",
+      "exists": true,
+      "size_bytes": 336251
+    },
+    {
+      "file": "results\\publication_figures\\paper_intel_predenv_pdr.svg",
+      "exists": true,
+      "size_bytes": 6902
+    },
+    {
+      "file": "results\\publication_figures\\paper_intel_predenv_pdr.pdf",
+      "exists": true,
+      "size_bytes": 17543
+    },
+    {
+      "file": "results\\publication_figures\\fig_energy_vs_churn.pdf",
+      "exists": true,
+      "size_bytes": 31155
+    }
+  ],
+  "json_samples": [
+    {
+      "file": "results\\ns3_cross_validation_final.json",
+      "ok": true,
+      "top_level_keys": [
+        "experiments"
+      ]
+    },
+    {
+      "file": "results\\fair_comparison_results.json",
+      "ok": true,
+      "top_level_keys": [
+        "timestamp",
+        "config",
+        "summary",
+        "raw_results"
+      ]
+    },
+    {
+      "file": "results\\compare_multi_topo.json",
+      "ok": true,
+      "top_level_keys": [
+        "uniform_100",
+        "uniform_200",
+        "corridor_100"
+      ]
+    },
+    {
+      "file": "results\\sota_comparison.json",
+      "ok": true,
+      "top_level_keys": [
+        "metadata",
+        "protocols",
+        "statistics",
+        "survival_curves"
+      ]
+    },
+    {
+      "file": "results\\intel_ets_envmap_compare.json",
+      "ok": true,
+      "top_level_keys": [
+        "AETHER_energy",
+        "AETHER_robust",
+        "classical"
+      ]
+    }
+  ]
+}
