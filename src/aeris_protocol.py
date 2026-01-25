@@ -138,10 +138,22 @@ class AerisProtocol:
         self.profile = profile
         self.verbose = verbose
         self.seed = seed
-        # 强制“可靠模式”：当 profile 为 robust/energy 时默认打开，可通过 config.force_ctp_reliable 显式关闭
-        self.force_ctp_reliable = bool(getattr(config, "force_ctp_reliable", profile in ("robust", "energy")))
+        # 强制"可靠模式"：默认关闭以获取真实PDR数据，可通过 config.force_ctp_reliable=True 显式开启
+        # 注意：开启此选项会导致PDR被强制设为100%，仅用于特殊测试场景
+        self.force_ctp_reliable = bool(getattr(config, "force_ctp_reliable", False))
         self._rand = random.Random(seed)
         self._rng = np.random.default_rng(seed if seed is not None else None)
+        self._adaptive_gateway_k: Optional[int] = None
+        self._adaptive_gateway_weights: Dict[str, float] = {}
+        self._adaptive_cluster_assign: Dict[str, float] = {}
+        self._adaptive_cas_weights: Dict[str, float] = {}
+        self._adaptive_skeleton_cfg: Dict[str, Any] = {}
+        self._adaptive_profile_level = 0
+        self._adaptive_profile_hold = 0
+        self._cas_cfg_defaults: Dict[str, float] = {}
+        self._cas_switch_window = deque(maxlen=60)
+        self._cas_last_mode: Optional[CASMode] = None
+        self.max_rounds: Optional[int] = None
         self.run_metadata: Dict[str, Any] = {
             'seed': seed,
             'profile': profile or 'default',
@@ -340,6 +352,34 @@ class AerisProtocol:
                 self.intra_link_power_step = max(self.intra_link_power_step, 0.5)
                 self.gateway_retry_limit = max(self.gateway_retry_limit, 1)
                 self.gateway_rescue_direct = True
+                # Adaptive reliability tuning for AERIS-E (keeps energy profile light but responsive).
+                self.adaptive_energy_profile = True
+                self.adaptive_profile_window = 5
+                self.adaptive_update_interval = 5
+                self.adaptive_pdr_low = 0.90
+                self.adaptive_pdr_high = 0.97
+                self.adaptive_energy_low = 0.35
+                self._last_adaptive_update_round = -1
+                self._energy_profile_defaults = {
+                    'safety_T': self.safety_T,
+                    'safety_theta': self.safety_theta,
+                    'safety_redundant_prob': self.safety_redundant_prob,
+                    'safety_power_bump': self.safety_power_bump,
+                    'safety_power_bump_delta': self.safety_power_bump_delta,
+                    'safety_extra_uplink_max': self.safety_extra_uplink_max,
+                    'intra_link_retx': self.intra_link_retx,
+                    'intra_link_power_step': self.intra_link_power_step,
+                    'gateway_retry_limit': self.gateway_retry_limit,
+                    'gateway_k': getattr(self.config, 'gateway_k', 1),
+                    'gateway_w_dist': getattr(self.config, 'gateway_w_dist', -0.6),
+                    'gateway_w_centrality': getattr(self.config, 'gateway_w_centrality', 0.2),
+                    'gateway_w_link': getattr(self.config, 'gateway_w_link', 0.35),
+                    'gateway_w_energy': getattr(self.config, 'gateway_w_energy', 0.15),
+                    'cluster_assign_w_dist': getattr(self.config, 'cluster_assign_w_dist', 0.45),
+                    'cluster_assign_w_lqi': getattr(self.config, 'cluster_assign_w_lqi', 0.4),
+                    'cluster_assign_w_energy': getattr(self.config, 'cluster_assign_w_energy', 0.15),
+                    'cluster_assign_min_prr': getattr(self.config, 'cluster_assign_min_prr', 0.2),
+                }
             elif p == 'robust':
                 self.safety_fallback_enabled = True
                 self.safety_T = 1
@@ -564,6 +604,11 @@ class AerisProtocol:
         w_lqi = float(getattr(self.config, 'cluster_assign_w_lqi', 0.4))
         w_energy = float(getattr(self.config, 'cluster_assign_w_energy', 0.15))
         min_prr = float(getattr(self.config, 'cluster_assign_min_prr', 0.2))
+        if self._adaptive_cluster_assign:
+            w_dist = float(self._adaptive_cluster_assign.get('w_dist', w_dist))
+            w_lqi = float(self._adaptive_cluster_assign.get('w_lqi', w_lqi))
+            w_energy = float(self._adaptive_cluster_assign.get('w_energy', w_energy))
+            min_prr = float(self._adaptive_cluster_assign.get('min_prr', min_prr))
 
         cluster_member_counts: Dict[int, int] = {ch.id: 1 for ch in cluster_heads}
         cluster_link_sums: Dict[int, float] = {ch.id: 0.0 for ch in cluster_heads}
@@ -1052,6 +1097,36 @@ class AerisProtocol:
                     self.cas_selector.cfg.w_chain_density = 0.3
                     self.cas_selector.cfg.twohop_tail_threshold = 0.7
                     self._cas_cfg_tuned = True
+                if not self._cas_cfg_defaults:
+                    cfg = self.cas_selector.cfg
+                    self._cas_cfg_defaults = {
+                        'w_direct_energy': cfg.w_direct_energy,
+                        'w_direct_link': cfg.w_direct_link,
+                        'w_direct_dist_bs': cfg.w_direct_dist_bs,
+                        'w_direct_radius': cfg.w_direct_radius,
+                        'w_direct_density': cfg.w_direct_density,
+                        'w_direct_fair': cfg.w_direct_fair,
+                        'w_chain_energy': cfg.w_chain_energy,
+                        'w_chain_link': cfg.w_chain_link,
+                        'w_chain_dist_bs': cfg.w_chain_dist_bs,
+                        'w_chain_radius': cfg.w_chain_radius,
+                        'w_chain_density': cfg.w_chain_density,
+                        'w_chain_fair': cfg.w_chain_fair,
+                        'w_twohop_energy': cfg.w_twohop_energy,
+                        'w_twohop_link': cfg.w_twohop_link,
+                        'w_twohop_dist_bs': cfg.w_twohop_dist_bs,
+                        'w_twohop_radius': cfg.w_twohop_radius,
+                        'w_twohop_density': cfg.w_twohop_density,
+                        'w_twohop_fair': cfg.w_twohop_fair,
+                        'twohop_tail_threshold': cfg.twohop_tail_threshold,
+                        'lambda_uncertainty': cfg.lambda_uncertainty,
+                        'uncertainty_conf_threshold': cfg.uncertainty_conf_threshold,
+                        'min_confidence': cfg.min_confidence,
+                    }
+                if self._adaptive_cas_weights:
+                    for key, value in self._adaptive_cas_weights.items():
+                        if hasattr(self.cas_selector.cfg, key):
+                            setattr(self.cas_selector.cfg, key, float(value))
                 if self.safety_fallback_enabled and self._consec_bad_rounds >= self.safety_T:
                     mode = CASMode.DIRECT
                     self._last_forced_direct = True
@@ -1067,22 +1142,27 @@ class AerisProtocol:
                         'fairness': fair_penalty,
                         'tail_max': tail_max,
                     })
-                    if mode == CASMode.DIRECT:
-                        self.cas_mode_usage_stats['DIRECT'] += 1
-                    elif mode == CASMode.CHAIN:
-                        self.cas_mode_usage_stats['CHAIN'] += 1
-                    elif mode == CASMode.TWO_HOP:
-                        self.cas_mode_usage_stats['TWO_HOP'] += 1
-                    try:
-                        self.state_manager.record_round_stat(
-                            current_round=self.current_round,
-                            cas_mode=mode.value,
-                            cas_confidence=float(conf),
-                            cas_scores={k.value: float(v) for k, v in scores.items()},
-                            cas_infer_us=getattr(self.cas_selector, 'last_infer_us', None),
-                        )
-                    except Exception:
-                        pass
+                if self._cas_last_mode is not None:
+                    self._cas_switch_window.append(1 if mode != self._cas_last_mode else 0)
+                else:
+                    self._cas_switch_window.append(0)
+                self._cas_last_mode = mode
+                if mode == CASMode.DIRECT:
+                    self.cas_mode_usage_stats['DIRECT'] += 1
+                elif mode == CASMode.CHAIN:
+                    self.cas_mode_usage_stats['CHAIN'] += 1
+                elif mode == CASMode.TWO_HOP:
+                    self.cas_mode_usage_stats['TWO_HOP'] += 1
+                try:
+                    self.state_manager.record_round_stat(
+                        current_round=self.current_round,
+                        cas_mode=mode.value,
+                        cas_confidence=float(conf),
+                        cas_scores={k.value: float(v) for k, v in scores.items()},
+                        cas_infer_us=getattr(self.cas_selector, 'last_infer_us', None),
+                    )
+                except Exception:
+                    pass
             else:
                 self._last_forced_direct = False
 
@@ -1099,6 +1179,11 @@ class AerisProtocol:
         gateway_ids: List[int] = []
         if use_gateway and cluster_heads:
             k_gateways = getattr(self.config, 'gateway_k', 1) or 1
+            if self._adaptive_gateway_k is not None:
+                try:
+                    k_gateways = max(int(k_gateways), int(self._adaptive_gateway_k))
+                except Exception:
+                    pass
             try:
                 base_k = k_gateways
                 k_max = getattr(self.config, 'gateway_k_max', 6)
@@ -1123,10 +1208,20 @@ class AerisProtocol:
                     gw_cfg.w_centrality = float(getattr(self.config, 'gateway_w_centrality', 0.2))
                     gw_cfg.w_link = float(getattr(self.config, 'gateway_w_link', 0.35))
                     gw_cfg.w_energy = float(getattr(self.config, 'gateway_w_energy', 0.15))
+                    if self._adaptive_gateway_weights:
+                        gw_cfg.w_dist_bs = float(self._adaptive_gateway_weights.get('w_dist_bs', gw_cfg.w_dist_bs))
+                        gw_cfg.w_centrality = float(self._adaptive_gateway_weights.get('w_centrality', gw_cfg.w_centrality))
+                        gw_cfg.w_link = float(self._adaptive_gateway_weights.get('w_link', gw_cfg.w_link))
+                        gw_cfg.w_energy = float(self._adaptive_gateway_weights.get('w_energy', gw_cfg.w_energy))
                     self.gateway_selector = GatewaySelector(gw_cfg)
                 else:
                     try:
                         self.gateway_selector.cfg.k = k_gateways
+                        if self._adaptive_gateway_weights:
+                            self.gateway_selector.cfg.w_dist_bs = float(self._adaptive_gateway_weights.get('w_dist_bs', self.gateway_selector.cfg.w_dist_bs))
+                            self.gateway_selector.cfg.w_centrality = float(self._adaptive_gateway_weights.get('w_centrality', self.gateway_selector.cfg.w_centrality))
+                            self.gateway_selector.cfg.w_link = float(self._adaptive_gateway_weights.get('w_link', self.gateway_selector.cfg.w_link))
+                            self.gateway_selector.cfg.w_energy = float(self._adaptive_gateway_weights.get('w_energy', self.gateway_selector.cfg.w_energy))
                     except Exception:
                         pass
                 chs_for_gateway = cluster_heads
@@ -1260,7 +1355,12 @@ class AerisProtocol:
                     if not hasattr(self, 'skeleton_selector'):
                         cfg_kwargs = {'k': 2, 'd_threshold_ratio': 0.15, 'q_far': 0.75}
                         cfg_kwargs.update(self.skeleton_cfg_override)
+                        cfg_kwargs.update(self._adaptive_skeleton_cfg)
                         self.skeleton_selector = SkeletonSelector(SkeletonConfig(**cfg_kwargs))
+                    elif self._adaptive_skeleton_cfg:
+                        for key, value in self._adaptive_skeleton_cfg.items():
+                            if hasattr(self.skeleton_selector.cfg, key):
+                                setattr(self.skeleton_selector.cfg, key, value)
                     backbone_ids = self.skeleton_selector.select_backbone(
                         cluster_heads,
                         bs_anchor,
@@ -1439,10 +1539,205 @@ class AerisProtocol:
             else:
                 self._consec_bad_rounds = 0
 
+        # Adaptive energy-profile tuning (AERIS-E only).
+        if getattr(self, 'adaptive_energy_profile', False) and (self.profile or '').lower() == 'energy':
+            self._update_adaptive_energy_profile()
+
+    def _update_adaptive_energy_profile(self):
+        """Lightweight, data-driven reliability tuning for the energy profile."""
+        if not getattr(self, 'adaptive_energy_profile', False):
+            return
+        if not self.round_statistics:
+            return
+
+        last_round = self.round_statistics[-1].get('round', -1)
+        if self._last_adaptive_update_round >= 0:
+            if (last_round - self._last_adaptive_update_round) < self.adaptive_update_interval:
+                return
+
+        window = min(self.adaptive_profile_window, len(self.round_statistics))
+        recent = self.round_statistics[-window:]
+        pdr_vals = []
+        energy_ratios = []
+        cluster_pdr_vals = []
+        uplink_pdr_vals = []
+        init_energy = float(getattr(self.config, 'initial_energy', 1.0))
+        denom_floor = max(init_energy, 1e-9)
+
+        for rs in recent:
+            src = rs.get('source_packets_round', 0)
+            delivered = rs.get('bs_delivered_round', 0)
+            pdr_vals.append((delivered / src) if src > 0 else 0.0)
+            alive = max(int(rs.get('alive_nodes', 1)), 1)
+            energy_ratios.append(rs.get('energy_consumed', 0.0) / (alive * denom_floor))
+            cluster_pdr_vals.append(float(rs.get('cluster_to_ch_pdr', 0.0)))
+            uplink_pdr_vals.append(float(rs.get('ch_to_bs_pdr', 0.0)))
+
+        avg_pdr = sum(pdr_vals) / len(pdr_vals)
+        avg_energy_ratio = sum(energy_ratios) / len(energy_ratios)
+        avg_cluster_pdr = sum(cluster_pdr_vals) / len(cluster_pdr_vals) if cluster_pdr_vals else avg_pdr
+        avg_uplink_pdr = sum(uplink_pdr_vals) / len(uplink_pdr_vals) if uplink_pdr_vals else avg_pdr
+        reliability_score = min(avg_pdr, avg_cluster_pdr, avg_uplink_pdr)
+        pdr_trend = pdr_vals[-1] - pdr_vals[0] if len(pdr_vals) > 1 else 0.0
+
+        if self._adaptive_profile_hold > 0:
+            self._adaptive_profile_hold -= 1
+        else:
+            if reliability_score < self.adaptive_pdr_low or pdr_trend < -0.03:
+                self._adaptive_profile_level = min(2, int(self._adaptive_profile_level) + 1)
+                self._adaptive_profile_hold = 2
+            elif (reliability_score > self.adaptive_pdr_high and avg_energy_ratio < self.adaptive_energy_low and pdr_trend > -0.01):
+                self._adaptive_profile_level = max(0, int(self._adaptive_profile_level) - 1)
+                self._adaptive_profile_hold = 2
+
+        if reliability_score > self.adaptive_pdr_high and avg_energy_ratio < self.adaptive_energy_low and self._adaptive_profile_level == 0:
+            # Return to default energy-lean settings when reliability is strong.
+            defaults = getattr(self, '_energy_profile_defaults', {})
+            if defaults:
+                self.safety_T = defaults.get('safety_T', self.safety_T)
+                self.safety_theta = defaults.get('safety_theta', self.safety_theta)
+                self.safety_redundant_prob = defaults.get('safety_redundant_prob', self.safety_redundant_prob)
+                self.safety_power_bump = defaults.get('safety_power_bump', self.safety_power_bump)
+                self.safety_power_bump_delta = defaults.get('safety_power_bump_delta', self.safety_power_bump_delta)
+                self.safety_extra_uplink_max = defaults.get('safety_extra_uplink_max', self.safety_extra_uplink_max)
+                self.intra_link_retx = defaults.get('intra_link_retx', self.intra_link_retx)
+                self.intra_link_power_step = defaults.get('intra_link_power_step', self.intra_link_power_step)
+                self.gateway_retry_limit = defaults.get('gateway_retry_limit', self.gateway_retry_limit)
+            self._adaptive_gateway_k = None
+            self._adaptive_gateway_weights = {}
+            self._adaptive_cluster_assign = {}
+            self._adaptive_cas_weights = {}
+            self._adaptive_skeleton_cfg = {}
+        else:
+            self._apply_stage_adaptive_weights(
+                reliability_score=reliability_score,
+                avg_energy_ratio=avg_energy_ratio,
+                pdr_trend=pdr_trend,
+            )
+
+        self._last_adaptive_update_round = last_round
+
+    def _cas_switch_rate(self) -> float:
+        if not self._cas_switch_window:
+            return 0.0
+        return float(sum(self._cas_switch_window)) / float(len(self._cas_switch_window))
+
+    def _apply_stage_adaptive_weights(self, *, reliability_score: float, avg_energy_ratio: float, pdr_trend: float) -> None:
+        """Apply stage-aware adaptive weights across CAS, gateway, and clustering."""
+        defaults = getattr(self, '_energy_profile_defaults', {})
+        if not defaults:
+            return
+        def _clip(val: float, lo: float, hi: float) -> float:
+            return max(lo, min(hi, val))
+
+        rel_gap = max(0.0, self.adaptive_pdr_low - reliability_score)
+        rel_boost = _clip(rel_gap / 0.2, 0.0, 1.0)
+        if pdr_trend < -0.03:
+            rel_boost = max(rel_boost, _clip(abs(pdr_trend) / 0.1, 0.0, 1.0))
+        energy_boost = _clip((avg_energy_ratio - 0.3) / 0.5, 0.0, 1.0)
+        level = _clip(float(self._adaptive_profile_level), 0.0, 2.0) / 2.0
+        if self.max_rounds and self.max_rounds > 1:
+            stage_fraction = float(self.current_round) / float(self.max_rounds - 1)
+        else:
+            stage_fraction = 0.0
+        stage_factor = _clip((stage_fraction - 0.4) / 0.6, 0.0, 1.0)
+        stage_boost = _clip(max(rel_boost, level) + 0.2 * stage_factor, 0.0, 1.0)
+        switch_rate = self._cas_switch_rate()
+        switch_boost = _clip((switch_rate - 0.25) / 0.5, 0.0, 1.0)
+
+        # Safety tuning (moderate -> strong).
+        if stage_boost > 0.0:
+            self.safety_fallback_enabled = True
+            self.safety_T = min(self.safety_T, 2)
+            self.safety_theta = max(self.safety_theta, 0.80 + 0.05 * stage_boost)
+            self.safety_redundant_uplink = True
+            self.safety_redundant_prob = max(self.safety_redundant_prob, 0.25 + 0.35 * stage_boost)
+            self.safety_extra_uplink_max = max(self.safety_extra_uplink_max, 1 + int(round(2 * stage_boost)))
+            if stage_boost > 0.6:
+                self.safety_power_bump = True
+                self.safety_power_bump_delta = max(self.safety_power_bump_delta, 0.5 + 0.8 * stage_boost)
+                self.intra_link_retx = max(self.intra_link_retx, 1 + int(round(2 * stage_boost)))
+                self.intra_link_power_step = max(self.intra_link_power_step, 0.8)
+                self.gateway_retry_limit = max(self.gateway_retry_limit, 1 + int(round(2 * stage_boost)))
+                self.gateway_rescue_direct = True
+
+        # Adaptive gateway k and weights.
+        try:
+            base_k = int(defaults.get('gateway_k', getattr(self.config, 'gateway_k', 1)) or 1)
+        except Exception:
+            base_k = 1
+        try:
+            k_max = int(getattr(self.config, 'gateway_k_max', 6) or 6)
+        except Exception:
+            k_max = 6
+        extra_k = 0
+        if stage_boost > 0.35:
+            extra_k += 1
+        if stage_boost > 0.7:
+            extra_k += 1
+        self._adaptive_gateway_k = min(k_max, max(base_k, base_k + extra_k))
+        self._adaptive_gateway_weights = {
+            'w_dist_bs': _clip(float(defaults.get('gateway_w_dist', -0.6)) - 0.1 * stage_boost, -1.0, -0.1),
+            'w_centrality': _clip(float(defaults.get('gateway_w_centrality', 0.2)) + 0.08 * stage_boost, 0.0, 0.6),
+            'w_link': _clip(float(defaults.get('gateway_w_link', 0.35)) + 0.25 * stage_boost, 0.2, 0.9),
+            'w_energy': _clip(float(defaults.get('gateway_w_energy', 0.15)) + 0.2 * energy_boost, 0.05, 0.6),
+        }
+
+        # Cluster assignment weights.
+        self._adaptive_cluster_assign = {
+            'w_dist': _clip(float(defaults.get('cluster_assign_w_dist', 0.45)) - 0.2 * stage_boost, 0.15, 0.6),
+            'w_lqi': _clip(float(defaults.get('cluster_assign_w_lqi', 0.4)) + 0.25 * stage_boost, 0.2, 0.85),
+            'w_energy': _clip(float(defaults.get('cluster_assign_w_energy', 0.15)) + 0.2 * energy_boost, 0.05, 0.6),
+            'min_prr': _clip(float(defaults.get('cluster_assign_min_prr', 0.2)) + 0.2 * stage_boost, 0.15, 0.6),
+        }
+
+        # CAS adaptive weights (when selector is active).
+        if self._cas_cfg_defaults:
+            base = self._cas_cfg_defaults
+            self._adaptive_cas_weights = {
+                'w_direct_link': base['w_direct_link'] + 0.25 * stage_boost,
+                'w_direct_energy': base['w_direct_energy'] + 0.2 * energy_boost,
+                'w_direct_dist_bs': base['w_direct_dist_bs'] - 0.1 * stage_boost,
+                'w_chain_link': base['w_chain_link'] + 0.2 * stage_boost,
+                'w_chain_radius': base['w_chain_radius'] - 0.1 * stage_boost,
+                'w_chain_density': base['w_chain_density'] - 0.1 * stage_boost,
+                'w_twohop_link': base['w_twohop_link'] + 0.3 * stage_boost,
+                'w_twohop_dist_bs': base['w_twohop_dist_bs'] + 0.25 * stage_boost,
+                'twohop_tail_threshold': _clip(base['twohop_tail_threshold'] - 0.15 * stage_boost, 0.45, 0.8),
+                'lambda_uncertainty': max(base['lambda_uncertainty'], 0.12 + 0.35 * stage_boost + 0.25 * switch_boost),
+            }
+
+        # Skeleton scaling for larger CH sets.
+        last_ch = 0
+        if self.round_statistics:
+            try:
+                last_ch = int(self.round_statistics[-1].get('cluster_heads', 0))
+            except Exception:
+                last_ch = 0
+        node_count = max(1, len(self.nodes))
+        if last_ch >= 8:
+            if node_count >= 500:
+                base_scale = 0.09
+            elif node_count >= 300:
+                base_scale = 0.07
+            else:
+                base_scale = 0.05
+            k_scaled = max(2, int(round(last_ch * (base_scale + 0.04 * stage_boost))))
+            d_ratio = _clip(0.12 + 0.08 * stage_boost + 0.02 * stage_factor, 0.10, 0.28)
+            q_far = _clip(0.75 - 0.1 * energy_boost + 0.05 * stage_boost - 0.05 * stage_factor, 0.55, 0.85)
+            self._adaptive_skeleton_cfg = {
+                'k': k_scaled,
+                'd_threshold_ratio': d_ratio,
+                'q_far': q_far,
+            }
+        else:
+            self._adaptive_skeleton_cfg = {}
+
     def run_simulation(self, max_rounds: int, env_provider: Optional[Callable[[int], Tuple[float, float]]] = None) -> Dict[str, Any]:
         """运行 AERIS 轮次
         env_provider: 可选函数，每轮提供 (temperature_c, humidity_ratio)
         """
+        self.max_rounds = max_rounds
 
         if self.verbose:
             print(f">>> Starting AERIS simulation (profile: {self.profile or 'default'}, max rounds: {max_rounds})")

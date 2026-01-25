@@ -167,11 +167,15 @@ def create_sota_figure():
 
     comparisons = [p for p in ['LEACH', 'HEED', 'PEGASIS', 'SEP', 'TEEN'] if p in data['protocols']]
     profiles = ['AERIS-E', 'AERIS-R']
-    offsets = {'AERIS-E': -0.18, 'AERIS-R': 0.18}
-    y_pos = np.arange(len(comparisons))
 
-    all_diffs = []
-    for i, baseline in enumerate(comparisons):
+    rows = []
+    diffs = []
+    ci_lows = []
+    ci_highs = []
+    row_colors = []
+    row_markers = []
+
+    for baseline in comparisons:
         base_vals = np.array(data['protocols'][baseline]['pdr_values'])
         for profile in profiles:
             aeris_vals = np.array(data['protocols'][profile]['pdr_values'])
@@ -179,34 +183,54 @@ def create_sota_figure():
             diff_pp = diff * 100
             ci_low_pp = ci_low * 100
             ci_high_pp = ci_high * 100
-            all_diffs.extend([ci_low_pp, ci_high_pp])
-            ax3.errorbar(
-                diff_pp,
-                y_pos[i] + offsets[profile],
-                xerr=[[diff_pp - ci_low_pp], [ci_high_pp - diff_pp]],
-                fmt=MARKERS[profile],
-                color=COLORS[profile],
-                markersize=7,
-                capsize=3,
-                capthick=1.2,
-                linewidth=1.2,
-                label=profile if i == 0 else None,
-                zorder=3,
-            )
-        # Keep panel clean: paired markers already indicate the two profiles
+
+            rows.append(f"{baseline} ({profile.split('-')[-1]})")
+            diffs.append(diff_pp)
+            ci_lows.append(ci_low_pp)
+            ci_highs.append(ci_high_pp)
+            row_colors.append(COLORS[profile])
+            row_markers.append(MARKERS[profile])
+
+    y_pos = np.arange(len(rows))
+    all_diffs = []
+    for i, (diff_pp, lo, hi, color, marker) in enumerate(
+        zip(diffs, ci_lows, ci_highs, row_colors, row_markers)
+    ):
+        all_diffs.extend([lo, hi])
+        ax3.errorbar(
+            diff_pp,
+            y_pos[i],
+            xerr=[[diff_pp - lo], [hi - diff_pp]],
+            fmt=marker,
+            color=color,
+            markersize=7.5,
+            capsize=3,
+            capthick=1.2,
+            linewidth=1.2,
+            zorder=3,
+        )
 
     ax3.axvline(0, color='#666666', linestyle='--', linewidth=1.0)
     ax3.set_yticks(y_pos)
-    ax3.set_yticklabels(comparisons)
-    ax3.set_xlabel("ΔPDR (AERIS profile − protocol, pp)")
+    ax3.set_yticklabels(rows)
+    ax3.set_xlabel("ΔPDR (AERIS profile − protocol, percentage points)")
     ax3.set_title("(c) AERIS Profiles vs Protocols\n(Mean ΔPDR ± 95% CI)", fontweight='bold')
     x_min = min(all_diffs) - 1.5
     x_max = max(all_diffs) + 1.5
     ax3.set_xlim(x_min, x_max)
-    ax3.legend(loc='upper right', frameon=True, fontsize=7, edgecolor='black')
+
+    handles = [
+        plt.Line2D([0], [0], marker=MARKERS['AERIS-E'], color='w',
+                   markerfacecolor=COLORS['AERIS-E'], markeredgecolor=COLORS['AERIS-E'],
+                   markersize=7.5, linestyle='None', label='AERIS-E'),
+        plt.Line2D([0], [0], marker=MARKERS['AERIS-R'], color='w',
+                   markerfacecolor=COLORS['AERIS-R'], markeredgecolor=COLORS['AERIS-R'],
+                   markersize=7.5, linestyle='None', label='AERIS-R'),
+    ]
+    ax3.legend(handles=handles, loc='upper right', frameon=True, fontsize=7, edgecolor='black')
     ax3.text(
         x_max,
-        -0.55,
+        -0.7,
         "Positive favors AERIS",
         ha='right',
         va='center',
@@ -352,8 +376,8 @@ def create_sota_figure():
         bbox=[0.02, 0.10, 0.96, 0.84],
     )
     table.auto_set_font_size(False)
-    table.set_fontsize(13.2)
-    table.scale(1.6, 2.2)
+    table.set_fontsize(14.0)
+    table.scale(1.75, 2.45)
 
     # Color ΔPDR cells by sign (E and R)
     for i in range(len(table_data)):
