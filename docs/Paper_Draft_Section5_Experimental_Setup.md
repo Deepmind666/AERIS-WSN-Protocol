@@ -185,15 +185,15 @@ Percentage of the deployment area covered by active sensor nodes.
 ### 5.5.1 Experimental Design
 
 **Replication Strategy:**
-- Each protocol configuration was executed 10 independent times
-- Different random seeds for each replication to ensure statistical independence
-- Identical network topologies across protocol comparisons for each replication
+- Each experimental configuration was executed multiple independent times with different random seeds.
+- Typical repeats by study type: Intel significance ≥ 50; ablation 100–200; sensitivity 40–80; multi-topology 5–20.
+- Seeds are deterministically enumerated from a base seed to ensure reproducibility.
 
 **Significance Testing:**
-- **Paired t-test**: For comparing mean energy consumption between protocols
-- **ANOVA**: For analyzing variance across multiple protocols
-- **Confidence Intervals**: 95% confidence level for all statistical measures
-- **Effect Size**: Cohen's d for practical significance assessment
+- **Welch's t-test** (two-sample, unequal variances) for mean comparisons; degrees of freedom approximated via Welch–Satterthwaite.
+- **Multiple comparison control**: Holm–Bonferroni adjustment where multiple baselines/topologies are compared.
+- **Confidence intervals**: bootstrap 95% CI for means.
+- **Effect sizes**: Hedges g/Cohen's d reported where applicable.
 
 ### 5.5.2 Data Collection and Processing
 
@@ -254,7 +254,7 @@ The energy model was validated against published measurements from MicaZ and Tel
 ### 5.7.1 Code Availability
 
 The complete simulation framework and protocol implementations are available as open-source software:
-- **Repository**: Enhanced-EEHFR-WSN-Protocol
+- **Repository**: Enhanced-EEHFR-WSN-Protocol (historical naming: Enhanced-AERIS-WSN-Protocol; manuscript unified as AERIS)
 - **License**: MIT License for academic and commercial use
 - **Documentation**: Comprehensive API documentation and usage examples
 - **Test Suite**: Unit tests for all protocol components
@@ -278,4 +278,12 @@ Detailed instructions for reproducing all experimental results are provided in t
 - Execution scripts for all experiments
 - Data analysis and visualization code
 
-This comprehensive experimental setup ensures that all performance comparisons are conducted under fair and controlled conditions, providing reliable and reproducible results for the Enhanced EEHFR protocol evaluation.
+This comprehensive experimental setup ensures that all performance comparisons are conducted under fair and controlled conditions, providing reliable and reproducible results for the AERIS protocol evaluation.
+
+---
+
+Notes for cross-referencing in the final manuscript:
+- Our topology and mobility assumptions correspond to stationary sensing with a static base station; tactical mobile settings with adversarial link-layer interference are studied in distributed MADRL routing [CITE:Okine2024_TNSM].
+- DRL-based intelligent routing under unequal clustering and energy constraints provides a learning-based baseline for potential EASR extensions [CITE:Kaur2021_JIOT].
+- Mean-field cooperative multi-agent routing offers scalable RL coordination for dense deployments and can inform future ablation designs [CITE:Ren2024_IoTJ_MeFi].
+Note: Visualization of statistical results aligns with the submission figures—combined significance in Figure 3 (two-sided Welch t with Holm–Bonferroni for PDR and Energy) and the estimation view in Figure 7 (Gardner–Altman for PDR with 95% CI); supplementary diagnostics are placed in Figures S1–S4.
