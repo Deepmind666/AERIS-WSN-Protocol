@@ -1,5 +1,5 @@
-# 混合元启发式算法模块 - 用于EEHFR协议
-# 参考文献：
+# 娣峰悎鍏冨惎鍙戝紡绠楁硶妯″潡 - 鐢ㄤ簬AERIS鍗忚
+# 鍙傝€冩枃鐚細
 # [4] Kuila, P., & Jana, P. K. (2014). Energy efficient clustering and routing algorithms for wireless sensor networks: Particle swarm optimization approach.
 # [5] Elhabyan, R. S., & Yagoub, M. C. (2015). Two-tier particle swarm optimization protocol for clustering and routing in wireless sensor network.
 # [6] Singh, B., & Lobiyal, D. K. (2012). A novel energy-aware cluster head selection based on particle swarm optimization for wireless sensor networks.
@@ -10,132 +10,132 @@ import random
 import math
 
 class HybridMetaheuristic:
-    """混合元启发式算法，结合PSO和ACO优化WSN路由"""
+    """娣峰悎鍏冨惎鍙戝紡绠楁硶锛岀粨鍚圥SO鍜孉CO浼樺寲WSN璺敱"""
     
     def __init__(self, network_size=100, area_size=200, base_station_pos=(100, 100)):
         self.network_size = network_size
         self.area_size = area_size
         self.base_station = base_station_pos
         
-        # PSO参数
+        # PSO鍙傛暟
         self.pso_population_size = 20
         self.pso_max_iterations = 50
-        self.w = 0.7  # 惯性权重
-        self.c1 = 1.5  # 认知参数
-        self.c2 = 1.5  # 社会参数
+        self.w = 0.7  # 鎯€ф潈閲?
+        self.c1 = 1.5  # 璁ょ煡鍙傛暟
+        self.c2 = 1.5  # 绀句細鍙傛暟
         
-        # ACO参数
+        # ACO鍙傛暟
         self.aco_ants = 20
         self.aco_iterations = 30
-        self.alpha = 1.0  # 信息素重要性
-        self.beta = 2.0   # 启发式信息重要性
-        self.rho = 0.1    # 信息素蒸发率
-        self.Q = 100      # 信息素强度
+        self.alpha = 1.0  # 淇℃伅绱犻噸瑕佹€?
+        self.beta = 2.0   # 鍚彂寮忎俊鎭噸瑕佹€?
+        self.rho = 0.1    # 淇℃伅绱犺捀鍙戠巼
+        self.Q = 100      # 淇℃伅绱犲己搴?
         
-        # 混合算法参数
+        # 娣峰悎绠楁硶鍙傛暟
         self.hybrid_iterations = 10
-        self.pso_weight = 0.5  # PSO结果权重
-        self.aco_weight = 0.5  # ACO结果权重
+        self.pso_weight = 0.5  # PSO缁撴灉鏉冮噸
+        self.aco_weight = 0.5  # ACO缁撴灉鏉冮噸
     
     def optimize_clustering(self, nodes, n_clusters):
-        """使用PSO优化网络分簇
+        """浣跨敤PSO浼樺寲缃戠粶鍒嗙皣
         
-        参数:
-            nodes: 网络节点列表
-            n_clusters: 期望的簇数量
+        鍙傛暟:
+            nodes: 缃戠粶鑺傜偣鍒楄〃
+            n_clusters: 鏈熸湜鐨勭皣鏁伴噺
             
-        返回:
-            最优的簇头节点列表
+        杩斿洖:
+            鏈€浼樼殑绨囧ご鑺傜偣鍒楄〃
         """
         alive_nodes = [node for node in nodes if node.is_alive]
         if len(alive_nodes) <= n_clusters:
-            return alive_nodes  # 如果活跃节点数少于簇数，所有节点都是簇头
+            return alive_nodes  # 濡傛灉娲昏穬鑺傜偣鏁板皯浜庣皣鏁帮紝鎵€鏈夎妭鐐归兘鏄皣澶?
         
-        # 初始化PSO粒子群
+        # 鍒濆鍖朠SO绮掑瓙缇?
         particles = []
         velocities = []
         personal_best_positions = []
         personal_best_scores = []
         
-        # 全局最优解
+        # 鍏ㄥ眬鏈€浼樿В
         global_best_position = None
         global_best_score = -float('inf')
         
-        # 初始化粒子位置和速度
+        # 鍒濆鍖栫矑瀛愪綅缃拰閫熷害
         for _ in range(self.pso_population_size):
-            # 随机选择n_clusters个节点作为簇头
+            # 闅忔満閫夋嫨n_clusters涓妭鐐逛綔涓虹皣澶?
             particle = random.sample(range(len(alive_nodes)), n_clusters)
             particles.append(particle)
             
-            # 初始化速度为0
+            # 鍒濆鍖栭€熷害涓?
             velocity = [0] * n_clusters
             velocities.append(velocity)
             
-            # 评估粒子适应度
+            # 璇勪及绮掑瓙閫傚簲搴?
             score = self._evaluate_clustering(particle, alive_nodes)
             
-            # 更新个体最优
+            # 鏇存柊涓綋鏈€浼?
             personal_best_positions.append(particle.copy())
             personal_best_scores.append(score)
             
-            # 更新全局最优
+            # 鏇存柊鍏ㄥ眬鏈€浼?
             if score > global_best_score:
                 global_best_score = score
                 global_best_position = particle.copy()
         
-        # PSO迭代优化
+        # PSO杩唬浼樺寲
         for _ in range(self.pso_max_iterations):
             for i in range(self.pso_population_size):
-                # 更新速度和位置
+                # 鏇存柊閫熷害鍜屼綅缃?
                 for j in range(n_clusters):
-                    # 更新速度
+                    # 鏇存柊閫熷害
                     r1, r2 = random.random(), random.random()
                     velocities[i][j] = (self.w * velocities[i][j] + 
                                        self.c1 * r1 * (personal_best_positions[i][j] - particles[i][j]) + 
                                        self.c2 * r2 * (global_best_position[j] - particles[i][j]))
                     
-                    # 更新位置（离散PSO）
+                    # 鏇存柊浣嶇疆锛堢鏁SO锛?
                     new_pos = particles[i][j] + int(velocities[i][j])
                     new_pos = max(0, min(new_pos, len(alive_nodes) - 1))
                     particles[i][j] = new_pos
                 
-                # 确保没有重复的簇头
+                # 纭繚娌℃湁閲嶅鐨勭皣澶?
                 particles[i] = list(set(particles[i]))
                 while len(particles[i]) < n_clusters:
                     new_node = random.randint(0, len(alive_nodes) - 1)
                     if new_node not in particles[i]:
                         particles[i].append(new_node)
                 
-                # 评估新位置
+                # 璇勪及鏂颁綅缃?
                 score = self._evaluate_clustering(particles[i], alive_nodes)
                 
-                # 更新个体最优
+                # 鏇存柊涓綋鏈€浼?
                 if score > personal_best_scores[i]:
                     personal_best_scores[i] = score
                     personal_best_positions[i] = particles[i].copy()
                 
-                # 更新全局最优
+                # 鏇存柊鍏ㄥ眬鏈€浼?
                 if score > global_best_score:
                     global_best_score = score
                     global_best_position = particles[i].copy()
         
-        # 返回最优簇头
+        # 杩斿洖鏈€浼樼皣澶?
         return [alive_nodes[idx] for idx in global_best_position]
     
     def _evaluate_clustering(self, particle, nodes):
-        """评估分簇方案的适应度
+        """璇勪及鍒嗙皣鏂规鐨勯€傚簲搴?
         
-        参数:
-            particle: 表示簇头的粒子
-            nodes: 所有活跃节点
+        鍙傛暟:
+            particle: 琛ㄧず绨囧ご鐨勭矑瀛?
+            nodes: 鎵€鏈夋椿璺冭妭鐐?
             
-        返回:
-            适应度得分
+        杩斿洖:
+            閫傚簲搴﹀緱鍒?
         """
-        # 获取簇头节点
+        # 鑾峰彇绨囧ご鑺傜偣
         cluster_heads = [nodes[idx] for idx in particle]
         
-        # 计算每个节点到最近簇头的距离
+        # 璁＄畻姣忎釜鑺傜偣鍒版渶杩戠皣澶寸殑璺濈
         total_distance = 0
         for node in nodes:
             if node not in cluster_heads:
@@ -146,128 +146,128 @@ class HybridMetaheuristic:
                         min_distance = distance
                 total_distance += min_distance
         
-        # 计算簇头的平均能量
+        # 璁＄畻绨囧ご鐨勫钩鍧囪兘閲?
         avg_energy = sum(ch.energy for ch in cluster_heads) / len(cluster_heads)
         
-        # 计算簇头的平均距离到基站
+        # 璁＄畻绨囧ご鐨勫钩鍧囪窛绂诲埌鍩虹珯
         avg_distance_to_bs = sum(ch.distance_to_bs for ch in cluster_heads) / len(cluster_heads)
         
-        # 适应度函数：最小化节点到簇头的距离，最大化簇头能量，最小化簇头到基站的距离
-        # 归一化各项指标
+        # 閫傚簲搴﹀嚱鏁帮細鏈€灏忓寲鑺傜偣鍒扮皣澶寸殑璺濈锛屾渶澶у寲绨囧ご鑳介噺锛屾渶灏忓寲绨囧ご鍒板熀绔欑殑璺濈
+        # 褰掍竴鍖栧悇椤规寚鏍?
         norm_distance = 1 / (1 + total_distance / len(nodes))
-        norm_energy = avg_energy / 2.0  # 假设初始能量为2.0J
-        norm_bs_distance = 1 / (1 + avg_distance_to_bs / 300)  # 假设最大距离为300m
+        norm_energy = avg_energy / 2.0  # 鍋囪鍒濆鑳介噺涓?.0J
+        norm_bs_distance = 1 / (1 + avg_distance_to_bs / 300)  # 鍋囪鏈€澶ц窛绂讳负300m
         
-        # 综合适应度
+        # 缁煎悎閫傚簲搴?
         fitness = 0.4 * norm_distance + 0.4 * norm_energy + 0.2 * norm_bs_distance
         
         return fitness
     
     def optimize_routing(self, cluster_heads, base_station):
-        """使用ACO优化簇头到基站的路由
+        """浣跨敤ACO浼樺寲绨囧ご鍒板熀绔欑殑璺敱
         
-        参数:
-            cluster_heads: 簇头节点列表
-            base_station: 基站节点
+        鍙傛暟:
+            cluster_heads: 绨囧ご鑺傜偣鍒楄〃
+            base_station: 鍩虹珯鑺傜偣
             
-        返回:
-            优化后的路由路径（每个簇头的下一跳）
+        杩斿洖:
+            浼樺寲鍚庣殑璺敱璺緞锛堟瘡涓皣澶寸殑涓嬩竴璺籌級
         """
         n_ch = len(cluster_heads)
         if n_ch == 0:
             return {}
         
-        # 如果只有一个簇头，直接连接到基站
+        # 濡傛灉鍙湁涓€涓皣澶达紝鐩存帴杩炴帴鍒板熀绔?
         if n_ch == 1:
             return {cluster_heads[0].id: base_station}
         
-        # 构建距离矩阵和信息素矩阵
-        # 添加基站作为最后一个节点
+        # 鏋勫缓璺濈鐭╅樀鍜屼俊鎭礌鐭╅樀
+        # 娣诲姞鍩虹珯浣滀负鏈€鍚庝竴涓妭鐐?
         all_nodes = cluster_heads + [base_station]
         n_nodes = len(all_nodes)
         
-        # 距离矩阵
+        # 璺濈鐭╅樀
         distances = np.zeros((n_nodes, n_nodes))
         for i in range(n_nodes):
             for j in range(n_nodes):
                 if i != j:
                     distances[i, j] = all_nodes[i].calculate_distance(all_nodes[j])
                 else:
-                    distances[i, j] = float('inf')  # 自己到自己的距离设为无穷大
+                    distances[i, j] = float('inf')  # 鑷繁鍒拌嚜宸辩殑璺濈璁句负鏃犵┓澶?
         
-        # 初始化信息素矩阵
+        # 鍒濆鍖栦俊鎭礌鐭╅樀
         pheromones = np.ones((n_nodes, n_nodes)) * 0.1
         
-        # 初始化最佳路径
+        # 鍒濆鍖栨渶浣宠矾寰?
         best_path = None
         best_path_length = float('inf')
         
-        # ACO迭代优化
+        # ACO杩唬浼樺寲
         for _ in range(self.aco_iterations):
-            # 每只蚂蚁构建路径
+            # 姣忓彧铓傝殎鏋勫缓璺緞
             ant_paths = []
             ant_path_lengths = []
             
             for _ in range(self.aco_ants):
-                # 随机选择起始簇头
+                # 闅忔満閫夋嫨璧峰绨囧ご
                 current = random.randint(0, n_ch - 1)
                 path = [current]
                 path_length = 0
                 visited = [False] * n_nodes
                 visited[current] = True
                 
-                # 构建路径直到所有簇头都被访问
+                # 鏋勫缓璺緞鐩村埌鎵€鏈夌皣澶撮兘琚闂?
                 while len(path) < n_ch:
-                    # 计算转移概率
+                    # 璁＄畻杞Щ姒傜巼
                     probabilities = np.zeros(n_nodes)
                     for j in range(n_ch):
                         if not visited[j]:
-                            # 计算启发式信息（距离的倒数）
+                            # 璁＄畻鍚彂寮忎俊鎭紙璺濈鐨勫€掓暟锛?
                             eta = 1.0 / distances[current, j]
-                            # 计算转移概率
+                            # 璁＄畻杞Щ姒傜巼
                             probabilities[j] = (pheromones[current, j] ** self.alpha) * (eta ** self.beta)
                     
-                    # 归一化概率
+                    # 褰掍竴鍖栨鐜?
                     if np.sum(probabilities) > 0:
                         probabilities = probabilities / np.sum(probabilities)
                     
-                    # 轮盘赌选择下一个节点
+                    # 杞洏璧岄€夋嫨涓嬩竴涓妭鐐?
                     next_node = self._roulette_wheel_selection(probabilities)
                     
-                    # 更新路径
+                    # 鏇存柊璺緞
                     path.append(next_node)
                     path_length += distances[current, next_node]
                     visited[next_node] = True
                     current = next_node
                 
-                # 连接到基站
-                path.append(n_nodes - 1)  # 基站索引
+                # 杩炴帴鍒板熀绔?
+                path.append(n_nodes - 1)  # 鍩虹珯绱㈠紩
                 path_length += distances[current, n_nodes - 1]
                 
                 ant_paths.append(path)
                 ant_path_lengths.append(path_length)
                 
-                # 更新最佳路径
+                # 鏇存柊鏈€浣宠矾寰?
                 if path_length < best_path_length:
                     best_path_length = path_length
                     best_path = path.copy()
             
-            # 更新信息素
-            # 信息素蒸发
+            # 鏇存柊淇℃伅绱?
+            # 淇℃伅绱犺捀鍙?
             pheromones = (1 - self.rho) * pheromones
             
-            # 信息素沉积
+            # 淇℃伅绱犳矇绉?
             for i, path in enumerate(ant_paths):
                 delta = self.Q / ant_path_lengths[i]
                 for j in range(len(path) - 1):
                     pheromones[path[j], path[j+1]] += delta
         
-        # 构建路由表（每个簇头的下一跳）
+        # 鏋勫缓璺敱琛紙姣忎釜绨囧ご鐨勪笅涓€璺籌級
         routing_table = {}
         
-        # 使用最佳路径构建路由表
+        # 浣跨敤鏈€浣宠矾寰勬瀯寤鸿矾鐢辫〃
         if best_path:
-            # 将路径转换为路由表
+            # 灏嗚矾寰勮浆鎹负璺敱琛?
             for i in range(len(best_path) - 1):
                 ch_id = cluster_heads[best_path[i]].id
                 next_hop = all_nodes[best_path[i+1]]
@@ -276,13 +276,13 @@ class HybridMetaheuristic:
         return routing_table
     
     def _roulette_wheel_selection(self, probabilities):
-        """轮盘赌选择
+        """杞洏璧岄€夋嫨
         
-        参数:
-            probabilities: 概率数组
+        鍙傛暟:
+            probabilities: 姒傜巼鏁扮粍
             
-        返回:
-            选中的索引
+        杩斿洖:
+            閫変腑鐨勭储寮?
         """
         r = random.random()
         c = 0
@@ -293,31 +293,31 @@ class HybridMetaheuristic:
         return len(probabilities) - 1
     
     def hybrid_optimize(self, nodes, n_clusters, base_station):
-        """混合PSO和ACO进行分簇和路由优化
+        """娣峰悎PSO鍜孉CO杩涜鍒嗙皣鍜岃矾鐢变紭鍖?
         
-        参数:
-            nodes: 网络节点列表
-            n_clusters: 期望的簇数量
-            base_station: 基站节点
+        鍙傛暟:
+            nodes: 缃戠粶鑺傜偣鍒楄〃
+            n_clusters: 鏈熸湜鐨勭皣鏁伴噺
+            base_station: 鍩虹珯鑺傜偣
             
-        返回:
-            (cluster_heads, routing_table): 簇头列表和路由表
+        杩斿洖:
+            (cluster_heads, routing_table): 绨囧ご鍒楄〃鍜岃矾鐢辫〃
         """
         best_cluster_heads = None
         best_routing_table = None
         best_score = -float('inf')
         
         for _ in range(self.hybrid_iterations):
-            # PSO优化分簇
+            # PSO浼樺寲鍒嗙皣
             cluster_heads = self.optimize_clustering(nodes, n_clusters)
             
-            # ACO优化路由
+            # ACO浼樺寲璺敱
             routing_table = self.optimize_routing(cluster_heads, base_station)
             
-            # 评估整体解决方案
+            # 璇勪及鏁翠綋瑙ｅ喅鏂规
             score = self._evaluate_solution(cluster_heads, routing_table, nodes, base_station)
             
-            # 更新最佳解决方案
+            # 鏇存柊鏈€浣宠В鍐虫柟妗?
             if score > best_score:
                 best_score = score
                 best_cluster_heads = cluster_heads.copy()
@@ -326,29 +326,29 @@ class HybridMetaheuristic:
         return best_cluster_heads, best_routing_table
     
     def _evaluate_solution(self, cluster_heads, routing_table, nodes, base_station):
-        """评估整体解决方案的质量
+        """璇勪及鏁crete綋瑙ｅ喅鏂规鐨勮川閲?
         
-        参数:
-            cluster_heads: 簇头列表
-            routing_table: 路由表
-            nodes: 所有节点
-            base_station: 基站节点
+        鍙傛暟:
+            cluster_heads: 绨囧ご鍒楄〃
+            routing_table: 璺敱琛?
+            nodes: 鎵€鏈夎妭鐐?
+            base_station: 鍩虹珯鑺傜偣
             
-        返回:
-            解决方案得分
+        杩斿洖:
+            瑙ｅ喅鏂规寰楀垎
         """
-        # 评估分簇质量
+        # 璇勪及鍒嗙皣璐ㄩ噺
         clustering_score = self._evaluate_clustering_solution(cluster_heads, nodes)
         
-        # 评估路由质量
+        # 璇勪及璺敱璐ㄩ噺
         routing_score = self._evaluate_routing_solution(routing_table, cluster_heads, base_station)
         
-        # 综合得分
+        # 缁煎悎寰楀垎
         return self.pso_weight * clustering_score + self.aco_weight * routing_score
     
     def _evaluate_clustering_solution(self, cluster_heads, nodes):
-        """评估分簇解决方案"""
-        # 计算每个节点到最近簇头的平均距离
+        """璇勪及鍒嗙皣瑙ｅ喅鏂规"""
+        # 璁＄畻姣忎釜鑺傜偣鍒版渶杩戠皣澶寸殑骞冲潎璺濈
         total_distance = 0
         for node in nodes:
             if node.is_alive and node not in cluster_heads:
@@ -361,22 +361,22 @@ class HybridMetaheuristic:
         
         avg_distance = total_distance / max(1, len(nodes) - len(cluster_heads))
         
-        # 计算簇头的平均能量
+        # 璁＄畻绨囧ご鐨勫钩鍧囪兘閲?
         avg_energy = sum(ch.energy for ch in cluster_heads) / max(1, len(cluster_heads))
         
-        # 归一化
-        norm_distance = 1 / (1 + avg_distance / 100)  # 假设最大距离为100m
-        norm_energy = avg_energy / 2.0  # 假设初始能量为2.0J
+        # 褰掍竴鍖?
+        norm_distance = 1 / (1 + avg_distance / 100)  # 鍋囪鏈€澶ц窛绂讳负100m
+        norm_energy = avg_energy / 2.0  # 鍋囪鍒濆鑳介噺涓?.0J
         
-        # 综合得分
+        # 缁煎悎寰楀垎
         return 0.5 * norm_distance + 0.5 * norm_energy
     
     def _evaluate_routing_solution(self, routing_table, cluster_heads, base_station):
-        """评估路由解决方案"""
+        """璇勪及璺敱瑙ｅ喅鏂规"""
         if not routing_table or not cluster_heads:
             return 0
         
-        # 计算路由路径的总长度
+        # 璁＄畻璺敱璺緞鐨勬€婚暱搴?
         total_length = 0
         hop_count = 0
         
@@ -385,34 +385,34 @@ class HybridMetaheuristic:
             path_length = 0
             hops = 0
             
-            # 跟踪路径直到到达基站或无法继续
+            # 璺熻釜璺緞鐩村埌鍒拌揪鍩虹珯鎴栨棤娉曠户缁?
             while current != base_station and current.id in routing_table:
                 next_hop = routing_table[current.id]
                 path_length += current.calculate_distance(next_hop)
                 current = next_hop
                 hops += 1
                 
-                # 防止循环
+                # 闃叉寰幆
                 if hops > len(cluster_heads):
                     break
             
             total_length += path_length
             hop_count += hops
         
-        # 计算平均路径长度和跳数
+        # 璁＄畻骞冲潎璺緞闀垮害鍜岃烦鏁?
         avg_length = total_length / len(cluster_heads)
         avg_hops = hop_count / len(cluster_heads)
         
-        # 归一化
-        norm_length = 1 / (1 + avg_length / 300)  # 假设最大长度为300m
-        norm_hops = 1 / (1 + avg_hops / 10)  # 假设最大跳数为10
+        # 褰掍竴鍖?
+        norm_length = 1 / (1 + avg_length / 300)  # 鍋囪鏈€澶ч暱搴︿负300m
+        norm_hops = 1 / (1 + avg_hops / 10)  # 鍋囪鏈€澶ц烦鏁颁负10
         
-        # 综合得分
+        # 缁煎悎寰楀垎
         return 0.7 * norm_length + 0.3 * norm_hops
 
-# 测试代码
-if __name__ == "__main":
-    # 模拟节点类
+# 娴嬭瘯浠ｇ爜
+if __name__ == "__main__":
+    # 妯℃嫙鑺傜偣绫?
     class TestNode:
         def __init__(self, id, x, y, energy=2.0):
             self.id = id
@@ -425,7 +425,7 @@ if __name__ == "__main":
         def calculate_distance(self, node):
             return math.sqrt((self.x - node.x)**2 + (self.y - node.y)**2)
     
-    # 创建测试节点
+    # 鍒涘缓娴嬭瘯鑺傜偣
     test_nodes = []
     for i in range(100):
         x = random.uniform(0, 200)
@@ -433,24 +433,23 @@ if __name__ == "__main":
         energy = random.uniform(0.5, 2.0)
         test_nodes.append(TestNode(i, x, y, energy))
     
-    # 创建基站
+    # 鍒涘缓鍩虹珯
     base_station = TestNode(-1, 100, 100, float('inf'))
     
-    # 创建混合元启发式算法实例
+    # 鍒涘缓娣峰悎鍏冨惎鍙戝紡绠楁硶瀹炰緥
     hybrid = HybridMetaheuristic()
     
-    # 测试分簇优化
+    # 娴嬭瘯鍒嗙皣浼樺寲
     cluster_heads = hybrid.optimize_clustering(test_nodes, 5)
-    print(f"优化后的簇头数量: {len(cluster_heads)}")
-    print(f"簇头ID: {[ch.id for ch in cluster_heads]}")
+    print(f"Cluster heads after optimization: {len(cluster_heads)}")
+    print(f"CH IDs: {[ch.id for ch in cluster_heads]}")
     
-    # 测试路由优化
+    # 娴嬭瘯璺敱浼樺寲
     routing_table = hybrid.optimize_routing(cluster_heads, base_station)
-    print(f"路由表大小: {len(routing_table)}")
-    for ch_id, next_hop in routing_table.items():
-        print(f"簇头 {ch_id} -> 下一跳 {next_hop.id}")
+    print(f"Routing table size: {len(routing_table)}")
+    print(f"CH {ch_id} -> next hop {next_hop.id}")
     
-    # 测试混合优化
+    # 娴嬭瘯娣峰悎浼樺寲
     best_chs, best_routes = hybrid.hybrid_optimize(test_nodes, 5, base_station)
-    print(f"混合优化后的簇头数量: {len(best_chs)}")
-    print(f"混合优化后的路由表大小: {len(best_routes)}")
+    print(f"Merged-optimized CH count: {len(best_chs)}")
+    print(f"Merged-optimized routing table size: {len(best_routes)}")

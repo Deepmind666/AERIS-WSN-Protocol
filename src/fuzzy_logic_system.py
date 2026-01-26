@@ -1,5 +1,5 @@
-# 模糊逻辑系统模块 - 用于EEHFR协议
-# 参考文献：
+# 妯＄硦閫昏緫绯荤粺妯″潡 - 鐢ㄤ簬AERIS鍗忚
+# 鍙傝€冩枃鐚細
 # [1] Nayak, P., & Vathasavai, B. (2017). Energy efficient clustering algorithm for multi-hop wireless sensor network using type-2 fuzzy logic.
 # [2] Balakrishnan, B., & Balachandran, S. (2017). FLECH: fuzzy logic based energy efficient clustering hierarchy for nonuniform wireless sensor networks.
 # [3] Logambigai, R., & Kannan, A. (2018). Fuzzy logic based unequal clustering for wireless sensor networks.
@@ -9,187 +9,187 @@ import skfuzzy as fuzz
 from skfuzzy import control as ctrl
 
 class FuzzyLogicSystem:
-    """完整的模糊逻辑系统，用于WSN中的决策优化"""
+    """瀹屾暣鐨勬ā绯婇€昏緫绯荤粺锛岀敤浜嶹SN涓殑鍐崇瓥浼樺寲"""
     
     def __init__(self):
-        # 创建模糊逻辑控制系统
+        # 鍒涘缓妯＄硦閫昏緫鎺у埗绯荤粺
         self.setup_fuzzy_system()
         
     def setup_fuzzy_system(self):
-        """设置模糊逻辑系统的输入、输出和规则"""
-        # 创建模糊变量 - 输入
+        """璁剧疆妯＄硦閫昏緫绯荤粺鐨勮緭鍏ャ€佽緭鍑哄拰瑙勫垯"""
+        # 鍒涘缓妯＄硦鍙橀噺 - 杈撳叆
         self.residual_energy = ctrl.Antecedent(np.arange(0, 1.01, 0.01), 'residual_energy')
         self.node_centrality = ctrl.Antecedent(np.arange(0, 1.01, 0.01), 'node_centrality')
         self.node_degree = ctrl.Antecedent(np.arange(0, 20.1, 0.1), 'node_degree')
         self.distance_to_bs = ctrl.Antecedent(np.arange(0, 300.1, 0.1), 'distance_to_bs')
         self.link_quality = ctrl.Antecedent(np.arange(0, 1.01, 0.01), 'link_quality')
         
-        # 创建模糊变量 - 输出
+        # 鍒涘缓妯＄硦鍙橀噺 - 杈撳嚭
         self.cluster_head_chance = ctrl.Consequent(np.arange(0, 1.01, 0.01), 'cluster_head_chance')
         self.next_hop_suitability = ctrl.Consequent(np.arange(0, 1.01, 0.01), 'next_hop_suitability')
         
-        # 定义模糊集 - 剩余能量
+        # 瀹氫箟妯＄硦闆?- 鍓╀綑鑳介噺
         self.residual_energy['low'] = fuzz.trimf(self.residual_energy.universe, [0, 0, 0.4])
         self.residual_energy['medium'] = fuzz.trimf(self.residual_energy.universe, [0.2, 0.5, 0.8])
         self.residual_energy['high'] = fuzz.trimf(self.residual_energy.universe, [0.6, 1, 1])
         
-        # 定义模糊集 - 节点中心性
+        # 瀹氫箟妯＄硦闆?- 鑺傜偣涓績鎬?
         self.node_centrality['low'] = fuzz.trimf(self.node_centrality.universe, [0, 0, 0.4])
         self.node_centrality['medium'] = fuzz.trimf(self.node_centrality.universe, [0.2, 0.5, 0.8])
         self.node_centrality['high'] = fuzz.trimf(self.node_centrality.universe, [0.6, 1, 1])
         
-        # 定义模糊集 - 节点度（邻居数量）
+        # 瀹氫箟妯＄硦闆?- 鑺傜偣搴︼Paperweight閭诲眳鏁伴噺锛?
         self.node_degree['few'] = fuzz.trimf(self.node_degree.universe, [0, 0, 6])
         self.node_degree['moderate'] = fuzz.trimf(self.node_degree.universe, [4, 8, 12])
         self.node_degree['many'] = fuzz.trimf(self.node_degree.universe, [10, 15, 20])
         
-        # 定义模糊集 - 到基站的距离
+        # 瀹氫箟妯＄硦闆?- 鍒板熀绔欑殑璺濈
         self.distance_to_bs['close'] = fuzz.trimf(self.distance_to_bs.universe, [0, 0, 100])
         self.distance_to_bs['medium'] = fuzz.trimf(self.distance_to_bs.universe, [50, 150, 250])
         self.distance_to_bs['far'] = fuzz.trimf(self.distance_to_bs.universe, [200, 300, 300])
         
-        # 定义模糊集 - 链路质量
+        # 瀹氫箟妯＄硦闆?- 閾捐矾璐ㄩ噺
         self.link_quality['poor'] = fuzz.trimf(self.link_quality.universe, [0, 0, 0.4])
         self.link_quality['average'] = fuzz.trimf(self.link_quality.universe, [0.3, 0.6, 0.8])
         self.link_quality['good'] = fuzz.trimf(self.link_quality.universe, [0.7, 1, 1])
         
-        # 定义模糊集 - 簇头机会
+        # 瀹氫箟妯＄硦闆?- 绨囧ご鏈轰細
         self.cluster_head_chance['very_low'] = fuzz.trimf(self.cluster_head_chance.universe, [0, 0, 0.25])
         self.cluster_head_chance['low'] = fuzz.trimf(self.cluster_head_chance.universe, [0.1, 0.3, 0.5])
         self.cluster_head_chance['medium'] = fuzz.trimf(self.cluster_head_chance.universe, [0.4, 0.6, 0.8])
         self.cluster_head_chance['high'] = fuzz.trimf(self.cluster_head_chance.universe, [0.7, 0.85, 1])
         self.cluster_head_chance['very_high'] = fuzz.trimf(self.cluster_head_chance.universe, [0.85, 1, 1])
         
-        # 定义模糊集 - 下一跳适合度
+        # 瀹氫箟妯＄硦闆?- 涓嬩竴璺抽€夋嫨锛堣兘
         self.next_hop_suitability['unsuitable'] = fuzz.trimf(self.next_hop_suitability.universe, [0, 0, 0.3])
         self.next_hop_suitability['less_suitable'] = fuzz.trimf(self.next_hop_suitability.universe, [0.2, 0.4, 0.6])
         self.next_hop_suitability['suitable'] = fuzz.trimf(self.next_hop_suitability.universe, [0.5, 0.7, 0.9])
         self.next_hop_suitability['very_suitable'] = fuzz.trimf(self.next_hop_suitability.universe, [0.8, 1, 1])
         
-        # 定义模糊规则 - 簇头选择规则
+        # 瀹氫箟妯＄硦瑙勫垯 - 绨囧ご閫夋嫨瑙勫垯
         self.ch_rules = [
-            # 规则1：如果能量高且中心性高，则簇头机会很高
+            # 瑙勫垯1锛氬鏋滆兘閲忛珮涓斾腑蹇冩€ч珮锛屽垯绨囧ご鏈轰細寰堥珮
             ctrl.Rule(self.residual_energy['high'] & self.node_centrality['high'], 
                       self.cluster_head_chance['very_high']),
             
-            # 规则2：如果能量高且中心性中等，则簇头机会高
+            # 瑙勫垯2锛氬鏋滆兘閲忛珮涓斾腑蹇冩€т腑绛夛紝鍒欑皣澶存満浼氶珮
             ctrl.Rule(self.residual_energy['high'] & self.node_centrality['medium'], 
                       self.cluster_head_chance['high']),
             
-            # 规则3：如果能量中等且中心性高，则簇头机会高
+            # 瑙勫垯3锛氬鏋滆兘閲忎腑绛変笖涓績鎬ч珮锛屽垯绨囧ご鏈轰細楂?
             ctrl.Rule(self.residual_energy['medium'] & self.node_centrality['high'], 
                       self.cluster_head_chance['high']),
             
-            # 规则4：如果能量中等且中心性中等，则簇头机会中等
+            # 瑙勫垯4锛氬鏋滆兘閲忎腑绛変笖涓績鎬т腑绛夛紝鍒欑皣澶存満浼氫腑绛?
             ctrl.Rule(self.residual_energy['medium'] & self.node_centrality['medium'], 
                       self.cluster_head_chance['medium']),
             
-            # 规则5：如果能量低，则簇头机会很低
+            # 瑙勫垯5锛氬鏋滆兘閲忎綆锛屽垯绨囧ご鏈轰細寰堜綆
             ctrl.Rule(self.residual_energy['low'], self.cluster_head_chance['very_low']),
             
-            # 规则6：如果中心性低，则簇头机会低
+            # 瑙勫垯6锛氬鏋滀腑蹇冩€т綆锛屽垯绨囧ご鏈轰細浣?
             ctrl.Rule(self.node_centrality['low'], self.cluster_head_chance['low']),
             
-            # 规则7：如果能量高且邻居多，则簇头机会很高
+            # 瑙勫垯7锛氬鏋滆兘閲忛珮涓旈偦灞呭锛屽垯绨囧ご鏈轰細寰堥珮
             ctrl.Rule(self.residual_energy['high'] & self.node_degree['many'], 
                       self.cluster_head_chance['very_high']),
             
-            # 规则8：如果能量中等且邻居适中，则簇头机会中等
+            # 瑙勫垯8锛氬鏋滆兘閲忎腑绛変笖閭诲眳閫備腑锛屽垯绨囧ご鏈轰細涓瓑
             ctrl.Rule(self.residual_energy['medium'] & self.node_degree['moderate'], 
                       self.cluster_head_chance['medium']),
             
-            # 规则9：如果到基站距离近且能量高，则簇头机会高
+            # 瑙勫垯9锛氬鏋滃埌鍩虹珯璺濈杩戜笖鑳介噺楂橈紝鍒欑皣澶存満浼氶珮
             ctrl.Rule(self.distance_to_bs['close'] & self.residual_energy['high'], 
                       self.cluster_head_chance['high']),
             
-            # 规则10：如果到基站距离远且能量低，则簇头机会很低
+            # 瑙勫垯10锛氬鏋滃埌鍩虹珯璺濈杩滀笖鑳介噺浣庯紝鍒欑皣澶存満浼氬緢浣?
             ctrl.Rule(self.distance_to_bs['far'] & self.residual_energy['low'],
                       self.cluster_head_chance['very_low']),
 
-            # 新增规则：结合链路质量
-            # 规则11: 如果链路质量好且能量高，则簇头机会非常高
+            # 鏂板瑙勫垯锛氱粨鍚堥摼璺川閲?
+            # 瑙勫垯11: 濡傛灉閾捐矾璐ㄩ噺濂戒笖鑳介噺楂橈紝鍒欑皣澶存満浼氶潪甯搁珮
             ctrl.Rule(self.link_quality['good'] & self.residual_energy['high'],
                       self.cluster_head_chance['very_high']),
             
-            # 规则12: 如果链路质量好但能量中等，则簇头机会高
+            # 瑙勫垯12: 濡傛灉閾捐矾璐ㄩ噺濂戒絾鑳介噺涓瓑锛屽垯绨囧ご鏈轰細楂?
             ctrl.Rule(self.link_quality['good'] & self.residual_energy['medium'],
                       self.cluster_head_chance['high']),
 
-            # 规则13: 如果链路质量差，则显著降低簇头机会
+            # 瑙勫垯13: 濡傛灉閾捐矾璐ㄩ噺宸紝鍒欐樉钁楅檷浣庣皣澶存満浼?
             ctrl.Rule(self.link_quality['poor'], self.cluster_head_chance['very_low']),
 
-            # 规则14: 如果链路质量好，且邻居多，则是一个非常理想的簇头
+            # 瑙勫垯14: 濡傛灉閾捐矾璐ㄩ噺濂斤紝涓旈偦灞呭锛屽垯鏄竴涓潪甯哥悊鎯崇殑绨囧ご
             ctrl.Rule(self.link_quality['good'] & self.node_degree['many'],
                       self.cluster_head_chance['very_high'])
         ]
         
-        # 定义模糊规则 - 下一跳选择规则
+        # 瀹氫箟妯＄硦瑙勫垯 - 涓嬩竴璺抽€夋嫨瑙勫垯
         self.nh_rules = [
-            # 规则1：如果能量高且链路质量好且距离基站近，则非常适合作为下一跳
+            # 瑙勫垯1锛氬鏋滆兘閲忛珮涓旈摼璺川閲忓ソ涓旇窛绂诲熀绔欒繎锛屽垯闈炲父閫傚悎浣滀负涓嬩竴璺?
             ctrl.Rule(self.residual_energy['high'] & self.link_quality['good'] & 
                       self.distance_to_bs['close'], self.next_hop_suitability['very_suitable']),
             
-            # 规则2：如果能量高且链路质量好，则适合作为下一跳
+            # 瑙勫垯2锛氬鏋滆兘閲忛珮涓旈摼璺川閲忓ソ锛屽垯閫傚悎浣滀负涓嬩竴璺?
             ctrl.Rule(self.residual_energy['high'] & self.link_quality['good'], 
                       self.next_hop_suitability['suitable']),
             
-            # 规则3：如果能量中等且链路质量好，则适合作为下一跳
+            # 瑙勫垯3锛氬鏋滆兘閲忎腑绛変笖閾捐矾璐ㄩ噺濂斤紝鍒欓€傚悎浣滀负涓嬩竴璺?
             ctrl.Rule(self.residual_energy['medium'] & self.link_quality['good'], 
                       self.next_hop_suitability['suitable']),
             
-            # 规则4：如果能量低，则不适合作为下一跳
+            # 瑙勫垯4锛氬鏋滆兘閲忎綆锛屽垯涓嶉€傚悎浣滀负涓嬩竴璺?
             ctrl.Rule(self.residual_energy['low'], self.next_hop_suitability['unsuitable']),
             
-            # 规则5：如果链路质量差，则不太适合作为下一跳
+            # 瑙勫垯5锛氬鏋滈摼璺川閲忓樊锛屽垯涓嶅お閫傚悎浣滀负涓嬩竴璺?
             ctrl.Rule(self.link_quality['poor'], self.next_hop_suitability['less_suitable']),
             
-            # 规则6：如果能量中等且链路质量一般，则不太适合作为下一跳
+            # 瑙勫垯6锛氬鏋滆兘閲忎腑绛変笖閾捐矾璐ㄩ噺涓€鑸紝鍒欎笉澶€傚悎浣滀负涓嬩竴璺?
             ctrl.Rule(self.residual_energy['medium'] & self.link_quality['average'], 
                       self.next_hop_suitability['less_suitable']),
             
-            # 规则7：如果距离基站远且能量低，则不适合作为下一跳
+            # 瑙勫垯7锛氬鏋滆窛绂诲熀绔欒繙涓旇兘閲忎綆锛屽垯涓嶉€傚悎浣滀负涓嬩竴璺?
             ctrl.Rule(self.distance_to_bs['far'] & self.residual_energy['low'], 
                       self.next_hop_suitability['unsuitable']),
             
-            # 规则8：如果距离基站近且链路质量好，则非常适合作为下一跳
+            # 瑙勫垯8锛氬鏋滆窛绂诲熀绔欒繎涓旈摼璺川閲忓ソ锛屽垯闈炲父閫傚悎浣滀负涓嬩竴璺?
             ctrl.Rule(self.distance_to_bs['close'] & self.link_quality['good'], 
                       self.next_hop_suitability['very_suitable'])
         ]
         
-        # 创建控制系统
+        # 鍒涘缓鎺у埗绯荤粺
         self.ch_ctrl = ctrl.ControlSystem(self.ch_rules)
         self.nh_ctrl = ctrl.ControlSystem(self.nh_rules)
         
-        # 创建控制系统模拟器
+        # 鍒涘缓鎺у埗绯荤粺妯℃嫙鍣?
         self.ch_simulator = ctrl.ControlSystemSimulation(self.ch_ctrl)
         self.nh_simulator = ctrl.ControlSystemSimulation(self.nh_ctrl)
     
     def calculate_cluster_head_chance(self, residual_energy, node_centrality, node_degree, distance_to_bs, link_quality):
-        """计算节点成为簇头的机会
+        """璁＄畻鑺傜偣鎴愪负绨囧ご鐨勬満浼?
         
-        参数:
-            residual_energy (float): 节点剩余能量比例 [0,1]
-            node_centrality (float): 节点中心性 [0,1]
-            node_degree (int): 节点度（邻居数量）
-            distance_to_bs (float): 到基站的距离
-            link_quality (float): 链路质量指数 [0,1]
+        鍙傛暟:
+            residual_energy (float): 鑺傜偣鍓╀綑鑳介噺姣斾緥 [0,1]
+            node_centrality (float): 鑺傜偣涓績鎬?[0,1]
+            node_degree (int): 鑺傜偣搴︼紙閭诲眳鏁伴噺锛?
+            distance_to_bs (float): 鍒板熀绔欑殑璺濈
+            link_quality (float): 閾捐矾璐ㄩ噺鎸囨暟 [0,1]
             
-        返回:
-            float: 节点成为簇头的机会 [0,1]
+        杩斿洖:
+            float: 鑺傜偣鎴愪负绨囧ご鐨勬満浼?[0,1]
         """
-        # 设置输入值
+        # 璁剧疆杈撳叆鍊?
         self.ch_simulator.input['residual_energy'] = residual_energy
         self.ch_simulator.input['node_centrality'] = node_centrality
-        self.ch_simulator.input['node_degree'] = min(node_degree, 20)  # 限制在定义范围内
-        self.ch_simulator.input['distance_to_bs'] = min(distance_to_bs, 300)  # 限制在定义范围内
+        self.ch_simulator.input['node_degree'] = min(node_degree, 20)  # 闄愬埗鍦ㄥ畾涔夎寖鍥村唴
+        self.ch_simulator.input['distance_to_bs'] = min(distance_to_bs, 300)  # 闄愬埗鍦ㄥ畾涔夎寖鍥村唴
         self.ch_simulator.input['link_quality'] = link_quality
         
-        # 计算
+        # 璁＄畻
         try:
             self.ch_simulator.compute()
             return self.ch_simulator.output['cluster_head_chance']
         except:
-            # 如果计算失败，使用加权平均值作为备选方法
+            # 濡傛灉璁＄畻澶辫触锛屼娇鐢ㄥ姞鏉冨钩鍧囧€间綔涓哄閫夋柟娉?
             weighted_sum = (residual_energy * 0.4 + 
                            node_centrality * 0.3 + 
                            min(node_degree / 20, 1) * 0.2 + 
@@ -197,37 +197,37 @@ class FuzzyLogicSystem:
             return weighted_sum
     
     def calculate_next_hop_suitability(self, residual_energy, link_quality, distance_to_bs):
-        """计算节点作为下一跳的适合度
+        """璁＄畻鑺傜偣浣滀负涓嬩竴璺崇殑閫傚悎搴?
         
-        参数:
-            residual_energy (float): 节点剩余能量比例 [0,1]
-            link_quality (float): 链路质量 [0,1]
-            distance_to_bs (float): 到基站的距离
+        鍙傛暟:
+            residual_energy (float): 鑺傜偣鍓╀綑鑳介噺姣斾緥 [0,1]
+            link_quality (float): 閾捐矾璐ㄩ噺 [0,1]
+            distance_to_bs (float): 鍒板熀绔欑殑璺濈
             
-        返回:
-            float: 节点作为下一跳的适合度 [0,1]
+        杩斿洖:
+            float: 鑺傜偣浣滀负涓嬩竴璺崇殑閫傚悎搴?[0,1]
         """
-        # 设置输入值
+        # 璁剧疆杈撳叆鍊?
         self.nh_simulator.input['residual_energy'] = residual_energy
         self.nh_simulator.input['link_quality'] = link_quality
-        self.nh_simulator.input['distance_to_bs'] = min(distance_to_bs, 300)  # 限制在定义范围内
+        self.nh_simulator.input['distance_to_bs'] = min(distance_to_bs, 300)  # 闄愬埗鍦ㄥ畾涔夎寖鍥村唴
         
-        # 计算
+        # 璁＄畻
         try:
             self.nh_simulator.compute()
             return self.nh_simulator.output['next_hop_suitability']
         except:
-            # 如果计算失败，使用加权平均值作为备选方法
+            # 濡傛灉璁＄畻澶辫触锛屼娇鐢ㄥ姞鏉冨钩鍧囧€间綔涓哄閫夋柟娉?
             weighted_sum = (residual_energy * 0.4 + 
                            link_quality * 0.4 + 
                            (1 - min(distance_to_bs / 300, 1)) * 0.2)
             return weighted_sum
 
     def visualize_membership_functions(self):
-        """可视化模糊集的隶属度函数"""
+        """鍙鍖栨ā绯婇泦鐨勯毝灞炲害鍑芥暟"""
         import matplotlib.pyplot as plt
         
-        # 设置风格和字体
+        # 璁剧疆椋庢牸鍜屽瓧浣?
         plt.style.use('seaborn-v0_8-whitegrid')
         plt.rcParams.update({
             'font.size': 12,
@@ -239,18 +239,18 @@ class FuzzyLogicSystem:
             'figure.titlesize': 18
         })
         
-        # 创建一个大的图形，包含所有隶属度函数
+        # 鍒涘缓涓€涓ぇ鐨勫浘褰紝鍖呭惈鎵€鏈夐毝灞炲害鍑芥暟
         fig = plt.figure(figsize=(15, 18), dpi=100)
         fig.suptitle('Fuzzy Logic Membership Functions', fontsize=22, fontweight='bold', y=0.98)
         fig.set_facecolor('#f8f9fa')
         
-        # 设置颜色方案
+        # 璁剧疆棰滆壊鏂规
         colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6']
         
-        # 创建子图布局
+        # 鍒涘缓瀛愬浘甯冨眬
         gs = fig.add_gridspec(4, 2, hspace=0.4, wspace=0.3)
         
-        # 自定义可视化输入变量 - 剩余能量
+        # 鑷畾涔夊彲瑙嗗寲杈撳叆鍙橀噺 - 鍓╀綑鑳介噺
         ax1 = fig.add_subplot(gs[0, 0])
         x = np.arange(0, 1.01, 0.01)
         for i, term in enumerate(['low', 'medium', 'high']):
@@ -265,7 +265,7 @@ class FuzzyLogicSystem:
         ax1.spines['top'].set_visible(False)
         ax1.spines['right'].set_visible(False)
         
-        # 自定义可视化输入变量 - 节点中心性
+        # 鑷畾涔夊彲瑙嗗寲杈撳叆鍙橀噺 - 鑺傜偣涓績鎬?
         ax2 = fig.add_subplot(gs[0, 1])
         for i, term in enumerate(['low', 'medium', 'high']):
             ax2.plot(x, self.node_centrality[term].mf, 
@@ -279,7 +279,7 @@ class FuzzyLogicSystem:
         ax2.spines['top'].set_visible(False)
         ax2.spines['right'].set_visible(False)
         
-        # 自定义可视化输入变量 - 节点度
+        # 鑷畾涔夊彲瑙嗗寲杈撳叆鍙橀噺 - 鑺傜偣搴?
         ax3 = fig.add_subplot(gs[1, 0])
         x_degree = np.arange(0, 20.1, 0.1)
         for i, term in enumerate(['few', 'moderate', 'many']):
@@ -294,7 +294,7 @@ class FuzzyLogicSystem:
         ax3.spines['top'].set_visible(False)
         ax3.spines['right'].set_visible(False)
         
-        # 自定义可视化输入变量 - 到基站的距离
+        # 鑷畾涔夊彲瑙嗗寲杈撳叆鍙橀噺 - 鍒板熀绔欑殑璺濈
         ax4 = fig.add_subplot(gs[1, 1])
         x_dist = np.arange(0, 300.1, 0.1)
         for i, term in enumerate(['close', 'medium', 'far']):
@@ -309,7 +309,7 @@ class FuzzyLogicSystem:
         ax4.spines['top'].set_visible(False)
         ax4.spines['right'].set_visible(False)
         
-        # 自定义可视化输入变量 - 链路质量
+        # 鑷畾涔夊彲瑙嗗寲杈撳叆鍙橀噺 - 閾捐矾璐ㄩ噺
         ax5 = fig.add_subplot(gs[2, 0])
         for i, term in enumerate(['poor', 'average', 'good']):
             ax5.plot(x, self.link_quality[term].mf, 
@@ -323,7 +323,7 @@ class FuzzyLogicSystem:
         ax5.spines['top'].set_visible(False)
         ax5.spines['right'].set_visible(False)
         
-        # 自定义可视化输出变量 - 簇头机会
+        # 鑷畾涔夊彲瑙嗗寲杈撳嚭鍙橀噺 - 绨囧ご鏈轰細
         ax6 = fig.add_subplot(gs[2, 1])
         for i, term in enumerate(['very_low', 'low', 'medium', 'high', 'very_high']):
             ax6.plot(x, self.cluster_head_chance[term].mf, 
@@ -337,7 +337,7 @@ class FuzzyLogicSystem:
         ax6.spines['top'].set_visible(False)
         ax6.spines['right'].set_visible(False)
         
-        # 自定义可视化输出变量 - 下一跳适合度
+        # 鑷畾涔夊彲瑙嗗寲杈撳嚭鍙橀噺 - 涓嬩竴璺抽€夋嫨
         ax7 = fig.add_subplot(gs[3, 0])
         for i, term in enumerate(['unsuitable', 'less_suitable', 'suitable', 'very_suitable']):
             ax7.plot(x, self.next_hop_suitability[term].mf, 
@@ -351,7 +351,7 @@ class FuzzyLogicSystem:
         ax7.spines['top'].set_visible(False)
         ax7.spines['right'].set_visible(False)
         
-        # 添加说明文本
+        # 娣诲姞璇存槑鏂囨湰
         description = (
             "Fuzzy Logic System for WSN Decision Making\n"
             "This visualization shows the membership functions used in the fuzzy inference system.\n"
@@ -362,15 +362,15 @@ class FuzzyLogicSystem:
         
         plt.tight_layout()
         plt.subplots_adjust(top=0.94, bottom=0.08)
-        plt.savefig('fuzzy_membership_functions.png', dpi=300, bbox_inches='tight')
+        plt.savefig('fuzzy_membership_functions.svg', dpi=300, bbox_inches='tight')
         plt.show()
 
     def visualize_fuzzy_surface(self):
-        """可视化模糊控制表面"""
+        """鍙鍖栨ā绯婃帶鍒惰〃闈?""
         from mpl_toolkits.mplot3d import Axes3D
         import matplotlib.pyplot as plt
         
-        # 设置风格和字体
+        # 璁剧疆椋庢牸鍜屽瓧浣?
         plt.style.use('seaborn-v0_8-whitegrid')
         plt.rcParams.update({
             'font.size': 12,
@@ -382,36 +382,36 @@ class FuzzyLogicSystem:
             'figure.titlesize': 18
         })
         
-        # 创建一个大的图形，包含所有控制表面
+        # 鍒涘缓涓€涓ぇ鐨勫浘褰紝鍖呭惈鎵€鏈夋帶鍒惰〃闈?
         fig = plt.figure(figsize=(16, 10), dpi=100)
         fig.suptitle('Fuzzy Logic Control Surfaces', fontsize=22, fontweight='bold', y=0.98)
         fig.set_facecolor('#f8f9fa')
         
-        # 创建自定义的3D表面图 - 簇头选择（能量vs中心性）
+        # 鍒涘缓鑷畾涔夌殑3D琛ㄩ潰鍥?- 绨囧ご閫夋嫨锛堣兘閲弙s涓績鎬э級
         ax1 = fig.add_subplot(121, projection='3d')
         x_energy = np.arange(0, 1.01, 0.01)
         y_centrality = np.arange(0, 1.01, 0.01)
         X, Y = np.meshgrid(x_energy, y_centrality)
         Z = np.zeros_like(X)
         
-        # 计算每个点的输出值
+        # 璁＄畻姣忎釜鐐圭殑杈撳嚭鍊?
         for i in range(len(x_energy)):
             for j in range(len(y_centrality)):
                 self.ch_simulator.input['residual_energy'] = x_energy[i]
                 self.ch_simulator.input['node_centrality'] = y_centrality[j]
-                self.ch_simulator.input['node_degree'] = 10  # 固定值
-                self.ch_simulator.input['distance_to_bs'] = 150  # 固定值
+                self.ch_simulator.input['node_degree'] = 10  # 鍥哄畾鍊?
+                self.ch_simulator.input['distance_to_bs'] = 150  # 鍥哄畾鍊?
                 try:
                     self.ch_simulator.compute()
                     Z[j, i] = self.ch_simulator.output['cluster_head_chance']
                 except:
-                    Z[j, i] = 0.5  # 默认值
+                    Z[j, i] = 0.5  # 榛樿鍊?
         
-        # 绘制3D表面
+        # 缁樺埗3D琛ㄩ潰
         surf1 = ax1.plot_surface(X, Y, Z, cmap='viridis', alpha=0.8, 
                                linewidth=0, antialiased=True, edgecolor='none')
         
-        # 添加颜色条和标签
+        # 娣诲姞棰滆壊鏉″拰鏍囩
         cbar1 = fig.colorbar(surf1, ax=ax1, shrink=0.6, pad=0.1)
         cbar1.set_label('Cluster Head Chance')
         
@@ -419,32 +419,32 @@ class FuzzyLogicSystem:
         ax1.set_xlabel('Residual Energy')
         ax1.set_ylabel('Node Centrality')
         ax1.set_zlabel('CH Chance')
-        ax1.view_init(elev=30, azim=45)  # 设置视角
+        ax1.view_init(elev=30, azim=45)  # 璁剧疆瑙嗚
         
-        # 创建自定义的3D表面图 - 下一跳选择（能量vs链路质量）
+        # 鍒涘缓鑷畾涔夌殑3D琛ㄩ潰鍥?- 涓嬩竴璺抽€夋嫨锛堣兘閲弙s閾捐矾璐ㄩ噺锛?
         ax2 = fig.add_subplot(122, projection='3d')
         x_energy = np.arange(0, 1.01, 0.01)
         y_link = np.arange(0, 1.01, 0.01)
         X, Y = np.meshgrid(x_energy, y_link)
         Z = np.zeros_like(X)
         
-        # 计算每个点的输出值
+        # 璁＄畻姣忎釜鐐圭殑杈撳嚭鍊?
         for i in range(len(x_energy)):
             for j in range(len(y_link)):
                 self.nh_simulator.input['residual_energy'] = x_energy[i]
                 self.nh_simulator.input['link_quality'] = y_link[j]
-                self.nh_simulator.input['distance_to_bs'] = 150  # 固定值
+                self.nh_simulator.input['distance_to_bs'] = 150  # 鍥哄畾鍊?
                 try:
                     self.nh_simulator.compute()
                     Z[j, i] = self.nh_simulator.output['next_hop_suitability']
                 except:
-                    Z[j, i] = 0.5  # 默认值
+                    Z[j, i] = 0.5  # 榛樿鍊?
         
-        # 绘制3D表面
+        # 缁樺埗3D琛ㄩ潰
         surf2 = ax2.plot_surface(X, Y, Z, cmap='plasma', alpha=0.8, 
                                linewidth=0, antialiased=True, edgecolor='none')
         
-        # 添加颜色条和标签
+        # 娣诲姞棰滆壊鏉″拰鏍囩
         cbar2 = fig.colorbar(surf2, ax=ax2, shrink=0.6, pad=0.1)
         cbar2.set_label('Next Hop Suitability')
         
@@ -452,9 +452,9 @@ class FuzzyLogicSystem:
         ax2.set_xlabel('Residual Energy')
         ax2.set_ylabel('Link Quality')
         ax2.set_zlabel('NH Suitability')
-        ax2.view_init(elev=30, azim=45)  # 设置视角
+        ax2.view_init(elev=30, azim=45)  # 璁剧疆瑙嗚
         
-        # 添加说明文本
+        # 娣诲姞璇存槑鏂囨湰
         description = (
             "Fuzzy Logic Control Surfaces for WSN Decision Making\n"
             "This visualization shows the membership functions used in the fuzzy inference system.\n"
@@ -465,31 +465,32 @@ class FuzzyLogicSystem:
         
         plt.tight_layout()
         plt.subplots_adjust(top=0.92, bottom=0.1)
-        plt.savefig('fuzzy_control_surfaces.png', dpi=300, bbox_inches='tight')
+        plt.savefig('fuzzy_control_surfaces.svg', dpi=300, bbox_inches='tight')
         plt.show()
 
-# 测试代码
+# 娴嬭瘯浠ｇ爜
 if __name__ == "__main__":
-    # 创建模糊逻辑系统
+    # 鍒涘缓妯＄硦閫昏緫绯荤粺
     fls = FuzzyLogicSystem()
     
-    # 测试簇头选择
+    # 娴嬭瘯绨囧ご閫夋嫨
     ch_chance = fls.calculate_cluster_head_chance(
-        residual_energy=0.8,  # 高剩余能量
-        node_centrality=0.7,  # 高中心性
-        node_degree=12,       # 适中的邻居数量
-        distance_to_bs=80     # 较近的基站距离
+        residual_energy=0.8,  # 楂樺墿浣欒兘閲?
+        node_centrality=0.7,  # 楂樹腑蹇冩€?
+        node_degree=12,       # 閫備腑鐨勯偦灞呮暟閲?
+        distance_to_bs=80     # 杈冭繎鐨勫熀绔欒窛绂?
     )
-    print(f"簇头选择机会: {ch_chance:.4f}")
+    print(f"[FUZZY] CH selection likelihood: {ch_chance:.4f}")
     
-    # 测试下一跳选择
+    # 娴嬭瘯涓嬩竴璺抽€夋嫨
     nh_suitability = fls.calculate_next_hop_suitability(
-        residual_energy=0.6,  # 中等剩余能量
-        link_quality=0.8,     # 良好的链路质量
-        distance_to_bs=120    # 中等的基站距离
+        residual_energy=0.6,  # 涓瓑鍓╀綑鑳介噺
+        link_quality=0.8,     # 鑹ソ鐨勯摼璺川閲?
+        distance_to_bs=120    # 涓瓑鐨勫熀绔欒窛绂?
     )
-    print(f"下一跳适合度: {nh_suitability:.4f}")
+    print(f"[FUZZY] Next-hop suitability: {nh_suitability:.4f}")
     
-    # 可视化
+    # 鍙鍖?
     # fls.visualize_membership_functions()
     # fls.visualize_fuzzy_surface()
+

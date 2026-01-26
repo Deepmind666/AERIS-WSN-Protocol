@@ -31,6 +31,7 @@ class NodeStateManager:
         # 存储结构: self.node_states[node_id][neighbor_id] -> LinkQualityRecord
         self.node_states: dict[int, dict[int, LinkQualityRecord]] = {i: {} for i in range(num_nodes)}
         self.lqi_cache: dict[int, tuple[float, int]] = {}  # 缓存: {node_id: (lqi, last_calculated_round)}
+        self.round_stats: dict[int, dict] = {}
 
     def update_link_quality(self, sender_id: int, receiver_id: int, rssi: float, is_success: bool, current_round: int):
         """
@@ -106,3 +107,63 @@ class NodeStateManager:
             'min': min(all_lqi),
             'max': max(all_lqi)
         }
+
+    def record_round_stat(
+        self,
+        *,
+        current_round: int,
+        cas_mode: str,
+        cas_confidence: float | None = None,
+        cas_scores: dict[str, float] | None = None,
+        cas_infer_us: float | None = None,
+    ) -> None:
+        """记录CAS相关的轮级统计，用于后续聚合分析。"""
+        stats = self.round_stats.setdefault(
+            current_round,
+            {
+                'cas_counts': {},
+                'confidence': [],
+                'infer_us': [],
+                'score_sums': {},
+                'score_counts': {},
+            },
+        )
+
+        counts = stats['cas_counts']
+        counts[cas_mode] = counts.get(cas_mode, 0) + 1
+
+        if cas_confidence is not None:
+            stats['confidence'].append(float(cas_confidence))
+
+        if cas_infer_us is not None:
+            stats['infer_us'].append(float(cas_infer_us))
+
+        if cas_scores:
+            score_sums = stats['score_sums']
+            score_counts = stats['score_counts']
+            for mode, value in cas_scores.items():
+                score_sums[mode] = score_sums.get(mode, 0.0) + float(value)
+                score_counts[mode] = score_counts.get(mode, 0) + 1
+
+    def fetch_round_summary(self, current_round: int) -> dict | None:
+        """提取指定轮次的CAS统计汇总并返回平均指标。"""
+        stats = self.round_stats.pop(current_round, None)
+        if not stats:
+            return None
+
+        conf_list = stats['confidence']
+        infer_list = stats['infer_us']
+        score_sums = stats['score_sums']
+        score_counts = stats['score_counts']
+
+        summary = {
+            'cas_counts': stats['cas_counts'],
+            'cas_confidence_mean': (sum(conf_list) / len(conf_list)) if conf_list else None,
+            'cas_infer_us_mean': (sum(infer_list) / len(infer_list)) if infer_list else None,
+        }
+        if score_sums:
+            summary['cas_scores_mean'] = {
+                mode: (score_sums[mode] / score_counts[mode]) if score_counts.get(mode, 0) else None
+                for mode in score_sums
+            }
+        return summary

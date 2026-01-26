@@ -68,7 +68,7 @@ class SkeletonSelector:
         k = max(1, min(self.cfg.k, len(scores)))
         return [cid for _, cid in scores[:k]]
 
-    def assign_to_backbone(self, chs: List, backbone_ids: List[int], bs_pos: Tuple[float,float], area_diag: float) -> Dict[int, int]:
+    def assign_to_backbone(self, chs: List, backbone_ids: List[int], bs_positions: List[Tuple[float,float]], area_diag: float) -> Dict[int, int]:
         """Return mapping ch_id -> backbone_id for CHs allowed to connect under thresholds.
         Only CHs beyond q_far distance quantile to BS and within d_threshold to backbone are assigned.
         """
@@ -78,7 +78,12 @@ class SkeletonSelector:
         bb_map = {ch.id: ch for ch in chs if ch.id in backbone_ids}
         d_th = self.cfg.d_threshold_ratio * area_diag
         # distances to BS
-        d_bs = {ch.id: math.hypot(ch.x - bs_pos[0], ch.y - bs_pos[1]) for ch in chs}
+        if not bs_positions:
+            bs_positions = [(0.0, 0.0)]
+        d_bs = {
+            ch.id: min(math.hypot(ch.x - bx, ch.y - by) for bx, by in bs_positions)
+            for ch in chs
+        }
         # far threshold by quantile
         distances = sorted(d_bs.values())
         q_idx = int(max(0, min(len(distances)-1, round(self.cfg.q_far*(len(distances)-1)))))
@@ -93,4 +98,3 @@ class SkeletonSelector:
             if d <= d_th:
                 assign[ch.id] = bb.id
         return assign
-

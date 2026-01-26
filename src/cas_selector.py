@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Context-Adaptive Switching (CAS) selector for AETHER
@@ -13,7 +13,7 @@ Key design choices:
 - Exponential smoothing for temporal stability (EMA)
 - Enables online adaptation without any heavy training
 
-Author: Enhanced EEHFR Research Team
+Author: AERIS Research Team
 Date: 2025-08-23
 """
 
@@ -190,4 +190,5 @@ class CASSelector:
             norm_scores = {m: (v - min_s) / (max_s - min_s) for m, v in scores.items()}
 
         return chosen, confidence, norm_scores
+
 
