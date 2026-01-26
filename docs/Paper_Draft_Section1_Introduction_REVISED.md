@@ -1,7 +1,7 @@
 # Section 1: Introduction (修订版 - 混合策略A+C)
 
-**修订日期**: 2025-10-19
-**修订原因**: 调整PDR表述，强调轻量级计算优势
+**修订日期**: 2026-01-26
+**修订原因**: 调整PDR表述，强调轻量级计算优势，诚实定位能量效率
 **策略**: 诚实展示数据 + 突出vs ML/RL的独特价值
 **字数**: ~2800词
 
@@ -186,7 +186,7 @@ We validate AERIS through comprehensive experiments on the **Intel Berkeley Rese
 
 **Interpretation**: AERIS achieves **moderate PDR** (42–54%) across diverse topologies, which is **competitive with HEED** in structured environments but **lower than PEGASIS** (98%) due to chain-based transmission's inherently high reliability. However, PEGASIS incurs **high latency** (chain traversal) and **poor scalability** (O(N²) chain construction), whereas AERIS provides **real-time decisions** (<10ms) suitable for time-critical applications.
 
-**Energy Efficiency**: AERIS maintains competitive energy consumption (within 1% of HEED baseline) while providing environment-adaptive capabilities.
+**Energy Efficiency (Honest Positioning 2026-01-26)**: AERIS achieves **energy consumption comparable to PEGASIS** (7.9% improvement, p<0.002), not significantly better. The key contribution is achieving **high reliability (99.9% PDR at 100 nodes) with similar energy cost** to chain-based protocols. This represents a favorable reliability-energy trade-off rather than pure energy savings.
 
 **Statistical Significance**: All reported differences are statistically significant at α = 0.05 after Holm–Bonferroni correction, with bootstrap 95% confidence intervals excluding zero.
 

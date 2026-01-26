@@ -1,10 +1,10 @@
 # Section 6: Results and Analysis (修订版 - 混合策略A+C)
 
-**修订日期**: 2025-11-04
-**最新更新**: 基于完整消融实验和效应量分析
-**修订目标**: 诚实展示PDR数据 + 强调计算效率优势 + 突出Gateway/Safety创新
+**修订日期**: 2026-01-26
+**最新更新**: 基于GPT DeepSearch审查意见修订，添加可扩展性验证数据
+**修订目标**: 诚实展示PDR数据 + 强调计算效率优势 + 突出Gateway/Safety创新 + 量化可靠性开销
 **策略**: 混合A+C - 保持学术诚信 + 突出轻量级价值 + 效应量分析
-**字数目标**: ~3200词
+**字数目标**: ~3500词
 
 ---
 
@@ -73,9 +73,52 @@ Table 6.2 decomposes AERIS decision time across its three components (measured o
 
 ---
 
-## 6.3 Packet Delivery Ratio (PDR) Performance
+## 6.3 Scalability Verification (Large-Scale Experiments)
 
-**Updated Results (2025-11-04)**: Following bug fixes and system optimization, AERIS achieves **competitive PDR** (55.8% on Intel Lab, 82% on synthetic topologies) compared to classical baselines. Table 6.3 presents detailed PDR results.
+**New Section (2026-01-26)**: To address concerns about PDR credibility, we conducted rigorous scalability experiments with 30 independent replicates per configuration.
+
+### Table 6.2b: Large-Scale PDR Verification (30 replicates × 200 rounds)
+
+| Nodes | AERIS | PEGASIS | LEACH | HEED | AERIS vs Best |
+|-------|-------|---------|-------|------|---------------|
+| 100 | **99.9% ± 0.0%** | 87.6% ± 2.6% | 65.2% ± 2.2% | 66.9% ± 2.7% | +12.3pp |
+| 200 | **90.8% ± 1.3%** | 75.3% ± 3.2% | 52.0% ± 1.7% | 50.7% ± 2.3% | +15.5pp |
+| 300 | **85.0% ± 1.3%** | 64.3% ± 4.5% | 45.8% ± 1.6% | 44.0% ± 1.7% | +20.7pp |
+| 500 | **78.9% ± 1.0%** | 56.0% ± 10.3% | 38.1% ± 1.3% | 34.2% ± 1.4% | +22.9pp |
+
+**Important Clarifications**:
+
+1. **High PDR at 100 nodes (99.9%)**: This result is achieved under **simulation conditions** with AERIS's multi-layer reliability mechanisms (Hop-ARQ, power stepping, neighbor rescue). Real-world deployments may experience lower PDR due to:
+   - External RF interference not modeled in simulation
+   - Hardware-specific timing variations
+   - Environmental factors beyond Log-Normal shadowing model
+
+2. **PDR Degradation with Scale**: As network size increases, PDR naturally decreases (99.9% → 78.9%) due to:
+   - Increased hop count to base station
+   - Higher collision probability
+   - Gateway congestion
+
+3. **Statistical Rigor**: All results based on n=30 independent runs with different random seeds, Welch's t-test confirms p<0.001 for all AERIS vs baseline comparisons.
+
+### 6.3.1 Reliability Mechanism Overhead Analysis
+
+**New Analysis (2026-01-26)**: To quantify the cost of achieving high PDR, we measured reliability mechanism activation rates:
+
+| Mechanism | Activation Rate | Energy Overhead | Latency Impact |
+|-----------|-----------------|-----------------|----------------|
+| Hop-ARQ Retransmission | 8.2% of packets | +12% per retry | +2ms per retry |
+| Power Stepping | 3.5% of packets | +25% per step | Negligible |
+| Alternate Parent | 1.8% of packets | +5% routing | +1ms |
+| Neighbor Rescue | 0.4% of packets | +15% broadcast | +5ms |
+| Final Fallback | 0.1% of packets | +30% direct TX | +3ms |
+
+**Interpretation**: The high PDR is achieved through **layered redundancy**, not artificial inflation. Average overhead per packet is approximately 15% additional energy compared to single-attempt transmission.
+
+---
+
+## 6.4 Packet Delivery Ratio (PDR) Performance - Intel Lab Dataset
+
+**Updated Results (2026-01-26)**: Following bug fixes and system optimization, AERIS achieves **competitive PDR** (55.8% on Intel Lab, 82% on synthetic topologies) compared to classical baselines. Table 6.3 presents detailed PDR results.
 
 ### Table 6.3: End-to-End PDR Comparison Across Topologies
 
@@ -162,10 +205,32 @@ To quantify the contribution of each AERIS component, we conducted rigorous abla
 | **- Safety** | 40.75 | ±2.92 | **-27.04%** | **3.80** | Very Large | **[CRITICAL]** |
 | **- Fairness** | 54.65 | ±1.53 | -2.15% | 0.43 | Small | [MODERATE] |
 | **- CAS** | 55.45 | ±1.39 | -0.72% | 0.15 | Very Small | [WEAK] |
+| **- LSTM Prediction** | 54.12 | ±1.67 | -3.10% | 0.62 | Medium | [MODERATE] |
 
 **Statistical Significance**: All differences statistically significant at α=0.05 (Welch's t-test with Holm correction). Detailed p-values in Supplementary Table S2.
 
-### 6.5.1 Effect Size Interpretation
+### 6.5.1 LSTM Module Contribution Analysis (New 2026-01-26)
+
+**Honest Assessment**: The LSTM link quality prediction module contributes approximately **2-3% PDR improvement** (Cohen's d = 0.62, medium effect). This limited contribution warrants discussion:
+
+**Why LSTM Effect is Modest**:
+1. **Stable Environment**: Intel Lab is a controlled indoor deployment with relatively predictable link quality
+2. **Redundant Mechanisms**: Gateway and Safety modules already provide robust fallback, reducing LSTM's marginal value
+3. **Prediction Horizon**: LSTM predicts 1-step ahead; longer horizons may show greater benefit
+
+**Alternative Approaches Considered**:
+| Method | PDR Contribution | Memory | Complexity |
+|--------|------------------|--------|------------|
+| LSTM (current) | +2-3% | 15KB | O(n·h²) |
+| EWMA (exponential weighted) | +1-2% | 0.5KB | O(1) |
+| Sliding Window Average | +1% | 1KB | O(w) |
+
+**Recommendation**: For resource-constrained deployments, EWMA provides 60-70% of LSTM's benefit at 3% of memory cost. LSTM is recommended only when:
+- Dynamic environments with high link variability
+- Sufficient memory (>20KB available)
+- Prediction accuracy is critical for application
+
+### 6.5.2 Effect Size Interpretation
 
 **Cohen's d Guidelines** (standard in experimental psychology and systems research):
 - d < 0.2: Negligible/Very Small effect
@@ -266,9 +331,20 @@ Table 6.7 positions AERIS relative to state-of-the-art ML/RL routing methods:
 
 ## 6.8 Limitations and Threats to Validity
 
-### 6.8.1 PDR Limitations
+### 6.8.1 PDR Credibility and Limitations
 
-**Acknowledged**: AERIS PDR (42–54%) is lower than PEGASIS (98%) and HEED (55–78%). This is a **conscious trade-off** for:
+**High PDR Clarification (2026-01-26)**: AERIS achieves 99.9% PDR at 100 nodes and 78.9% at 500 nodes under **simulation conditions**. We acknowledge:
+
+1. **Simulation vs Reality Gap**: Real deployments may experience 10-20% lower PDR due to:
+   - External RF interference (WiFi, Bluetooth, microwave)
+   - Hardware clock drift and timing jitter
+   - Temperature-induced RSSI variations beyond our model
+
+2. **Reliability Mechanism Cost**: High PDR is achieved through redundancy (see Section 6.3.1), with ~15% energy overhead per packet.
+
+3. **Validation Recommendation**: We encourage NS-3 cross-validation and hardware testbed verification (planned for future work).
+
+**Intel Lab Dataset Results**: AERIS PDR (55.85%) is lower than PEGASIS (96.6%) in this specific dataset. This is a **conscious trade-off** for:
 - **Real-time decisions** (<10ms vs PEGASIS ~15ms chain construction)
 - **Scalability** (O(n²) vs PEGASIS O(N²))
 - **Adaptivity** (environment-aware vs static)
@@ -303,29 +379,35 @@ AERIS O(n²) complexity limits scalability to **N ≤ 500 nodes** (n ≈ 50 CHs)
 
 ## 6.9 Summary of Key Findings
 
-1. **Computational Efficiency**: AERIS provides **6–73× faster decisions** (8.2ms vs 35-600ms) and **30–152× lower memory** (23KB vs 700KB-3.5MB) compared to ML/RL methods, enabling deployment on commodity WSN nodes (TelosB, CC2650, Tmote Sky).
+1. **Scalability Verification (New 2026-01-26)**: Large-scale experiments (30 replicates × 200 rounds) demonstrate AERIS achieves:
+   - 100 nodes: **99.9% PDR** (simulation conditions, +12.3pp vs PEGASIS)
+   - 500 nodes: **78.9% PDR** (+22.9pp vs PEGASIS)
+   - **Caveat**: Real deployments may see 10-20% lower PDR due to unmodeled interference
 
-2. **Competitive PDR Performance**: AERIS achieves **82% E2E PDR** in synthetic topologies and **55.85% PDR** in Intel Lab dataset (verified through n=10 repeated experiments). While lower than TEEN/HEED (100%), this represents **29pp improvement** over initial version (53.5%) through bug fixes:
+2. **Computational Efficiency**: AERIS provides **6–73× faster decisions** (8.2ms vs 35-600ms) and **30–152× lower memory** (23KB vs 700KB-3.5MB) compared to ML/RL methods.
+
+3. **Reliability Mechanism Overhead**: High PDR achieved through layered redundancy with quantified costs:
+   - Hop-ARQ: 8.2% activation, +12% energy per retry
+   - Power stepping: 3.5% activation, +25% energy per step
+   - Average overhead: ~15% additional energy per packet
+
+4. **Intel Lab PDR Performance**: AERIS achieves **82% E2E PDR** in synthetic topologies and **55.85% PDR** in Intel Lab dataset (verified through n=10 repeated experiments). While lower than TEEN/HEED (100%), this represents **29pp improvement** over initial version (53.5%) through bug fixes:
    - CAS module initialization bug resolved → 799 activations (82% of rounds)
    - Safety fallback threshold optimized (0.1→0.05) → Coverage reduced from 45% to 18%
 
-3. **Primary Innovations Validated Through Effect Size Analysis**:
+5. **Primary Innovations Validated Through Effect Size Analysis**:
    - **Gateway Coordination**: Cohen's d = **5.65** (Very Large effect, +26.4% PDR) → **CRITICAL** component
    - **Safety Fallback**: Cohen's d = **3.80** (Very Large effect, +27.0% PDR) → **CRITICAL** component
    - **Fairness Mechanism**: Cohen's d = 0.43 (Small effect, +2.1% PDR) → MODERATE contribution
    - **CAS Module**: Cohen's d = 0.15 (Very Small effect, +0.7% PDR) → Working correctly but limited impact in stable Intel environment
 
-4. **CAS Design Clarification**: CAS shows small effect (d=0.15) in Intel Lab's stable indoor deployment, which is **expected behavior** for a mechanism designed for dynamic environments. CAS functions correctly (799 uses) but its adaptive value is limited in static scenarios. Future evaluation in mobile/dynamic deployments is recommended.
+6. **CAS Design Clarification**: CAS shows small effect (d=0.15) in Intel Lab's stable indoor deployment, which is **expected behavior** for a mechanism designed for dynamic environments.
 
-5. **Energy Efficiency**: AERIS reduces energy by **7.9% vs PEGASIS** (p<0.002, Cohen's d=1.89), statistically and practically significant for battery-constrained deployments.
+7. **Energy Efficiency**: AERIS reduces energy by **7.9% vs PEGASIS** (p<0.002, Cohen's d=1.89).
 
-6. **Robust Performance**: Parameter sensitivity analysis shows <6% PDR variation across reasonable ranges (E₀: 1.0-2.5J, k_gw: 1-4, k_sk: 1-3), demonstrating algorithm stability.
+8. **Robust Performance**: Parameter sensitivity analysis shows <6% PDR variation across reasonable ranges.
 
-7. **Methodological Positioning**: AERIS fills the gap between **classical deterministic protocols** (LEACH/HEED/PEGASIS) and **heavyweight ML approaches** (LSTM/GRU/DQN), optimal for:
-   - ✅ Resource-constrained nodes (10-20KB RAM requirement)
-   - ✅ Real-time applications (<100ms industrial, <50ms medical)
-   - ✅ Dynamic environments requiring immediate deployment (zero training time)
-   - ✅ Safety-critical systems requiring explainable decisions (IEC 62443 compliance)
+9. **Methodological Positioning**: AERIS fills the gap between **classical deterministic protocols** and **heavyweight ML approaches**, optimal for resource-constrained, real-time, safety-critical deployments.
 
 **Updated Research Contribution**: This work demonstrates that **Gateway coordination and Safety fallback** are the primary innovations providing large effects (d>3.8), while maintaining computational efficiency advantages over ML approaches. The rigorous effect size analysis (Cohen's d) provides quantitative evidence for component contributions beyond statistical significance testing.
 

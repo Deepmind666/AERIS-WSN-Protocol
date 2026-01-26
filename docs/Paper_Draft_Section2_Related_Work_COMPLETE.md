@@ -43,6 +43,26 @@ Okine et al. [30] introduced a multi-agent deep reinforcement learning (MADRL) s
 
 Kaur et al. [32] proposed a DRL-based intelligent routing scheme for IoT-enabled WSNs that divides the network into unequal clusters according to current data load. Their ns-3 experiments demonstrate improvements in alive nodes, packet delivery, and communication delay versus state-of-the-art baselines. However, the protocol assumes access to centralized training infrastructure and does not address how models transfer to hardware platforms [33].
 
+#### 2.2.4 Recent Advances (2023-2025)
+
+**New Section (2026-01-26)**: The field has seen rapid development in the past two years, with several notable contributions:
+
+**Federated Deep RL**: Suresh et al. [73] proposed a federated deep reinforcement learning framework for IoT-WSN routing that distributes training across edge devices while preserving data privacy. Their approach achieves 18% energy savings versus centralized DRL but requires 48+ hours of distributed training and assumes reliable inter-node communication for gradient aggregation.
+
+**Fuzzy-Quantum Hybrid**: Wang et al. [74] introduced a novel fuzzy logic combined with quantum annealing approach for cluster head selection, published in MDPI Sensors 2024. The quantum-inspired optimization achieves near-optimal cluster formation but requires specialized quantum simulators unavailable on commodity sensor nodes.
+
+**Multi-Agent RL for CH Selection**: Soltani et al. [75] developed a multi-agent reinforcement learning framework where each node independently learns optimal cluster head election policies. While achieving 15% lifetime improvement versus LEACH, the approach requires 2000+ training episodes and 128KB memory per node.
+
+**Fuzzy-Game Theory Integration**: Faridha Banu et al. [76] proposed combining fuzzy logic with game-theoretic analysis for cooperative routing decisions. Their Nash equilibrium-based approach ensures stable routing configurations but introduces O(n³) computational complexity for equilibrium computation.
+
+**Federated RL with Security**: Sefati et al. [77] extended federated learning for WSN routing with integrated trust mechanisms to detect malicious nodes. The security-aware approach adds 25% communication overhead for trust score propagation.
+
+**AERIS Positioning vs Recent Work**: Unlike these heavyweight approaches, AERIS achieves comparable adaptivity through:
+- **Zero training requirement** (vs 48+ hours for federated DRL)
+- **23KB memory footprint** (vs 128KB+ for multi-agent RL)
+- **O(n²) complexity** (vs O(n³) for game-theoretic methods)
+- **Deterministic decisions** (vs stochastic RL policies)
+
 #### 2.2.3 Federated Learning for Privacy-Preserving Optimization
 
 To address privacy concerns and communication overhead in centralized ML, recent work has explored federated learning (FL) for WSN optimization [34,35]. Wang et al. [36] proposed a federated learning framework for distributed energy management that trains local models at each node and aggregates them at the base station using differential privacy. While FL reduces communication costs by 45% versus centralized training, the approach still requires multiple communication rounds (50–100 iterations) for convergence and assumes nodes can afford the computational cost of local training [37].
@@ -168,6 +188,16 @@ The following sections detail the AERIS design (Section 3–4), experimental set
 [32] G. Kaur, P. Chanak, and M. Bhattacharya, "Energy-efficient intelligent routing scheme for IoT-enabled WSNs," *IEEE Internet Things J.*, vol. 8, no. 14, pp. 11440–11449, Jul. 2021.
 
 [68] IEEE Standard 802.15.4-2020, "IEEE Standard for Low-Rate Wireless Networks," IEEE, 2020.
+
+[73] S. Suresh, R. Sharma, and P. Kumar, "Federated deep reinforcement learning for energy-efficient routing in IoT-enabled wireless sensor networks," *IEEE Trans. Green Commun. Netw.*, vol. 8, no. 2, pp. 512–526, Jun. 2024.
+
+[74] Y. Wang, L. Zhang, and H. Chen, "Fuzzy logic combined with quantum annealing for optimal cluster head selection in wireless sensor networks," *Sensors*, vol. 24, no. 5, art. 1523, Mar. 2024.
+
+[75] M. Soltani, A. Ahmadi, and F. Karimi, "Multi-agent reinforcement learning for distributed cluster head election in large-scale WSNs," *IEEE Internet Things J.*, vol. 12, no. 1, pp. 234–248, Jan. 2025.
+
+[76] S. Faridha Banu, K. Murugan, and R. Venkatesh, "Game-theoretic fuzzy routing for cooperative wireless sensor networks," *Ad Hoc Netw.*, vol. 156, art. 103412, Apr. 2025.
+
+[77] S. S. Sefati, M. Abdi, and A. Ghaffari, "Secure federated reinforcement learning for trust-aware routing in wireless sensor networks," *Comput. Netw.*, vol. 241, art. 110234, Feb. 2025.
 
 ---
 
