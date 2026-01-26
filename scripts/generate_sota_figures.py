@@ -20,31 +20,32 @@ from scipy import stats
 # Publication style
 plt.rcParams.update({
     'font.family': 'Arial',
-    'font.size': 9,
-    'axes.titlesize': 10,
-    'axes.labelsize': 9,
-    'xtick.labelsize': 8,
-    'ytick.labelsize': 8,
-    'legend.fontsize': 8,
+    'font.size': 10,
+    'axes.titlesize': 11,
+    'axes.labelsize': 10,
+    'xtick.labelsize': 9,
+    'ytick.labelsize': 9,
+    'legend.fontsize': 8.5,
     'figure.dpi': 300,
     'savefig.dpi': 300,
     'axes.linewidth': 0.8,
     'axes.spines.top': False,
     'axes.spines.right': False,
     'axes.grid': True,
-    'grid.alpha': 0.3,
+    'grid.alpha': 0.22,
     'grid.linewidth': 0.5,
+    'grid.color': '#CCCCCC',
 })
 
-# Color palette (colorblind-friendly)
+# Color palette (muted, journal-friendly; AERIS emphasized)
 COLORS = {
-    'LEACH': '#4477AA',     # Blue
-    'HEED': '#228833',      # Green
-    'PEGASIS': '#CCBB44',   # Yellow
-    'SEP': '#AA3377',       # Purple
-    'TEEN': '#66CCEE',      # Cyan
-    'AERIS-E': '#44AA99',   # Teal
-    'AERIS-R': '#EE6677',   # Red (highlight)
+    'LEACH': '#4C78A8',     # muted blue
+    'HEED': '#72B7B2',      # muted teal
+    'PEGASIS': '#F1CE63',   # muted gold
+    'SEP': '#B279A2',       # muted purple
+    'TEEN': '#9E9E9E',      # neutral gray
+    'AERIS-E': '#1B9E77',   # deep teal
+    'AERIS-R': '#E45756',   # soft red
 }
 MARKERS = {
     'LEACH': 'o',
@@ -94,15 +95,15 @@ def create_sota_figure():
     data = load_data()
 
     # Create 2x3 grid (extra space for titles/legends and table layout)
-    fig = plt.figure(figsize=(19.2, 11.2))
+    fig = plt.figure(figsize=(21.6, 12.0))
     gs = GridSpec(
         2,
         3,
         figure=fig,
         hspace=0.62,
-        wspace=0.32,
-        width_ratios=[1.0, 1.05, 2.8],
-        height_ratios=[1.0, 1.18],
+        wspace=0.36,
+        width_ratios=[1.0, 1.10, 3.2],
+        height_ratios=[1.0, 1.20],
     )
 
     protocols = ['LEACH', 'HEED', 'PEGASIS', 'SEP', 'TEEN', 'AERIS-E', 'AERIS-R']
@@ -127,17 +128,41 @@ def create_sota_figure():
     ax1.set_xticks(range(len(protocols)))
     ax1.set_xticklabels(protocols, rotation=25, ha='right')
     ax1.set_ylabel('PDR (%)')
-    ymin = max(0, min(means) - 5)
-    ymax = min(100, max(means) + 2)
+    ymin = max(0, min(means) - 6)
+    ymax = max(100, max(means) + 3)
     ax1.set_ylim(ymin, ymax)
-    ax1.set_title(f'(a) Protocol PDR Comparison\n(n={run_count}, 95% CI)', fontweight='bold')
+    ax1.set_title(f'(a) Protocol PDR Comparison\n(Mean ± 95% CI, n={run_count})', fontweight='bold')
 
-    # Add significance markers
-    aeris_r_mean = means[-1]
-    for i, (m, name) in enumerate(zip(means[:-2], protocols[:-2])):
-        diff = aeris_r_mean - m
-        marker = '***' if abs(diff) > 2 else '**' if abs(diff) > 1 else '*'
-        ax1.text(i, m + cis[i] + 1.5, marker, ha='center', fontsize=8)
+    def _p_to_marker(p_val):
+        if p_val < 0.001:
+            return '***'
+        if p_val < 0.01:
+            return '**'
+        if p_val < 0.05:
+            return '*'
+        return 'ns'
+
+    # AERIS-E vs AERIS-R significance (if any)
+    aeris_e_vals = np.array(data['protocols']['AERIS-E']['pdr_values']) * 100
+    aeris_r_vals = np.array(data['protocols']['AERIS-R']['pdr_values']) * 100
+    # Add significance markers (Welch t-test vs AERIS-R; AERIS-R is reference)
+    for i, name in enumerate(protocols):
+        if name == 'AERIS-R':
+            marker = 'ref'
+            color = '#555555'
+        elif name == 'AERIS-E':
+            if len(aeris_e_vals) > 1 and len(aeris_r_vals) > 1:
+                _, p_er = stats.ttest_ind(aeris_e_vals, aeris_r_vals, equal_var=False)
+                marker = _p_to_marker(p_er)
+            else:
+                marker = 'ns'
+            color = '#333333'
+        else:
+            p_key = f'AERIS-R_vs_{name}'
+            p_val = data['statistics'].get(p_key, {}).get('p_value', 1.0)
+            marker = _p_to_marker(p_val)
+            color = '#333333'
+        ax1.text(i, means[i] + cis[i] + 1.6, marker, ha='center', fontsize=8, color=color)
 
     # ========== Panel (b): Box Plot Distribution ==========
     ax2 = fig.add_subplot(gs[0, 1])
@@ -168,74 +193,60 @@ def create_sota_figure():
     comparisons = [p for p in ['LEACH', 'HEED', 'PEGASIS', 'SEP', 'TEEN'] if p in data['protocols']]
     profiles = ['AERIS-E', 'AERIS-R']
 
-    rows = []
-    diffs = []
-    ci_lows = []
-    ci_highs = []
-    row_colors = []
-    row_markers = []
+    base_y = np.arange(len(comparisons))
+    offsets = {'AERIS-E': -0.18, 'AERIS-R': 0.18}
+    all_diffs = []
 
-    for baseline in comparisons:
-        base_vals = np.array(data['protocols'][baseline]['pdr_values'])
-        for profile in profiles:
+    for profile in profiles:
+        for idx, baseline in enumerate(comparisons):
+            base_vals = np.array(data['protocols'][baseline]['pdr_values'])
             aeris_vals = np.array(data['protocols'][profile]['pdr_values'])
             diff, ci_low, ci_high = bootstrap_mean_diff(aeris_vals, base_vals)
             diff_pp = diff * 100
             ci_low_pp = ci_low * 100
             ci_high_pp = ci_high * 100
 
-            rows.append(f"{baseline} ({profile.split('-')[-1]})")
-            diffs.append(diff_pp)
-            ci_lows.append(ci_low_pp)
-            ci_highs.append(ci_high_pp)
-            row_colors.append(COLORS[profile])
-            row_markers.append(MARKERS[profile])
-
-    y_pos = np.arange(len(rows))
-    all_diffs = []
-    for i, (diff_pp, lo, hi, color, marker) in enumerate(
-        zip(diffs, ci_lows, ci_highs, row_colors, row_markers)
-    ):
-        all_diffs.extend([lo, hi])
-        ax3.errorbar(
-            diff_pp,
-            y_pos[i],
-            xerr=[[diff_pp - lo], [hi - diff_pp]],
-            fmt=marker,
-            color=color,
-            markersize=7.5,
-            capsize=3,
-            capthick=1.2,
-            linewidth=1.2,
-            zorder=3,
-        )
+            all_diffs.extend([ci_low_pp, ci_high_pp])
+            ax3.errorbar(
+                diff_pp,
+                base_y[idx] + offsets[profile],
+                xerr=[[diff_pp - ci_low_pp], [ci_high_pp - diff_pp]],
+                fmt=MARKERS[profile],
+                color=COLORS[profile],
+                markersize=7.8,
+                capsize=3,
+                capthick=1.1,
+                linewidth=1.1,
+                zorder=3,
+            )
 
     ax3.axvline(0, color='#666666', linestyle='--', linewidth=1.0)
-    ax3.set_yticks(y_pos)
-    ax3.set_yticklabels(rows)
-    ax3.set_xlabel("ΔPDR (AERIS profile − protocol, percentage points)")
+    ax3.set_yticks(base_y)
+    ax3.set_yticklabels(comparisons)
+    ax3.set_xlabel("ΔPDR (AERIS profile − protocol, pp; positive favors AERIS)")
     ax3.set_title("(c) AERIS Profiles vs Protocols\n(Mean ΔPDR ± 95% CI)", fontweight='bold')
     x_min = min(all_diffs) - 1.5
     x_max = max(all_diffs) + 1.5
-    ax3.set_xlim(x_min, x_max)
+    x_pad = max(8.0, 0.25 * (x_max - x_min))
+    ax3.set_xlim(x_min, x_max + x_pad)
 
     handles = [
         plt.Line2D([0], [0], marker=MARKERS['AERIS-E'], color='w',
                    markerfacecolor=COLORS['AERIS-E'], markeredgecolor=COLORS['AERIS-E'],
-                   markersize=7.5, linestyle='None', label='AERIS-E'),
+                   markersize=7.2, linestyle='None', label='AERIS-E'),
         plt.Line2D([0], [0], marker=MARKERS['AERIS-R'], color='w',
                    markerfacecolor=COLORS['AERIS-R'], markeredgecolor=COLORS['AERIS-R'],
-                   markersize=7.5, linestyle='None', label='AERIS-R'),
+                   markersize=7.2, linestyle='None', label='AERIS-R'),
     ]
-    ax3.legend(handles=handles, loc='upper right', frameon=True, fontsize=7, edgecolor='black')
-    ax3.text(
-        x_max,
-        -0.7,
-        "Positive favors AERIS",
-        ha='right',
-        va='center',
-        fontsize=7,
-        color='#555555',
+    ax3.legend(
+        handles=handles,
+        loc='lower right',
+        bbox_to_anchor=(0.985, 0.02),
+        borderaxespad=0.0,
+        frameon=True,
+        fancybox=False,
+        edgecolor='#CCCCCC',
+        fontsize=8,
     )
 
     # ========== Panel (d): Survival Curves / End-of-Run Survival ==========
@@ -277,12 +288,12 @@ def create_sota_figure():
         ax4.set_xlabel('Round')
         ax4.set_ylabel('Alive Nodes')
         ax4.set_title('(d) Network Lifetime\n(Survival Curve, 200 rounds)', fontweight='bold')
-        ax4.legend(loc='lower left', frameon=True, fancybox=False, edgecolor='black')
+        ax4.legend(loc='lower left', frameon=True, fancybox=False, edgecolor='black', fontsize=7)
 
         max_nodes = max(max(survival_curves[p]) for p in protocols)
         ax4.set_ylim(0, max_nodes * 1.1)
     else:
-        # Trade-off scatter with mean ± 95% CI overlay (avoid overlapping labels)
+        # Trade-off scatter with runs + mean ± 95% CI overlay (avoid overlapping labels)
         all_pdr = []
         all_energy = []
         for name in protocols:
@@ -291,16 +302,20 @@ def create_sota_figure():
             pdr_mean, pdr_ci = mean_ci(pdr_vals)
             e_mean, e_ci = mean_ci(energy_vals)
 
-            # Per-run scatter for transparency
+            # Light jitter for visibility (does not change statistics)
+            rng = np.random.default_rng(123)
+            jitter_e = rng.normal(0.0, 0.04, size=len(energy_vals))
+            jitter_p = rng.normal(0.0, 0.12, size=len(pdr_vals))
             ax4.scatter(
-                energy_vals,
-                pdr_vals,
-                s=18,
+                energy_vals + jitter_e,
+                pdr_vals + jitter_p,
+                s=14,
                 color=COLORS[name],
-                alpha=0.45,
+                alpha=0.35,
                 edgecolors='none',
                 zorder=2,
             )
+
             # Mean ± CI overlay
             ax4.errorbar(
                 e_mean,
@@ -326,8 +341,9 @@ def create_sota_figure():
             ax4.set_ylim(max(0, min(all_pdr) - 2), min(100, max(all_pdr) + 2))
             ax4.set_xlim(min(all_energy) - 0.6, max(all_energy) + 0.6)
         ax4.set_title(f'(d) PDR–Energy Trade-off\n(Runs + Mean ± 95% CI, n={run_count})', fontweight='bold')
-        ax4.legend(loc='lower left', ncol=2,
-                   frameon=True, fancybox=False, edgecolor='black', fontsize=7)
+        ax4.legend(loc='upper left', ncol=2,
+                   frameon=True, fancybox=False, edgecolor='black', fontsize=7,
+                   bbox_to_anchor=(0.02, 0.98))
 
     # ========== Panel (e): Energy Comparison ==========
     ax5 = fig.add_subplot(gs[1, 1])
@@ -366,18 +382,18 @@ def create_sota_figure():
         ])
 
     # Draw table
-    col_widths = [0.24, 0.20, 0.16, 0.20, 0.16]
+    col_widths = [0.24, 0.18, 0.16, 0.18, 0.16]
     table = ax6.table(
         cellText=table_data,
         colLabels=headers,
         loc='center',
         cellLoc='center',
         colWidths=col_widths,
-        bbox=[0.02, 0.10, 0.96, 0.84],
+        bbox=[0.03, 0.08, 0.94, 0.84],
     )
     table.auto_set_font_size(False)
-    table.set_fontsize(14.0)
-    table.scale(1.75, 2.45)
+    table.set_fontsize(12.0)
+    table.scale(1.65, 2.05)
 
     # Color ΔPDR cells by sign (E and R)
     for i in range(len(table_data)):
@@ -387,26 +403,26 @@ def create_sota_figure():
                 val = float(table_data[i][col])
             except ValueError:
                 val = 0.0
-            cell.set_facecolor('#d4edda' if val >= 0 else '#f8d7da')
+            cell.set_facecolor('#E6F4EA' if val >= 0 else '#FDECEA')
 
     ax6.set_title(
         '(f) Statistical Validation Summary\n(Shapiro–Wilk → Levene → t-test)',
         fontweight='bold',
-        fontsize=10.2,
-        y=1.08,
-        pad=6,
+        fontsize=11.0,
+        y=1.02,
+        pad=2,
     )
 
     # Main title
     fig.suptitle(
-        'AERIS: SOTA Protocol Comparison with Rigorous Statistical Testing\n'
-        f'(Same geometry/energy model; AERIS profiles include full reliability stack, n={run_count} runs each)',
-        fontsize=11,
+        f'AERIS: SOTA Protocol Comparison (n={run_count} runs each)\\n'
+        'Same geometry/energy model; AERIS profiles include full reliability stack',
+        fontsize=11.5,
         fontweight='bold',
         y=0.988,
     )
 
-    fig.subplots_adjust(top=0.90, bottom=0.08, left=0.06, right=0.94)
+    fig.subplots_adjust(top=0.90, bottom=0.08, left=0.05, right=0.97)
 
     # Save
     out_dirs = [

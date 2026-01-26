@@ -1,0 +1,6913 @@
+{
+  "config": {
+    "replicates": 30,
+    "rounds": 200,
+    "node_counts": [
+      100,
+      200,
+      300,
+      500
+    ],
+    "protocols": [
+      "LEACH",
+      "PEGASIS",
+      "HEED",
+      "AERIS"
+    ],
+    "channel_env": "indoor_office",
+    "base_seed": 42,
+    "total_time_seconds": 484.0378351211548
+  },
+  "runs": [
+    {
+      "num_nodes": 100,
+      "replicate": 0,
+      "protocol": "PEGASIS",
+      "seed": 433,
+      "metrics": {
+        "pdr_end2end": 0.83,
+        "energy": 43.85334640784696,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.057153940200805664
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 0,
+      "protocol": "LEACH",
+      "seed": 214,
+      "metrics": {
+        "pdr_end2end": 0.663555787278415,
+        "energy": 109.73742542108631,
+        "lifetime": 200,
+        "alive_nodes": 94,
+        "execution_time": 0.2259986400604248
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 0,
+      "protocol": "HEED",
+      "seed": 135,
+      "metrics": {
+        "pdr_end2end": 0.6821434335826115,
+        "energy": 108.54790251831675,
+        "lifetime": 200,
+        "alive_nodes": 76,
+        "execution_time": 0.23153424263000488
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 1,
+      "protocol": "PEGASIS",
+      "seed": 1481,
+      "metrics": {
+        "pdr_end2end": 0.825,
+        "energy": 43.78081311762293,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.048130035400390625
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 1,
+      "protocol": "LEACH",
+      "seed": 1039,
+      "metrics": {
+        "pdr_end2end": 0.6336320506062203,
+        "energy": 115.66867820670277,
+        "lifetime": 200,
+        "alive_nodes": 91,
+        "execution_time": 0.2245044708251953
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 1,
+      "protocol": "HEED",
+      "seed": 1132,
+      "metrics": {
+        "pdr_end2end": 0.6733693256941384,
+        "energy": 113.51214785904118,
+        "lifetime": 200,
+        "alive_nodes": 70,
+        "execution_time": 0.21264934539794922
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 2,
+      "protocol": "LEACH",
+      "seed": 2036,
+      "metrics": {
+        "pdr_end2end": 0.6371880869331902,
+        "energy": 111.0390377913959,
+        "lifetime": 200,
+        "alive_nodes": 95,
+        "execution_time": 0.22099518775939941
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 2,
+      "protocol": "PEGASIS",
+      "seed": 2076,
+      "metrics": {
+        "pdr_end2end": 0.9,
+        "energy": 43.30957471625961,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.05018758773803711
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 2,
+      "protocol": "HEED",
+      "seed": 2334,
+      "metrics": {
+        "pdr_end2end": 0.6989356040447047,
+        "energy": 102.23618849640181,
+        "lifetime": 200,
+        "alive_nodes": 80,
+        "execution_time": 0.2332625389099121
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 3,
+      "protocol": "LEACH",
+      "seed": 3033,
+      "metrics": {
+        "pdr_end2end": 0.6505173786150172,
+        "energy": 110.63374778655786,
+        "lifetime": 200,
+        "alive_nodes": 91,
+        "execution_time": 0.21347904205322266
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 3,
+      "protocol": "PEGASIS",
+      "seed": 3424,
+      "metrics": {
+        "pdr_end2end": 0.865,
+        "energy": 43.89398716873299,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.04941821098327637
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 3,
+      "protocol": "HEED",
+      "seed": 3331,
+      "metrics": {
+        "pdr_end2end": 0.6329405463310123,
+        "energy": 111.79871924642401,
+        "lifetime": 200,
+        "alive_nodes": 77,
+        "execution_time": 0.23831558227539062
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 0,
+      "protocol": "AERIS",
+      "seed": 240,
+      "metrics": {
+        "pdr_end2end": 0.99875,
+        "energy": 82.41037749249638,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 1.8552982807159424
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 1,
+      "protocol": "AERIS",
+      "seed": 1159,
+      "metrics": {
+        "pdr_end2end": 0.99845,
+        "energy": 83.21998210993611,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 1.8117969036102295
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 4,
+      "protocol": "LEACH",
+      "seed": 4220,
+      "metrics": {
+        "pdr_end2end": 0.628664666561398,
+        "energy": 118.61413574224522,
+        "lifetime": 200,
+        "alive_nodes": 88,
+        "execution_time": 0.21939420700073242
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 4,
+      "protocol": "PEGASIS",
+      "seed": 4472,
+      "metrics": {
+        "pdr_end2end": 0.895,
+        "energy": 43.70595141101456,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.04726552963256836
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 2,
+      "protocol": "AERIS",
+      "seed": 2442,
+      "metrics": {
+        "pdr_end2end": 0.9987,
+        "energy": 82.73806718530274,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 1.795731782913208
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 4,
+      "protocol": "HEED",
+      "seed": 5019,
+      "metrics": {
+        "pdr_end2end": 0.6916908836508449,
+        "energy": 109.61236349034931,
+        "lifetime": 200,
+        "alive_nodes": 75,
+        "execution_time": 0.2016751766204834
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 5,
+      "protocol": "PEGASIS",
+      "seed": 5756,
+      "metrics": {
+        "pdr_end2end": 0.875,
+        "energy": 43.58179097465347,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.05391693115234375
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 5,
+      "protocol": "LEACH",
+      "seed": 6016,
+      "metrics": {
+        "pdr_end2end": 0.6514664953971312,
+        "energy": 111.59235501907993,
+        "lifetime": 200,
+        "alive_nodes": 88,
+        "execution_time": 0.22469568252563477
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 5,
+      "protocol": "HEED",
+      "seed": 6016,
+      "metrics": {
+        "pdr_end2end": 0.7025186466327965,
+        "energy": 93.95195102022743,
+        "lifetime": 200,
+        "alive_nodes": 80,
+        "execution_time": 0.2337665557861328
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 6,
+      "protocol": "LEACH",
+      "seed": 6214,
+      "metrics": {
+        "pdr_end2end": 0.6858660130718954,
+        "energy": 106.61565495539767,
+        "lifetime": 200,
+        "alive_nodes": 90,
+        "execution_time": 0.2384634017944336
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 6,
+      "protocol": "PEGASIS",
+      "seed": 6753,
+      "metrics": {
+        "pdr_end2end": 0.865,
+        "energy": 43.596300638873366,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.05577826499938965
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 3,
+      "protocol": "AERIS",
+      "seed": 3106,
+      "metrics": {
+        "pdr_end2end": 0.99845,
+        "energy": 83.53219689135139,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 1.8447926044464111
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 6,
+      "protocol": "HEED",
+      "seed": 7013,
+      "metrics": {
+        "pdr_end2end": 0.6624409908237415,
+        "energy": 115.88026942743042,
+        "lifetime": 200,
+        "alive_nodes": 76,
+        "execution_time": 0.2209155559539795
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 7,
+      "protocol": "LEACH",
+      "seed": 7211,
+      "metrics": {
+        "pdr_end2end": 0.6224428889250637,
+        "energy": 113.86247087983473,
+        "lifetime": 200,
+        "alive_nodes": 88,
+        "execution_time": 0.22269392013549805
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 7,
+      "protocol": "PEGASIS",
+      "seed": 7750,
+      "metrics": {
+        "pdr_end2end": 0.875,
+        "energy": 44.42791425080784,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.04919910430908203
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 7,
+      "protocol": "HEED",
+      "seed": 8010,
+      "metrics": {
+        "pdr_end2end": 0.6496102656556552,
+        "energy": 103.7186098686046,
+        "lifetime": 200,
+        "alive_nodes": 77,
+        "execution_time": 0.20865273475646973
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 4,
+      "protocol": "AERIS",
+      "seed": 4150,
+      "metrics": {
+        "pdr_end2end": 0.99915,
+        "energy": 82.73551528813643,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 1.882603645324707
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 8,
+      "protocol": "LEACH",
+      "seed": 8190,
+      "metrics": {
+        "pdr_end2end": 0.6268842915063936,
+        "energy": 116.49399228895759,
+        "lifetime": 200,
+        "alive_nodes": 89,
+        "execution_time": 0.23084163665771484
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 8,
+      "protocol": "PEGASIS",
+      "seed": 8460,
+      "metrics": {
+        "pdr_end2end": 0.885,
+        "energy": 43.10454316868184,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.061188697814941406
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 5,
+      "protocol": "AERIS",
+      "seed": 5433,
+      "metrics": {
+        "pdr_end2end": 0.9985,
+        "energy": 83.0003631764814,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 1.8798394203186035
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 8,
+      "protocol": "HEED",
+      "seed": 8713,
+      "metrics": {
+        "pdr_end2end": 0.6445947420093815,
+        "energy": 110.01697016439782,
+        "lifetime": 200,
+        "alive_nodes": 73,
+        "execution_time": 0.22922563552856445
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 9,
+      "protocol": "LEACH",
+      "seed": 9187,
+      "metrics": {
+        "pdr_end2end": 0.6606546071826428,
+        "energy": 107.5281390235977,
+        "lifetime": 200,
+        "alive_nodes": 91,
+        "execution_time": 0.215972900390625
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 9,
+      "protocol": "PEGASIS",
+      "seed": 9457,
+      "metrics": {
+        "pdr_end2end": 0.925,
+        "energy": 43.03545275688853,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.05699896812438965
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 6,
+      "protocol": "AERIS",
+      "seed": 6097,
+      "metrics": {
+        "pdr_end2end": 0.9989,
+        "energy": 82.23729432342513,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 1.7996745109558105
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 9,
+      "protocol": "HEED",
+      "seed": 9710,
+      "metrics": {
+        "pdr_end2end": 0.6661064131519513,
+        "energy": 99.03866342416197,
+        "lifetime": 200,
+        "alive_nodes": 82,
+        "execution_time": 0.23447656631469727
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 10,
+      "protocol": "LEACH",
+      "seed": 10184,
+      "metrics": {
+        "pdr_end2end": 0.66794716623691,
+        "energy": 107.4968688131337,
+        "lifetime": 200,
+        "alive_nodes": 93,
+        "execution_time": 0.23012161254882812
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 10,
+      "protocol": "PEGASIS",
+      "seed": 10454,
+      "metrics": {
+        "pdr_end2end": 0.89,
+        "energy": 43.62811584160663,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.056910037994384766
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 7,
+      "protocol": "AERIS",
+      "seed": 7219,
+      "metrics": {
+        "pdr_end2end": 0.999,
+        "energy": 82.92715238114306,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 1.7878632545471191
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 10,
+      "protocol": "HEED",
+      "seed": 10707,
+      "metrics": {
+        "pdr_end2end": 0.730723606168446,
+        "energy": 94.30682925788588,
+        "lifetime": 200,
+        "alive_nodes": 76,
+        "execution_time": 0.227217435836792
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 11,
+      "protocol": "LEACH",
+      "seed": 11181,
+      "metrics": {
+        "pdr_end2end": 0.6163322590705894,
+        "energy": 116.85816402690205,
+        "lifetime": 200,
+        "alive_nodes": 91,
+        "execution_time": 0.2266099452972412
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 11,
+      "protocol": "PEGASIS",
+      "seed": 11451,
+      "metrics": {
+        "pdr_end2end": 0.895,
+        "energy": 43.469682812178554,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.051885366439819336
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 11,
+      "protocol": "HEED",
+      "seed": 11704,
+      "metrics": {
+        "pdr_end2end": 0.6687463023718604,
+        "energy": 91.81508488984312,
+        "lifetime": 200,
+        "alive_nodes": 83,
+        "execution_time": 0.21520376205444336
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 8,
+      "protocol": "AERIS",
+      "seed": 8424,
+      "metrics": {
+        "pdr_end2end": 0.9987,
+        "energy": 82.73249774009675,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 1.8208091259002686
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 12,
+      "protocol": "LEACH",
+      "seed": 12995,
+      "metrics": {
+        "pdr_end2end": 0.64747697775863,
+        "energy": 110.8952490042308,
+        "lifetime": 200,
+        "alive_nodes": 91,
+        "execution_time": 0.21877408027648926
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 12,
+      "protocol": "PEGASIS",
+      "seed": 12046,
+      "metrics": {
+        "pdr_end2end": 0.86,
+        "energy": 43.40346056963981,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.05182933807373047
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 12,
+      "protocol": "HEED",
+      "seed": 12099,
+      "metrics": {
+        "pdr_end2end": 0.6829559645979258,
+        "energy": 105.76418423222592,
+        "lifetime": 200,
+        "alive_nodes": 74,
+        "execution_time": 0.19496393203735352
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 9,
+      "protocol": "AERIS",
+      "seed": 9088,
+      "metrics": {
+        "pdr_end2end": 0.9992,
+        "energy": 82.72366759625918,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 1.8608357906341553
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 13,
+      "protocol": "LEACH",
+      "seed": 13003,
+      "metrics": {
+        "pdr_end2end": 0.6824180943015372,
+        "energy": 105.080022071274,
+        "lifetime": 200,
+        "alive_nodes": 94,
+        "execution_time": 0.23216915130615234
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 13,
+      "protocol": "PEGASIS",
+      "seed": 13394,
+      "metrics": {
+        "pdr_end2end": 0.865,
+        "energy": 43.05765513110235,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.051095008850097656
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 13,
+      "protocol": "HEED",
+      "seed": 13301,
+      "metrics": {
+        "pdr_end2end": 0.7135277063617964,
+        "energy": 101.11532762511975,
+        "lifetime": 200,
+        "alive_nodes": 72,
+        "execution_time": 0.19846749305725098
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 10,
+      "protocol": "AERIS",
+      "seed": 10210,
+      "metrics": {
+        "pdr_end2end": 0.9987,
+        "energy": 83.1245839404404,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 1.9089405536651611
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 14,
+      "protocol": "LEACH",
+      "seed": 14190,
+      "metrics": {
+        "pdr_end2end": 0.6782167530224525,
+        "energy": 104.51958098677969,
+        "lifetime": 200,
+        "alive_nodes": 94,
+        "execution_time": 0.240736722946167
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 14,
+      "protocol": "PEGASIS",
+      "seed": 14729,
+      "metrics": {
+        "pdr_end2end": 0.865,
+        "energy": 44.38403515435726,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.056174278259277344
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 14,
+      "protocol": "HEED",
+      "seed": 14989,
+      "metrics": {
+        "pdr_end2end": 0.6701976284584981,
+        "energy": 103.06826826534046,
+        "lifetime": 200,
+        "alive_nodes": 78,
+        "execution_time": 0.23896193504333496
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 11,
+      "protocol": "AERIS",
+      "seed": 11129,
+      "metrics": {
+        "pdr_end2end": 0.9989,
+        "energy": 82.88799132599489,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 1.9203684329986572
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 15,
+      "protocol": "LEACH",
+      "seed": 15169,
+      "metrics": {
+        "pdr_end2end": 0.6293291221956001,
+        "energy": 113.36305307694572,
+        "lifetime": 200,
+        "alive_nodes": 88,
+        "execution_time": 0.22414922714233398
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 15,
+      "protocol": "PEGASIS",
+      "seed": 15439,
+      "metrics": {
+        "pdr_end2end": 0.86,
+        "energy": 44.65017588824367,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.05410337448120117
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 15,
+      "protocol": "HEED",
+      "seed": 15692,
+      "metrics": {
+        "pdr_end2end": 0.6266680676683829,
+        "energy": 104.7178929786734,
+        "lifetime": 200,
+        "alive_nodes": 82,
+        "execution_time": 0.21115541458129883
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 12,
+      "protocol": "AERIS",
+      "seed": 12412,
+      "metrics": {
+        "pdr_end2end": 0.99915,
+        "energy": 82.68831865676657,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 1.8978145122528076
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 16,
+      "protocol": "LEACH",
+      "seed": 16983,
+      "metrics": {
+        "pdr_end2end": 0.6448902426215734,
+        "energy": 115.0266688533974,
+        "lifetime": 200,
+        "alive_nodes": 88,
+        "execution_time": 0.25499677658081055
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 16,
+      "protocol": "PEGASIS",
+      "seed": 16034,
+      "metrics": {
+        "pdr_end2end": 0.935,
+        "energy": 41.72921018890252,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.054678916931152344
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 13,
+      "protocol": "AERIS",
+      "seed": 13076,
+      "metrics": {
+        "pdr_end2end": 0.9986,
+        "energy": 84.17064570973798,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 1.904409646987915
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 16,
+      "protocol": "HEED",
+      "seed": 16087,
+      "metrics": {
+        "pdr_end2end": 0.64754920065425,
+        "energy": 105.86717829711611,
+        "lifetime": 200,
+        "alive_nodes": 78,
+        "execution_time": 0.22235989570617676
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 17,
+      "protocol": "LEACH",
+      "seed": 17980,
+      "metrics": {
+        "pdr_end2end": 0.6663168940188877,
+        "energy": 107.09365444077055,
+        "lifetime": 200,
+        "alive_nodes": 90,
+        "execution_time": 0.22832369804382324
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 17,
+      "protocol": "PEGASIS",
+      "seed": 17031,
+      "metrics": {
+        "pdr_end2end": 0.835,
+        "energy": 44.0882022340636,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.05435013771057129
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 17,
+      "protocol": "HEED",
+      "seed": 17084,
+      "metrics": {
+        "pdr_end2end": 0.6634357930812895,
+        "energy": 109.17727299741603,
+        "lifetime": 200,
+        "alive_nodes": 75,
+        "execution_time": 0.2291114330291748
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 14,
+      "protocol": "AERIS",
+      "seed": 14198,
+      "metrics": {
+        "pdr_end2end": 0.999,
+        "energy": 82.50943821211744,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 1.827989101409912
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 18,
+      "protocol": "LEACH",
+      "seed": 18178,
+      "metrics": {
+        "pdr_end2end": 0.6261571582346609,
+        "energy": 108.6139328001426,
+        "lifetime": 200,
+        "alive_nodes": 95,
+        "execution_time": 0.22571659088134766
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 18,
+      "protocol": "PEGASIS",
+      "seed": 18717,
+      "metrics": {
+        "pdr_end2end": 0.865,
+        "energy": 44.14476654242577,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.04162240028381348
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 18,
+      "protocol": "HEED",
+      "seed": 18977,
+      "metrics": {
+        "pdr_end2end": 0.6332891598197721,
+        "energy": 108.8627968165916,
+        "lifetime": 200,
+        "alive_nodes": 84,
+        "execution_time": 0.22147607803344727
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 15,
+      "protocol": "AERIS",
+      "seed": 15117,
+      "metrics": {
+        "pdr_end2end": 0.9991,
+        "energy": 82.45593053252941,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 1.768953800201416
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 19,
+      "protocol": "LEACH",
+      "seed": 19157,
+      "metrics": {
+        "pdr_end2end": 0.6961136339634597,
+        "energy": 102.00581051354743,
+        "lifetime": 200,
+        "alive_nodes": 95,
+        "execution_time": 0.21393060684204102
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 19,
+      "protocol": "PEGASIS",
+      "seed": 19427,
+      "metrics": {
+        "pdr_end2end": 0.84,
+        "energy": 44.27414908034281,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.05069708824157715
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 19,
+      "protocol": "HEED",
+      "seed": 19680,
+      "metrics": {
+        "pdr_end2end": 0.6668429402432575,
+        "energy": 108.75008720047285,
+        "lifetime": 200,
+        "alive_nodes": 79,
+        "execution_time": 0.21376538276672363
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 16,
+      "protocol": "AERIS",
+      "seed": 16067,
+      "metrics": {
+        "pdr_end2end": 0.999,
+        "energy": 81.93391998328626,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 1.7818293571472168
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 20,
+      "protocol": "LEACH",
+      "seed": 19982,
+      "metrics": {
+        "pdr_end2end": 0.620207003807583,
+        "energy": 111.99519296566365,
+        "lifetime": 200,
+        "alive_nodes": 93,
+        "execution_time": 0.24143552780151367
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 20,
+      "protocol": "PEGASIS",
+      "seed": 20373,
+      "metrics": {
+        "pdr_end2end": 0.855,
+        "energy": 43.916809330791,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.05085444450378418
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 20,
+      "protocol": "HEED",
+      "seed": 20280,
+      "metrics": {
+        "pdr_end2end": 0.6945095687258056,
+        "energy": 100.5802813886243,
+        "lifetime": 200,
+        "alive_nodes": 77,
+        "execution_time": 0.24166536331176758
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 17,
+      "protocol": "AERIS",
+      "seed": 17397,
+      "metrics": {
+        "pdr_end2end": 0.999,
+        "energy": 83.03633474189796,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 1.868812084197998
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 21,
+      "protocol": "LEACH",
+      "seed": 21968,
+      "metrics": {
+        "pdr_end2end": 0.6394399697280934,
+        "energy": 108.86984350931051,
+        "lifetime": 200,
+        "alive_nodes": 91,
+        "execution_time": 0.22334003448486328
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 21,
+      "protocol": "PEGASIS",
+      "seed": 21019,
+      "metrics": {
+        "pdr_end2end": 0.88,
+        "energy": 43.472241556741814,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.04527997970581055
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 18,
+      "protocol": "AERIS",
+      "seed": 18186,
+      "metrics": {
+        "pdr_end2end": 0.99885,
+        "energy": 83.30137095513247,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 1.829775333404541
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 21,
+      "protocol": "HEED",
+      "seed": 21072,
+      "metrics": {
+        "pdr_end2end": 0.6220621483779378,
+        "energy": 117.40174122997945,
+        "lifetime": 200,
+        "alive_nodes": 79,
+        "execution_time": 0.23182129859924316
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 22,
+      "protocol": "LEACH",
+      "seed": 22965,
+      "metrics": {
+        "pdr_end2end": 0.6696283907385147,
+        "energy": 108.72399606940166,
+        "lifetime": 200,
+        "alive_nodes": 92,
+        "execution_time": 0.21980690956115723
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 22,
+      "protocol": "PEGASIS",
+      "seed": 22016,
+      "metrics": {
+        "pdr_end2end": 0.895,
+        "energy": 42.762056003480716,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.05889105796813965
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 22,
+      "protocol": "HEED",
+      "seed": 22069,
+      "metrics": {
+        "pdr_end2end": 0.6881856540084388,
+        "energy": 105.92169465377461,
+        "lifetime": 200,
+        "alive_nodes": 77,
+        "execution_time": 0.2216329574584961
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 19,
+      "protocol": "AERIS",
+      "seed": 19105,
+      "metrics": {
+        "pdr_end2end": 0.9993,
+        "energy": 82.19808298952385,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 1.8547637462615967
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 23,
+      "protocol": "LEACH",
+      "seed": 23145,
+      "metrics": {
+        "pdr_end2end": 0.6643697217760738,
+        "energy": 111.07978141437644,
+        "lifetime": 200,
+        "alive_nodes": 90,
+        "execution_time": 0.23407816886901855
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 23,
+      "protocol": "PEGASIS",
+      "seed": 23415,
+      "metrics": {
+        "pdr_end2end": 0.88,
+        "energy": 42.88938238301217,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.04986405372619629
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 23,
+      "protocol": "HEED",
+      "seed": 23668,
+      "metrics": {
+        "pdr_end2end": 0.6369522178821767,
+        "energy": 110.09109761138404,
+        "lifetime": 200,
+        "alive_nodes": 78,
+        "execution_time": 0.20305991172790527
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 20,
+      "protocol": "AERIS",
+      "seed": 20055,
+      "metrics": {
+        "pdr_end2end": 0.9986,
+        "energy": 82.61025192291658,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 1.7983429431915283
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 24,
+      "protocol": "LEACH",
+      "seed": 23970,
+      "metrics": {
+        "pdr_end2end": 0.6407946278679351,
+        "energy": 102.68224267958774,
+        "lifetime": 200,
+        "alive_nodes": 97,
+        "execution_time": 0.2222738265991211
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 24,
+      "protocol": "PEGASIS",
+      "seed": 24361,
+      "metrics": {
+        "pdr_end2end": 0.84,
+        "energy": 44.09090840739185,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.05535006523132324
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 21,
+      "protocol": "AERIS",
+      "seed": 21177,
+      "metrics": {
+        "pdr_end2end": 0.9988,
+        "energy": 82.96796037870523,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 1.7419641017913818
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 24,
+      "protocol": "HEED",
+      "seed": 24268,
+      "metrics": {
+        "pdr_end2end": 0.6945491759129592,
+        "energy": 99.55891056320543,
+        "lifetime": 200,
+        "alive_nodes": 76,
+        "execution_time": 0.22873401641845703
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 25,
+      "protocol": "LEACH",
+      "seed": 24967,
+      "metrics": {
+        "pdr_end2end": 0.6781603097978887,
+        "energy": 100.66895221838833,
+        "lifetime": 200,
+        "alive_nodes": 98,
+        "execution_time": 0.22649264335632324
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 25,
+      "protocol": "PEGASIS",
+      "seed": 25358,
+      "metrics": {
+        "pdr_end2end": 0.88,
+        "energy": 43.28454030071734,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.06343793869018555
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 25,
+      "protocol": "HEED",
+      "seed": 25265,
+      "metrics": {
+        "pdr_end2end": 0.6661341002290035,
+        "energy": 102.56844763735242,
+        "lifetime": 200,
+        "alive_nodes": 79,
+        "execution_time": 0.2251734733581543
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 22,
+      "protocol": "AERIS",
+      "seed": 22382,
+      "metrics": {
+        "pdr_end2end": 0.9992,
+        "energy": 82.41928145161398,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 1.7771480083465576
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 26,
+      "protocol": "LEACH",
+      "seed": 26953,
+      "metrics": {
+        "pdr_end2end": 0.6328810853950518,
+        "energy": 116.26432542432309,
+        "lifetime": 200,
+        "alive_nodes": 84,
+        "execution_time": 0.2122335433959961
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 26,
+      "protocol": "PEGASIS",
+      "seed": 26004,
+      "metrics": {
+        "pdr_end2end": 0.895,
+        "energy": 44.096195678477784,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.042222023010253906
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 26,
+      "protocol": "HEED",
+      "seed": 26057,
+      "metrics": {
+        "pdr_end2end": 0.6424376313378953,
+        "energy": 113.68481853019081,
+        "lifetime": 200,
+        "alive_nodes": 70,
+        "execution_time": 0.2347722053527832
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 23,
+      "protocol": "AERIS",
+      "seed": 23093,
+      "metrics": {
+        "pdr_end2end": 0.999,
+        "energy": 82.79414691595476,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 1.8224260807037354
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 27,
+      "protocol": "LEACH",
+      "seed": 27133,
+      "metrics": {
+        "pdr_end2end": 0.6532524220163952,
+        "energy": 110.35510771778999,
+        "lifetime": 200,
+        "alive_nodes": 91,
+        "execution_time": 0.22023534774780273
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 27,
+      "protocol": "PEGASIS",
+      "seed": 27403,
+      "metrics": {
+        "pdr_end2end": 0.895,
+        "energy": 42.94503576288288,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.04806661605834961
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 27,
+      "protocol": "HEED",
+      "seed": 27656,
+      "metrics": {
+        "pdr_end2end": 0.699870494280164,
+        "energy": 93.52134728103334,
+        "lifetime": 200,
+        "alive_nodes": 80,
+        "execution_time": 0.22975802421569824
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 24,
+      "protocol": "AERIS",
+      "seed": 24168,
+      "metrics": {
+        "pdr_end2end": 0.9992,
+        "energy": 82.75383969903619,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 1.799464464187622
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 28,
+      "protocol": "LEACH",
+      "seed": 28148,
+      "metrics": {
+        "pdr_end2end": 0.663648328507502,
+        "energy": 107.66484039196408,
+        "lifetime": 200,
+        "alive_nodes": 93,
+        "execution_time": 0.21483612060546875
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 28,
+      "protocol": "PEGASIS",
+      "seed": 28687,
+      "metrics": {
+        "pdr_end2end": 0.91,
+        "energy": 43.54271819584472,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.04014301300048828
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 28,
+      "protocol": "HEED",
+      "seed": 28947,
+      "metrics": {
+        "pdr_end2end": 0.6606322759799209,
+        "energy": 105.26840158082584,
+        "lifetime": 200,
+        "alive_nodes": 81,
+        "execution_time": 0.21564865112304688
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 25,
+      "protocol": "AERIS",
+      "seed": 25040,
+      "metrics": {
+        "pdr_end2end": 0.99895,
+        "energy": 82.33899746457125,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 1.8363416194915771
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 29,
+      "protocol": "LEACH",
+      "seed": 28955,
+      "metrics": {
+        "pdr_end2end": 0.6783009374503469,
+        "energy": 104.04744784420805,
+        "lifetime": 200,
+        "alive_nodes": 94,
+        "execution_time": 0.22353863716125488
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 29,
+      "protocol": "PEGASIS",
+      "seed": 29346,
+      "metrics": {
+        "pdr_end2end": 0.9,
+        "energy": 44.390865256580824,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.05572652816772461
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 26,
+      "protocol": "AERIS",
+      "seed": 26370,
+      "metrics": {
+        "pdr_end2end": 0.99905,
+        "energy": 82.87499401754293,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 1.8209609985351562
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 29,
+      "protocol": "HEED",
+      "seed": 29253,
+      "metrics": {
+        "pdr_end2end": 0.6606785375619008,
+        "energy": 107.28836266605673,
+        "lifetime": 200,
+        "alive_nodes": 86,
+        "execution_time": 0.23694515228271484
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 0,
+      "protocol": "LEACH",
+      "seed": 42,
+      "metrics": {
+        "pdr_end2end": 0.5082779255319149,
+        "energy": 304.27561886154183,
+        "lifetime": 200,
+        "alive_nodes": 108,
+        "execution_time": 0.443584680557251
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 0,
+      "protocol": "PEGASIS",
+      "seed": 433,
+      "metrics": {
+        "pdr_end2end": 0.77,
+        "energy": 97.88431135788022,
+        "lifetime": 200,
+        "alive_nodes": 200,
+        "execution_time": 0.10273885726928711
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 27,
+      "protocol": "AERIS",
+      "seed": 27081,
+      "metrics": {
+        "pdr_end2end": 0.99865,
+        "energy": 83.35345624100843,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 1.8471426963806152
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 0,
+      "protocol": "HEED",
+      "seed": 340,
+      "metrics": {
+        "pdr_end2end": 0.4964395992186023,
+        "energy": 306.43194974818636,
+        "lifetime": 200,
+        "alive_nodes": 91,
+        "execution_time": 0.38289737701416016
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 28,
+      "protocol": "AERIS",
+      "seed": 28156,
+      "metrics": {
+        "pdr_end2end": 0.99855,
+        "energy": 82.979127730179,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 1.9204235076904297
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 1,
+      "protocol": "LEACH",
+      "seed": 1039,
+      "metrics": {
+        "pdr_end2end": 0.4849832764387435,
+        "energy": 316.3905137463206,
+        "lifetime": 200,
+        "alive_nodes": 94,
+        "execution_time": 0.46671390533447266
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 1,
+      "protocol": "PEGASIS",
+      "seed": 1768,
+      "metrics": {
+        "pdr_end2end": 0.75,
+        "energy": 96.4916746766262,
+        "lifetime": 200,
+        "alive_nodes": 200,
+        "execution_time": 0.11612415313720703
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 1,
+      "protocol": "HEED",
+      "seed": 1337,
+      "metrics": {
+        "pdr_end2end": 0.4978838390415419,
+        "energy": 309.91891508778343,
+        "lifetime": 200,
+        "alive_nodes": 86,
+        "execution_time": 0.40258121490478516
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 100,
+      "replicate": 29,
+      "protocol": "AERIS",
+      "seed": 29361,
+      "metrics": {
+        "pdr_end2end": 0.99845,
+        "energy": 82.7915460653418,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 1.9498400688171387
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 2,
+      "protocol": "PEGASIS",
+      "seed": 2076,
+      "metrics": {
+        "pdr_end2end": 0.755,
+        "energy": 99.98602245347303,
+        "lifetime": 200,
+        "alive_nodes": 200,
+        "execution_time": 0.09839081764221191
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 2,
+      "protocol": "LEACH",
+      "seed": 2036,
+      "metrics": {
+        "pdr_end2end": 0.5322650354067622,
+        "energy": 300.92286666497756,
+        "lifetime": 200,
+        "alive_nodes": 106,
+        "execution_time": 0.43076252937316895
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 2,
+      "protocol": "HEED",
+      "seed": 2129,
+      "metrics": {
+        "pdr_end2end": 0.5101345765962372,
+        "energy": 291.034662667575,
+        "lifetime": 200,
+        "alive_nodes": 106,
+        "execution_time": 0.3927724361419678
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 3,
+      "protocol": "LEACH",
+      "seed": 4022,
+      "metrics": {
+        "pdr_end2end": 0.5071877364386986,
+        "energy": 299.3998803907172,
+        "lifetime": 200,
+        "alive_nodes": 109,
+        "execution_time": 0.47485852241516113
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 3,
+      "protocol": "PEGASIS",
+      "seed": 3073,
+      "metrics": {
+        "pdr_end2end": 0.74,
+        "energy": 98.5391014521536,
+        "lifetime": 200,
+        "alive_nodes": 200,
+        "execution_time": 0.1036369800567627
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 3,
+      "protocol": "HEED",
+      "seed": 3126,
+      "metrics": {
+        "pdr_end2end": 0.5149260788702203,
+        "energy": 293.3268467869415,
+        "lifetime": 200,
+        "alive_nodes": 103,
+        "execution_time": 0.3629603385925293
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 0,
+      "protocol": "AERIS",
+      "seed": 162,
+      "metrics": {
+        "pdr_end2end": 0.8995752808424016,
+        "energy": 267.69383697287304,
+        "lifetime": 200,
+        "alive_nodes": 194,
+        "execution_time": 6.888071298599243
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 4,
+      "protocol": "LEACH",
+      "seed": 4202,
+      "metrics": {
+        "pdr_end2end": 0.5336475517151087,
+        "energy": 296.3391952477599,
+        "lifetime": 200,
+        "alive_nodes": 112,
+        "execution_time": 0.4233853816986084
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 4,
+      "protocol": "PEGASIS",
+      "seed": 4472,
+      "metrics": {
+        "pdr_end2end": 0.745,
+        "energy": 100.49277813293463,
+        "lifetime": 200,
+        "alive_nodes": 200,
+        "execution_time": 0.09047770500183105
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 1,
+      "protocol": "AERIS",
+      "seed": 1237,
+      "metrics": {
+        "pdr_end2end": 0.925075075075075,
+        "energy": 254.0966592231289,
+        "lifetime": 200,
+        "alive_nodes": 198,
+        "execution_time": 6.714403390884399
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 4,
+      "protocol": "HEED",
+      "seed": 4725,
+      "metrics": {
+        "pdr_end2end": 0.464755152617875,
+        "energy": 320.8155190557202,
+        "lifetime": 200,
+        "alive_nodes": 78,
+        "execution_time": 0.38158297538757324
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 5,
+      "protocol": "LEACH",
+      "seed": 5199,
+      "metrics": {
+        "pdr_end2end": 0.5165733672603902,
+        "energy": 299.511089550559,
+        "lifetime": 200,
+        "alive_nodes": 107,
+        "execution_time": 0.4530346393585205
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 5,
+      "protocol": "PEGASIS",
+      "seed": 5469,
+      "metrics": {
+        "pdr_end2end": 0.725,
+        "energy": 99.29380582870841,
+        "lifetime": 200,
+        "alive_nodes": 200,
+        "execution_time": 0.10441970825195312
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 2,
+      "protocol": "AERIS",
+      "seed": 2109,
+      "metrics": {
+        "pdr_end2end": 0.882635604307135,
+        "energy": 283.54365144095993,
+        "lifetime": 200,
+        "alive_nodes": 190,
+        "execution_time": 7.080170631408691
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 5,
+      "protocol": "HEED",
+      "seed": 5722,
+      "metrics": {
+        "pdr_end2end": 0.5121756359452895,
+        "energy": 291.5212134530604,
+        "lifetime": 200,
+        "alive_nodes": 95,
+        "execution_time": 0.39548182487487793
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 6,
+      "protocol": "LEACH",
+      "seed": 6196,
+      "metrics": {
+        "pdr_end2end": 0.5426361503835668,
+        "energy": 285.6239275593449,
+        "lifetime": 200,
+        "alive_nodes": 128,
+        "execution_time": 0.4750819206237793
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 6,
+      "protocol": "PEGASIS",
+      "seed": 6466,
+      "metrics": {
+        "pdr_end2end": 0.78,
+        "energy": 99.51020499696304,
+        "lifetime": 200,
+        "alive_nodes": 200,
+        "execution_time": 0.10264992713928223
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 3,
+      "protocol": "AERIS",
+      "seed": 3439,
+      "metrics": {
+        "pdr_end2end": 0.9290995213152553,
+        "energy": 260.4102199445322,
+        "lifetime": 200,
+        "alive_nodes": 197,
+        "execution_time": 6.721830368041992
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 6,
+      "protocol": "HEED",
+      "seed": 6719,
+      "metrics": {
+        "pdr_end2end": 0.5010281014393421,
+        "energy": 301.7808346451124,
+        "lifetime": 200,
+        "alive_nodes": 93,
+        "execution_time": 0.37425756454467773
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 7,
+      "protocol": "LEACH",
+      "seed": 7193,
+      "metrics": {
+        "pdr_end2end": 0.49468752062297894,
+        "energy": 306.0963398208035,
+        "lifetime": 200,
+        "alive_nodes": 109,
+        "execution_time": 0.45268988609313965
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 7,
+      "protocol": "PEGASIS",
+      "seed": 7463,
+      "metrics": {
+        "pdr_end2end": 0.785,
+        "energy": 96.94975530542268,
+        "lifetime": 200,
+        "alive_nodes": 200,
+        "execution_time": 0.10766005516052246
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 7,
+      "protocol": "HEED",
+      "seed": 7716,
+      "metrics": {
+        "pdr_end2end": 0.5283584012367548,
+        "energy": 281.87084431392793,
+        "lifetime": 200,
+        "alive_nodes": 106,
+        "execution_time": 0.39969325065612793
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 4,
+      "protocol": "AERIS",
+      "seed": 4228,
+      "metrics": {
+        "pdr_end2end": 0.914237050395752,
+        "energy": 261.5304707543996,
+        "lifetime": 200,
+        "alive_nodes": 197,
+        "execution_time": 7.327203035354614
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 8,
+      "protocol": "LEACH",
+      "seed": 8208,
+      "metrics": {
+        "pdr_end2end": 0.5400978235892723,
+        "energy": 284.81538405306895,
+        "lifetime": 200,
+        "alive_nodes": 117,
+        "execution_time": 0.45329904556274414
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 8,
+      "protocol": "PEGASIS",
+      "seed": 8747,
+      "metrics": {
+        "pdr_end2end": 0.765,
+        "energy": 100.58447333858864,
+        "lifetime": 200,
+        "alive_nodes": 200,
+        "execution_time": 0.1064140796661377
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 8,
+      "protocol": "HEED",
+      "seed": 9007,
+      "metrics": {
+        "pdr_end2end": 0.4942792501616031,
+        "energy": 302.8854238605934,
+        "lifetime": 200,
+        "alive_nodes": 85,
+        "execution_time": 0.3680100440979004
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 5,
+      "protocol": "AERIS",
+      "seed": 5100,
+      "metrics": {
+        "pdr_end2end": 0.9081374683987885,
+        "energy": 263.1453423918404,
+        "lifetime": 200,
+        "alive_nodes": 197,
+        "execution_time": 7.236777067184448
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 9,
+      "protocol": "LEACH",
+      "seed": 9015,
+      "metrics": {
+        "pdr_end2end": 0.5205124663305477,
+        "energy": 303.3366154539261,
+        "lifetime": 200,
+        "alive_nodes": 103,
+        "execution_time": 0.46546006202697754
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 9,
+      "protocol": "PEGASIS",
+      "seed": 9406,
+      "metrics": {
+        "pdr_end2end": 0.685,
+        "energy": 102.76044404043253,
+        "lifetime": 200,
+        "alive_nodes": 200,
+        "execution_time": 0.12051272392272949
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 6,
+      "protocol": "AERIS",
+      "seed": 6430,
+      "metrics": {
+        "pdr_end2end": 0.8881545884008443,
+        "energy": 275.8216092091756,
+        "lifetime": 200,
+        "alive_nodes": 190,
+        "execution_time": 7.199522495269775
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 9,
+      "protocol": "HEED",
+      "seed": 9313,
+      "metrics": {
+        "pdr_end2end": 0.5697622107969151,
+        "energy": 270.395166689991,
+        "lifetime": 200,
+        "alive_nodes": 110,
+        "execution_time": 0.39712953567504883
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 10,
+      "protocol": "LEACH",
+      "seed": 10012,
+      "metrics": {
+        "pdr_end2end": 0.511366299507851,
+        "energy": 301.51743130048345,
+        "lifetime": 200,
+        "alive_nodes": 115,
+        "execution_time": 0.4359736442565918
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 10,
+      "protocol": "PEGASIS",
+      "seed": 10403,
+      "metrics": {
+        "pdr_end2end": 0.78,
+        "energy": 100.27463143874635,
+        "lifetime": 200,
+        "alive_nodes": 200,
+        "execution_time": 0.11338305473327637
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 7,
+      "protocol": "AERIS",
+      "seed": 7141,
+      "metrics": {
+        "pdr_end2end": 0.9166120659240966,
+        "energy": 271.7709276255487,
+        "lifetime": 200,
+        "alive_nodes": 188,
+        "execution_time": 7.126596450805664
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 10,
+      "protocol": "HEED",
+      "seed": 10310,
+      "metrics": {
+        "pdr_end2end": 0.5242123871456531,
+        "energy": 278.8928555922213,
+        "lifetime": 200,
+        "alive_nodes": 103,
+        "execution_time": 0.40686607360839844
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 11,
+      "protocol": "LEACH",
+      "seed": 11009,
+      "metrics": {
+        "pdr_end2end": 0.4947438270527014,
+        "energy": 310.7309179029274,
+        "lifetime": 200,
+        "alive_nodes": 101,
+        "execution_time": 0.4365653991699219
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 11,
+      "protocol": "PEGASIS",
+      "seed": 11400,
+      "metrics": {
+        "pdr_end2end": 0.76,
+        "energy": 97.33720753559548,
+        "lifetime": 200,
+        "alive_nodes": 200,
+        "execution_time": 0.09922456741333008
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 11,
+      "protocol": "HEED",
+      "seed": 11307,
+      "metrics": {
+        "pdr_end2end": 0.47858736293084486,
+        "energy": 299.8888237174006,
+        "lifetime": 200,
+        "alive_nodes": 105,
+        "execution_time": 0.4089524745941162
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 8,
+      "protocol": "AERIS",
+      "seed": 8216,
+      "metrics": {
+        "pdr_end2end": 0.9126765501352299,
+        "energy": 263.469485229235,
+        "lifetime": 200,
+        "alive_nodes": 198,
+        "execution_time": 7.253435850143433
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 12,
+      "protocol": "LEACH",
+      "seed": 12196,
+      "metrics": {
+        "pdr_end2end": 0.5274994957305184,
+        "energy": 299.69031432989703,
+        "lifetime": 200,
+        "alive_nodes": 110,
+        "execution_time": 0.46622443199157715
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 12,
+      "protocol": "PEGASIS",
+      "seed": 12735,
+      "metrics": {
+        "pdr_end2end": 0.74,
+        "energy": 98.1120657301076,
+        "lifetime": 200,
+        "alive_nodes": 200,
+        "execution_time": 0.11975336074829102
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 9,
+      "protocol": "AERIS",
+      "seed": 9421,
+      "metrics": {
+        "pdr_end2end": 0.9092495636998255,
+        "energy": 257.9202873461675,
+        "lifetime": 200,
+        "alive_nodes": 189,
+        "execution_time": 7.238884687423706
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 12,
+      "protocol": "HEED",
+      "seed": 12995,
+      "metrics": {
+        "pdr_end2end": 0.5133470225872689,
+        "energy": 306.2276569952192,
+        "lifetime": 200,
+        "alive_nodes": 85,
+        "execution_time": 0.4096486568450928
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 13,
+      "protocol": "LEACH",
+      "seed": 13193,
+      "metrics": {
+        "pdr_end2end": 0.5367156662583368,
+        "energy": 298.27639428307435,
+        "lifetime": 200,
+        "alive_nodes": 107,
+        "execution_time": 0.46182751655578613
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 13,
+      "protocol": "PEGASIS",
+      "seed": 13732,
+      "metrics": {
+        "pdr_end2end": 0.73,
+        "energy": 101.95756313213481,
+        "lifetime": 200,
+        "alive_nodes": 200,
+        "execution_time": 0.11924147605895996
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 13,
+      "protocol": "HEED",
+      "seed": 13992,
+      "metrics": {
+        "pdr_end2end": 0.49534838331923753,
+        "energy": 303.8588343041823,
+        "lifetime": 200,
+        "alive_nodes": 87,
+        "execution_time": 0.3942093849182129
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 10,
+      "protocol": "AERIS",
+      "seed": 10132,
+      "metrics": {
+        "pdr_end2end": 0.9095302483974359,
+        "energy": 264.8229346588,
+        "lifetime": 200,
+        "alive_nodes": 196,
+        "execution_time": 7.362785339355469
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 14,
+      "protocol": "LEACH",
+      "seed": 14172,
+      "metrics": {
+        "pdr_end2end": 0.5515655643470616,
+        "energy": 293.12063791174774,
+        "lifetime": 200,
+        "alive_nodes": 111,
+        "execution_time": 0.44178080558776855
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 14,
+      "protocol": "PEGASIS",
+      "seed": 14442,
+      "metrics": {
+        "pdr_end2end": 0.765,
+        "energy": 97.07868097909291,
+        "lifetime": 200,
+        "alive_nodes": 200,
+        "execution_time": 0.11692523956298828
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 11,
+      "protocol": "AERIS",
+      "seed": 11082,
+      "metrics": {
+        "pdr_end2end": 0.9173810598084925,
+        "energy": 263.2592053514406,
+        "lifetime": 200,
+        "alive_nodes": 197,
+        "execution_time": 7.215046644210815
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 14,
+      "protocol": "HEED",
+      "seed": 14695,
+      "metrics": {
+        "pdr_end2end": 0.5405353789349715,
+        "energy": 290.3295688691409,
+        "lifetime": 200,
+        "alive_nodes": 96,
+        "execution_time": 0.35677409172058105
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 15,
+      "protocol": "LEACH",
+      "seed": 15169,
+      "metrics": {
+        "pdr_end2end": 0.5008083348302497,
+        "energy": 309.2292359285067,
+        "lifetime": 200,
+        "alive_nodes": 92,
+        "execution_time": 0.4218254089355469
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 15,
+      "protocol": "PEGASIS",
+      "seed": 15439,
+      "metrics": {
+        "pdr_end2end": 0.71,
+        "energy": 100.78990703349147,
+        "lifetime": 200,
+        "alive_nodes": 200,
+        "execution_time": 0.10004234313964844
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 15,
+      "protocol": "HEED",
+      "seed": 15692,
+      "metrics": {
+        "pdr_end2end": 0.4948907906501469,
+        "energy": 308.79083240605564,
+        "lifetime": 200,
+        "alive_nodes": 88,
+        "execution_time": 0.391740083694458
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 12,
+      "protocol": "AERIS",
+      "seed": 12412,
+      "metrics": {
+        "pdr_end2end": 0.9224075235109718,
+        "energy": 261.4935315374728,
+        "lifetime": 200,
+        "alive_nodes": 197,
+        "execution_time": 7.01024317741394
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 16,
+      "protocol": "LEACH",
+      "seed": 16983,
+      "metrics": {
+        "pdr_end2end": 0.5049240245016752,
+        "energy": 308.2259868962955,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.43604469299316406
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 16,
+      "protocol": "PEGASIS",
+      "seed": 16034,
+      "metrics": {
+        "pdr_end2end": 0.79,
+        "energy": 92.7156635231522,
+        "lifetime": 200,
+        "alive_nodes": 200,
+        "execution_time": 0.09988546371459961
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 16,
+      "protocol": "HEED",
+      "seed": 16087,
+      "metrics": {
+        "pdr_end2end": 0.5245256678723269,
+        "energy": 290.9583979046982,
+        "lifetime": 200,
+        "alive_nodes": 102,
+        "execution_time": 0.38931703567504883
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 13,
+      "protocol": "AERIS",
+      "seed": 13201,
+      "metrics": {
+        "pdr_end2end": 0.9066064936692992,
+        "energy": 264.89976313739857,
+        "lifetime": 200,
+        "alive_nodes": 196,
+        "execution_time": 7.183738708496094
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 17,
+      "protocol": "LEACH",
+      "seed": 17181,
+      "metrics": {
+        "pdr_end2end": 0.5271114892503027,
+        "energy": 296.6573522653833,
+        "lifetime": 200,
+        "alive_nodes": 112,
+        "execution_time": 0.46355557441711426
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 17,
+      "protocol": "PEGASIS",
+      "seed": 17720,
+      "metrics": {
+        "pdr_end2end": 0.675,
+        "energy": 101.2298474386833,
+        "lifetime": 200,
+        "alive_nodes": 200,
+        "execution_time": 0.12900424003601074
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 14,
+      "protocol": "AERIS",
+      "seed": 14073,
+      "metrics": {
+        "pdr_end2end": 0.9047224523612262,
+        "energy": 260.9030938838102,
+        "lifetime": 200,
+        "alive_nodes": 194,
+        "execution_time": 7.0638086795806885
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 17,
+      "protocol": "HEED",
+      "seed": 17980,
+      "metrics": {
+        "pdr_end2end": 0.5062733129874534,
+        "energy": 293.9251471437759,
+        "lifetime": 200,
+        "alive_nodes": 104,
+        "execution_time": 0.4212162494659424
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 18,
+      "protocol": "LEACH",
+      "seed": 18178,
+      "metrics": {
+        "pdr_end2end": 0.5152740043734676,
+        "energy": 301.56811614109057,
+        "lifetime": 200,
+        "alive_nodes": 110,
+        "execution_time": 0.4514331817626953
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 18,
+      "protocol": "PEGASIS",
+      "seed": 18717,
+      "metrics": {
+        "pdr_end2end": 0.765,
+        "energy": 100.1993763685208,
+        "lifetime": 200,
+        "alive_nodes": 200,
+        "execution_time": 0.10215568542480469
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 15,
+      "protocol": "AERIS",
+      "seed": 15117,
+      "metrics": {
+        "pdr_end2end": 0.911234744254818,
+        "energy": 260.3220383982362,
+        "lifetime": 200,
+        "alive_nodes": 195,
+        "execution_time": 6.964623689651489
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 18,
+      "protocol": "HEED",
+      "seed": 18977,
+      "metrics": {
+        "pdr_end2end": 0.499111211660903,
+        "energy": 301.4812882407502,
+        "lifetime": 200,
+        "alive_nodes": 96,
+        "execution_time": 0.3784303665161133
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 19,
+      "protocol": "LEACH",
+      "seed": 19175,
+      "metrics": {
+        "pdr_end2end": 0.524514811031665,
+        "energy": 304.6274076566198,
+        "lifetime": 200,
+        "alive_nodes": 97,
+        "execution_time": 0.402130126953125
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 19,
+      "protocol": "PEGASIS",
+      "seed": 19714,
+      "metrics": {
+        "pdr_end2end": 0.76,
+        "energy": 99.95958401545019,
+        "lifetime": 200,
+        "alive_nodes": 200,
+        "execution_time": 0.0888204574584961
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 19,
+      "protocol": "HEED",
+      "seed": 19974,
+      "metrics": {
+        "pdr_end2end": 0.5449542458565304,
+        "energy": 274.288262417113,
+        "lifetime": 200,
+        "alive_nodes": 117,
+        "execution_time": 0.38378167152404785
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 16,
+      "protocol": "AERIS",
+      "seed": 16400,
+      "metrics": {
+        "pdr_end2end": 0.8756253928346952,
+        "energy": 285.89229323101205,
+        "lifetime": 200,
+        "alive_nodes": 188,
+        "execution_time": 7.147459983825684
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 20,
+      "protocol": "LEACH",
+      "seed": 20971,
+      "metrics": {
+        "pdr_end2end": 0.5214116563610052,
+        "energy": 291.2019981045156,
+        "lifetime": 200,
+        "alive_nodes": 121,
+        "execution_time": 0.4829416275024414
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 20,
+      "protocol": "PEGASIS",
+      "seed": 20022,
+      "metrics": {
+        "pdr_end2end": 0.825,
+        "energy": 94.1101699769713,
+        "lifetime": 200,
+        "alive_nodes": 200,
+        "execution_time": 0.10514354705810547
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 20,
+      "protocol": "HEED",
+      "seed": 20075,
+      "metrics": {
+        "pdr_end2end": 0.5166155336670434,
+        "energy": 313.1481702455018,
+        "lifetime": 200,
+        "alive_nodes": 78,
+        "execution_time": 0.3685281276702881
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 17,
+      "protocol": "AERIS",
+      "seed": 17064,
+      "metrics": {
+        "pdr_end2end": 0.8985645452720338,
+        "energy": 264.29766646013695,
+        "lifetime": 200,
+        "alive_nodes": 196,
+        "execution_time": 7.152109384536743
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 21,
+      "protocol": "LEACH",
+      "seed": 20979,
+      "metrics": {
+        "pdr_end2end": 0.5237902545945035,
+        "energy": 293.1766526293398,
+        "lifetime": 200,
+        "alive_nodes": 113,
+        "execution_time": 0.4414818286895752
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 21,
+      "protocol": "PEGASIS",
+      "seed": 21370,
+      "metrics": {
+        "pdr_end2end": 0.815,
+        "energy": 96.72558347691574,
+        "lifetime": 200,
+        "alive_nodes": 200,
+        "execution_time": 0.09917569160461426
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 18,
+      "protocol": "AERIS",
+      "seed": 18108,
+      "metrics": {
+        "pdr_end2end": 0.9197603589602186,
+        "energy": 254.7072483080097,
+        "lifetime": 200,
+        "alive_nodes": 196,
+        "execution_time": 6.976974010467529
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 21,
+      "protocol": "HEED",
+      "seed": 21277,
+      "metrics": {
+        "pdr_end2end": 0.479612882754244,
+        "energy": 299.37546648462865,
+        "lifetime": 200,
+        "alive_nodes": 93,
+        "execution_time": 0.3917236328125
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 22,
+      "protocol": "LEACH",
+      "seed": 21976,
+      "metrics": {
+        "pdr_end2end": 0.5516308572494636,
+        "energy": 274.4221502316688,
+        "lifetime": 200,
+        "alive_nodes": 133,
+        "execution_time": 0.527137041091919
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 22,
+      "protocol": "PEGASIS",
+      "seed": 22367,
+      "metrics": {
+        "pdr_end2end": 0.745,
+        "energy": 100.05436016322822,
+        "lifetime": 200,
+        "alive_nodes": 200,
+        "execution_time": 0.1353011131286621
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 19,
+      "protocol": "AERIS",
+      "seed": 19183,
+      "metrics": {
+        "pdr_end2end": 0.8912885343768029,
+        "energy": 274.86649803194047,
+        "lifetime": 200,
+        "alive_nodes": 193,
+        "execution_time": 7.221412897109985
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 22,
+      "protocol": "HEED",
+      "seed": 22274,
+      "metrics": {
+        "pdr_end2end": 0.4832246932515337,
+        "energy": 305.51670808450217,
+        "lifetime": 200,
+        "alive_nodes": 92,
+        "execution_time": 0.41593360900878906
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 23,
+      "protocol": "LEACH",
+      "seed": 22973,
+      "metrics": {
+        "pdr_end2end": 0.4973861604072087,
+        "energy": 309.1010879162267,
+        "lifetime": 200,
+        "alive_nodes": 102,
+        "execution_time": 0.4365077018737793
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 23,
+      "protocol": "PEGASIS",
+      "seed": 23364,
+      "metrics": {
+        "pdr_end2end": 0.75,
+        "energy": 97.89259291191509,
+        "lifetime": 200,
+        "alive_nodes": 200,
+        "execution_time": 0.12096643447875977
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 23,
+      "protocol": "HEED",
+      "seed": 23271,
+      "metrics": {
+        "pdr_end2end": 0.5174933913854766,
+        "energy": 290.6100766187529,
+        "lifetime": 200,
+        "alive_nodes": 95,
+        "execution_time": 0.4280669689178467
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 20,
+      "protocol": "AERIS",
+      "seed": 20388,
+      "metrics": {
+        "pdr_end2end": 0.9139495036032858,
+        "energy": 257.46945287495646,
+        "lifetime": 200,
+        "alive_nodes": 191,
+        "execution_time": 7.484885931015015
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 24,
+      "protocol": "LEACH",
+      "seed": 24959,
+      "metrics": {
+        "pdr_end2end": 0.5265677520116796,
+        "energy": 298.4482620477447,
+        "lifetime": 200,
+        "alive_nodes": 108,
+        "execution_time": 0.4594297409057617
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 24,
+      "protocol": "PEGASIS",
+      "seed": 24010,
+      "metrics": {
+        "pdr_end2end": 0.745,
+        "energy": 100.0503061764934,
+        "lifetime": 200,
+        "alive_nodes": 200,
+        "execution_time": 0.11324286460876465
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 24,
+      "protocol": "HEED",
+      "seed": 24063,
+      "metrics": {
+        "pdr_end2end": 0.46539254507968714,
+        "energy": 328.1829009070568,
+        "lifetime": 200,
+        "alive_nodes": 72,
+        "execution_time": 0.40427517890930176
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 21,
+      "protocol": "AERIS",
+      "seed": 21099,
+      "metrics": {
+        "pdr_end2end": 0.905937992643195,
+        "energy": 266.6329258467823,
+        "lifetime": 200,
+        "alive_nodes": 198,
+        "execution_time": 7.782912492752075
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 25,
+      "protocol": "LEACH",
+      "seed": 25139,
+      "metrics": {
+        "pdr_end2end": 0.5397886634922706,
+        "energy": 289.77798280754246,
+        "lifetime": 200,
+        "alive_nodes": 121,
+        "execution_time": 0.493009090423584
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 25,
+      "protocol": "PEGASIS",
+      "seed": 25409,
+      "metrics": {
+        "pdr_end2end": 0.745,
+        "energy": 100.24243722201045,
+        "lifetime": 200,
+        "alive_nodes": 200,
+        "execution_time": 0.1220703125
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 25,
+      "protocol": "HEED",
+      "seed": 25662,
+      "metrics": {
+        "pdr_end2end": 0.524365531216829,
+        "energy": 298.9513399212758,
+        "lifetime": 200,
+        "alive_nodes": 93,
+        "execution_time": 0.4016129970550537
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 22,
+      "protocol": "AERIS",
+      "seed": 22174,
+      "metrics": {
+        "pdr_end2end": 0.9035437514107291,
+        "energy": 267.26084457428965,
+        "lifetime": 200,
+        "alive_nodes": 195,
+        "execution_time": 7.9303083419799805
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 26,
+      "protocol": "LEACH",
+      "seed": 26154,
+      "metrics": {
+        "pdr_end2end": 0.5094638787037955,
+        "energy": 303.73950187080806,
+        "lifetime": 200,
+        "alive_nodes": 109,
+        "execution_time": 0.47925424575805664
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 26,
+      "protocol": "PEGASIS",
+      "seed": 26693,
+      "metrics": {
+        "pdr_end2end": 0.73,
+        "energy": 100.2938329344513,
+        "lifetime": 200,
+        "alive_nodes": 200,
+        "execution_time": 0.12120699882507324
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 23,
+      "protocol": "AERIS",
+      "seed": 23046,
+      "metrics": {
+        "pdr_end2end": 0.9034113745980707,
+        "energy": 260.30772292733866,
+        "lifetime": 200,
+        "alive_nodes": 194,
+        "execution_time": 7.842714071273804
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 26,
+      "protocol": "HEED",
+      "seed": 26953,
+      "metrics": {
+        "pdr_end2end": 0.5162789196863605,
+        "energy": 301.6113109469624,
+        "lifetime": 200,
+        "alive_nodes": 96,
+        "execution_time": 0.4129304885864258
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 27,
+      "protocol": "LEACH",
+      "seed": 27151,
+      "metrics": {
+        "pdr_end2end": 0.5229942074439146,
+        "energy": 295.4224861111623,
+        "lifetime": 200,
+        "alive_nodes": 116,
+        "execution_time": 0.5001282691955566
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 27,
+      "protocol": "PEGASIS",
+      "seed": 27690,
+      "metrics": {
+        "pdr_end2end": 0.755,
+        "energy": 99.87709541435558,
+        "lifetime": 200,
+        "alive_nodes": 200,
+        "execution_time": 0.1097567081451416
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 27,
+      "protocol": "HEED",
+      "seed": 27950,
+      "metrics": {
+        "pdr_end2end": 0.5133677679238541,
+        "energy": 302.8902393155035,
+        "lifetime": 200,
+        "alive_nodes": 92,
+        "execution_time": 0.387070894241333
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 24,
+      "protocol": "AERIS",
+      "seed": 24376,
+      "metrics": {
+        "pdr_end2end": 0.912043301759134,
+        "energy": 267.0788896913547,
+        "lifetime": 200,
+        "alive_nodes": 193,
+        "execution_time": 7.54664945602417
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 28,
+      "protocol": "LEACH",
+      "seed": 28947,
+      "metrics": {
+        "pdr_end2end": 0.5174684898532312,
+        "energy": 297.6676474234561,
+        "lifetime": 200,
+        "alive_nodes": 111,
+        "execution_time": 0.44545555114746094
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 28,
+      "protocol": "PEGASIS",
+      "seed": 27998,
+      "metrics": {
+        "pdr_end2end": 0.72,
+        "energy": 101.0112736998394,
+        "lifetime": 200,
+        "alive_nodes": 200,
+        "execution_time": 0.10030269622802734
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 28,
+      "protocol": "HEED",
+      "seed": 28051,
+      "metrics": {
+        "pdr_end2end": 0.5100231062261912,
+        "energy": 291.8236960469634,
+        "lifetime": 200,
+        "alive_nodes": 110,
+        "execution_time": 0.3805806636810303
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 25,
+      "protocol": "AERIS",
+      "seed": 25087,
+      "metrics": {
+        "pdr_end2end": 0.9279837455475844,
+        "energy": 266.467250534762,
+        "lifetime": 200,
+        "alive_nodes": 194,
+        "execution_time": 7.2137017250061035
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 29,
+      "protocol": "LEACH",
+      "seed": 29127,
+      "metrics": {
+        "pdr_end2end": 0.5237205949806697,
+        "energy": 299.34440795016013,
+        "lifetime": 200,
+        "alive_nodes": 106,
+        "execution_time": 0.4545762538909912
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 29,
+      "protocol": "PEGASIS",
+      "seed": 29397,
+      "metrics": {
+        "pdr_end2end": 0.78,
+        "energy": 99.29793875713237,
+        "lifetime": 200,
+        "alive_nodes": 200,
+        "execution_time": 0.10349059104919434
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 29,
+      "protocol": "HEED",
+      "seed": 29650,
+      "metrics": {
+        "pdr_end2end": 0.4835816958987208,
+        "energy": 318.2429930541243,
+        "lifetime": 200,
+        "alive_nodes": 79,
+        "execution_time": 0.3675224781036377
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 26,
+      "protocol": "AERIS",
+      "seed": 26037,
+      "metrics": {
+        "pdr_end2end": 0.9042947241966163,
+        "energy": 267.9255729861668,
+        "lifetime": 200,
+        "alive_nodes": 198,
+        "execution_time": 7.376174688339233
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 0,
+      "protocol": "LEACH",
+      "seed": 42,
+      "metrics": {
+        "pdr_end2end": 0.4689114708921805,
+        "energy": 498.85724718616314,
+        "lifetime": 200,
+        "alive_nodes": 115,
+        "execution_time": 0.6346485614776611
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 0,
+      "protocol": "PEGASIS",
+      "seed": 433,
+      "metrics": {
+        "pdr_end2end": 0.68,
+        "energy": 184.70527682235644,
+        "lifetime": 200,
+        "alive_nodes": 300,
+        "execution_time": 0.17826294898986816
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 27,
+      "protocol": "AERIS",
+      "seed": 27159,
+      "metrics": {
+        "pdr_end2end": 0.9112939528835092,
+        "energy": 265.87495305990967,
+        "lifetime": 200,
+        "alive_nodes": 199,
+        "execution_time": 7.172436952590942
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 0,
+      "protocol": "HEED",
+      "seed": 340,
+      "metrics": {
+        "pdr_end2end": 0.42679862172595145,
+        "energy": 493.8023951770895,
+        "lifetime": 200,
+        "alive_nodes": 96,
+        "execution_time": 0.513519287109375
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 1,
+      "protocol": "LEACH",
+      "seed": 1039,
+      "metrics": {
+        "pdr_end2end": 0.44482173174872663,
+        "energy": 512.889880430208,
+        "lifetime": 200,
+        "alive_nodes": 101,
+        "execution_time": 0.6050050258636475
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 1,
+      "protocol": "PEGASIS",
+      "seed": 1430,
+      "metrics": {
+        "pdr_end2end": 0.62,
+        "energy": 203.55218554596692,
+        "lifetime": 200,
+        "alive_nodes": 300,
+        "execution_time": 0.18757390975952148
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 1,
+      "protocol": "HEED",
+      "seed": 1337,
+      "metrics": {
+        "pdr_end2end": 0.44712383183519644,
+        "energy": 491.58375579053563,
+        "lifetime": 200,
+        "alive_nodes": 96,
+        "execution_time": 0.5541625022888184
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 28,
+      "protocol": "AERIS",
+      "seed": 28364,
+      "metrics": {
+        "pdr_end2end": 0.9235316407730201,
+        "energy": 276.1652728099918,
+        "lifetime": 200,
+        "alive_nodes": 186,
+        "execution_time": 7.061163425445557
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 2,
+      "protocol": "LEACH",
+      "seed": 3025,
+      "metrics": {
+        "pdr_end2end": 0.4324066029539531,
+        "energy": 516.2050067323137,
+        "lifetime": 200,
+        "alive_nodes": 97,
+        "execution_time": 0.6302647590637207
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 2,
+      "protocol": "PEGASIS",
+      "seed": 2076,
+      "metrics": {
+        "pdr_end2end": 0.67,
+        "energy": 186.62859562722844,
+        "lifetime": 200,
+        "alive_nodes": 300,
+        "execution_time": 0.21517491340637207
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 200,
+      "replicate": 29,
+      "protocol": "AERIS",
+      "seed": 29075,
+      "metrics": {
+        "pdr_end2end": 0.8927029960372549,
+        "energy": 270.8412386340774,
+        "lifetime": 200,
+        "alive_nodes": 189,
+        "execution_time": 7.282570838928223
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 2,
+      "protocol": "HEED",
+      "seed": 2129,
+      "metrics": {
+        "pdr_end2end": 0.43506593462979115,
+        "energy": 503.64296196671705,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.55845046043396
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 3,
+      "protocol": "LEACH",
+      "seed": 4022,
+      "metrics": {
+        "pdr_end2end": 0.45157496850063,
+        "energy": 498.9242796500312,
+        "lifetime": 200,
+        "alive_nodes": 115,
+        "execution_time": 0.6445002555847168
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 3,
+      "protocol": "PEGASIS",
+      "seed": 3073,
+      "metrics": {
+        "pdr_end2end": 0.6297182839256122,
+        "energy": 195.80554062424008,
+        "lifetime": 200,
+        "alive_nodes": 296,
+        "execution_time": 0.18790149688720703
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 3,
+      "protocol": "HEED",
+      "seed": 3126,
+      "metrics": {
+        "pdr_end2end": 0.4210579168026511,
+        "energy": 502.06889790573706,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.527857780456543
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 0,
+      "protocol": "AERIS",
+      "seed": 240,
+      "metrics": {
+        "pdr_end2end": 0.8275224317890496,
+        "energy": 505.9966123422097,
+        "lifetime": 200,
+        "alive_nodes": 164,
+        "execution_time": 14.096289157867432
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 4,
+      "protocol": "LEACH",
+      "seed": 4220,
+      "metrics": {
+        "pdr_end2end": 0.46015305828873926,
+        "energy": 493.04397290794776,
+        "lifetime": 200,
+        "alive_nodes": 126,
+        "execution_time": 0.5638048648834229
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 4,
+      "protocol": "PEGASIS",
+      "seed": 4759,
+      "metrics": {
+        "pdr_end2end": 0.5950431142318662,
+        "energy": 197.5081892118023,
+        "lifetime": 200,
+        "alive_nodes": 298,
+        "execution_time": 0.17591643333435059
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 4,
+      "protocol": "HEED",
+      "seed": 5019,
+      "metrics": {
+        "pdr_end2end": 0.45058017269106115,
+        "energy": 474.0292252950148,
+        "lifetime": 200,
+        "alive_nodes": 112,
+        "execution_time": 0.5620648860931396
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 1,
+      "protocol": "AERIS",
+      "seed": 1112,
+      "metrics": {
+        "pdr_end2end": 0.8521143354298454,
+        "energy": 496.2772786522771,
+        "lifetime": 200,
+        "alive_nodes": 191,
+        "execution_time": 14.069854259490967
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 5,
+      "protocol": "LEACH",
+      "seed": 5027,
+      "metrics": {
+        "pdr_end2end": 0.47744927866146886,
+        "energy": 493.45528348523214,
+        "lifetime": 200,
+        "alive_nodes": 118,
+        "execution_time": 0.6219205856323242
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 5,
+      "protocol": "PEGASIS",
+      "seed": 5418,
+      "metrics": {
+        "pdr_end2end": 0.66,
+        "energy": 193.4004536589385,
+        "lifetime": 200,
+        "alive_nodes": 300,
+        "execution_time": 0.20781397819519043
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 5,
+      "protocol": "HEED",
+      "seed": 5325,
+      "metrics": {
+        "pdr_end2end": 0.42967495219885277,
+        "energy": 497.2159599335504,
+        "lifetime": 200,
+        "alive_nodes": 94,
+        "execution_time": 0.5568115711212158
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 2,
+      "protocol": "AERIS",
+      "seed": 2156,
+      "metrics": {
+        "pdr_end2end": 0.8440276406712734,
+        "energy": 499.70444274290656,
+        "lifetime": 200,
+        "alive_nodes": 174,
+        "execution_time": 14.131641387939453
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 6,
+      "protocol": "LEACH",
+      "seed": 6196,
+      "metrics": {
+        "pdr_end2end": 0.46489469710775,
+        "energy": 498.28429404855103,
+        "lifetime": 200,
+        "alive_nodes": 122,
+        "execution_time": 0.7950124740600586
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 6,
+      "protocol": "PEGASIS",
+      "seed": 6466,
+      "metrics": {
+        "pdr_end2end": 0.624991666111074,
+        "energy": 196.4929248310027,
+        "lifetime": 200,
+        "alive_nodes": 299,
+        "execution_time": 0.2286393642425537
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 6,
+      "protocol": "HEED",
+      "seed": 6719,
+      "metrics": {
+        "pdr_end2end": 0.44510736720372174,
+        "energy": 485.61389723812783,
+        "lifetime": 200,
+        "alive_nodes": 104,
+        "execution_time": 0.560389518737793
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 3,
+      "protocol": "AERIS",
+      "seed": 3439,
+      "metrics": {
+        "pdr_end2end": 0.8548137336916861,
+        "energy": 499.22682662202607,
+        "lifetime": 200,
+        "alive_nodes": 190,
+        "execution_time": 14.826876163482666
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 7,
+      "protocol": "LEACH",
+      "seed": 8010,
+      "metrics": {
+        "pdr_end2end": 0.4424532629888749,
+        "energy": 508.25424028658335,
+        "lifetime": 200,
+        "alive_nodes": 109,
+        "execution_time": 0.7822403907775879
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 7,
+      "protocol": "PEGASIS",
+      "seed": 7061,
+      "metrics": {
+        "pdr_end2end": 0.645,
+        "energy": 196.59120075626748,
+        "lifetime": 200,
+        "alive_nodes": 300,
+        "execution_time": 0.28888583183288574
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 7,
+      "protocol": "HEED",
+      "seed": 7114,
+      "metrics": {
+        "pdr_end2end": 0.4487392870450876,
+        "energy": 492.8413479192779,
+        "lifetime": 200,
+        "alive_nodes": 114,
+        "execution_time": 0.6955270767211914
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 4,
+      "protocol": "AERIS",
+      "seed": 4228,
+      "metrics": {
+        "pdr_end2end": 0.8599415829593218,
+        "energy": 491.6303255714821,
+        "lifetime": 200,
+        "alive_nodes": 218,
+        "execution_time": 18.566956758499146
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 8,
+      "protocol": "LEACH",
+      "seed": 8208,
+      "metrics": {
+        "pdr_end2end": 0.4819693197333548,
+        "energy": 495.3844063040071,
+        "lifetime": 200,
+        "alive_nodes": 117,
+        "execution_time": 1.551269769668579
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 8,
+      "protocol": "PEGASIS",
+      "seed": 8747,
+      "metrics": {
+        "pdr_end2end": 0.6251855805961933,
+        "energy": 193.9437542349556,
+        "lifetime": 200,
+        "alive_nodes": 299,
+        "execution_time": 0.40424418449401855
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 8,
+      "protocol": "HEED",
+      "seed": 9007,
+      "metrics": {
+        "pdr_end2end": 0.4200344400796427,
+        "energy": 514.3680342606078,
+        "lifetime": 200,
+        "alive_nodes": 81,
+        "execution_time": 0.6843225955963135
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 5,
+      "protocol": "AERIS",
+      "seed": 5100,
+      "metrics": {
+        "pdr_end2end": 0.8673349983408142,
+        "energy": 488.65985001494386,
+        "lifetime": 200,
+        "alive_nodes": 214,
+        "execution_time": 21.828376531600952
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 9,
+      "protocol": "LEACH",
+      "seed": 9015,
+      "metrics": {
+        "pdr_end2end": 0.457595735727311,
+        "energy": 505.03261748007145,
+        "lifetime": 200,
+        "alive_nodes": 107,
+        "execution_time": 1.324228048324585
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 9,
+      "protocol": "PEGASIS",
+      "seed": 9406,
+      "metrics": {
+        "pdr_end2end": 0.69,
+        "energy": 173.8047525519668,
+        "lifetime": 200,
+        "alive_nodes": 300,
+        "execution_time": 0.3066871166229248
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 9,
+      "protocol": "HEED",
+      "seed": 9313,
+      "metrics": {
+        "pdr_end2end": 0.4633603832616347,
+        "energy": 489.70639682939054,
+        "lifetime": 200,
+        "alive_nodes": 111,
+        "execution_time": 1.2426862716674805
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 6,
+      "protocol": "AERIS",
+      "seed": 6144,
+      "metrics": {
+        "pdr_end2end": 0.8632925708630805,
+        "energy": 471.4896210999742,
+        "lifetime": 200,
+        "alive_nodes": 235,
+        "execution_time": 21.538164377212524
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 7,
+      "protocol": "AERIS",
+      "seed": 7427,
+      "metrics": {
+        "pdr_end2end": 0.8605462043575992,
+        "energy": 490.3710536461175,
+        "lifetime": 200,
+        "alive_nodes": 213,
+        "execution_time": 19.735547065734863
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 10,
+      "protocol": "PEGASIS",
+      "seed": 10052,
+      "metrics": {
+        "pdr_end2end": 0.62,
+        "energy": 190.26388801232008,
+        "lifetime": 200,
+        "alive_nodes": 300,
+        "execution_time": 0.2289588451385498
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 10,
+      "protocol": "LEACH",
+      "seed": 10184,
+      "metrics": {
+        "pdr_end2end": 0.4332448160913046,
+        "energy": 505.7390432851263,
+        "lifetime": 200,
+        "alive_nodes": 115,
+        "execution_time": 0.9082951545715332
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 10,
+      "protocol": "HEED",
+      "seed": 10105,
+      "metrics": {
+        "pdr_end2end": 0.4770961296529268,
+        "energy": 453.76051014919886,
+        "lifetime": 200,
+        "alive_nodes": 116,
+        "execution_time": 0.6265404224395752
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 11,
+      "protocol": "LEACH",
+      "seed": 11998,
+      "metrics": {
+        "pdr_end2end": 0.4600621970694534,
+        "energy": 498.2207638038233,
+        "lifetime": 200,
+        "alive_nodes": 106,
+        "execution_time": 1.12522292137146
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 11,
+      "protocol": "PEGASIS",
+      "seed": 11049,
+      "metrics": {
+        "pdr_end2end": 0.545,
+        "energy": 212.01034095837161,
+        "lifetime": 200,
+        "alive_nodes": 300,
+        "execution_time": 0.2929058074951172
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 11,
+      "protocol": "HEED",
+      "seed": 11102,
+      "metrics": {
+        "pdr_end2end": 0.41796142684711984,
+        "energy": 508.5192245809546,
+        "lifetime": 200,
+        "alive_nodes": 95,
+        "execution_time": 0.7153403759002686
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 8,
+      "protocol": "AERIS",
+      "seed": 8216,
+      "metrics": {
+        "pdr_end2end": 0.8469998756241005,
+        "energy": 490.5764079580718,
+        "lifetime": 200,
+        "alive_nodes": 207,
+        "execution_time": 20.476935625076294
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 12,
+      "protocol": "LEACH",
+      "seed": 12196,
+      "metrics": {
+        "pdr_end2end": 0.43755852059925093,
+        "energy": 515.6980000845584,
+        "lifetime": 200,
+        "alive_nodes": 96,
+        "execution_time": 0.687002420425415
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 12,
+      "protocol": "PEGASIS",
+      "seed": 12735,
+      "metrics": {
+        "pdr_end2end": 0.595,
+        "energy": 200.06083337669492,
+        "lifetime": 200,
+        "alive_nodes": 300,
+        "execution_time": 0.22797131538391113
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 12,
+      "protocol": "HEED",
+      "seed": 12995,
+      "metrics": {
+        "pdr_end2end": 0.45913305456717657,
+        "energy": 502.9188346498074,
+        "lifetime": 200,
+        "alive_nodes": 86,
+        "execution_time": 0.5791053771972656
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 9,
+      "protocol": "AERIS",
+      "seed": 9088,
+      "metrics": {
+        "pdr_end2end": 0.8616051754834388,
+        "energy": 485.66668880598723,
+        "lifetime": 200,
+        "alive_nodes": 222,
+        "execution_time": 20.481706380844116
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 13,
+      "protocol": "LEACH",
+      "seed": 13003,
+      "metrics": {
+        "pdr_end2end": 0.4606096702582706,
+        "energy": 501.2339699480682,
+        "lifetime": 200,
+        "alive_nodes": 112,
+        "execution_time": 0.7407073974609375
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 13,
+      "protocol": "PEGASIS",
+      "seed": 13394,
+      "metrics": {
+        "pdr_end2end": 0.604993832716605,
+        "energy": 201.72213355496626,
+        "lifetime": 200,
+        "alive_nodes": 299,
+        "execution_time": 0.22545123100280762
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 13,
+      "protocol": "HEED",
+      "seed": 13301,
+      "metrics": {
+        "pdr_end2end": 0.448045688948865,
+        "energy": 490.85660025891264,
+        "lifetime": 200,
+        "alive_nodes": 110,
+        "execution_time": 0.6381092071533203
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 10,
+      "protocol": "AERIS",
+      "seed": 10132,
+      "metrics": {
+        "pdr_end2end": 0.8338917969245259,
+        "energy": 505.87292855124963,
+        "lifetime": 200,
+        "alive_nodes": 160,
+        "execution_time": 21.013460159301758
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 14,
+      "protocol": "LEACH",
+      "seed": 14172,
+      "metrics": {
+        "pdr_end2end": 0.4939940358406956,
+        "energy": 483.3531063469884,
+        "lifetime": 200,
+        "alive_nodes": 123,
+        "execution_time": 0.9058661460876465
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 14,
+      "protocol": "PEGASIS",
+      "seed": 14442,
+      "metrics": {
+        "pdr_end2end": 0.685,
+        "energy": 182.5979945134241,
+        "lifetime": 200,
+        "alive_nodes": 300,
+        "execution_time": 0.25838398933410645
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 14,
+      "protocol": "HEED",
+      "seed": 14695,
+      "metrics": {
+        "pdr_end2end": 0.45378109203743555,
+        "energy": 478.829609098514,
+        "lifetime": 200,
+        "alive_nodes": 102,
+        "execution_time": 0.7054851055145264
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 11,
+      "protocol": "AERIS",
+      "seed": 11415,
+      "metrics": {
+        "pdr_end2end": 0.8668880805524803,
+        "energy": 486.8335969817502,
+        "lifetime": 200,
+        "alive_nodes": 232,
+        "execution_time": 20.798628568649292
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 15,
+      "protocol": "LEACH",
+      "seed": 15986,
+      "metrics": {
+        "pdr_end2end": 0.4557465120741167,
+        "energy": 499.2818052241883,
+        "lifetime": 200,
+        "alive_nodes": 119,
+        "execution_time": 0.8545539379119873
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 15,
+      "protocol": "PEGASIS",
+      "seed": 15037,
+      "metrics": {
+        "pdr_end2end": 0.715,
+        "energy": 172.8745762933633,
+        "lifetime": 200,
+        "alive_nodes": 300,
+        "execution_time": 0.31232213973999023
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 15,
+      "protocol": "HEED",
+      "seed": 15090,
+      "metrics": {
+        "pdr_end2end": 0.44570460843682647,
+        "energy": 487.51504803448915,
+        "lifetime": 200,
+        "alive_nodes": 98,
+        "execution_time": 0.9467258453369141
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 12,
+      "protocol": "AERIS",
+      "seed": 12204,
+      "metrics": {
+        "pdr_end2end": 0.8371128724497284,
+        "energy": 490.2356512264656,
+        "lifetime": 200,
+        "alive_nodes": 202,
+        "execution_time": 19.478970289230347
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 16,
+      "protocol": "LEACH",
+      "seed": 16184,
+      "metrics": {
+        "pdr_end2end": 0.44873396162143747,
+        "energy": 502.2576507931282,
+        "lifetime": 200,
+        "alive_nodes": 109,
+        "execution_time": 0.836939811706543
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 16,
+      "protocol": "PEGASIS",
+      "seed": 16723,
+      "metrics": {
+        "pdr_end2end": 0.6299568282966346,
+        "energy": 192.09218559501784,
+        "lifetime": 200,
+        "alive_nodes": 299,
+        "execution_time": 0.2749509811401367
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 16,
+      "protocol": "HEED",
+      "seed": 16983,
+      "metrics": {
+        "pdr_end2end": 0.44110369648346703,
+        "energy": 486.4386405759951,
+        "lifetime": 200,
+        "alive_nodes": 111,
+        "execution_time": 0.8616859912872314
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 13,
+      "protocol": "AERIS",
+      "seed": 13076,
+      "metrics": {
+        "pdr_end2end": 0.8317067841666363,
+        "energy": 497.9414297464955,
+        "lifetime": 200,
+        "alive_nodes": 190,
+        "execution_time": 18.959847688674927
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 17,
+      "protocol": "LEACH",
+      "seed": 16991,
+      "metrics": {
+        "pdr_end2end": 0.48297327952309355,
+        "energy": 488.2725186054736,
+        "lifetime": 200,
+        "alive_nodes": 126,
+        "execution_time": 0.7902677059173584
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 17,
+      "protocol": "PEGASIS",
+      "seed": 17382,
+      "metrics": {
+        "pdr_end2end": 0.7000116688059478,
+        "energy": 175.22610390512003,
+        "lifetime": 200,
+        "alive_nodes": 299,
+        "execution_time": 0.23427462577819824
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 17,
+      "protocol": "HEED",
+      "seed": 17289,
+      "metrics": {
+        "pdr_end2end": 0.4404758791998954,
+        "energy": 501.81701708127355,
+        "lifetime": 200,
+        "alive_nodes": 93,
+        "execution_time": 0.5874114036560059
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 14,
+      "protocol": "AERIS",
+      "seed": 14120,
+      "metrics": {
+        "pdr_end2end": 0.8496776626501698,
+        "energy": 502.59701292489865,
+        "lifetime": 200,
+        "alive_nodes": 168,
+        "execution_time": 19.920295238494873
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 18,
+      "protocol": "LEACH",
+      "seed": 18160,
+      "metrics": {
+        "pdr_end2end": 0.4540212851946652,
+        "energy": 495.7116789277342,
+        "lifetime": 200,
+        "alive_nodes": 128,
+        "execution_time": 0.9083597660064697
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 18,
+      "protocol": "PEGASIS",
+      "seed": 18430,
+      "metrics": {
+        "pdr_end2end": 0.645,
+        "energy": 193.05066141277683,
+        "lifetime": 200,
+        "alive_nodes": 300,
+        "execution_time": 0.29094457626342773
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 18,
+      "protocol": "HEED",
+      "seed": 18683,
+      "metrics": {
+        "pdr_end2end": 0.42210667215815484,
+        "energy": 505.70111419821114,
+        "lifetime": 200,
+        "alive_nodes": 82,
+        "execution_time": 0.7006468772888184
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 15,
+      "protocol": "AERIS",
+      "seed": 15403,
+      "metrics": {
+        "pdr_end2end": 0.8330448723788009,
+        "energy": 490.6736071527018,
+        "lifetime": 200,
+        "alive_nodes": 202,
+        "execution_time": 21.24582290649414
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 19,
+      "protocol": "LEACH",
+      "seed": 19974,
+      "metrics": {
+        "pdr_end2end": 0.42503015681544026,
+        "energy": 519.7404687402702,
+        "lifetime": 200,
+        "alive_nodes": 94,
+        "execution_time": 0.84814453125
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 19,
+      "protocol": "PEGASIS",
+      "seed": 19025,
+      "metrics": {
+        "pdr_end2end": 0.65,
+        "energy": 188.5245263697356,
+        "lifetime": 200,
+        "alive_nodes": 300,
+        "execution_time": 0.26450634002685547
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 19,
+      "protocol": "HEED",
+      "seed": 19078,
+      "metrics": {
+        "pdr_end2end": 0.430251202565473,
+        "energy": 506.9405974358207,
+        "lifetime": 200,
+        "alive_nodes": 94,
+        "execution_time": 0.8428173065185547
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 16,
+      "protocol": "AERIS",
+      "seed": 16192,
+      "metrics": {
+        "pdr_end2end": 0.8596226686053817,
+        "energy": 481.9470192611406,
+        "lifetime": 200,
+        "alive_nodes": 219,
+        "execution_time": 21.233314275741577
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 20,
+      "protocol": "LEACH",
+      "seed": 20172,
+      "metrics": {
+        "pdr_end2end": 0.44987838776928424,
+        "energy": 497.74878384146336,
+        "lifetime": 200,
+        "alive_nodes": 111,
+        "execution_time": 0.8408246040344238
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 17,
+      "protocol": "AERIS",
+      "seed": 17064,
+      "metrics": {
+        "pdr_end2end": 0.8419607280037333,
+        "energy": 475.1985655113001,
+        "lifetime": 200,
+        "alive_nodes": 229,
+        "execution_time": 17.487091779708862
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 20,
+      "protocol": "PEGASIS",
+      "seed": 20711,
+      "metrics": {
+        "pdr_end2end": 0.6550556361877117,
+        "energy": 199.81875865995437,
+        "lifetime": 200,
+        "alive_nodes": 299,
+        "execution_time": 0.30159616470336914
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 20,
+      "protocol": "HEED",
+      "seed": 20280,
+      "metrics": {
+        "pdr_end2end": 0.4586090316348708,
+        "energy": 475.89477432622937,
+        "lifetime": 200,
+        "alive_nodes": 122,
+        "execution_time": 0.5972950458526611
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 21,
+      "protocol": "LEACH",
+      "seed": 20979,
+      "metrics": {
+        "pdr_end2end": 0.4663549559192181,
+        "energy": 499.4921361257966,
+        "lifetime": 200,
+        "alive_nodes": 113,
+        "execution_time": 0.7045822143554688
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 21,
+      "protocol": "PEGASIS",
+      "seed": 21370,
+      "metrics": {
+        "pdr_end2end": 0.655,
+        "energy": 192.89003389200118,
+        "lifetime": 200,
+        "alive_nodes": 300,
+        "execution_time": 0.22086381912231445
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 21,
+      "protocol": "HEED",
+      "seed": 21277,
+      "metrics": {
+        "pdr_end2end": 0.3988648864886489,
+        "energy": 507.7696147575727,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.6087861061096191
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 18,
+      "protocol": "AERIS",
+      "seed": 18108,
+      "metrics": {
+        "pdr_end2end": 0.8798239203813899,
+        "energy": 467.63275841022073,
+        "lifetime": 200,
+        "alive_nodes": 249,
+        "execution_time": 20.895631313323975
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 22,
+      "protocol": "LEACH",
+      "seed": 22148,
+      "metrics": {
+        "pdr_end2end": 0.45596183542907565,
+        "energy": 502.1817260776358,
+        "lifetime": 200,
+        "alive_nodes": 113,
+        "execution_time": 1.0528068542480469
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 22,
+      "protocol": "PEGASIS",
+      "seed": 22418,
+      "metrics": {
+        "pdr_end2end": 0.56,
+        "energy": 197.8762919580594,
+        "lifetime": 200,
+        "alive_nodes": 300,
+        "execution_time": 0.32525134086608887
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 19,
+      "protocol": "AERIS",
+      "seed": 19391,
+      "metrics": {
+        "pdr_end2end": 0.8503436953109496,
+        "energy": 503.4096332256376,
+        "lifetime": 200,
+        "alive_nodes": 150,
+        "execution_time": 18.877907514572144
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 22,
+      "protocol": "HEED",
+      "seed": 22671,
+      "metrics": {
+        "pdr_end2end": 0.45375636037114636,
+        "energy": 482.00030092956007,
+        "lifetime": 200,
+        "alive_nodes": 120,
+        "execution_time": 0.9264144897460938
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 23,
+      "protocol": "LEACH",
+      "seed": 23145,
+      "metrics": {
+        "pdr_end2end": 0.47015384615384614,
+        "energy": 489.962414896416,
+        "lifetime": 200,
+        "alive_nodes": 120,
+        "execution_time": 0.9925665855407715
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 23,
+      "protocol": "PEGASIS",
+      "seed": 23415,
+      "metrics": {
+        "pdr_end2end": 0.6052210175145954,
+        "energy": 203.30210857358958,
+        "lifetime": 200,
+        "alive_nodes": 299,
+        "execution_time": 0.2724571228027344
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 23,
+      "protocol": "HEED",
+      "seed": 23668,
+      "metrics": {
+        "pdr_end2end": 0.4672728718750828,
+        "energy": 482.8011976116407,
+        "lifetime": 200,
+        "alive_nodes": 102,
+        "execution_time": 0.820960283279419
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 21,
+      "protocol": "AERIS",
+      "seed": 21052,
+      "metrics": {
+        "pdr_end2end": 0.836436027117185,
+        "energy": 486.3220190385365,
+        "lifetime": 200,
+        "alive_nodes": 219,
+        "execution_time": 17.60375142097473
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 24,
+      "protocol": "LEACH",
+      "seed": 23970,
+      "metrics": {
+        "pdr_end2end": 0.4437634254618359,
+        "energy": 501.9757873147299,
+        "lifetime": 200,
+        "alive_nodes": 105,
+        "execution_time": 0.7241699695587158
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 24,
+      "protocol": "PEGASIS",
+      "seed": 24361,
+      "metrics": {
+        "pdr_end2end": 0.64,
+        "energy": 180.55953539515295,
+        "lifetime": 200,
+        "alive_nodes": 300,
+        "execution_time": 0.22245264053344727
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 20,
+      "protocol": "AERIS",
+      "seed": 20180,
+      "metrics": {
+        "pdr_end2end": 0.8429667891309883,
+        "energy": 512.3020652644742,
+        "lifetime": 200,
+        "alive_nodes": 136,
+        "execution_time": 20.734930515289307
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 24,
+      "protocol": "HEED",
+      "seed": 24268,
+      "metrics": {
+        "pdr_end2end": 0.43594775992827894,
+        "energy": 482.3060987752059,
+        "lifetime": 200,
+        "alive_nodes": 116,
+        "execution_time": 0.6581454277038574
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 25,
+      "protocol": "LEACH",
+      "seed": 24967,
+      "metrics": {
+        "pdr_end2end": 0.4528856526429342,
+        "energy": 498.73892903131406,
+        "lifetime": 200,
+        "alive_nodes": 119,
+        "execution_time": 0.7500638961791992
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 25,
+      "protocol": "PEGASIS",
+      "seed": 25358,
+      "metrics": {
+        "pdr_end2end": 0.7,
+        "energy": 187.97597717526767,
+        "lifetime": 200,
+        "alive_nodes": 300,
+        "execution_time": 0.22340846061706543
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 25,
+      "protocol": "HEED",
+      "seed": 25265,
+      "metrics": {
+        "pdr_end2end": 0.43196947972142563,
+        "energy": 502.7883483298114,
+        "lifetime": 200,
+        "alive_nodes": 91,
+        "execution_time": 0.6781489849090576
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 22,
+      "protocol": "AERIS",
+      "seed": 22382,
+      "metrics": {
+        "pdr_end2end": 0.8698109530305983,
+        "energy": 470.1201063189797,
+        "lifetime": 200,
+        "alive_nodes": 230,
+        "execution_time": 20.962512016296387
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 26,
+      "protocol": "LEACH",
+      "seed": 26953,
+      "metrics": {
+        "pdr_end2end": 0.47575542630160306,
+        "energy": 488.6706505205139,
+        "lifetime": 200,
+        "alive_nodes": 119,
+        "execution_time": 0.9749603271484375
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 26,
+      "protocol": "PEGASIS",
+      "seed": 26004,
+      "metrics": {
+        "pdr_end2end": 0.6850585855884467,
+        "energy": 183.87691974152102,
+        "lifetime": 200,
+        "alive_nodes": 297,
+        "execution_time": 0.281174898147583
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 26,
+      "protocol": "HEED",
+      "seed": 26057,
+      "metrics": {
+        "pdr_end2end": 0.424293899903656,
+        "energy": 502.5553932972324,
+        "lifetime": 200,
+        "alive_nodes": 91,
+        "execution_time": 0.7006971836090088
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 23,
+      "protocol": "AERIS",
+      "seed": 23093,
+      "metrics": {
+        "pdr_end2end": 0.8297704025314593,
+        "energy": 505.21092250201633,
+        "lifetime": 200,
+        "alive_nodes": 165,
+        "execution_time": 21.158087253570557
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 27,
+      "protocol": "LEACH",
+      "seed": 27133,
+      "metrics": {
+        "pdr_end2end": 0.46452340060111635,
+        "energy": 495.70188500681894,
+        "lifetime": 200,
+        "alive_nodes": 117,
+        "execution_time": 0.8686749935150146
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 27,
+      "protocol": "PEGASIS",
+      "seed": 27403,
+      "metrics": {
+        "pdr_end2end": 0.6451257756722493,
+        "energy": 183.4010530145525,
+        "lifetime": 200,
+        "alive_nodes": 299,
+        "execution_time": 0.25414085388183594
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 27,
+      "protocol": "HEED",
+      "seed": 27656,
+      "metrics": {
+        "pdr_end2end": 0.43271410269045035,
+        "energy": 494.47825869088007,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 0.67746901512146
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 24,
+      "protocol": "AERIS",
+      "seed": 24168,
+      "metrics": {
+        "pdr_end2end": 0.8553560549044905,
+        "energy": 485.1666981255734,
+        "lifetime": 200,
+        "alive_nodes": 213,
+        "execution_time": 21.63288903236389
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 25,
+      "protocol": "AERIS",
+      "seed": 25040,
+      "metrics": {
+        "pdr_end2end": 0.8530290441761389,
+        "energy": 493.68198073780235,
+        "lifetime": 200,
+        "alive_nodes": 205,
+        "execution_time": 20.33983087539673
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 28,
+      "protocol": "LEACH",
+      "seed": 28148,
+      "metrics": {
+        "pdr_end2end": 0.4640939880266449,
+        "energy": 496.43879815332735,
+        "lifetime": 200,
+        "alive_nodes": 109,
+        "execution_time": 0.8592913150787354
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 28,
+      "protocol": "PEGASIS",
+      "seed": 28349,
+      "metrics": {
+        "pdr_end2end": 0.735,
+        "energy": 173.7388862503211,
+        "lifetime": 200,
+        "alive_nodes": 300,
+        "execution_time": 0.24364161491394043
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 28,
+      "protocol": "HEED",
+      "seed": 28947,
+      "metrics": {
+        "pdr_end2end": 0.4361849178313623,
+        "energy": 495.73347490692714,
+        "lifetime": 200,
+        "alive_nodes": 92,
+        "execution_time": 0.6319258213043213
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 29,
+      "protocol": "LEACH",
+      "seed": 29145,
+      "metrics": {
+        "pdr_end2end": 0.47663422187811083,
+        "energy": 489.7422025892242,
+        "lifetime": 200,
+        "alive_nodes": 119,
+        "execution_time": 0.9088723659515381
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 29,
+      "protocol": "PEGASIS",
+      "seed": 29684,
+      "metrics": {
+        "pdr_end2end": 0.5699287276126254,
+        "energy": 204.8333939226123,
+        "lifetime": 200,
+        "alive_nodes": 299,
+        "execution_time": 0.262714147567749
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 29,
+      "protocol": "HEED",
+      "seed": 29944,
+      "metrics": {
+        "pdr_end2end": 0.4497423325161355,
+        "energy": 484.87460715608836,
+        "lifetime": 200,
+        "alive_nodes": 104,
+        "execution_time": 0.751183032989502
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 26,
+      "protocol": "AERIS",
+      "seed": 26370,
+      "metrics": {
+        "pdr_end2end": 0.8489768643103541,
+        "energy": 500.5725852357881,
+        "lifetime": 200,
+        "alive_nodes": 192,
+        "execution_time": 19.746971368789673
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 27,
+      "protocol": "AERIS",
+      "seed": 27081,
+      "metrics": {
+        "pdr_end2end": 0.832045495576819,
+        "energy": 498.04089394700446,
+        "lifetime": 200,
+        "alive_nodes": 184,
+        "execution_time": 18.143521785736084
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 0,
+      "protocol": "LEACH",
+      "seed": 1031,
+      "metrics": {
+        "pdr_end2end": 0.37440540125824767,
+        "energy": 907.5234426691859,
+        "lifetime": 200,
+        "alive_nodes": 94,
+        "execution_time": 0.9826428890228271
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 0,
+      "protocol": "PEGASIS",
+      "seed": 484,
+      "metrics": {
+        "pdr_end2end": 0.6014895085445874,
+        "energy": 370.5164761857804,
+        "lifetime": 200,
+        "alive_nodes": 468,
+        "execution_time": 0.5287232398986816
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 0,
+      "protocol": "HEED",
+      "seed": 135,
+      "metrics": {
+        "pdr_end2end": 0.33386766580400945,
+        "energy": 914.2037220587137,
+        "lifetime": 200,
+        "alive_nodes": 95,
+        "execution_time": 0.9459593296051025
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 1,
+      "protocol": "LEACH",
+      "seed": 2028,
+      "metrics": {
+        "pdr_end2end": 0.38186704803235033,
+        "energy": 906.3257817590469,
+        "lifetime": 200,
+        "alive_nodes": 97,
+        "execution_time": 1.0346860885620117
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 1,
+      "protocol": "PEGASIS",
+      "seed": 1079,
+      "metrics": {
+        "pdr_end2end": 0.5195535869554099,
+        "energy": 405.0105292273361,
+        "lifetime": 200,
+        "alive_nodes": 458,
+        "execution_time": 0.487321138381958
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 1,
+      "protocol": "HEED",
+      "seed": 1132,
+      "metrics": {
+        "pdr_end2end": 0.3365673318490982,
+        "energy": 915.6874256225728,
+        "lifetime": 200,
+        "alive_nodes": 72,
+        "execution_time": 0.8503196239471436
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 28,
+      "protocol": "AERIS",
+      "seed": 28031,
+      "metrics": {
+        "pdr_end2end": 0.8614222174588715,
+        "energy": 479.56179724997486,
+        "lifetime": 200,
+        "alive_nodes": 218,
+        "execution_time": 20.8263738155365
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 2,
+      "protocol": "LEACH",
+      "seed": 2036,
+      "metrics": {
+        "pdr_end2end": 0.3760940494070123,
+        "energy": 900.834258965001,
+        "lifetime": 200,
+        "alive_nodes": 88,
+        "execution_time": 1.2833514213562012
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 2,
+      "protocol": "PEGASIS",
+      "seed": 2427,
+      "metrics": {
+        "pdr_end2end": 0.745,
+        "energy": 293.97963180877775,
+        "lifetime": 200,
+        "alive_nodes": 500,
+        "execution_time": 0.5374231338500977
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 300,
+      "replicate": 29,
+      "protocol": "AERIS",
+      "seed": 29153,
+      "metrics": {
+        "pdr_end2end": 0.8549223727900924,
+        "energy": 469.8793591294489,
+        "lifetime": 200,
+        "alive_nodes": 231,
+        "execution_time": 20.202636241912842
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 2,
+      "protocol": "HEED",
+      "seed": 2334,
+      "metrics": {
+        "pdr_end2end": 0.3521061919742193,
+        "energy": 907.562367043825,
+        "lifetime": 200,
+        "alive_nodes": 107,
+        "execution_time": 1.0880677700042725
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 3,
+      "protocol": "LEACH",
+      "seed": 3033,
+      "metrics": {
+        "pdr_end2end": 0.3928271157126042,
+        "energy": 894.5206754230463,
+        "lifetime": 200,
+        "alive_nodes": 107,
+        "execution_time": 1.3685269355773926
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 3,
+      "protocol": "PEGASIS",
+      "seed": 3424,
+      "metrics": {
+        "pdr_end2end": 0.420064141110443,
+        "energy": 387.2817122354519,
+        "lifetime": 200,
+        "alive_nodes": 485,
+        "execution_time": 0.6389856338500977
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 3,
+      "protocol": "HEED",
+      "seed": 3331,
+      "metrics": {
+        "pdr_end2end": 0.32966158741815066,
+        "energy": 915.8825463603167,
+        "lifetime": 200,
+        "alive_nodes": 90,
+        "execution_time": 0.9586391448974609
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 0,
+      "protocol": "AERIS",
+      "seed": 162,
+      "metrics": {
+        "pdr_end2end": 0.7975871712483636,
+        "energy": 865.8373590187563,
+        "lifetime": 196,
+        "alive_nodes": 0,
+        "execution_time": 30.457046270370483
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 4,
+      "protocol": "LEACH",
+      "seed": 4202,
+      "metrics": {
+        "pdr_end2end": 0.381839258114374,
+        "energy": 897.2828207181494,
+        "lifetime": 200,
+        "alive_nodes": 86,
+        "execution_time": 1.3883123397827148
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 4,
+      "protocol": "PEGASIS",
+      "seed": 4472,
+      "metrics": {
+        "pdr_end2end": 0.557972410018346,
+        "energy": 381.94984366501706,
+        "lifetime": 200,
+        "alive_nodes": 479,
+        "execution_time": 0.7431473731994629
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 4,
+      "protocol": "HEED",
+      "seed": 4725,
+      "metrics": {
+        "pdr_end2end": 0.34264327776395453,
+        "energy": 908.8483832701443,
+        "lifetime": 200,
+        "alive_nodes": 74,
+        "execution_time": 0.9780490398406982
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 1,
+      "protocol": "AERIS",
+      "seed": 1445,
+      "metrics": {
+        "pdr_end2end": 0.7905072442385435,
+        "energy": 871.4776673821883,
+        "lifetime": 200,
+        "alive_nodes": 8,
+        "execution_time": 33.80550718307495
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 5,
+      "protocol": "LEACH",
+      "seed": 6016,
+      "metrics": {
+        "pdr_end2end": 0.3710720515228767,
+        "energy": 903.1452913705856,
+        "lifetime": 200,
+        "alive_nodes": 83,
+        "execution_time": 1.1249423027038574
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 5,
+      "protocol": "PEGASIS",
+      "seed": 5067,
+      "metrics": {
+        "pdr_end2end": 0.5671439413103971,
+        "energy": 397.0818363214224,
+        "lifetime": 200,
+        "alive_nodes": 471,
+        "execution_time": 0.6338329315185547
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 5,
+      "protocol": "HEED",
+      "seed": 5120,
+      "metrics": {
+        "pdr_end2end": 0.32490225803877765,
+        "energy": 920.9551535488703,
+        "lifetime": 200,
+        "alive_nodes": 85,
+        "execution_time": 1.1334350109100342
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 2,
+      "protocol": "AERIS",
+      "seed": 2234,
+      "metrics": {
+        "pdr_end2end": 0.7798874379485883,
+        "energy": 875.9137672107153,
+        "lifetime": 199,
+        "alive_nodes": 0,
+        "execution_time": 30.695616960525513
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 6,
+      "protocol": "LEACH",
+      "seed": 6214,
+      "metrics": {
+        "pdr_end2end": 0.4110923464767359,
+        "energy": 887.9335330729646,
+        "lifetime": 200,
+        "alive_nodes": 106,
+        "execution_time": 0.9876410961151123
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 6,
+      "protocol": "PEGASIS",
+      "seed": 6753,
+      "metrics": {
+        "pdr_end2end": 0.5763824289405685,
+        "energy": 379.33678654570673,
+        "lifetime": 200,
+        "alive_nodes": 463,
+        "execution_time": 0.4586300849914551
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 6,
+      "protocol": "HEED",
+      "seed": 7013,
+      "metrics": {
+        "pdr_end2end": 0.355918349788131,
+        "energy": 910.2209792735723,
+        "lifetime": 200,
+        "alive_nodes": 83,
+        "execution_time": 0.8851439952850342
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 3,
+      "protocol": "AERIS",
+      "seed": 3106,
+      "metrics": {
+        "pdr_end2end": 0.8005459765606614,
+        "energy": 876.0982732198709,
+        "lifetime": 195,
+        "alive_nodes": 0,
+        "execution_time": 29.176135063171387
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 7,
+      "protocol": "LEACH",
+      "seed": 7021,
+      "metrics": {
+        "pdr_end2end": 0.3744096967152902,
+        "energy": 912.4441220535199,
+        "lifetime": 200,
+        "alive_nodes": 79,
+        "execution_time": 1.04066801071167
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 7,
+      "protocol": "PEGASIS",
+      "seed": 7412,
+      "metrics": {
+        "pdr_end2end": 0.5862940511661359,
+        "energy": 369.7698980376056,
+        "lifetime": 200,
+        "alive_nodes": 467,
+        "execution_time": 0.5849065780639648
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 7,
+      "protocol": "HEED",
+      "seed": 7319,
+      "metrics": {
+        "pdr_end2end": 0.3404710496602817,
+        "energy": 910.1332185193345,
+        "lifetime": 200,
+        "alive_nodes": 91,
+        "execution_time": 1.0053274631500244
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 4,
+      "protocol": "AERIS",
+      "seed": 4150,
+      "metrics": {
+        "pdr_end2end": 0.7949297515285547,
+        "energy": 892.0138762554617,
+        "lifetime": 200,
+        "alive_nodes": 0,
+        "execution_time": 29.07689666748047
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 8,
+      "protocol": "LEACH",
+      "seed": 8190,
+      "metrics": {
+        "pdr_end2end": 0.37732895344659445,
+        "energy": 905.9788940126944,
+        "lifetime": 200,
+        "alive_nodes": 90,
+        "execution_time": 1.190600872039795
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 8,
+      "protocol": "PEGASIS",
+      "seed": 8460,
+      "metrics": {
+        "pdr_end2end": 0.6894284783847594,
+        "energy": 313.20355185183445,
+        "lifetime": 200,
+        "alive_nodes": 489,
+        "execution_time": 0.5461916923522949
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 8,
+      "protocol": "HEED",
+      "seed": 8713,
+      "metrics": {
+        "pdr_end2end": 0.3513753865432423,
+        "energy": 902.6412170987768,
+        "lifetime": 200,
+        "alive_nodes": 89,
+        "execution_time": 0.9345135688781738
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 5,
+      "protocol": "AERIS",
+      "seed": 5433,
+      "metrics": {
+        "pdr_end2end": 0.7859486734978175,
+        "energy": 875.0694703040612,
+        "lifetime": 197,
+        "alive_nodes": 0,
+        "execution_time": 34.204880237579346
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 9,
+      "protocol": "LEACH",
+      "seed": 10004,
+      "metrics": {
+        "pdr_end2end": 0.38959418272576735,
+        "energy": 898.6514798170077,
+        "lifetime": 200,
+        "alive_nodes": 102,
+        "execution_time": 1.039484977722168
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 9,
+      "protocol": "PEGASIS",
+      "seed": 9055,
+      "metrics": {
+        "pdr_end2end": 0.5106092679354315,
+        "energy": 359.9792395622313,
+        "lifetime": 200,
+        "alive_nodes": 485,
+        "execution_time": 0.4641377925872803
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 9,
+      "protocol": "HEED",
+      "seed": 9108,
+      "metrics": {
+        "pdr_end2end": 0.32625856574535,
+        "energy": 916.4734405186665,
+        "lifetime": 200,
+        "alive_nodes": 74,
+        "execution_time": 0.8205075263977051
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 7,
+      "protocol": "AERIS",
+      "seed": 7094,
+      "metrics": {
+        "pdr_end2end": 0.7853028661818057,
+        "energy": 880.0081090405288,
+        "lifetime": 185,
+        "alive_nodes": 0,
+        "execution_time": 28.069708585739136
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 10,
+      "protocol": "LEACH",
+      "seed": 10012,
+      "metrics": {
+        "pdr_end2end": 0.36691286580877686,
+        "energy": 909.0996314059098,
+        "lifetime": 200,
+        "alive_nodes": 87,
+        "execution_time": 1.068591833114624
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 10,
+      "protocol": "PEGASIS",
+      "seed": 10403,
+      "metrics": {
+        "pdr_end2end": 0.43614040039515334,
+        "energy": 388.5222449019816,
+        "lifetime": 200,
+        "alive_nodes": 486,
+        "execution_time": 0.4595191478729248
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 10,
+      "protocol": "HEED",
+      "seed": 10310,
+      "metrics": {
+        "pdr_end2end": 0.34652688926493047,
+        "energy": 896.7085597799665,
+        "lifetime": 200,
+        "alive_nodes": 96,
+        "execution_time": 1.0752196311950684
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 6,
+      "protocol": "AERIS",
+      "seed": 6222,
+      "metrics": {
+        "pdr_end2end": 0.7947469228370774,
+        "energy": 876.2973646492784,
+        "lifetime": 200,
+        "alive_nodes": 30,
+        "execution_time": 34.77340078353882
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 11,
+      "protocol": "LEACH",
+      "seed": 11199,
+      "metrics": {
+        "pdr_end2end": 0.3775572111534448,
+        "energy": 894.8718797398195,
+        "lifetime": 200,
+        "alive_nodes": 110,
+        "execution_time": 1.5682837963104248
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 11,
+      "protocol": "PEGASIS",
+      "seed": 11738,
+      "metrics": {
+        "pdr_end2end": 0.6850037000740015,
+        "energy": 330.98290557465344,
+        "lifetime": 200,
+        "alive_nodes": 498,
+        "execution_time": 0.5860505104064941
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 11,
+      "protocol": "HEED",
+      "seed": 11998,
+      "metrics": {
+        "pdr_end2end": 0.3376347164563693,
+        "energy": 903.3048909758099,
+        "lifetime": 200,
+        "alive_nodes": 89,
+        "execution_time": 1.0800387859344482
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 8,
+      "protocol": "AERIS",
+      "seed": 8138,
+      "metrics": {
+        "pdr_end2end": 0.7805132089764227,
+        "energy": 872.5623661820708,
+        "lifetime": 197,
+        "alive_nodes": 0,
+        "execution_time": 31.929227352142334
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 12,
+      "protocol": "LEACH",
+      "seed": 12178,
+      "metrics": {
+        "pdr_end2end": 0.4118012274040643,
+        "energy": 888.7908257498832,
+        "lifetime": 200,
+        "alive_nodes": 107,
+        "execution_time": 1.0428290367126465
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 12,
+      "protocol": "PEGASIS",
+      "seed": 12448,
+      "metrics": {
+        "pdr_end2end": 0.5811829530431624,
+        "energy": 366.8287733883923,
+        "lifetime": 200,
+        "alive_nodes": 477,
+        "execution_time": 0.5652053356170654
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 12,
+      "protocol": "HEED",
+      "seed": 12701,
+      "metrics": {
+        "pdr_end2end": 0.35740995485633464,
+        "energy": 886.8915161564556,
+        "lifetime": 200,
+        "alive_nodes": 99,
+        "execution_time": 1.1161816120147705
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 10,
+      "protocol": "AERIS",
+      "seed": 10085,
+      "metrics": {
+        "pdr_end2end": 0.779667276308385,
+        "energy": 886.5605716956967,
+        "lifetime": 181,
+        "alive_nodes": 0,
+        "execution_time": 31.01428246498108
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 11,
+      "protocol": "AERIS",
+      "seed": 11207,
+      "metrics": {
+        "pdr_end2end": 0.7716976858318547,
+        "energy": 898.1954073520608,
+        "lifetime": 185,
+        "alive_nodes": 0,
+        "execution_time": 27.52619194984436
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 13,
+      "protocol": "LEACH",
+      "seed": 13003,
+      "metrics": {
+        "pdr_end2end": 0.37633866397733273,
+        "energy": 891.0173182872722,
+        "lifetime": 200,
+        "alive_nodes": 110,
+        "execution_time": 1.1178810596466064
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 13,
+      "protocol": "PEGASIS",
+      "seed": 13732,
+      "metrics": {
+        "pdr_end2end": 0.5355529513106363,
+        "energy": 344.9056737937782,
+        "lifetime": 200,
+        "alive_nodes": 487,
+        "execution_time": 0.5892329216003418
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 13,
+      "protocol": "HEED",
+      "seed": 13301,
+      "metrics": {
+        "pdr_end2end": 0.3357522690016393,
+        "energy": 922.8820913667804,
+        "lifetime": 200,
+        "alive_nodes": 81,
+        "execution_time": 0.8738658428192139
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 14,
+      "protocol": "LEACH",
+      "seed": 14000,
+      "metrics": {
+        "pdr_end2end": 0.36832450061149613,
+        "energy": 907.5746393857021,
+        "lifetime": 200,
+        "alive_nodes": 95,
+        "execution_time": 1.0667049884796143
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 9,
+      "protocol": "AERIS",
+      "seed": 9421,
+      "metrics": {
+        "pdr_end2end": 0.7892285948077066,
+        "energy": 876.1493756079797,
+        "lifetime": 197,
+        "alive_nodes": 0,
+        "execution_time": 37.53353786468506
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 14,
+      "protocol": "PEGASIS",
+      "seed": 14391,
+      "metrics": {
+        "pdr_end2end": 0.6105212403692579,
+        "energy": 334.0987414786212,
+        "lifetime": 200,
+        "alive_nodes": 487,
+        "execution_time": 0.4845540523529053
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 14,
+      "protocol": "HEED",
+      "seed": 14093,
+      "metrics": {
+        "pdr_end2end": 0.352094073537557,
+        "energy": 911.1083842131676,
+        "lifetime": 200,
+        "alive_nodes": 69,
+        "execution_time": 0.9622287750244141
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 15,
+      "protocol": "LEACH",
+      "seed": 15986,
+      "metrics": {
+        "pdr_end2end": 0.38320876930742404,
+        "energy": 899.7964382365944,
+        "lifetime": 200,
+        "alive_nodes": 96,
+        "execution_time": 1.1974554061889648
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 15,
+      "protocol": "PEGASIS",
+      "seed": 15037,
+      "metrics": {
+        "pdr_end2end": 0.4250076647930506,
+        "energy": 414.4334252749775,
+        "lifetime": 200,
+        "alive_nodes": 462,
+        "execution_time": 0.5524485111236572
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 15,
+      "protocol": "HEED",
+      "seed": 15090,
+      "metrics": {
+        "pdr_end2end": 0.35465151668864764,
+        "energy": 888.4521278623322,
+        "lifetime": 200,
+        "alive_nodes": 93,
+        "execution_time": 1.1514801979064941
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 12,
+      "protocol": "AERIS",
+      "seed": 12126,
+      "metrics": {
+        "pdr_end2end": 0.7772070180309946,
+        "energy": 883.3081999011241,
+        "lifetime": 190,
+        "alive_nodes": 0,
+        "execution_time": 36.23493695259094
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 16,
+      "protocol": "LEACH",
+      "seed": 16166,
+      "metrics": {
+        "pdr_end2end": 0.38990451513842905,
+        "energy": 892.5166695155857,
+        "lifetime": 200,
+        "alive_nodes": 105,
+        "execution_time": 1.0466060638427734
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 16,
+      "protocol": "PEGASIS",
+      "seed": 16436,
+      "metrics": {
+        "pdr_end2end": 0.7,
+        "energy": 296.7857264225255,
+        "lifetime": 200,
+        "alive_nodes": 500,
+        "execution_time": 0.4642913341522217
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 16,
+      "protocol": "HEED",
+      "seed": 16689,
+      "metrics": {
+        "pdr_end2end": 0.34272890484739676,
+        "energy": 918.3331328276291,
+        "lifetime": 200,
+        "alive_nodes": 76,
+        "execution_time": 0.8216900825500488
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 13,
+      "protocol": "AERIS",
+      "seed": 13201,
+      "metrics": {
+        "pdr_end2end": 0.7880448884276077,
+        "energy": 884.0373709720641,
+        "lifetime": 197,
+        "alive_nodes": 0,
+        "execution_time": 29.19396209716797
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 17,
+      "protocol": "LEACH",
+      "seed": 17181,
+      "metrics": {
+        "pdr_end2end": 0.3699039786930823,
+        "energy": 899.3159463200066,
+        "lifetime": 200,
+        "alive_nodes": 99,
+        "execution_time": 1.335052251815796
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 17,
+      "protocol": "PEGASIS",
+      "seed": 17720,
+      "metrics": {
+        "pdr_end2end": 0.45532738306300463,
+        "energy": 374.60293427008844,
+        "lifetime": 200,
+        "alive_nodes": 476,
+        "execution_time": 0.6103725433349609
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 17,
+      "protocol": "HEED",
+      "seed": 17980,
+      "metrics": {
+        "pdr_end2end": 0.3302603362927631,
+        "energy": 907.2489342309749,
+        "lifetime": 200,
+        "alive_nodes": 88,
+        "execution_time": 1.074763536453247
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 14,
+      "protocol": "AERIS",
+      "seed": 14073,
+      "metrics": {
+        "pdr_end2end": 0.8000198759174866,
+        "energy": 864.1363456964391,
+        "lifetime": 200,
+        "alive_nodes": 12,
+        "execution_time": 34.459996938705444
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 18,
+      "protocol": "LEACH",
+      "seed": 17988,
+      "metrics": {
+        "pdr_end2end": 0.38413024347315927,
+        "energy": 894.8391448869203,
+        "lifetime": 200,
+        "alive_nodes": 109,
+        "execution_time": 1.0484390258789062
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 18,
+      "protocol": "PEGASIS",
+      "seed": 18379,
+      "metrics": {
+        "pdr_end2end": 0.5578295903673519,
+        "energy": 351.3385839888781,
+        "lifetime": 200,
+        "alive_nodes": 478,
+        "execution_time": 0.4608323574066162
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 15,
+      "protocol": "AERIS",
+      "seed": 15403,
+      "metrics": {
+        "pdr_end2end": 0.7770576165195584,
+        "energy": 882.5595781716136,
+        "lifetime": 194,
+        "alive_nodes": 0,
+        "execution_time": 32.467941761016846
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 18,
+      "protocol": "HEED",
+      "seed": 18286,
+      "metrics": {
+        "pdr_end2end": 0.30165750601167984,
+        "energy": 927.31663691914,
+        "lifetime": 200,
+        "alive_nodes": 70,
+        "execution_time": 0.8591179847717285
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 19,
+      "protocol": "LEACH",
+      "seed": 18985,
+      "metrics": {
+        "pdr_end2end": 0.37149325721035537,
+        "energy": 899.8062027043146,
+        "lifetime": 200,
+        "alive_nodes": 97,
+        "execution_time": 0.9456970691680908
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 19,
+      "protocol": "PEGASIS",
+      "seed": 19376,
+      "metrics": {
+        "pdr_end2end": 0.42025090524890496,
+        "energy": 419.67282328007104,
+        "lifetime": 200,
+        "alive_nodes": 468,
+        "execution_time": 0.4531073570251465
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 19,
+      "protocol": "HEED",
+      "seed": 19283,
+      "metrics": {
+        "pdr_end2end": 0.3497144483059976,
+        "energy": 898.8633543093713,
+        "lifetime": 200,
+        "alive_nodes": 90,
+        "execution_time": 1.1774468421936035
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 16,
+      "protocol": "AERIS",
+      "seed": 16114,
+      "metrics": {
+        "pdr_end2end": 0.7923003041459901,
+        "energy": 879.2847048609532,
+        "lifetime": 196,
+        "alive_nodes": 0,
+        "execution_time": 31.58931827545166
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 20,
+      "protocol": "LEACH",
+      "seed": 20154,
+      "metrics": {
+        "pdr_end2end": 0.37645015797978826,
+        "energy": 895.4367810965858,
+        "lifetime": 200,
+        "alive_nodes": 101,
+        "execution_time": 1.1374750137329102
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 20,
+      "protocol": "PEGASIS",
+      "seed": 20424,
+      "metrics": {
+        "pdr_end2end": 0.6451832907075874,
+        "energy": 354.25921743477306,
+        "lifetime": 200,
+        "alive_nodes": 491,
+        "execution_time": 0.5498287677764893
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 20,
+      "protocol": "HEED",
+      "seed": 20677,
+      "metrics": {
+        "pdr_end2end": 0.34369975372967254,
+        "energy": 914.7414344938788,
+        "lifetime": 200,
+        "alive_nodes": 79,
+        "execution_time": 0.8251128196716309
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 17,
+      "protocol": "AERIS",
+      "seed": 17189,
+      "metrics": {
+        "pdr_end2end": 0.8205884624295312,
+        "energy": 867.8979905541736,
+        "lifetime": 195,
+        "alive_nodes": 0,
+        "execution_time": 31.96385359764099
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 21,
+      "protocol": "LEACH",
+      "seed": 21169,
+      "metrics": {
+        "pdr_end2end": 0.39164719626168226,
+        "energy": 892.977913192567,
+        "lifetime": 200,
+        "alive_nodes": 100,
+        "execution_time": 1.1277940273284912
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 21,
+      "protocol": "PEGASIS",
+      "seed": 21708,
+      "metrics": {
+        "pdr_end2end": 0.7,
+        "energy": 291.1350225160164,
+        "lifetime": 200,
+        "alive_nodes": 500,
+        "execution_time": 0.5190515518188477
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 21,
+      "protocol": "HEED",
+      "seed": 21968,
+      "metrics": {
+        "pdr_end2end": 0.32894512610770277,
+        "energy": 919.7448451315058,
+        "lifetime": 200,
+        "alive_nodes": 71,
+        "execution_time": 1.0237319469451904
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 18,
+      "protocol": "AERIS",
+      "seed": 18394,
+      "metrics": {
+        "pdr_end2end": 0.7846547808861187,
+        "energy": 882.8733510523759,
+        "lifetime": 197,
+        "alive_nodes": 0,
+        "execution_time": 30.139707803726196
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 22,
+      "protocol": "LEACH",
+      "seed": 22965,
+      "metrics": {
+        "pdr_end2end": 0.38591424127971563,
+        "energy": 895.3111716810733,
+        "lifetime": 200,
+        "alive_nodes": 103,
+        "execution_time": 1.1113319396972656
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 22,
+      "protocol": "PEGASIS",
+      "seed": 22016,
+      "metrics": {
+        "pdr_end2end": 0.47073681678310464,
+        "energy": 393.200148707489,
+        "lifetime": 200,
+        "alive_nodes": 484,
+        "execution_time": 0.4955558776855469
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 22,
+      "protocol": "HEED",
+      "seed": 22069,
+      "metrics": {
+        "pdr_end2end": 0.3708648258574196,
+        "energy": 893.0720616634873,
+        "lifetime": 200,
+        "alive_nodes": 110,
+        "execution_time": 0.9907054901123047
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 19,
+      "protocol": "AERIS",
+      "seed": 19058,
+      "metrics": {
+        "pdr_end2end": 0.7860553963705826,
+        "energy": 891.0012424959074,
+        "lifetime": 190,
+        "alive_nodes": 0,
+        "execution_time": 29.732264280319214
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 23,
+      "protocol": "LEACH",
+      "seed": 22973,
+      "metrics": {
+        "pdr_end2end": 0.3691673705495406,
+        "energy": 908.0558363763286,
+        "lifetime": 200,
+        "alive_nodes": 85,
+        "execution_time": 1.2099308967590332
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 23,
+      "protocol": "PEGASIS",
+      "seed": 23364,
+      "metrics": {
+        "pdr_end2end": 0.44146974733034966,
+        "energy": 416.2234654940566,
+        "lifetime": 200,
+        "alive_nodes": 469,
+        "execution_time": 0.46199989318847656
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 23,
+      "protocol": "HEED",
+      "seed": 23271,
+      "metrics": {
+        "pdr_end2end": 0.3459909539473684,
+        "energy": 907.9678734239695,
+        "lifetime": 200,
+        "alive_nodes": 87,
+        "execution_time": 1.0015428066253662
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 20,
+      "protocol": "AERIS",
+      "seed": 20102,
+      "metrics": {
+        "pdr_end2end": 0.782608695652174,
+        "energy": 886.5221931208582,
+        "lifetime": 188,
+        "alive_nodes": 0,
+        "execution_time": 25.695204734802246
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 24,
+      "protocol": "LEACH",
+      "seed": 24142,
+      "metrics": {
+        "pdr_end2end": 0.36755415162454874,
+        "energy": 899.7148957677559,
+        "lifetime": 200,
+        "alive_nodes": 102,
+        "execution_time": 0.9824373722076416
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 24,
+      "protocol": "PEGASIS",
+      "seed": 24412,
+      "metrics": {
+        "pdr_end2end": 0.5059304952039463,
+        "energy": 397.9507668428271,
+        "lifetime": 200,
+        "alive_nodes": 469,
+        "execution_time": 0.46051907539367676
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 24,
+      "protocol": "HEED",
+      "seed": 24665,
+      "metrics": {
+        "pdr_end2end": 0.3443412193929364,
+        "energy": 900.093068370451,
+        "lifetime": 200,
+        "alive_nodes": 103,
+        "execution_time": 0.9085667133331299
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 21,
+      "protocol": "AERIS",
+      "seed": 21177,
+      "metrics": {
+        "pdr_end2end": 0.7940123554569936,
+        "energy": 870.9183138926343,
+        "lifetime": 192,
+        "alive_nodes": 0,
+        "execution_time": 28.564696073532104
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 25,
+      "protocol": "LEACH",
+      "seed": 25157,
+      "metrics": {
+        "pdr_end2end": 0.3731298485408201,
+        "energy": 911.2614523109057,
+        "lifetime": 200,
+        "alive_nodes": 93,
+        "execution_time": 0.9580478668212891
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 22,
+      "protocol": "AERIS",
+      "seed": 22382,
+      "metrics": {
+        "pdr_end2end": 0.7987678993178853,
+        "energy": 883.638229944384,
+        "lifetime": 183,
+        "alive_nodes": 0,
+        "execution_time": 25.541991233825684
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 25,
+      "protocol": "PEGASIS",
+      "seed": 25696,
+      "metrics": {
+        "pdr_end2end": 0.72,
+        "energy": 304.7155134443654,
+        "lifetime": 200,
+        "alive_nodes": 500,
+        "execution_time": 0.4433927536010742
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 25,
+      "protocol": "HEED",
+      "seed": 25060,
+      "metrics": {
+        "pdr_end2end": 0.33891716980387515,
+        "energy": 914.7084641532432,
+        "lifetime": 200,
+        "alive_nodes": 87,
+        "execution_time": 0.8401925563812256
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 26,
+      "protocol": "LEACH",
+      "seed": 26953,
+      "metrics": {
+        "pdr_end2end": 0.39096976639936243,
+        "energy": 896.5855326658132,
+        "lifetime": 200,
+        "alive_nodes": 94,
+        "execution_time": 0.9115450382232666
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 26,
+      "protocol": "PEGASIS",
+      "seed": 26004,
+      "metrics": {
+        "pdr_end2end": 0.5103116618884675,
+        "energy": 394.2724350395466,
+        "lifetime": 200,
+        "alive_nodes": 460,
+        "execution_time": 0.43837571144104004
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 26,
+      "protocol": "HEED",
+      "seed": 26057,
+      "metrics": {
+        "pdr_end2end": 0.32935191329351915,
+        "energy": 911.5596705600435,
+        "lifetime": 200,
+        "alive_nodes": 96,
+        "execution_time": 0.8228979110717773
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 23,
+      "protocol": "AERIS",
+      "seed": 23046,
+      "metrics": {
+        "pdr_end2end": 0.7932580900193561,
+        "energy": 860.4801446224348,
+        "lifetime": 200,
+        "alive_nodes": 74,
+        "execution_time": 30.820754289627075
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 27,
+      "protocol": "LEACH",
+      "seed": 26961,
+      "metrics": {
+        "pdr_end2end": 0.3613700025464731,
+        "energy": 902.1418546874394,
+        "lifetime": 200,
+        "alive_nodes": 92,
+        "execution_time": 0.8008580207824707
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 27,
+      "protocol": "PEGASIS",
+      "seed": 27352,
+      "metrics": {
+        "pdr_end2end": 0.55423394799815,
+        "energy": 341.18507630607104,
+        "lifetime": 200,
+        "alive_nodes": 493,
+        "execution_time": 0.4062190055847168
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 27,
+      "protocol": "HEED",
+      "seed": 27259,
+      "metrics": {
+        "pdr_end2end": 0.3260293200249532,
+        "energy": 930.8714226470091,
+        "lifetime": 200,
+        "alive_nodes": 72,
+        "execution_time": 0.7618319988250732
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 24,
+      "protocol": "AERIS",
+      "seed": 24090,
+      "metrics": {
+        "pdr_end2end": 0.7881378976946551,
+        "energy": 869.9221879022131,
+        "lifetime": 196,
+        "alive_nodes": 0,
+        "execution_time": 24.653273105621338
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 28,
+      "protocol": "LEACH",
+      "seed": 28130,
+      "metrics": {
+        "pdr_end2end": 0.37821297429620565,
+        "energy": 890.4707154369363,
+        "lifetime": 200,
+        "alive_nodes": 99,
+        "execution_time": 0.8913476467132568
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 28,
+      "protocol": "PEGASIS",
+      "seed": 28400,
+      "metrics": {
+        "pdr_end2end": 0.7001641510189375,
+        "energy": 331.4470988357152,
+        "lifetime": 200,
+        "alive_nodes": 495,
+        "execution_time": 0.427548885345459
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 28,
+      "protocol": "HEED",
+      "seed": 28653,
+      "metrics": {
+        "pdr_end2end": 0.34979480703969695,
+        "energy": 884.2313106832079,
+        "lifetime": 200,
+        "alive_nodes": 103,
+        "execution_time": 0.8051495552062988
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 25,
+      "protocol": "AERIS",
+      "seed": 25165,
+      "metrics": {
+        "pdr_end2end": 0.7807246786269247,
+        "energy": 890.5773660037212,
+        "lifetime": 185,
+        "alive_nodes": 0,
+        "execution_time": 19.35089421272278
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 29,
+      "protocol": "LEACH",
+      "seed": 29145,
+      "metrics": {
+        "pdr_end2end": 0.41644280909275605,
+        "energy": 875.8223821113328,
+        "lifetime": 200,
+        "alive_nodes": 125,
+        "execution_time": 0.947805643081665
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 29,
+      "protocol": "PEGASIS",
+      "seed": 29684,
+      "metrics": {
+        "pdr_end2end": 0.3652577497187908,
+        "energy": 435.62220508986593,
+        "lifetime": 200,
+        "alive_nodes": 462,
+        "execution_time": 0.38446974754333496
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 29,
+      "protocol": "HEED",
+      "seed": 29944,
+      "metrics": {
+        "pdr_end2end": 0.37653814602132896,
+        "energy": 869.9062365780405,
+        "lifetime": 200,
+        "alive_nodes": 120,
+        "execution_time": 0.7738966941833496
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 26,
+      "protocol": "AERIS",
+      "seed": 26370,
+      "metrics": {
+        "pdr_end2end": 0.7750419394988907,
+        "energy": 897.1472392883803,
+        "lifetime": 187,
+        "alive_nodes": 0,
+        "execution_time": 19.101723670959473
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 27,
+      "protocol": "AERIS",
+      "seed": 27034,
+      "metrics": {
+        "pdr_end2end": 0.8064525479737956,
+        "energy": 859.9435672401669,
+        "lifetime": 196,
+        "alive_nodes": 0,
+        "execution_time": 24.695807456970215
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 28,
+      "protocol": "AERIS",
+      "seed": 28078,
+      "metrics": {
+        "pdr_end2end": 0.7893492323542824,
+        "energy": 881.8070366316266,
+        "lifetime": 185,
+        "alive_nodes": 0,
+        "execution_time": 19.047600746154785
+      },
+      "success": true
+    },
+    {
+      "num_nodes": 500,
+      "replicate": 29,
+      "protocol": "AERIS",
+      "seed": 29153,
+      "metrics": {
+        "pdr_end2end": 0.7824797406807131,
+        "energy": 883.9994236534786,
+        "lifetime": 192,
+        "alive_nodes": 0,
+        "execution_time": 21.307157039642334
+      },
+      "success": true
+    }
+  ],
+  "summary": {
+    "100": {
+      "LEACH": {
+        "pdr_mean": 0.6518917788195684,
+        "pdr_std": 0.02171241447991421,
+        "pdr_min": 0.6163322590705894,
+        "pdr_max": 0.6961136339634597,
+        "energy_mean": 109.8363457312331,
+        "energy_std": 4.591271791552473,
+        "exec_time_mean": 0.2256946086883545,
+        "n_runs": 30
+      },
+      "PEGASIS": {
+        "pdr_mean": 0.8759999999999999,
+        "pdr_std": 0.026375493676264485,
+        "pdr_min": 0.825,
+        "pdr_max": 0.935,
+        "energy_mean": 43.616996031005534,
+        "energy_std": 0.6067952735063223,
+        "exec_time_mean": 0.052080631256103516,
+        "n_runs": 30
+      },
+      "HEED": {
+        "pdr_mean": 0.6691433008432839,
+        "pdr_std": 0.02665122102770682,
+        "pdr_min": 0.6220621483779378,
+        "pdr_max": 0.730723606168446,
+        "energy_mean": 105.25479370728225,
+        "energy_std": 6.491010713399338,
+        "exec_time_mean": 0.2228789250055949,
+        "n_runs": 30
+      },
+      "AERIS": {
+        "pdr_mean": 0.9988616666666668,
+        "pdr_std": 0.0002525481252267588,
+        "pdr_min": 0.99845,
+        "pdr_max": 0.9993,
+        "energy_mean": 82.81491110396419,
+        "energy_std": 0.43372733295870797,
+        "exec_time_mean": 1.8405652125676473,
+        "n_runs": 30
+      }
+    },
+    "200": {
+      "LEACH": {
+        "pdr_mean": 0.5203204961899852,
+        "pdr_std": 0.016600143189106072,
+        "pdr_min": 0.4849832764387435,
+        "pdr_max": 0.5516308572494636,
+        "energy_mean": 299.08858010192233,
+        "energy_std": 8.419948921949775,
+        "exec_time_mean": 0.45587175687154136,
+        "n_runs": 30
+      },
+      "PEGASIS": {
+        "pdr_mean": 0.7528333333333334,
+        "pdr_std": 0.031903064986855974,
+        "pdr_min": 0.675,
+        "pdr_max": 0.825,
+        "energy_mean": 99.05675631704904,
+        "energy_std": 2.1629057144371857,
+        "exec_time_mean": 0.1090705951054891,
+        "n_runs": 30
+      },
+      "HEED": {
+        "pdr_mean": 0.507382822565322,
+        "pdr_std": 0.02255597672818506,
+        "pdr_min": 0.464755152617875,
+        "pdr_max": 0.5697622107969151,
+        "energy_mean": 298.965864850824,
+        "energy_std": 12.785610047589813,
+        "exec_time_mean": 0.3918849229812622,
+        "n_runs": 30
+      },
+      "AERIS": {
+        "pdr_mean": 0.9080422368464267,
+        "pdr_std": 0.012719073095904171,
+        "pdr_min": 0.8756253928346952,
+        "pdr_max": 0.9290995213152553,
+        "energy_mean": 266.02969623585824,
+        "energy_std": 7.406193536739121,
+        "exec_time_mean": 7.225953857103984,
+        "n_runs": 30
+      }
+    },
+    "300": {
+      "LEACH": {
+        "pdr_mean": 0.45847365672914625,
+        "pdr_std": 0.015960934069506647,
+        "pdr_min": 0.42503015681544026,
+        "pdr_max": 0.4939940358406956,
+        "energy_mean": 499.6831182609237,
+        "energy_std": 8.427312276578004,
+        "exec_time_mean": 0.8478355884552002,
+        "n_runs": 30
+      },
+      "PEGASIS": {
+        "pdr_mean": 0.6426763572419854,
+        "pdr_std": 0.04471656885204932,
+        "pdr_min": 0.545,
+        "pdr_max": 0.735,
+        "energy_mean": 191.30430254798497,
+        "energy_std": 9.907762545222562,
+        "exec_time_mean": 0.25331570307413737,
+        "n_runs": 30
+      },
+      "HEED": {
+        "pdr_mean": 0.44041860004439964,
+        "pdr_std": 0.016594761036755817,
+        "pdr_min": 0.3988648864886489,
+        "pdr_max": 0.4770961296529268,
+        "energy_mean": 492.6457379053458,
+        "energy_std": 12.64631445360921,
+        "exec_time_mean": 0.690356175104777,
+        "n_runs": 30
+      },
+      "AERIS": {
+        "pdr_mean": 0.8502335950553667,
+        "pdr_std": 0.01332762573823397,
+        "pdr_min": 0.8275224317890496,
+        "pdr_max": 0.8798239203813899,
+        "energy_mean": 490.75999126658184,
+        "energy_std": 11.7424258809149,
+        "exec_time_mean": 19.367160725593568,
+        "n_runs": 30
+      }
+    },
+    "500": {
+      "LEACH": {
+        "pdr_mean": 0.38136546182534364,
+        "pdr_std": 0.01326435912150978,
+        "pdr_min": 0.3613700025464731,
+        "pdr_max": 0.41644280909275605,
+        "energy_mean": 898.6682510473315,
+        "energy_std": 7.876009391615326,
+        "exec_time_mean": 1.098565697669983,
+        "n_runs": 30
+      },
+      "PEGASIS": {
+        "pdr_mean": 0.5598014154559977,
+        "pdr_std": 0.10291075319147783,
+        "pdr_min": 0.3652577497187908,
+        "pdr_max": 0.745,
+        "energy_mean": 364.6764095841953,
+        "energy_std": 39.20309987564662,
+        "exec_time_mean": 0.5145291646321615,
+        "n_runs": 30
+      },
+      "HEED": {
+        "pdr_mean": 0.34188918383556666,
+        "pdr_std": 0.014472522754524923,
+        "pdr_min": 0.30165750601167984,
+        "pdr_max": 0.37653814602132896,
+        "energy_mean": 907.6871489887085,
+        "energy_std": 13.258276645127609,
+        "exec_time_mean": 0.9515208085378011,
+        "n_runs": 30
+      },
+      "AERIS": {
+        "pdr_mean": 0.788910807665644,
+        "pdr_std": 0.010120854782242767,
+        "pdr_min": 0.7716976858318547,
+        "pdr_max": 0.8205884624295312,
+        "energy_mean": 878.874603130774,
+        "energy_std": 9.838230163299617,
+        "exec_time_mean": 29.094117188453673,
+        "n_runs": 30
+      }
+    }
+  }
+}
