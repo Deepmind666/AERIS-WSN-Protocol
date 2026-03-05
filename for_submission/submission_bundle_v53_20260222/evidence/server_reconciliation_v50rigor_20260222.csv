@@ -1,0 +1,3 @@
+file,env,total_runs,error_runs,run_tier,primary_metric,git_commit,data_sha256,cell_check,AERIS_n100,AERIS_n500,AERIS_n1000
+scalability_outdoor_urban_v50rigor_20260222_server.json,outdoor_urban,96000,0,publication,pdr_expected,0dddcf4,8f55af3451bd9a75f2eeb01dcff8e5359027973bf20f54cb698c78ea7f753c21,PASS,0.7479,0.7304,0.1359
+scalability_indoor_factory_v50rigor_20260222_server.json,indoor_factory,96000,0,publication,pdr_expected,0dddcf4,3ec187a35b724ef52bbe2d9eb2d86e14dd23b568cfea20ba010cf001a577f39d,PASS,0.9278,0.9061,0.7284

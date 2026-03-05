@@ -1,0 +1,42 @@
+{
+  "AETHER_energy": {
+    "total_energy_consumed": 61.709690340214394,
+    "packet_delivery_ratio": 0.9030460040822735,
+    "packet_delivery_ratio_end2end": 0.9993412384716732,
+    "final_alive_nodes": 51
+  },
+  "AETHER_robust": {
+    "total_energy_consumed": 49.967172123258514,
+    "packet_delivery_ratio": 0.9146822138282148,
+    "packet_delivery_ratio_end2end": 0.9992592592592593,
+    "final_alive_nodes": 54
+  },
+  "geometry": {
+    "width": 40.0,
+    "height": 30.0,
+    "num_nodes": 54
+  },
+  "runtime": {
+    "energy": {
+      "seed": 133742,
+      "profile": "energy",
+      "enable_cas": true,
+      "enable_fairness": true,
+      "enable_aco_intercluster": false,
+      "enable_gateway": true,
+      "enable_skeleton": false,
+      "verbose": false
+    },
+    "robust": {
+      "seed": 133743,
+      "profile": "robust",
+      "enable_cas": true,
+      "enable_fairness": true,
+      "enable_aco_intercluster": false,
+      "enable_gateway": true,
+      "enable_skeleton": false,
+      "verbose": false
+    }
+  },
+  "env_mapping": "humidity_percentiles->humidity_ratio (33/50/66)"
+}

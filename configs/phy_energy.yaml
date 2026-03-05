@@ -1,0 +1,36 @@
+﻿# Common PHY + Energy configuration (audited against code defaults)
+# Sources: src/realistic_channel_model.py, src/improved_energy_model.py
+
+phy:
+  channel_model: log_normal
+  environment: indoor_office       # EnvironmentType.INDOOR_OFFICE
+  path_loss_exponent: 2.0
+  reference_path_loss_db: 40.0     # at 1 m
+  shadowing_sigma_db: 4.5
+  noise_floor_dbm: -95.0
+  frequency_ghz: 2.4
+  tx_rate_kbps: 250                # IEEE 802.15.4 default
+  rx_sensitivity_dbm: -85.0        # IEEE802154LinkQuality.sensitivity_threshold
+  rssi_measurement_std_db: 2.0     # IEEE802154LinkQuality.rssi_measurement_std
+
+energy:
+  model: improved_energy_model_cc2420_telosb
+  tx_energy_per_bit_j: 2.088e-7    # EnergyParameters.tx_energy_per_bit
+  rx_energy_per_bit_j: 2.256e-7    # EnergyParameters.rx_energy_per_bit
+  processing_energy_per_bit_j: 5.0e-9
+  idle_power_w: 1.4e-3
+  sleep_power_w: 1.5e-5
+  amplifier_efficiency: 0.5
+  path_loss_threshold_m: 87.0
+  temperature_coefficient: 0.02
+  humidity_coefficient: 0.01
+
+packet:
+  default_packet_bits: 4000        # Used by LEACH/HEED/PEGASIS/SEP
+  teen_packet_bytes: 1024          # TEEN default (src/teen_protocol.py)
+  header_bytes: null               # TODO: not modeled explicitly in code
+  ack_bytes: null                  # TODO: not modeled explicitly in code
+
+randomness:
+  global_seed: null                # TODO: set in experiment scripts
+  per_run_seed_strategy: "seed_list"  # used in experiment scripts where applicable

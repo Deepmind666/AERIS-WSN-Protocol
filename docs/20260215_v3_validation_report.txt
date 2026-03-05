@@ -1,0 +1,88 @@
+# claim->source 可达性校验报告
+# matrix: docs/20260215_v19_claim_source_matrix_v3.csv
+# PASS=78 FAIL=0 SKIP=2 TOTAL=80
+
+claim_id status detail
+--------------------------------------------------------------------------------
+C01      PASS   OK actual=0.9739 n=30
+C02      PASS   OK actual=0.5543 n=30
+C03      PASS   OK actual=0.9078 n=30
+C04      PASS   OK actual=0.9371 n=30
+C05      PASS   OK actual=0.8222 n=30
+C06      PASS   OK actual=0.6031 n=30
+C07      PASS   OK actual=0.1614 n=30
+C08      PASS   OK actual=0.1928 n=30
+C09      PASS   OK actual=0.2326 n=30
+C10      PASS   OK actual=0.3113 n=30
+C11      PASS   OK actual=0.3745 n=30
+C12      PASS   OK actual=0.0552 n=30
+C13      PASS   OK actual=0.0542 n=30
+C14      PASS   OK actual=0.0635 n=30
+C15      PASS   OK actual=0.1201 n=30
+C16      PASS   OK actual=0.7451 n=30
+C17      PASS   OK actual=0.2703 n=30
+C18      PASS   OK actual=0.3382 n=30
+C19      PASS   OK actual=0.4221 n=30
+C20      PASS   OK actual=0.4752 n=30
+C21      SKIP   non-numeric claim, file exists
+C22      PASS   OK actual=0.9739 n=30
+C23      PASS   OK actual=0.9741 n=30
+C24      PASS   OK actual=0.6031 n=30
+C25      PASS   OK actual=0.5806 n=30
+C26      PASS   OK actual=0.3745 n=30
+C27      PASS   OK actual=0.3534 n=30
+C28      PASS   OK actual=0.7451 n=30
+C29      PASS   OK actual=0.7306 n=30
+C30      SKIP   non-numeric claim, file exists
+C31      PASS   CSV exists, 120 rows
+C32      PASS   CSV exists, 120 rows
+C33      PASS   CSV exists, 120 rows
+C34      PASS   CSV exists, 120 rows
+C35      PASS   CSV exists, 120 rows
+C36      PASS   CSV exists, 120 rows
+C37      PASS   CSV exists, 120 rows
+C38      PASS   CSV exists, 120 rows
+C39      PASS   CSV exists, 120 rows
+C40      PASS   CSV exists, 120 rows
+C41      PASS   CSV exists, 120 rows
+C42      PASS   CSV exists, 120 rows
+C43      PASS   CSV exists, 120 rows
+C44      PASS   CSV exists, 120 rows
+C45      PASS   CSV exists, 120 rows
+C46      PASS   CSV exists, 120 rows
+C47      PASS   CSV exists, 120 rows
+C48      PASS   CSV exists, 120 rows
+C49      PASS   CSV exists, 120 rows
+C50      PASS   CSV exists, 120 rows
+C51      PASS   CSV exists, 120 rows
+C52      PASS   CSV exists, 96 rows
+C53      PASS   CSV exists, 96 rows
+C54      PASS   CSV exists, 96 rows
+C55      PASS   CSV exists, 96 rows
+C56      PASS   CSV exists, 96 rows
+C57      PASS   CSV exists, 96 rows
+C58      PASS   CSV exists, 96 rows
+C59      PASS   CSV exists, 96 rows
+C60      PASS   CSV exists, 20 rows
+C61      PASS   CSV exists, 20 rows
+C62      PASS   CSV exists, 72 rows
+C63      PASS   CSV exists, 72 rows
+C64      PASS   CSV exists, 72 rows
+C65      PASS   CSV exists, 72 rows
+C66      PASS   CSV exists, 72 rows
+C67      PASS   CSV exists, 72 rows
+C68      PASS   CSV exists, 72 rows
+C69      PASS   CSV exists, 72 rows
+C70      PASS   CSV exists, 40 rows
+C71      PASS   CSV exists, 40 rows
+C72      PASS   CSV exists, 40 rows
+C73      PASS   CSV exists, 40 rows
+C74      PASS   CSV exists, 40 rows
+C75      PASS   CSV exists, 72 rows
+C76      PASS   CSV exists, 120 rows
+C77      PASS   CSV exists, 120 rows
+C78      PASS   CSV exists, 120 rows
+C79      PASS   CSV exists, 120 rows
+C80      PASS   CSV exists, 120 rows
+
+ALL CLEAR: all 78 numeric claims validated, 2 non-numeric skipped.

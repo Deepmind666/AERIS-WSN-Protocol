@@ -1,0 +1,283 @@
+<mxfile host="app.diagrams.net" modified="2026-02-25T05:16:55.000Z" agent="Claude" version="24.7.17">
+  <diagram id="aeris-workflow" name="AERIS Protocol Workflow">
+    <mxGraphModel dx="1600" dy="1200" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1800" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- ========== TITLE ========== -->
+        <mxCell id="2" value="&lt;b&gt;AERIS Protocol: Round-Level Execution Flow&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=18;fontColor=#1a1a2e;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="300" y="20" width="800" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- ========== START ========== -->
+        <mxCell id="3" value="&lt;b&gt;Round r Begins&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#1a1a2e;strokeColor=#1a1a2e;fontColor=#ffffff;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="590" y="80" width="220" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow: Start -> Phase 1 -->
+        <mxCell id="4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#1a1a2e;endArrow=blockThin;endFill=1;" edge="1" parent="1" source="3" target="10">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ========== PHASE 1 SWIMLANE ========== -->
+        <mxCell id="5" value="&lt;b&gt;Phase 1: CH Election &amp;amp; Clustering&lt;/b&gt;" style="swimlane;html=1;startSize=30;fillColor=#e8eaf6;strokeColor=#3949ab;fontStyle=1;fontSize=12;fontColor=#1a237e;rounded=1;arcSize=8;swimlaneLine=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="170" width="1000" height="200" as="geometry"/>
+        </mxCell>
+
+        <!-- Phase 1 nodes -->
+        <mxCell id="10" value="Compute CH&lt;br&gt;candidate scores" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c5cae9;strokeColor=#3949ab;fontSize=11;fontColor=#1a237e;" vertex="1" parent="5">
+          <mxGeometry x="30" y="50" width="140" height="55" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="11" value="Elect CH set&lt;br&gt;&lt;i&gt;O(NH)&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c5cae9;strokeColor=#3949ab;fontSize=11;fontColor=#1a237e;" vertex="1" parent="5">
+          <mxGeometry x="230" y="50" width="140" height="55" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="12" value="Associate non-CH&lt;br&gt;nodes to nearest CH" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c5cae9;strokeColor=#3949ab;fontSize=11;fontColor=#1a237e;" vertex="1" parent="5">
+          <mxGeometry x="430" y="50" width="160" height="55" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="13" value="Clusters&lt;br&gt;formed" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#7986cb;strokeColor=#3949ab;fontSize=11;fontColor=#ffffff;fontStyle=1;" vertex="1" parent="5">
+          <mxGeometry x="660" y="50" width="130" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- Phase 1 internal arrows -->
+        <mxCell id="14" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;strokeColor=#3949ab;endArrow=blockThin;endFill=1;" edge="1" parent="5" source="10" target="11">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="15" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;strokeColor=#3949ab;endArrow=blockThin;endFill=1;" edge="1" parent="5" source="11" target="12">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="16" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;strokeColor=#3949ab;endArrow=blockThin;endFill=1;" edge="1" parent="5" source="12" target="13">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Phase 1 annotation -->
+        <mxCell id="17" value="&lt;i&gt;Each node evaluates energy,&lt;br&gt;link quality, position&lt;/i&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=9;fontColor=#5c6bc0;fontStyle=2;" vertex="1" parent="5">
+          <mxGeometry x="30" y="120" width="180" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow: Phase 1 -> Phase 2 -->
+        <mxCell id="18" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#1a1a2e;endArrow=blockThin;endFill=1;" edge="1" parent="1" source="13" target="30">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ========== PHASE 2 SWIMLANE: CAS Mode Selection ========== -->
+        <mxCell id="20" value="&lt;b&gt;Phase 2: Intra-Cluster Collection (CAS)&lt;/b&gt;" style="swimlane;html=1;startSize=30;fillColor=#e8f5e9;strokeColor=#2e7d32;fontStyle=1;fontSize=12;fontColor=#1b5e20;rounded=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="200" y="410" width="1000" height="230" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="30" value="Evaluate CAS&lt;br&gt;features per cluster&lt;br&gt;&lt;i&gt;(q̂, ê, û)&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;fontSize=11;fontColor=#1b5e20;" vertex="1" parent="20">
+          <mxGeometry x="30" y="50" width="160" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="31" value="&lt;b&gt;CAS Mode&lt;br&gt;Selection&lt;/b&gt;&lt;br&gt;&lt;i&gt;m* = argmax&lt;/i&gt;" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff9c4;strokeColor=#f9a825;fontSize=10;fontColor=#e65100;" vertex="1" parent="20">
+          <mxGeometry x="260" y="40" width="140" height="80" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="32" value="&lt;b&gt;Direct&lt;/b&gt;&lt;br&gt;single-hop to CH" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#a5d6a7;strokeColor=#2e7d32;fontSize=10;fontColor=#1b5e20;" vertex="1" parent="20">
+          <mxGeometry x="460" y="15" width="130" height="45" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="33" value="&lt;b&gt;Chain&lt;/b&gt;&lt;br&gt;PEGASIS-like relay" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#a5d6a7;strokeColor=#2e7d32;fontSize=10;fontColor=#1b5e20;" vertex="1" parent="20">
+          <mxGeometry x="460" y="70" width="130" height="45" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="34" value="&lt;b&gt;Two-hop&lt;/b&gt;&lt;br&gt;relay via neighbor" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#a5d6a7;strokeColor=#2e7d32;fontSize=10;fontColor=#1b5e20;" vertex="1" parent="20">
+          <mxGeometry x="460" y="125" width="130" height="45" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="35" value="Aggregate&lt;br&gt;data at CH" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#66bb6a;strokeColor=#2e7d32;fontSize=11;fontColor=#ffffff;fontStyle=1;" vertex="1" parent="20">
+          <mxGeometry x="670" y="55" width="130" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- Phase 2 internal arrows -->
+        <mxCell id="36" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;strokeColor=#2e7d32;endArrow=blockThin;endFill=1;" edge="1" parent="20" source="30" target="31">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="37" style="rounded=1;html=1;strokeWidth=1;strokeColor=#f9a825;endArrow=blockThin;endFill=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;" edge="1" parent="20" source="31" target="32">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="38" style="rounded=1;html=1;strokeWidth=1;strokeColor=#f9a825;endArrow=blockThin;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="20" source="31" target="33">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="39" style="rounded=1;html=1;strokeWidth=1;strokeColor=#f9a825;endArrow=blockThin;endFill=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;" edge="1" parent="20" source="31" target="34">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="40" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;strokeColor=#2e7d32;endArrow=blockThin;endFill=1;" edge="1" parent="20" source="32" target="35">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="41" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;strokeColor=#2e7d32;endArrow=blockThin;endFill=1;" edge="1" parent="20" source="33" target="35">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="42" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;strokeColor=#2e7d32;endArrow=blockThin;endFill=1;" edge="1" parent="20" source="34" target="35">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- CAS formula annotation -->
+        <mxCell id="43" value="&lt;i&gt;Fixed coefficients: w&lt;sub&gt;q&lt;/sub&gt;, w&lt;sub&gt;e&lt;/sub&gt;, w&lt;sub&gt;d&lt;/sub&gt;, w&lt;sub&gt;r&lt;/sub&gt;, w&lt;sub&gt;ρ&lt;/sub&gt;, w&lt;sub&gt;f&lt;/sub&gt;&lt;br&gt;shared across all environments&lt;/i&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=9;fontColor=#388e3c;fontStyle=2;" vertex="1" parent="20">
+          <mxGeometry x="220" y="140" width="220" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow: Phase 2 -> Phase 3 -->
+        <mxCell id="44" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#1a1a2e;endArrow=blockThin;endFill=1;" edge="1" parent="1" source="35" target="50">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ========== PHASE 3 SWIMLANE: CH-to-BS Forwarding ========== -->
+        <mxCell id="45" value="&lt;b&gt;Phase 3: CH-to-BS Forwarding (Cascaded First-Hit)&lt;/b&gt;" style="swimlane;html=1;startSize=30;fillColor=#fff3e0;strokeColor=#e65100;fontStyle=1;fontSize=12;fontColor=#bf360c;rounded=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="200" y="680" width="1000" height="280" as="geometry"/>
+        </mxCell>
+
+        <!-- Direct quality check -->
+        <mxCell id="50" value="Direct link&lt;br&gt;quality check" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffe0b2;strokeColor=#e65100;fontSize=11;fontColor=#bf360c;" vertex="1" parent="45">
+          <mxGeometry x="30" y="55" width="130" height="80" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="51" value="&lt;b&gt;Direct&lt;br&gt;to BS&lt;/b&gt;&lt;br&gt;&lt;i&gt;p&lt;sub&gt;d&lt;/sub&gt;&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffcc80;strokeColor=#e65100;fontSize=10;fontColor=#bf360c;" vertex="1" parent="45">
+          <mxGeometry x="30" y="175" width="130" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Gateway available? -->
+        <mxCell id="52" value="Gateway&lt;br&gt;available?&lt;br&gt;&lt;i&gt;I&lt;sub&gt;g&lt;/sub&gt;&lt;/i&gt;" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffe0b2;strokeColor=#e65100;fontSize=10;fontColor=#bf360c;" vertex="1" parent="45">
+          <mxGeometry x="220" y="55" width="120" height="80" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="53" value="&lt;b&gt;Gateway&lt;br&gt;Route&lt;/b&gt;&lt;br&gt;&lt;i&gt;p&lt;sub&gt;g&lt;/sub&gt;&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffcc80;strokeColor=#e65100;fontSize=10;fontColor=#bf360c;" vertex="1" parent="45">
+          <mxGeometry x="220" y="175" width="120" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Skeleton available? -->
+        <mxCell id="54" value="Skeleton&lt;br&gt;available?&lt;br&gt;&lt;i&gt;I&lt;sub&gt;s&lt;/sub&gt;&lt;/i&gt;" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffe0b2;strokeColor=#e65100;fontSize=10;fontColor=#bf360c;" vertex="1" parent="45">
+          <mxGeometry x="410" y="55" width="120" height="80" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="55" value="&lt;b&gt;Skeleton&lt;br&gt;Route&lt;/b&gt;&lt;br&gt;&lt;i&gt;p&lt;sub&gt;s&lt;/sub&gt;&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffcc80;strokeColor=#e65100;fontSize=10;fontColor=#bf360c;" vertex="1" parent="45">
+          <mxGeometry x="410" y="175" width="120" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Best-effort fallback -->
+        <mxCell id="56" value="&lt;b&gt;Best-effort&lt;br&gt;Fallback&lt;/b&gt;&lt;br&gt;&lt;i&gt;p&lt;sub&gt;b&lt;/sub&gt;&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffab91;strokeColor=#bf360c;fontSize=10;fontColor=#bf360c;" vertex="1" parent="45">
+          <mxGeometry x="590" y="55" width="120" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Delivered to BS -->
+        <mxCell id="57" value="&lt;b&gt;Delivered&lt;br&gt;to BS&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e65100;strokeColor=#bf360c;fontSize=12;fontColor=#ffffff;fontStyle=1;" vertex="1" parent="45">
+          <mxGeometry x="790" y="90" width="140" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- Phase 3 internal arrows: cascaded first-hit -->
+        <!-- Direct check -> Yes: Direct to BS -->
+        <mxCell id="60" value="pass" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;strokeColor=#2e7d32;endArrow=blockThin;endFill=1;fontColor=#2e7d32;fontSize=9;labelBackgroundColor=#ffffff;" edge="1" parent="45" source="50" target="51">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <!-- Direct check -> No: Gateway check -->
+        <mxCell id="61" value="fail" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;strokeColor=#c62828;endArrow=blockThin;endFill=1;fontColor=#c62828;fontSize=9;labelBackgroundColor=#ffffff;" edge="1" parent="45" source="50" target="52">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <!-- Gateway? -> Yes -->
+        <mxCell id="62" value="yes" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;strokeColor=#2e7d32;endArrow=blockThin;endFill=1;fontColor=#2e7d32;fontSize=9;labelBackgroundColor=#ffffff;" edge="1" parent="45" source="52" target="53">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <!-- Gateway? -> No: Skeleton check -->
+        <mxCell id="63" value="no" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;strokeColor=#c62828;endArrow=blockThin;endFill=1;fontColor=#c62828;fontSize=9;labelBackgroundColor=#ffffff;" edge="1" parent="45" source="52" target="54">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <!-- Skeleton? -> Yes -->
+        <mxCell id="64" value="yes" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;strokeColor=#2e7d32;endArrow=blockThin;endFill=1;fontColor=#2e7d32;fontSize=9;labelBackgroundColor=#ffffff;" edge="1" parent="45" source="54" target="55">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <!-- Skeleton? -> No: Best-effort -->
+        <mxCell id="65" value="no" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;strokeColor=#c62828;endArrow=blockThin;endFill=1;fontColor=#c62828;fontSize=9;labelBackgroundColor=#ffffff;" edge="1" parent="45" source="54" target="56">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- All routes -> Delivered to BS -->
+        <mxCell id="66" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;strokeColor=#e65100;endArrow=blockThin;endFill=1;" edge="1" parent="45" source="51" target="57">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="67" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;strokeColor=#e65100;endArrow=blockThin;endFill=1;" edge="1" parent="45" source="53" target="57">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="68" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;strokeColor=#e65100;endArrow=blockThin;endFill=1;" edge="1" parent="45" source="55" target="57">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="69" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;strokeColor=#e65100;endArrow=blockThin;endFill=1;" edge="1" parent="45" source="56" target="57">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Phase 3 formula annotation -->
+        <mxCell id="70" value="&lt;i&gt;P&lt;sub&gt;succ&lt;/sub&gt; = p&lt;sub&gt;d&lt;/sub&gt; + (1−p&lt;sub&gt;d&lt;/sub&gt;)[I&lt;sub&gt;g&lt;/sub&gt;·p&lt;sub&gt;g&lt;/sub&gt; + (1−I&lt;sub&gt;g&lt;/sub&gt;)·I&lt;sub&gt;s&lt;/sub&gt;·p&lt;sub&gt;s&lt;/sub&gt; + ...]&lt;/i&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=9;fontColor=#e65100;fontStyle=2;" vertex="1" parent="45">
+          <mxGeometry x="590" y="130" width="340" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow: Phase 3 -> Phase 4 -->
+        <mxCell id="71" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#1a1a2e;endArrow=blockThin;endFill=1;" edge="1" parent="1" source="57" target="80">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ========== PHASE 4 SWIMLANE: Metric Logging ========== -->
+        <mxCell id="75" value="&lt;b&gt;Phase 4: Metric Logging &amp;amp; State Update&lt;/b&gt;" style="swimlane;html=1;startSize=30;fillColor=#f3e5f5;strokeColor=#6a1b9a;fontStyle=1;fontSize=12;fontColor=#4a148c;rounded=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="200" y="1000" width="1000" height="170" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="80" value="Record PDR,&lt;br&gt;energy metrics" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1bee7;strokeColor=#6a1b9a;fontSize=11;fontColor=#4a148c;" vertex="1" parent="75">
+          <mxGeometry x="30" y="50" width="150" height="55" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="81" value="Update node&lt;br&gt;state vectors" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1bee7;strokeColor=#6a1b9a;fontSize=11;fontColor=#4a148c;" vertex="1" parent="75">
+          <mxGeometry x="250" y="50" width="150" height="55" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="82" value="Advance&lt;br&gt;round counter&lt;br&gt;&lt;i&gt;r ← r + 1&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ce93d8;strokeColor=#6a1b9a;fontSize=11;fontColor=#ffffff;fontStyle=1;" vertex="1" parent="75">
+          <mxGeometry x="480" y="50" width="150" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- Phase 4 internal arrows -->
+        <mxCell id="83" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;strokeColor=#6a1b9a;endArrow=blockThin;endFill=1;" edge="1" parent="75" source="80" target="81">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="84" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=1.5;strokeColor=#6a1b9a;endArrow=blockThin;endFill=1;" edge="1" parent="75" source="81" target="82">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ========== TERMINATION CHECK ========== -->
+        <mxCell id="90" value="&lt;b&gt;All nodes&lt;br&gt;depleted?&lt;/b&gt;" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffcdd2;strokeColor=#c62828;fontSize=12;fontColor=#b71c1c;" vertex="1" parent="1">
+          <mxGeometry x="830" y="1200" width="140" height="90" as="geometry"/>
+        </mxCell>
+
+        <!-- Phase 4 -> Termination check -->
+        <mxCell id="91" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;strokeColor=#1a1a2e;endArrow=blockThin;endFill=1;" edge="1" parent="1" source="82" target="90">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- END node -->
+        <mxCell id="92" value="&lt;b&gt;Simulation End&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#c62828;strokeColor=#b71c1c;fontColor=#ffffff;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="830" y="1340" width="140" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- Yes -> End -->
+        <mxCell id="93" value="yes" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;strokeColor=#c62828;endArrow=blockThin;endFill=1;fontColor=#c62828;fontSize=10;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="90" target="92">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- No -> Loop back to Round r Begins -->
+        <mxCell id="94" value="no" style="rounded=1;html=1;strokeWidth=2.5;strokeColor=#1a1a2e;endArrow=blockThin;endFill=1;fontColor=#1a1a2e;fontSize=10;labelBackgroundColor=#ffffff;dashed=1;dashPattern=8 4;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="90" target="3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="140" y="1245"/>
+              <mxPoint x="140" y="110"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Loop label -->
+        <mxCell id="95" value="&lt;b&gt;Round r+1&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=11;fontColor=#1a1a2e;fontStyle=1;labelBackgroundColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="80" y="650" width="90" height="30" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

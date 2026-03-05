@@ -1,0 +1,37 @@
+key,year,doi,status,http_code,title
+AI2025Survey,2025,10.3390/s25247408,OK,200,AI-Driven Energy-Efficient Routing in IoT-Based Wireless Sensor Networks: A Comprehensive Review
+Akyildiz2002Survey,2002,10.1109/MCOM.2002.1024422,OK,200,A Survey on Sensor Networks
+Baccour2012RLQE,2012,10.1145/2240116.2240123,OK,200,Radio Link Quality Estimation in Wireless Sensor Networks
+Bhukya2025Hybrid,2025,10.3390/s25030864,OK,200,Hybrid Reliable Clustering Algorithm with Heterogeneous Traffic Routing for Wireless Sensor Networks
+Chen2019Survey,2019,10.1016/j.inffus.2018.09.013,OK,200,Machine learning algorithms for wireless sensor networks: A survey
+Dan2024EMRAR,2024,10.3390/s24010285,OK,200,An Accuracy-Aware Energy-Efficient Multipath Routing Algorithm for WSNs
+ElFouly2023ILP,2023,10.3390/app13010605,OK,200,Environment-Aware Energy Efficient and Reliable Routing in Real-Time Multi-Sink Wireless Sensor Networks for Smart Cities Applications
+Hassanien2025DLHEED,2025,10.3390/app15168996,OK,200,DL-HEED: A Deep Learning Approach to Energy-Efficient Clustering in Heterogeneous Wireless Sensor Networks
+Heinzelman2000LEACH,2000,10.1109/HICSS.2000.926982,OK,200,Energy-Efficient Communication Protocol for Wireless Microsensor Networks
+Heinzelman2002LEACH,2002,10.1109/TWC.2002.804190,OK,200,An Application-Specific Protocol Architecture for Wireless Microsensor Networks
+Jain2025Optimized,2025,10.1016/j.pmcj.2025.102049,OK,200,Optimized Secure and Energy-Efficient Approach for IoT-Enabled Wireless Sensor Networks
+Juwaied2025DEEC,2025,10.3390/s25134015,OK,200,Enhanced Distributed Energy-Efficient Clustering (DEEC) Protocol for Wireless Sensor Networks: A Modular Implementation and Performance Analysis
+Kaddi2024GWOCSMA,2024,10.3390/s24165234,OK,200,Energy-Efficient Clustering in Wireless Sensor Networks Using Grey Wolf Optimization and Enhanced CSMA/CA
+Kandris2020,2009,10.3390/s90907320,OK,200,Power Conservation through Energy Efficient Routing in Wireless Sensor Networks
+Lindsey2002PEGASIS,2002,10.1109/AERO.2002.1035242,OK,200,PEGASIS: Power-Efficient Gathering in Sensor Information Systems
+Manjeshwar2001TEEN,2001,10.1109/IPDPS.2001.925197,OK,200,TEEN: A Routing Protocol for Enhanced Efficiency in Wireless Sensor Networks
+Manogaran2025DDQN,2025,10.3390/s25103084,OK,200,Developing a Novel Adaptive Double Deep Q-Learning-Based Routing Strategy for IoT-Based Wireless Sensor Network with Federated Learning
+Naeem2024DRL,2024,10.3390/s24061993,OK,200,Security Enhancement for Deep Reinforcement Learning-Based Strategy in Energy-Efficient Wireless Sensor Networks
+Nature2024NNILEACH,2024,10.1038/s41598-024-75904-1,OK,200,An Efficient Neural Network LEACH Protocol to Extended Lifetime of Wireless Sensor Networks
+Ogundile2025PPRP,2025,10.1109/JIOT.2025.3574076,OK,200,Path Priority Routing Protocol for Underwater Wireless Sensor Network
+Okine2024,2024,10.1109/TNSM.2024.3352014,OK,200,Multi-Agent Deep Reinforcement Learning for Packet Routing in Tactical Mobile Sensor Networks
+Prince2025Hotspot,2025,10.1038/s41598-024-84596-6,OK,200,Multi-Level Clustering and Prediction Based Energy Efficient Routing Protocol to Eliminate Hotspot Problem in Wireless Sensor Networks
+Qin2024NLOSError,2024,10.1109/TII.2024.3413336,OK,200,Enhancing Performance for Wireless Location: Leveraging Linear Trend and Uncertainty Inherent in NLOS Error
+Qin2026WBAN,2026,10.3390/s26010231,OK,200,Routing Protocols for Wireless Body Area Networks: Recent Advances and Open Challenges
+Rault2016Energy,2014,10.1016/j.comnet.2014.03.027,OK,200,Energy Efficiency in Wireless Sensor Networks: A Top-Down Survey
+Ren2024,2024,10.1109/JIOT.2023.3289888,OK,200,MeFi: Mean Field Reinforcement Learning for Cooperative Routing in Wireless Sensor Network
+Scientific2025DRLGNN,2025,10.1038/s41598-025-01841-2,OK,200,Optimizing Coverage in Wireless Sensor Networks Using Deep Reinforcement Learning with Graph Neural Networks
+Singh2025Enhanced,2025,10.1016/j.comnet.2025.111100,OK,200,Enhanced Energy-Aware Routing Protocol with Mobile Sink Optimization for Wireless Sensor Networks
+Tan2026MOGALSA,2026,10.1038/s41598-026-35584-5,OK,200,Cluster Based WSN Routing with MOGA and LSA Optimization
+Tariq2024A,2024,10.3390/s24237491,OK,200,A Novel Energy Replenishment Algorithm to Increase the Network Performance of Rechargeable Wireless Sensor Networks
+Ti2026HEOCP,2026,10.3390/s26041188,OK,200,HEOCP: Hybrid Energy-Optimized Clustering Protocol for WSNs Using Analytical Modeling and Deep Learning Integration
+Tossa2025Deployment,2025,10.3390/s25113442,OK,200,"Wireless Sensor Network Deployment: Architecture, Objectives, and Methodologies"
+Wang2024Geographic,2024,10.3390/s24113263,OK,200,Energy-Efficient and Highly Reliable Geographic Routing Based on Link Detection and Node Collaborative Scheduling in WSN
+Younis2004HEED,2004,10.1109/TMC.2004.41,OK,200,"HEED: A Hybrid, Energy-Efficient, Distributed Clustering Approach for Ad Hoc Sensor Networks"
+Zuniga2004,2004,10.1109/SAHCN.2004.1381954,OK,200,Analyzing the Transitional Region in Low Power Wireless Links
+Zuniga2007Asymmetry,2007,10.1145/1240226.1240227,OK,200,An Analysis of Unreliability and Asymmetry in Low-Power Wireless Links

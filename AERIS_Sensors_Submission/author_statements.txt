@@ -1,0 +1,17 @@
+Author Contributions:
+Conceptualization, X.Z. and K.L.; methodology, K.L. and J.L.; software, K.L.; validation, X.Z. and J.L.; writing—original draft preparation, K.L.; writing—review and editing, X.Z.; supervision, X.Z. All authors have read and agreed to the published version of the manuscript.
+
+Funding:
+This research received no external funding.
+
+Institutional Review Board Statement:
+Not applicable.
+
+Informed Consent Statement:
+Not applicable.
+
+Data Availability Statement:
+The datasets, scripts, manuscript sources, figure-generation code, and provenance sidecar records (including commit identifiers and script hashes) supporting this study are available from the corresponding author and will be released in a versioned public repository upon final publication.
+
+Conflicts of Interest:
+The authors declare no conflict of interest.

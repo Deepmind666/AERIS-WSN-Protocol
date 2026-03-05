@@ -1,0 +1,7 @@
+Highlights:
+
+- AERIS achieves rank-1 PDR in three of four tested channel environments under strict MAC-collision modeling at 100-1000 node scales
+- Environment-dependent module contributions: Gateway and CAS effects vary by channel condition and are not globally monotonic
+- Matched stress-delta comparisons reveal that stricter physics assumptions consistently reduce absolute reliability, requiring explicit calibration for deployment
+- Non-monotonic tx-power response across environments demonstrates that higher transmit power does not guarantee higher PDR in all settings
+- NS-3 cross-platform trend validation confirms directional AERIS advantage over LEACH in 27 of 28 environment-scale cells

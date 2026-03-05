@@ -1,0 +1,267 @@
+% ============================================================================
+% AERIS Paper - Section 7: Discussion
+% Target Journal: Applied Intelligence (APIN) - Springer
+% Version: 2026-01-18 (Data Authenticity Corrected)
+% ============================================================================
+
+\section{Discussion}
+\label{sec:discussion}
+
+This section provides critical analysis of AERIS's positioning, acknowledges
+limitations, and offers practical guidelines for protocol selection.
+
+\subsection{Honest Limitations}
+
+We explicitly acknowledge the following limitations of AERIS:
+
+\subsubsection{Energy Consumption vs PEGASIS}
+
+AERIS consumes approximately \textbf{twice the energy} of PEGASIS (82.1mJ
+vs. 41.9mJ at 100 nodes). This substantial overhead stems from:
+
+\begin{enumerate}
+    \item \textbf{Hierarchical transmission}: Multiple hops through skeleton
+    backbone and gateway coordination, compared to PEGASIS's direct neighbor
+    transmission.
+
+    \item \textbf{Gateway load concentration}: Gateway nodes handle aggregated
+    traffic, consuming disproportionate energy despite load balancing.
+
+    \item \textbf{Control overhead}: Skeleton and gateway maintenance requires
+    periodic reconfiguration messages.
+\end{enumerate}
+
+\textbf{Implication}: For applications where energy is the primary constraint,
+PEGASIS remains the optimal choice. AERIS should not be selected for
+energy-harvesting deployments with limited power budgets.
+
+\subsubsection{Small-Scale No Advantage}
+
+For networks with fewer than 100 nodes, \textbf{all protocols achieve 100\% PDR}.
+AERIS's hierarchical overhead does not provide benefits at small scale:
+
+\begin{itemize}
+    \item At 50--100 nodes: LEACH, PEGASIS, and AERIS all achieve 100\% PDR
+    \item AERIS advantage emerges only beyond 200 nodes where LEACH PDR
+    degrades to $<$100\%
+\end{itemize}
+
+\textbf{Implication}: AERIS is not recommended for small-scale deployments
+($<$100 nodes) where simpler protocols suffice.
+
+\subsubsection{Execution Time}
+
+AERIS requires significantly longer execution time than PEGASIS (15.17s vs
+0.11s at 500 nodes). This overhead:
+
+\begin{itemize}
+    \item Increases setup time for each communication round
+    \item Consumes additional computational energy not captured in the
+    transmission energy model
+    \item May impact applications requiring rapid reconfiguration
+\end{itemize}
+
+\subsubsection{CAS Module Contribution}
+
+The ablation study reveals that the CAS (Context-Adaptive Switching)
+module shows negligible independent effect (Hedges' $g = 0.00$) on
+overall protocol performance. The primary performance contribution
+comes from the Gateway coordination mechanism ($g = 10.09$).
+
+\textbf{Implication}: CAS functions as a supporting framework rather
+than the core innovation. Future work should focus on enhancing the
+Gateway and skeleton backbone mechanisms rather than CAS refinement.
+
+\subsection{AERIS vs. ML-Based Approaches}
+
+Table~\ref{tab:ml_comparison_discussion} compares AERIS with recent
+ML-based routing protocols.
+
+\begin{table}[htbp]
+\centering
+\caption{AERIS vs. ML-Based Routing Protocols}
+\label{tab:ml_comparison_discussion}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+Aspect & AERIS & MeFi & MADRL & LSTM-routing \\
+\midrule
+Decision Time & $<$10ms & $\sim$600ms & $\sim$500ms & 50--80ms \\
+Memory & 23KB & 2MB & 3.5MB & 700KB \\
+Training & 0h & 48h & 96h & 16h \\
+Adaptability & Rule-based & Learned & Learned & Learned \\
+Interpretability & High & Low & Low & Low \\
+Hardware & TelosB & Server & Server & Edge GPU \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{AERIS Advantages over ML}:
+\begin{enumerate}
+    \item \textbf{Zero training}: Immediate deployment without learning phase
+    \item \textbf{Deterministic behavior}: Predictable routing decisions
+    \item \textbf{Interpretability}: Rule-based logic enables debugging
+    \item \textbf{Commodity hardware}: Deployable on 10KB RAM nodes
+\end{enumerate}
+
+\textbf{ML Advantages over AERIS}:
+\begin{enumerate}
+    \item \textbf{Adaptability}: ML protocols can learn environment-specific
+    optimizations
+    \item \textbf{Complex environments}: Neural networks may capture
+    non-linear channel dynamics
+    \item \textbf{Long-term optimization}: RL approaches optimize for
+    network lifetime
+\end{enumerate}
+
+\textbf{Positioning}: AERIS targets resource-constrained deployments
+where ML overhead is prohibitive. For server-class gateways with abundant
+resources, ML approaches may provide superior long-term performance.
+
+\subsection{Protocol Selection Guidelines}
+
+Based on our comprehensive analysis, we provide practical guidelines
+for protocol selection.
+
+\subsubsection{Application-Based Recommendations}
+
+Table~\ref{tab:recommendations} maps application requirements to
+recommended protocols.
+
+\begin{table}[htbp]
+\centering
+\caption{Protocol Selection Guidelines by Application (Based on Measured Data)}
+\label{tab:recommendations}
+\begin{tabular}{@{}p{3.5cm}ccp{3cm}@{}}
+\toprule
+Application & PDR Req. & Scale & Recommended \\
+\midrule
+Critical infrastructure & 100\% & $>$200 & \textbf{AERIS/PEGASIS} \\
+Large-scale monitoring & 100\% & $>$200 & \textbf{AERIS/PEGASIS} \\
+Dynamic topology & 100\% & Any & \textbf{AERIS} \\
+Energy-critical sensing & $>$99\% & Any & \textbf{PEGASIS} \\
+Small-scale deployment & Any & $<$100 & \textbf{LEACH} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Decision Flowchart}
+
+We recommend the following decision process:
+
+\begin{enumerate}
+    \item \textbf{Is energy the primary constraint?} $\rightarrow$ Use PEGASIS
+    (50\% energy savings vs AERIS)
+
+    \item \textbf{Is network scale $<$100 nodes?} $\rightarrow$ Use LEACH
+    (simplest, all protocols achieve 100\% PDR)
+
+    \item \textbf{Is 100\% PDR required at scale ($>$200 nodes)?} $\rightarrow$
+    Use AERIS or PEGASIS
+
+    \item \textbf{Is AERIS's 18.5\% energy advantage over LEACH valuable?}
+    $\rightarrow$ Use \textbf{AERIS}
+\end{enumerate}
+
+\subsection{Why AERIS Provides Value}
+
+The protocol design space analysis reveals AERIS's positioning:
+
+\begin{itemize}
+    \item \textbf{LEACH}: Simple but PDR degrades at scale (98.68\% at 500 nodes)
+    \item \textbf{PEGASIS}: Best energy efficiency, maintains 100\% PDR
+    \item \textbf{HEED}: Balanced but neither optimal energy nor optimal PDR
+    \item \textbf{AERIS}: 100\% PDR + 18.5\% energy reduction vs LEACH
+\end{itemize}
+
+\textbf{AERIS Value Proposition}:
+\begin{enumerate}
+    \item Better PDR stability than LEACH at scale
+    \item Better energy efficiency than LEACH (18.5\% reduction)
+    \item Robustness under node churn and regional failure
+\end{enumerate}
+
+\textbf{AERIS Limitation}:
+\begin{enumerate}
+    \item Higher energy than PEGASIS ($\sim$2$\times$)
+    \item Longer execution time than all baselines
+\end{enumerate}
+
+\subsection{Threats to Validity}
+
+\subsubsection{Internal Validity}
+
+\begin{itemize}
+    \item \textbf{Simulation vs. real-world}: Results are based on
+    simulation with CC2420 energy model. Real-world deployment may reveal
+    additional hardware-specific factors.
+
+    \item \textbf{Channel model simplification}: Log-normal shadowing
+    may not capture all propagation phenomena (multipath fading,
+    temporal correlation).
+\end{itemize}
+
+\subsubsection{External Validity}
+
+\begin{itemize}
+    \item \textbf{Topology dependency}: Results are based on uniform
+    random deployment. Structured deployments (grid, corridor) may
+    exhibit different relative performance.
+
+    \item \textbf{Traffic pattern}: Experiments assume periodic data
+    generation. Event-driven or bursty traffic may affect protocol
+    performance differently.
+\end{itemize}
+
+\subsubsection{Construct Validity}
+
+\begin{itemize}
+    \item \textbf{Latency not measured}: End-to-end transmission latency
+    was not directly measured in experiments. Future work should implement
+    hop counting to enable latency measurement.
+
+    \item \textbf{Energy model scope}: Energy model covers transmission
+    and reception but not computational overhead. AERIS's higher
+    computational complexity is not fully captured.
+\end{itemize}
+
+\subsection{Future Work}
+
+Based on our findings, we identify the following research directions:
+
+\subsubsection{Latency Measurement Implementation}
+
+A critical gap in current experiments is the lack of actual latency
+measurement. Future work should:
+\begin{itemize}
+    \item Implement hop counting in the simulation framework
+    \item Measure actual end-to-end transmission delay
+    \item Validate theoretical complexity analysis with real data
+\end{itemize}
+
+\subsubsection{Gateway Mechanism Enhancement}
+
+Given the Gateway component's dominant contribution ($g = 10.09$), future
+work should focus on:
+\begin{itemize}
+    \item Adaptive gateway count based on network conditions
+    \item Energy-aware gateway rotation strategies
+    \item Multi-tier gateway hierarchies for ultra-large networks
+\end{itemize}
+
+\subsubsection{Lightweight ML Integration}
+
+While maintaining AERIS's lightweight nature, future work could explore:
+\begin{itemize}
+    \item TinyML models ($<$5KB) for link quality prediction
+    \item Quantized neural networks for gateway selection
+    \item On-device learning with minimal memory overhead
+\end{itemize}
+
+\subsubsection{Hardware Validation}
+
+Deploy AERIS on real TelosB/CC2650 hardware to validate:
+\begin{itemize}
+    \item Actual decision time and computational energy
+    \item Memory footprint in constrained environments
+    \item Real-world PDR under actual channel conditions
+\end{itemize}

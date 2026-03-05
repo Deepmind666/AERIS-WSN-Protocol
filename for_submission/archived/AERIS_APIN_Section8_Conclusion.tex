@@ -1,0 +1,107 @@
+% ============================================================================
+% AERIS Paper - Section 8: Conclusion
+% Target Journal: Applied Intelligence (APIN) - Springer
+% Version: 2026-01-18 (Data Authenticity Corrected)
+% ============================================================================
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+This paper presents AERIS, a hierarchical routing protocol designed to fill
+a critical gap in the WSN protocol design space: \textbf{large-scale
+deployments requiring 100\% PDR with robustness under dynamic topologies}.
+
+\subsection{Summary of Contributions}
+
+All contributions below are supported by actual experimental measurements:
+
+\textbf{C1. Scale Reliability}: AERIS maintains \textbf{100\% PDR} at
+scales up to 500 nodes, while LEACH degrades to 98.68\% (statistically
+significant, $p < 0.001$, Cohen's $d = 1.89$).
+
+\textbf{C2. Energy Efficiency vs LEACH}: AERIS achieves \textbf{18.5\%
+energy reduction} compared to LEACH (82.1mJ vs. 100.7mJ at 100 nodes).
+
+\textbf{C3. Honest Trade-off Analysis}: We provide transparent experimental
+comparison showing that PEGASIS achieves approximately \textbf{2$\times$
+better energy efficiency} than AERIS (41.9mJ vs. 82.1mJ). We explicitly
+acknowledge that for energy-critical applications, PEGASIS remains optimal.
+
+\textbf{C4. Robustness}: AERIS maintains 100\% PDR under 30\% node churn
+and 40\% regional failure scenarios.
+
+\textbf{C5. Gateway Mechanism Analysis}: Ablation studies reveal the
+gateway coordination mechanism as the dominant contributor (Hedges'
+$g = 10.09$), while CAS shows negligible independent effect ($g \approx 0$).
+
+\subsection{Honest Positioning}
+
+AERIS is \textbf{not} a universal replacement for existing protocols:
+
+\begin{itemize}
+    \item For \textbf{energy-critical} applications (environmental monitoring,
+    agricultural sensing), \textbf{PEGASIS} achieves 50\% energy savings
+    and should be preferred.
+
+    \item For \textbf{small-scale} deployments ($<$100 nodes), all protocols
+    achieve 100\% PDR. Use \textbf{LEACH} for simplicity.
+
+    \item For \textbf{large-scale} applications ($>$200 nodes) requiring
+    100\% PDR with energy efficiency better than LEACH, \textbf{AERIS}
+    is a viable option.
+\end{itemize}
+
+\subsection{Key Findings}
+
+The experimental analysis reveals several important findings:
+
+\begin{enumerate}
+    \item The \textbf{Gateway coordination mechanism} is the primary
+    contributor to AERIS's reliability (Hedges' $g = 10.09$), while the
+    CAS module shows negligible independent effect ($g = 0.00$).
+
+    \item AERIS provides value as a middle-ground between LEACH (simple
+    but PDR degrades) and PEGASIS (optimal energy but higher computational
+    overhead).
+
+    \item The PDR stability at scale comes from the hierarchical gateway
+    structure that provides redundant communication paths.
+\end{enumerate}
+
+\subsection{Reproducibility}
+
+All source code, experimental configurations, and raw result data are
+released as open source to enable independent verification and facilitate
+future research.
+
+\subsection{Future Directions}
+
+Based on our findings, we identify priority directions for future work:
+
+\begin{enumerate}
+    \item \textbf{Latency measurement}: Implement hop counting to enable
+    actual latency measurement and validate theoretical complexity analysis.
+
+    \item \textbf{Gateway optimization}: Given the Gateway component's
+    dominant contribution, future research should focus on adaptive
+    gateway mechanisms and energy-aware rotation strategies.
+
+    \item \textbf{Hardware validation}: Deploy AERIS on real TelosB/CC2650
+    hardware to validate simulation results and measure actual
+    computational overhead.
+\end{enumerate}
+
+\subsection{Closing Remarks}
+
+AERIS demonstrates that achieving reliable packet delivery at scale requires
+architectural trade-offs. Rather than claiming universal superiority,
+we advocate for \textbf{honest, application-specific protocol selection}
+that acknowledges each approach's strengths and limitations. We hope
+this work contributes not only the AERIS protocol but also a framework
+for transparent WSN protocol evaluation that enables practitioners to
+make informed deployment decisions.
+
+\textbf{Data Authenticity Statement}: All experimental results reported in
+this paper are actual measurements from simulation experiments with 200
+independent runs per configuration. Results have been validated using
+Welch's t-test with Holm-Bonferroni correction.

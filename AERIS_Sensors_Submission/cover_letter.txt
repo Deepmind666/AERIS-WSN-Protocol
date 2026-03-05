@@ -1,0 +1,39 @@
+                                                    Faculty of Automation
+                                                    Guangdong University of Technology
+                                                    Guangzhou 510006, China
+                                                    Email: 1403073295@mails.gdut.edu.cn
+
+                                                    March 3, 2026
+
+Editorial Office
+Sensors (ISSN 1424-8220)
+MDPI AG
+St. Alban-Anlage 66
+4052 Basel, Switzerland
+
+Dear Editor,
+
+We are pleased to submit our manuscript entitled "AERIS: Environment-Aware Hierarchical Routing for Reliable Wireless Sensor Networks under Realistic Channel Conditions" for consideration for publication in Sensors, Section "Sensor Networks."
+
+This manuscript presents AERIS, a lightweight hierarchical routing protocol that prioritizes packet delivery reliability across four heterogeneous indoor/outdoor channel environments. The key contributions are:
+
+  (1) A modular routing design (Context-Adaptive Switching, Skeleton backbone, Gateway reinforcement) with explicit environment-scoped operation boundaries and auditable control variables;
+
+  (2) A regime-separated evidence design that distinguishes core reliability reporting from stress and sensitivity diagnostics, with publication-tier sample sizes (n = 30 to n = 3200 per cell) and Holm-corrected significance testing;
+
+  (3) Cross-platform NS-3 trend validation for AERIS versus LEACH under aligned environment taxonomy.
+
+The manuscript emphasizes reproducible conclusions under explicit metric, environment, baseline, and sample-size definitions. All publication-tier results include provenance metadata. We believe this work is well-suited for the readership of Sensors.
+
+We confirm that:
+  - This manuscript has not been published previously and is not under consideration for publication elsewhere.
+  - All authors have read and approved the submitted version.
+  - The study did not involve human subjects or animals.
+  - No conflicts of interest exist.
+
+Thank you for considering our submission. We look forward to your response.
+
+Sincerely,
+
+Kangrui Li
+(On behalf of all authors)

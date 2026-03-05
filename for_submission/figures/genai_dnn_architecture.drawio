@@ -1,0 +1,261 @@
+<mxfile host="app.diagrams.net" modified="2026-02-25T05:30:00.000Z" agent="Claude" version="24.7.17">
+  <diagram id="genai-dnn-arch" name="GenAI-DNN Architecture">
+    <mxGraphModel dx="1800" dy="1400" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1200" math="0" shadow="0" background="#ffffff">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- ========== TITLE ========== -->
+        <mxCell id="t1" value="&lt;b&gt;The Role of GenAI and DNN Models across Communication Network Layers&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=16;fontColor=#1a1a2e;fontFamily=Helvetica;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="15" width="1300" height="35" as="geometry"/>
+        </mxCell>
+
+        <!-- ========== LEFT PANEL: GenAI Models ========== -->
+        <mxCell id="g0" value="&lt;b&gt;GenAI Models&lt;/b&gt;" style="swimlane;html=1;startSize=35;fillColor=#1a237e;strokeColor=#0d1642;fontColor=#ffffff;fontSize=14;fontStyle=1;rounded=1;arcSize=6;horizontal=0;swimlaneLine=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="70" width="200" height="720" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="g1" value="&lt;b&gt;LLM&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;fontSize:8&quot;&gt;Large Language&lt;br&gt;Models&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#283593;strokeColor=#1a237e;fontColor=#ffffff;fontSize=11;shadow=1;" vertex="1" parent="g0">
+          <mxGeometry x="45" y="15" width="145" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="g2" value="&lt;b&gt;Diffusion&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;fontSize:8&quot;&gt;Models&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#3949ab;strokeColor=#283593;fontColor=#ffffff;fontSize=11;shadow=1;" vertex="1" parent="g0">
+          <mxGeometry x="45" y="155" width="145" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="g3" value="&lt;b&gt;GAN&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;fontSize:8&quot;&gt;Generative Adversarial&lt;br&gt;Networks&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#3f51b5;strokeColor=#3949ab;fontColor=#ffffff;fontSize=11;shadow=1;" vertex="1" parent="g0">
+          <mxGeometry x="45" y="295" width="145" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="g4" value="&lt;b&gt;VAE&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;fontSize:8&quot;&gt;Variational&lt;br&gt;Autoencoders&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#5c6bc0;strokeColor=#3f51b5;fontColor=#ffffff;fontSize=11;shadow=1;" vertex="1" parent="g0">
+          <mxGeometry x="45" y="435" width="145" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="g5" value="&lt;b&gt;Transformer&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;fontSize:8&quot;&gt;Encoder-Decoder&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#7986cb;strokeColor=#5c6bc0;fontColor=#ffffff;fontSize=11;shadow=1;" vertex="1" parent="g0">
+          <mxGeometry x="45" y="575" width="145" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- ========== RIGHT PANEL: DNN Models ========== -->
+        <mxCell id="d0" value="&lt;b&gt;DNN Models&lt;/b&gt;" style="swimlane;html=1;startSize=35;fillColor=#1b5e20;strokeColor=#0d3311;fontColor=#ffffff;fontSize=14;fontStyle=1;rounded=1;arcSize=6;horizontal=0;swimlaneLine=1;direction=west;" vertex="1" parent="1">
+          <mxGeometry x="1560" y="70" width="200" height="720" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="d1" value="&lt;b&gt;CNN&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;fontSize:8&quot;&gt;Convolutional&lt;br&gt;Neural Networks&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2e7d32;strokeColor=#1b5e20;fontColor=#ffffff;fontSize=11;shadow=1;" vertex="1" parent="d0">
+          <mxGeometry x="45" y="15" width="145" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="d2" value="&lt;b&gt;RNN&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;fontSize:8&quot;&gt;Recurrent&lt;br&gt;Neural Networks&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#388e3c;strokeColor=#2e7d32;fontColor=#ffffff;fontSize=11;shadow=1;" vertex="1" parent="d0">
+          <mxGeometry x="45" y="155" width="145" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="d3" value="&lt;b&gt;GNN&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;fontSize:8&quot;&gt;Graph Neural&lt;br&gt;Networks&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#43a047;strokeColor=#388e3c;fontColor=#ffffff;fontSize=11;shadow=1;" vertex="1" parent="d0">
+          <mxGeometry x="45" y="295" width="145" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="d4" value="&lt;b&gt;RL&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;fontSize:8&quot;&gt;Reinforcement&lt;br&gt;Learning&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#66bb6a;strokeColor=#43a047;fontColor=#ffffff;fontSize=11;shadow=1;" vertex="1" parent="d0">
+          <mxGeometry x="45" y="435" width="145" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="d5" value="&lt;b&gt;FL&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;fontSize:8&quot;&gt;Federated&lt;br&gt;Learning&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#81c784;strokeColor=#66bb6a;fontColor=#ffffff;fontSize=11;shadow=1;" vertex="1" parent="d0">
+          <mxGeometry x="45" y="575" width="145" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- ========== APPLICATION LAYER ========== -->
+        <mxCell id="L1" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede7f6;strokeColor=#7e57c2;strokeWidth=2;arcSize=4;" vertex="1" parent="1">
+          <mxGeometry x="270" y="70" width="1260" height="210" as="geometry"/>
+        </mxCell>
+        <mxCell id="L1t" value="&lt;b&gt;Application Layer&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontColor=#4527a0;fontStyle=1;rotation=-90;" vertex="1" parent="1">
+          <mxGeometry x="265" y="140" width="140" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- ========== NETWORK LAYER ========== -->
+        <mxCell id="L2" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3e0;strokeColor=#ef6c00;strokeWidth=2;arcSize=4;" vertex="1" parent="1">
+          <mxGeometry x="270" y="310" width="1260" height="210" as="geometry"/>
+        </mxCell>
+        <mxCell id="L2t" value="&lt;b&gt;Network Layer&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontColor=#e65100;fontStyle=1;rotation=-90;" vertex="1" parent="1">
+          <mxGeometry x="268" y="380" width="130" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- ========== PHYSICAL LAYER ========== -->
+        <mxCell id="L3" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e0f7fa;strokeColor=#00838f;strokeWidth=2;arcSize=4;" vertex="1" parent="1">
+          <mxGeometry x="270" y="550" width="1260" height="210" as="geometry"/>
+        </mxCell>
+        <mxCell id="L3t" value="&lt;b&gt;Physical Layer&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontColor=#006064;fontStyle=1;rotation=-90;" vertex="1" parent="1">
+          <mxGeometry x="268" y="620" width="130" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- App Layer: Object Detection card -->
+        <mxCell id="A1" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d1c4e9;strokeColor=#7e57c2;strokeWidth=1.5;arcSize=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="370" y="90" width="480" height="170" as="geometry"/>
+        </mxCell>
+        <mxCell id="A1h" value="&lt;b&gt;Object Detection &amp;amp; Recognition&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=12;fontColor=#311b92;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="95" width="380" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="A1d" value="• Image classification &amp;amp; segmentation&lt;br&gt;• Real-time video analytics&lt;br&gt;• Autonomous driving perception&lt;br&gt;• Medical imaging diagnosis" style="text;html=1;align=left;verticalAlign=top;fontSize=10;fontColor=#4a148c;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="380" y="125" width="460" height="125" as="geometry"/>
+        </mxCell>
+
+        <!-- App Layer: Digital Twins card -->
+        <mxCell id="A2" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d1c4e9;strokeColor=#7e57c2;strokeWidth=1.5;arcSize=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="890" y="90" width="480" height="170" as="geometry"/>
+        </mxCell>
+        <mxCell id="A2h" value="&lt;b&gt;Digital Twins &amp;amp; Simulation&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=12;fontColor=#311b92;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="940" y="95" width="380" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="A2d" value="• Network digital twin modeling&lt;br&gt;• Predictive maintenance&lt;br&gt;• Scenario generation &amp;amp; testing&lt;br&gt;• Resource optimization planning" style="text;html=1;align=left;verticalAlign=top;fontSize=10;fontColor=#4a148c;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="125" width="460" height="125" as="geometry"/>
+        </mxCell>
+
+        <!-- Network Layer: Traffic Management card -->
+        <mxCell id="N1" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b2;strokeColor=#ef6c00;strokeWidth=1.5;arcSize=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="370" y="330" width="480" height="170" as="geometry"/>
+        </mxCell>
+        <mxCell id="N1h" value="&lt;b&gt;Traffic Management &amp;amp; Optimization&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=12;fontColor=#bf360c;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="335" width="380" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="N1d" value="• Intelligent routing &amp;amp; scheduling&lt;br&gt;• QoS-aware resource allocation&lt;br&gt;• Network slicing optimization&lt;br&gt;• Load balancing &amp;amp; congestion control" style="text;html=1;align=left;verticalAlign=top;fontSize=10;fontColor=#e65100;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="380" y="365" width="460" height="125" as="geometry"/>
+        </mxCell>
+
+        <!-- Network Layer: Anomaly Detection card -->
+        <mxCell id="N2" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b2;strokeColor=#ef6c00;strokeWidth=1.5;arcSize=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="890" y="330" width="480" height="170" as="geometry"/>
+        </mxCell>
+        <mxCell id="N2h" value="&lt;b&gt;Anomaly Detection &amp;amp; Security&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=12;fontColor=#bf360c;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="940" y="335" width="380" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="N2d" value="• Intrusion detection systems&lt;br&gt;• Traffic anomaly identification&lt;br&gt;• Threat intelligence &amp;amp; response&lt;br&gt;• Privacy-preserving analytics" style="text;html=1;align=left;verticalAlign=top;fontSize=10;fontColor=#e65100;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="365" width="460" height="125" as="geometry"/>
+        </mxCell>
+
+        <!-- Physical Layer: Channel Modeling card -->
+        <mxCell id="P1" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b2ebf2;strokeColor=#00838f;strokeWidth=1.5;arcSize=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="370" y="570" width="480" height="170" as="geometry"/>
+        </mxCell>
+        <mxCell id="P1h" value="&lt;b&gt;Channel Modeling &amp;amp; Estimation&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=12;fontColor=#004d40;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="575" width="380" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="P1d" value="• Wireless channel estimation&lt;br&gt;• Propagation modeling &amp;amp; prediction&lt;br&gt;• MIMO beamforming optimization&lt;br&gt;• Spectrum sensing &amp;amp; management" style="text;html=1;align=left;verticalAlign=top;fontSize=10;fontColor=#006064;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="380" y="605" width="460" height="125" as="geometry"/>
+        </mxCell>
+
+        <!-- Physical Layer: RF Sensing card -->
+        <mxCell id="P2" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b2ebf2;strokeColor=#00838f;strokeWidth=1.5;arcSize=8;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="890" y="570" width="480" height="170" as="geometry"/>
+        </mxCell>
+        <mxCell id="P2h" value="&lt;b&gt;RF Sensing &amp;amp; Signal Processing&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=12;fontColor=#004d40;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="940" y="575" width="380" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="P2d" value="• Joint communication &amp;amp; sensing&lt;br&gt;• Signal demodulation &amp;amp; decoding&lt;br&gt;• Interference cancellation&lt;br&gt;• Waveform design &amp;amp; optimization" style="text;html=1;align=left;verticalAlign=top;fontSize=10;fontColor=#006064;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="605" width="460" height="125" as="geometry"/>
+        </mxCell>
+
+        <!-- ========== LAYER INTER-CONNECTIONS ========== -->
+        <!-- Empower arrow: App -> Network -->
+        <mxCell id="E1" value="&lt;b&gt;Empower&lt;/b&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2.5;strokeColor=#7e57c2;endArrow=blockThin;endFill=1;fontColor=#4527a0;fontSize=10;labelBackgroundColor=#ffffff;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="L1" target="L2">
+          <mxGeometry x="0.2" y="10" relative="1" as="geometry">
+            <mxPoint as="offset"/>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Underpin arrow: Network -> Physical -->
+        <mxCell id="E2" value="&lt;b&gt;Underpin&lt;/b&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2.5;strokeColor=#ef6c00;endArrow=blockThin;endFill=1;fontColor=#e65100;fontSize=10;labelBackgroundColor=#ffffff;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="L2" target="L3">
+          <mxGeometry x="0.2" y="10" relative="1" as="geometry">
+            <mxPoint as="offset"/>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ========== DATA FLOW ARROWS: GenAI -> Layers ========== -->
+        <!-- GenAI -> App Layer -->
+        <mxCell id="F1" value="" style="html=1;strokeWidth=2;strokeColor=#283593;endArrow=blockThin;endFill=1;dashed=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="240" y="145" as="sourcePoint"/>
+            <mxPoint x="370" y="145" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- GenAI -> Network Layer -->
+        <mxCell id="F2" value="" style="html=1;strokeWidth=2;strokeColor=#283593;endArrow=blockThin;endFill=1;dashed=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="240" y="415" as="sourcePoint"/>
+            <mxPoint x="370" y="415" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- GenAI -> Physical Layer -->
+        <mxCell id="F3" value="" style="html=1;strokeWidth=2;strokeColor=#283593;endArrow=blockThin;endFill=1;dashed=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="240" y="655" as="sourcePoint"/>
+            <mxPoint x="370" y="655" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ========== DATA FLOW ARROWS: Layers -> DNN ========== -->
+        <!-- App Layer -> DNN -->
+        <mxCell id="F4" value="" style="html=1;strokeWidth=2;strokeColor=#2e7d32;endArrow=blockThin;endFill=1;dashed=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1370" y="145" as="sourcePoint"/>
+            <mxPoint x="1560" y="145" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- Network Layer -> DNN -->
+        <mxCell id="F5" value="" style="html=1;strokeWidth=2;strokeColor=#2e7d32;endArrow=blockThin;endFill=1;dashed=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1370" y="415" as="sourcePoint"/>
+            <mxPoint x="1560" y="415" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- Physical Layer -> DNN -->
+        <mxCell id="F6" value="" style="html=1;strokeWidth=2;strokeColor=#2e7d32;endArrow=blockThin;endFill=1;dashed=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1370" y="655" as="sourcePoint"/>
+            <mxPoint x="1560" y="655" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ========== DATA FLOW LABELS ========== -->
+        <mxCell id="FL1" value="&lt;b&gt;Generate&lt;br&gt;Synthesize&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=9;fontColor=#1a237e;fontStyle=2;rotation=-90;" vertex="1" parent="1">
+          <mxGeometry x="245" y="390" width="70" height="40" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="FL2" value="&lt;b&gt;Classify&lt;br&gt;Predict&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;fontSize=9;fontColor=#1b5e20;fontStyle=2;rotation=-90;" vertex="1" parent="1">
+          <mxGeometry x="1490" y="390" width="70" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- ========== LEGEND ========== -->
+        <mxCell id="LG0" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#bdbdbd;strokeWidth=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="500" y="800" width="800" height="45" as="geometry"/>
+        </mxCell>
+        <mxCell id="LG1" value="&lt;b&gt;Legend:&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;fontSize=10;fontColor=#424242;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="510" y="808" width="60" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="LG2" value="" style="html=1;strokeWidth=2;strokeColor=#283593;endArrow=blockThin;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="580" y="820" as="sourcePoint"/>
+            <mxPoint x="630" y="820" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LG3" value="GenAI empowers" style="text;html=1;align=left;verticalAlign=middle;fontSize=9;fontColor=#283593;" vertex="1" parent="1">
+          <mxGeometry x="635" y="808" width="100" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="LG4" value="" style="html=1;strokeWidth=2;strokeColor=#2e7d32;endArrow=blockThin;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="760" y="820" as="sourcePoint"/>
+            <mxPoint x="810" y="820" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LG5" value="DNN analyzes" style="text;html=1;align=left;verticalAlign=middle;fontSize=9;fontColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="815" y="808" width="90" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="LG6" value="" style="html=1;strokeWidth=2.5;strokeColor=#7e57c2;endArrow=blockThin;endFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="930" y="820" as="sourcePoint"/>
+            <mxPoint x="980" y="820" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LG7" value="Layer interaction" style="text;html=1;align=left;verticalAlign=middle;fontSize=9;fontColor=#7e57c2;" vertex="1" parent="1">
+          <mxGeometry x="985" y="808" width="100" height="25" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

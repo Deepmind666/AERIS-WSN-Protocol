@@ -1,0 +1,7 @@
+AERIS: Environment-Aware Hierarchical Routing for Reliable Wireless Sensor Networks under Realistic Channel Conditions
+
+Abstract:
+This paper studies AERIS, an environment-aware hierarchical routing protocol for wireless sensor networks, with packet delivery ratio (PDR) as the primary outcome. In a legacy 100-node comparability setting (four environments, 30 seeds per environment), AERIS achieves the highest mean PDR among five protocols (AERIS, LEACH, PEGASIS, HEED, and TEEN). In the strict large-scale setting (100-1000 nodes, four environments, n=3200 per environment-node-protocol cell, explicit MAC-collision and multi-hop relay modeling), AERIS is rank-1 in three environments, while PEGASIS dominates indoor_office at high scale. A three-level transmit-power sensitivity matrix (5/10/15 dBm, n=1000 per cell) shows strong environment-dependent and non-monotonic responses. Matched stress-delta comparisons (patch minus control, n=1000 vs 1000) show consistent absolute PDR degradation under stricter physics assumptions, indicating that deployment requires explicit calibration rather than fixed global settings. NS-3 is used for trend-level cross-platform validation for AERIS versus LEACH. The overall evidence positions AERIS as a reliability-oriented option for harsh channels with bounded operating regimes.
+
+Keywords:
+wireless sensor networks; reliable routing; hierarchical protocol; packet delivery ratio; scalability; reproducible evaluation

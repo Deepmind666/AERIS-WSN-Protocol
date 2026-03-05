@@ -1,0 +1,42 @@
+{
+  "total_samples": 22256,
+  "class_counts": {
+    "direct": 0,
+    "chain": 0,
+    "two_hop": 22256
+  },
+  "class_distribution": {
+    "direct": 0.0,
+    "chain": 0.0,
+    "two_hop": 1.0
+  },
+  "feature_keys": [
+    "energy",
+    "link",
+    "dist_bs",
+    "radius",
+    "density",
+    "fairness",
+    "tail_max"
+  ],
+  "config": {
+    "nodes": 100,
+    "width": 100.0,
+    "height": 100.0,
+    "rounds": 8000,
+    "packet_size": 1024,
+    "seed": 42,
+    "profile": "robust",
+    "teacher": "rule-based"
+  },
+  "data_source": "intel",
+  "protocol_summary": {
+    "network_lifetime": 8000,
+    "packet_delivery_ratio": 0.9366969465315895,
+    "total_energy_consumed": 1725.658766142123
+  },
+  "intel_meta": {
+    "locations_file": "C:\\AERIS-WSN-Protocol\\scripts\\..\\data\\Intel_Lab_Data\\mote_locs.txt",
+    "sensor_file": "C:\\AERIS-WSN-Protocol\\scripts\\..\\data\\data.txt.gz"
+  }
+}

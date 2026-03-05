@@ -1,0 +1,4862 @@
+{
+  "protocol": "AERIS",
+  "network_lifetime": 200,
+  "total_energy_consumed": 36.531093593383396,
+  "final_alive_nodes": 50,
+  "energy_efficiency": 260.5725441990082,
+  "packet_delivery_ratio": 0.9485799701046338,
+  "packet_delivery_ratio_end2end": 0.8107,
+  "execution_time": 0.24557280540466309,
+  "environment_type": "outdoor_open",
+  "round_statistics": [
+    {
+      "round": 0,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 99.818809236049,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.18119076395098932,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 0,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 3
+      },
+      "cas_confidence_mean": 0.6212740112068581,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.653231571636876,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 1,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 99.63758518767841,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.18122404837060274,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 48,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": true,
+      "safety_extra_uplink_used": false
+    },
+    {
+      "round": 2,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 99.45910694862398,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.17847823905442586,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 47,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6455877369984373,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3936079806787662,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 3,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 99.2805128095013,
+      "packets_sent": 50,
+      "packets_received": 44,
+      "energy_consumed": 0.17859413912268002,
+      "pdr_hop_level": 0.88,
+      "source_packets_round": 50,
+      "bs_delivered_round": 0,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.647891138916477,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.29350342089035747,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 4,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 99.09567326809027,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.1848395414110299,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 47,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": true,
+      "safety_extra_uplink_used": false
+    },
+    {
+      "round": 5,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 98.91079832341805,
+      "packets_sent": 51,
+      "packets_received": 49,
+      "energy_consumed": 0.18487494467222043,
+      "pdr_hop_level": 0.9607843137254902,
+      "source_packets_round": 50,
+      "bs_delivered_round": 48,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6585352530174429,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.22699910825781827,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 6,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 98.73192989817576,
+      "packets_sent": 50,
+      "packets_received": 44,
+      "energy_consumed": 0.17886842524228871,
+      "pdr_hop_level": 0.88,
+      "source_packets_round": 50,
+      "bs_delivered_round": 0,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6557484535231732,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.15891158721710802,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 7,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 98.5515455095669,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.18038438860885672,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 48,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": true,
+      "safety_extra_uplink_used": false
+    },
+    {
+      "round": 8,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 98.37302276756257,
+      "packets_sent": 50,
+      "packets_received": 46,
+      "energy_consumed": 0.17852274200433296,
+      "pdr_hop_level": 0.92,
+      "source_packets_round": 50,
+      "bs_delivered_round": 46,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6458823508892394,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.22783109352058428,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 9,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 98.18334092613414,
+      "packets_sent": 52,
+      "packets_received": 50,
+      "energy_consumed": 0.18968184142843797,
+      "pdr_hop_level": 0.9615384615384616,
+      "source_packets_round": 50,
+      "bs_delivered_round": 48,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6650190737256231,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.21944884473593515,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 10,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 97.99947030493145,
+      "packets_sent": 50,
+      "packets_received": 49,
+      "energy_consumed": 0.18387062120268372,
+      "pdr_hop_level": 0.98,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6470776403376883,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3007027850460475,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 11,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 97.8165317988869,
+      "packets_sent": 51,
+      "packets_received": 46,
+      "energy_consumed": 0.18293850604456166,
+      "pdr_hop_level": 0.9019607843137255,
+      "source_packets_round": 50,
+      "bs_delivered_round": 45,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6701310302959739,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.2678744475368069,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 12,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 97.63769407530378,
+      "packets_sent": 50,
+      "packets_received": 46,
+      "energy_consumed": 0.17883772358311173,
+      "pdr_hop_level": 0.92,
+      "source_packets_round": 50,
+      "bs_delivered_round": 0,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6550398614316382,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.17375153107101998,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 13,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 97.45735423072766,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.18033984457611818,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 40,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": true,
+      "safety_extra_uplink_used": false
+    },
+    {
+      "round": 14,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 97.27346609490502,
+      "packets_sent": 50,
+      "packets_received": 49,
+      "energy_consumed": 0.18388813582265173,
+      "pdr_hop_level": 0.98,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.643029012507869,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.2842382000296961,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 15,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 97.09258080851309,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.18088528639191923,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 45,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6488659577708935,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.28260615236182973,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 16,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 96.91169124476163,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.18088956375146198,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 47,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6513806897012391,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.19337976677618646,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 17,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 96.73327762171553,
+      "packets_sent": 50,
+      "packets_received": 46,
+      "energy_consumed": 0.1784136230461006,
+      "pdr_hop_level": 0.92,
+      "source_packets_round": 50,
+      "bs_delivered_round": 37,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.644499317000671,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.18755392605891125,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 18,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 96.55463327334294,
+      "packets_sent": 50,
+      "packets_received": 50,
+      "energy_consumed": 0.1786443483725914,
+      "pdr_hop_level": 1.0,
+      "source_packets_round": 50,
+      "bs_delivered_round": 50,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 4
+      },
+      "cas_confidence_mean": 0.657455835732904,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.24287516120187558,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 19,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 96.37403036750729,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.18060290583565414,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 48,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6425739897336914,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.2173276023455763,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 20,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 96.19098791354425,
+      "packets_sent": 50,
+      "packets_received": 46,
+      "energy_consumed": 0.18304245396304608,
+      "pdr_hop_level": 0.92,
+      "source_packets_round": 50,
+      "bs_delivered_round": 0,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6382134925219767,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.29529059070180097,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 21,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 96.00725045441575,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.183737459128491,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 48,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": true,
+      "safety_extra_uplink_used": false
+    },
+    {
+      "round": 22,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 95.81935000460679,
+      "packets_sent": 51,
+      "packets_received": 49,
+      "energy_consumed": 0.18790044980896486,
+      "pdr_hop_level": 0.9607843137254902,
+      "source_packets_round": 50,
+      "bs_delivered_round": 48,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6636281733901428,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3386916775209095,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 23,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 95.63229892097878,
+      "packets_sent": 52,
+      "packets_received": 50,
+      "energy_consumed": 0.1870510836280048,
+      "pdr_hop_level": 0.9615384615384616,
+      "source_packets_round": 50,
+      "bs_delivered_round": 48,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6931172277574256,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.2738936615596495,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 24,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 95.45147742540175,
+      "packets_sent": 50,
+      "packets_received": 49,
+      "energy_consumed": 0.18082149557703248,
+      "pdr_hop_level": 0.98,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6554614543134767,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.25676976539073065,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 25,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 95.27050891311852,
+      "packets_sent": 50,
+      "packets_received": 50,
+      "energy_consumed": 0.18096851228324037,
+      "pdr_hop_level": 1.0,
+      "source_packets_round": 50,
+      "bs_delivered_round": 50,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6582867463109245,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.24677504966904368,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 26,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 95.09204024358755,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.17846866953096355,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 47,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6478389031467968,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.26563982021585636,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 27,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 94.91091581750361,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.1811244260839441,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 48,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6621441962938291,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.2356921603490379,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 28,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 94.72980664169854,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.18110917580505917,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 44,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6390041142543842,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.26452151071618457,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 29,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 94.55063479316846,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.17917184853009072,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 48,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.667089266937117,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.30206843376427356,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 30,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 94.3693510697816,
+      "packets_sent": 50,
+      "packets_received": 46,
+      "energy_consumed": 0.1812837233868599,
+      "pdr_hop_level": 0.92,
+      "source_packets_round": 50,
+      "bs_delivered_round": 46,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6690458345233676,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.25124164963998286,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 31,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 94.18843773394286,
+      "packets_sent": 50,
+      "packets_received": 44,
+      "energy_consumed": 0.18091333583873492,
+      "pdr_hop_level": 0.88,
+      "source_packets_round": 50,
+      "bs_delivered_round": 36,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6520913705256834,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.23333344357659552,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 32,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 94.00748738272874,
+      "packets_sent": 50,
+      "packets_received": 46,
+      "energy_consumed": 0.1809503512141214,
+      "pdr_hop_level": 0.92,
+      "source_packets_round": 50,
+      "bs_delivered_round": 30,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6570417018679097,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.2504428700036024,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 33,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 93.81215153117893,
+      "packets_sent": 52,
+      "packets_received": 52,
+      "energy_consumed": 0.19533585154981742,
+      "pdr_hop_level": 1.0,
+      "source_packets_round": 50,
+      "bs_delivered_round": 50,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 4
+      },
+      "cas_confidence_mean": 0.6667298923017791,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3559240588118755,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 34,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 93.63322368720782,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.1789278439711043,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 41,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6726295190186067,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.31436753104757575,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 35,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 93.4503657103928,
+      "packets_sent": 50,
+      "packets_received": 46,
+      "energy_consumed": 0.18285797681502677,
+      "pdr_hop_level": 0.92,
+      "source_packets_round": 50,
+      "bs_delivered_round": 46,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.648883538754814,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.2996768084957768,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 36,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 93.2647808329412,
+      "packets_sent": 50,
+      "packets_received": 50,
+      "energy_consumed": 0.1855848774515964,
+      "pdr_hop_level": 1.0,
+      "source_packets_round": 50,
+      "bs_delivered_round": 50,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6468478253054915,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.324596470330537,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 37,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 93.08126764032333,
+      "packets_sent": 50,
+      "packets_received": 46,
+      "energy_consumed": 0.1835131926178687,
+      "pdr_hop_level": 0.92,
+      "source_packets_round": 50,
+      "bs_delivered_round": 0,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.650132757242599,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3099199837325905,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 38,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 92.90253620549579,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.17873143482754358,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 27,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": true,
+      "safety_extra_uplink_used": false
+    },
+    {
+      "round": 39,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 92.7240037285082,
+      "packets_sent": 50,
+      "packets_received": 49,
+      "energy_consumed": 0.1785324769875916,
+      "pdr_hop_level": 0.98,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6499625755347813,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.2929352901567176,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 40,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 92.541241200173,
+      "packets_sent": 51,
+      "packets_received": 49,
+      "energy_consumed": 0.18276252833519635,
+      "pdr_hop_level": 0.9607843137254902,
+      "source_packets_round": 50,
+      "bs_delivered_round": 48,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6698712478576235,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.26368964864090233,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 41,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 92.36258814553568,
+      "packets_sent": 50,
+      "packets_received": 45,
+      "energy_consumed": 0.17865305463731446,
+      "pdr_hop_level": 0.9,
+      "source_packets_round": 50,
+      "bs_delivered_round": 34,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6527988141936405,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.28405134249700253,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 42,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 92.18167835858165,
+      "packets_sent": 50,
+      "packets_received": 45,
+      "energy_consumed": 0.1809097869540353,
+      "pdr_hop_level": 0.9,
+      "source_packets_round": 50,
+      "bs_delivered_round": 45,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.652636846243724,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.2897724912160201,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 43,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 92.00075027822967,
+      "packets_sent": 50,
+      "packets_received": 49,
+      "energy_consumed": 0.18092808035198135,
+      "pdr_hop_level": 0.98,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6649448043761972,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.28250014025222325,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 44,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 91.82012570153557,
+      "packets_sent": 50,
+      "packets_received": 49,
+      "energy_consumed": 0.180624576694102,
+      "pdr_hop_level": 0.98,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6521790473574222,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.28044304322136127,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 45,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 91.63543736105314,
+      "packets_sent": 51,
+      "packets_received": 50,
+      "energy_consumed": 0.18468834048243918,
+      "pdr_hop_level": 0.9803921568627451,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6794911942532342,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.2944974417899836,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 46,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 91.4566492922356,
+      "packets_sent": 50,
+      "packets_received": 49,
+      "energy_consumed": 0.17878806881753387,
+      "pdr_hop_level": 0.98,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6727214514693778,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.23346372171583382,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 47,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 91.27824486873786,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.1784044234977396,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 32,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.663223513914019,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.21197359711960573,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 48,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 91.09700405822,
+      "packets_sent": 50,
+      "packets_received": 50,
+      "energy_consumed": 0.18124081051786226,
+      "pdr_hop_level": 1.0,
+      "source_packets_round": 50,
+      "bs_delivered_round": 50,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6568961097582035,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.2684574140676662,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 49,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 90.91581278041323,
+      "packets_sent": 50,
+      "packets_received": 50,
+      "energy_consumed": 0.18119127780677086,
+      "pdr_hop_level": 1.0,
+      "source_packets_round": 50,
+      "bs_delivered_round": 50,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6697073764056753,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.27669107782900293,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 50,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 90.73262797967915,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.18318480073407123,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 47,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 4
+      },
+      "cas_confidence_mean": 0.6697031562881679,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3251924566828387,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 51,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 90.54981521173515,
+      "packets_sent": 51,
+      "packets_received": 51,
+      "energy_consumed": 0.18281276794400017,
+      "pdr_hop_level": 1.0,
+      "source_packets_round": 50,
+      "bs_delivered_round": 50,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6819513301509106,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3488279635146269,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 52,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 90.36495412701058,
+      "packets_sent": 51,
+      "packets_received": 47,
+      "energy_consumed": 0.18486108472457516,
+      "pdr_hop_level": 0.9215686274509803,
+      "source_packets_round": 50,
+      "bs_delivered_round": 46,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6712872769830016,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.2809328566954435,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 53,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 90.1844574955425,
+      "packets_sent": 50,
+      "packets_received": 45,
+      "energy_consumed": 0.18049663146807968,
+      "pdr_hop_level": 0.9,
+      "source_packets_round": 50,
+      "bs_delivered_round": 36,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6649731599531387,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.270588677194749,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 54,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 90.00047265207144,
+      "packets_sent": 50,
+      "packets_received": 46,
+      "energy_consumed": 0.18398484347106303,
+      "pdr_hop_level": 0.92,
+      "source_packets_round": 50,
+      "bs_delivered_round": 40,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6598572666448387,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3194621650575598,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 55,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 89.81721832012653,
+      "packets_sent": 50,
+      "packets_received": 46,
+      "energy_consumed": 0.18325433194491358,
+      "pdr_hop_level": 0.92,
+      "source_packets_round": 50,
+      "bs_delivered_round": 38,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6611939701721046,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3594891321179464,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 56,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 89.6336497803825,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.18356853974403148,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 36,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6583285379681216,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.35387593033603226,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 57,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 89.45508052061898,
+      "packets_sent": 50,
+      "packets_received": 49,
+      "energy_consumed": 0.17856925976351876,
+      "pdr_hop_level": 0.98,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.662286881568469,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.326253792172955,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 58,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 89.27425042252787,
+      "packets_sent": 50,
+      "packets_received": 45,
+      "energy_consumed": 0.18083009809110812,
+      "pdr_hop_level": 0.9,
+      "source_packets_round": 50,
+      "bs_delivered_round": 45,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6688483083605885,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.2517407895416374,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 59,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 89.09566665104812,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.17858377147974652,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 41,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6562611947812174,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.312890067262091,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 60,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 88.91068501448088,
+      "packets_sent": 50,
+      "packets_received": 45,
+      "energy_consumed": 0.18498163656724248,
+      "pdr_hop_level": 0.9,
+      "source_packets_round": 50,
+      "bs_delivered_round": 45,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6638644503527535,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3188230284320258,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 61,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 88.72961236184861,
+      "packets_sent": 50,
+      "packets_received": 45,
+      "energy_consumed": 0.18107265263226982,
+      "pdr_hop_level": 0.9,
+      "source_packets_round": 50,
+      "bs_delivered_round": 45,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6751186839219846,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.330099916622718,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 62,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 88.54899289529007,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.18061946655853653,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 0,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6616971030080541,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.2854203492323788,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 63,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 88.36988972054205,
+      "packets_sent": 50,
+      "packets_received": 44,
+      "energy_consumed": 0.1791031747480281,
+      "pdr_hop_level": 0.88,
+      "source_packets_round": 50,
+      "bs_delivered_round": 42,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": true,
+      "safety_extra_uplink_used": false
+    },
+    {
+      "round": 64,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 88.18687614608092,
+      "packets_sent": 51,
+      "packets_received": 48,
+      "energy_consumed": 0.1830135744611254,
+      "pdr_hop_level": 0.9411764705882353,
+      "source_packets_round": 50,
+      "bs_delivered_round": 47,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 4
+      },
+      "cas_confidence_mean": 0.714031100057625,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.2879333828458376,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 65,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 87.9999658815853,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.18691026449562917,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 48,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6668589365116716,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3167168232290184,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 66,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 87.81744869776814,
+      "packets_sent": 51,
+      "packets_received": 46,
+      "energy_consumed": 0.18251718381715135,
+      "pdr_hop_level": 0.9019607843137255,
+      "source_packets_round": 50,
+      "bs_delivered_round": 45,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6701138209317604,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.34786014885826944,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 67,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 87.63656299145465,
+      "packets_sent": 50,
+      "packets_received": 46,
+      "energy_consumed": 0.18088570631348583,
+      "pdr_hop_level": 0.92,
+      "source_packets_round": 50,
+      "bs_delivered_round": 46,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6625440305645954,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3339015945854552,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 68,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 87.45556387343893,
+      "packets_sent": 50,
+      "packets_received": 49,
+      "energy_consumed": 0.18099911801571797,
+      "pdr_hop_level": 0.98,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6648699508868182,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.35402800456619443,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 69,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 87.2763870581819,
+      "packets_sent": 50,
+      "packets_received": 50,
+      "energy_consumed": 0.17917681525704854,
+      "pdr_hop_level": 1.0,
+      "source_packets_round": 50,
+      "bs_delivered_round": 50,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.675606485418774,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3001411656416073,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 70,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 87.09536010539696,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.18102695278493527,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 36,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6695425887470444,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.2876424199457601,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 71,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 86.91667675661557,
+      "packets_sent": 50,
+      "packets_received": 46,
+      "energy_consumed": 0.1786833487813805,
+      "pdr_hop_level": 0.92,
+      "source_packets_round": 50,
+      "bs_delivered_round": 38,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.678870693676745,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.30269836086121005,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 72,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 86.73590627889288,
+      "packets_sent": 50,
+      "packets_received": 46,
+      "energy_consumed": 0.18077047772270036,
+      "pdr_hop_level": 0.92,
+      "source_packets_round": 50,
+      "bs_delivered_round": 39,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6748736522094099,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.27544711474887223,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 73,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 86.55286443123123,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.18304184766165021,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 47,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 4
+      },
+      "cas_confidence_mean": 0.6922512108898691,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.32184628369275164,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 74,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 86.36895729033427,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.18390714089696725,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 0,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6575603022973482,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3621590225957732,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 75,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 86.18979307726421,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.1791642130700422,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 39,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": true,
+      "safety_extra_uplink_used": false
+    },
+    {
+      "round": 76,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 86.00159256730012,
+      "packets_sent": 50,
+      "packets_received": 44,
+      "energy_consumed": 0.18820050996409263,
+      "pdr_hop_level": 0.88,
+      "source_packets_round": 50,
+      "bs_delivered_round": 0,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6561381140613667,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.39708335072169254,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 77,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 85.82287310754536,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.17871945975475703,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 48,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": true,
+      "safety_extra_uplink_used": false
+    },
+    {
+      "round": 78,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 85.64446723590503,
+      "packets_sent": 50,
+      "packets_received": 49,
+      "energy_consumed": 0.17840587164034108,
+      "pdr_hop_level": 0.98,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6692970503312405,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3737590744578318,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 79,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 85.46336131920782,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.18110591669721549,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 47,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6695480214670442,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3486196731520193,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 80,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 85.28224328785012,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.18111803135769222,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 29,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 4
+      },
+      "cas_confidence_mean": 0.6864043710828176,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3312490622380385,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 81,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 85.09771852412085,
+      "packets_sent": 51,
+      "packets_received": 49,
+      "energy_consumed": 0.18452476372926774,
+      "pdr_hop_level": 0.9607843137254902,
+      "source_packets_round": 50,
+      "bs_delivered_round": 48,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.672591971393511,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.35776517702349653,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 82,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 84.91670026962392,
+      "packets_sent": 50,
+      "packets_received": 50,
+      "energy_consumed": 0.18101825449693965,
+      "pdr_hop_level": 1.0,
+      "source_packets_round": 50,
+      "bs_delivered_round": 50,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.665989605846678,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3439448516110035,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 83,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 84.73279618525203,
+      "packets_sent": 50,
+      "packets_received": 46,
+      "energy_consumed": 0.1839040843718833,
+      "pdr_hop_level": 0.92,
+      "source_packets_round": 50,
+      "bs_delivered_round": 46,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.660807404721448,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3759813792653887,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 84,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 84.54970144523364,
+      "packets_sent": 51,
+      "packets_received": 47,
+      "energy_consumed": 0.1830947400183873,
+      "pdr_hop_level": 0.9215686274509803,
+      "source_packets_round": 50,
+      "bs_delivered_round": 0,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6970917496936206,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.31441393654195315,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 85,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 84.36866467190552,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.18103677332811838,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 30,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": true,
+      "safety_extra_uplink_used": false
+    },
+    {
+      "round": 86,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 84.1818995904257,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.18676508147983145,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 47,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6667334764716819,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.35694862415623546,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 87,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 84.00344082949664,
+      "packets_sent": 50,
+      "packets_received": 49,
+      "energy_consumed": 0.17845876092905513,
+      "pdr_hop_level": 0.98,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6787520410719927,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.34789461269732264,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 88,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 83.82253166126526,
+      "packets_sent": 50,
+      "packets_received": 45,
+      "energy_consumed": 0.18090916823138734,
+      "pdr_hop_level": 0.9,
+      "source_packets_round": 50,
+      "bs_delivered_round": 45,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6779410486784544,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.33111725339077114,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 89,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 83.6410740739088,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.1814575873564525,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 47,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6772510914342412,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.34396536564016467,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 90,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 83.46028907768671,
+      "packets_sent": 50,
+      "packets_received": 46,
+      "energy_consumed": 0.18078499622209004,
+      "pdr_hop_level": 0.92,
+      "source_packets_round": 50,
+      "bs_delivered_round": 46,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6664893285743726,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.35538721775218096,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 91,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 83.28159888185198,
+      "packets_sent": 50,
+      "packets_received": 50,
+      "energy_consumed": 0.17869019583474305,
+      "pdr_hop_level": 1.0,
+      "source_packets_round": 50,
+      "bs_delivered_round": 50,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6801395383365453,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.32798338021665707,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 92,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 83.09929752307085,
+      "packets_sent": 51,
+      "packets_received": 50,
+      "energy_consumed": 0.18230135878112042,
+      "pdr_hop_level": 0.9803921568627451,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6885466417517605,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.30457413326468136,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 93,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 82.91610605411626,
+      "packets_sent": 50,
+      "packets_received": 45,
+      "energy_consumed": 0.18319146895460306,
+      "pdr_hop_level": 0.9,
+      "source_packets_round": 50,
+      "bs_delivered_round": 0,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6838072226639106,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.33399695218966935,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 94,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 82.73131997080878,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.18478608330746188,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 48,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": true,
+      "safety_extra_uplink_used": false
+    },
+    {
+      "round": 95,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 82.55230128497332,
+      "packets_sent": 50,
+      "packets_received": 46,
+      "energy_consumed": 0.17901868583545869,
+      "pdr_hop_level": 0.92,
+      "source_packets_round": 50,
+      "bs_delivered_round": 46,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 4
+      },
+      "cas_confidence_mean": 0.6943613898877388,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.2936138304915642,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 96,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 82.37193742414064,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.18036386083269432,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 47,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6787989592112277,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3411423831744172,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 97,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 82.19093063476285,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.18100678937778875,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 0,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6786536533577209,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.32404076187002245,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 98,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 82.00795628758695,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.18297434717589078,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 48,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": true,
+      "safety_extra_uplink_used": false
+    },
+    {
+      "round": 99,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 81.82685214461644,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.1811041429705122,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 47,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.671809447594135,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3340226445361676,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 100,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 81.6479247397523,
+      "packets_sent": 50,
+      "packets_received": 46,
+      "energy_consumed": 0.1789274048641523,
+      "pdr_hop_level": 0.92,
+      "source_packets_round": 50,
+      "bs_delivered_round": 38,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6788120805707288,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3580120551153492,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 101,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 81.46575128030653,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.1821734594457535,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 47,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6809233696524439,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3439129743070034,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 102,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 81.28173074493036,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.18402053537618254,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 47,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.675551429076544,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3297222712190637,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 103,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 81.09422007211778,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.18751067281257833,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 47,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6731379624387636,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.35151359002392857,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 104,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 80.9088979283114,
+      "packets_sent": 51,
+      "packets_received": 50,
+      "energy_consumed": 0.18532214380637668,
+      "pdr_hop_level": 0.9803921568627451,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6993328282486576,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.32203018774089365,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 105,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 80.72834628548308,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.18055164282832353,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 47,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6734601934011936,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3281044719474172,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 106,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 80.54345530926888,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.18489097621419773,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 48,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6597878947182737,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.35568960374492503,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 107,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 80.36032588331072,
+      "packets_sent": 50,
+      "packets_received": 49,
+      "energy_consumed": 0.18312942595815934,
+      "pdr_hop_level": 0.98,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6682711204870373,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.38930194466419027,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 108,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 80.17674512088334,
+      "packets_sent": 50,
+      "packets_received": 46,
+      "energy_consumed": 0.18358076242738494,
+      "pdr_hop_level": 0.92,
+      "source_packets_round": 50,
+      "bs_delivered_round": 46,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6807162550372909,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.37968398393642294,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 109,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 79.99606996817172,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.18067515271161425,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 48,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6948558624021548,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.34480472515395116,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 110,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 79.81521237941462,
+      "packets_sent": 50,
+      "packets_received": 46,
+      "energy_consumed": 0.18085758875710647,
+      "pdr_hop_level": 0.92,
+      "source_packets_round": 50,
+      "bs_delivered_round": 46,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6854534555469143,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3203305461884699,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 111,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 79.6325727605154,
+      "packets_sent": 51,
+      "packets_received": 49,
+      "energy_consumed": 0.18263961889922214,
+      "pdr_hop_level": 0.9607843137254902,
+      "source_packets_round": 50,
+      "bs_delivered_round": 48,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6856062945634905,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.34103133144133596,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 112,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 79.45368351881625,
+      "packets_sent": 50,
+      "packets_received": 46,
+      "energy_consumed": 0.17888924169915543,
+      "pdr_hop_level": 0.92,
+      "source_packets_round": 50,
+      "bs_delivered_round": 31,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.681891121702048,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3584205733166789,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 113,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 79.26392198163907,
+      "packets_sent": 50,
+      "packets_received": 49,
+      "energy_consumed": 0.18976153717717634,
+      "pdr_hop_level": 0.98,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6847943113045227,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3607179191064007,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 114,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 79.08015087661676,
+      "packets_sent": 50,
+      "packets_received": 50,
+      "energy_consumed": 0.18377110502231842,
+      "pdr_hop_level": 1.0,
+      "source_packets_round": 50,
+      "bs_delivered_round": 50,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6863329086953316,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.368855255783207,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 115,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 78.88931888400626,
+      "packets_sent": 51,
+      "packets_received": 47,
+      "energy_consumed": 0.19083199261049016,
+      "pdr_hop_level": 0.9215686274509803,
+      "source_packets_round": 50,
+      "bs_delivered_round": 0,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6611523624664254,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.4013225872297119,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 116,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 78.7082907638676,
+      "packets_sent": 50,
+      "packets_received": 49,
+      "energy_consumed": 0.18102812013867275,
+      "pdr_hop_level": 0.98,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": true,
+      "safety_extra_uplink_used": false
+    },
+    {
+      "round": 117,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 78.52296522476087,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.18532553910672533,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 48,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.668090096538109,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.41406501962635245,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 118,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 78.34260379987914,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.18036142488171975,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 47,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6715359025605409,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3839418178537373,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 119,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 78.16153811177176,
+      "packets_sent": 50,
+      "packets_received": 46,
+      "energy_consumed": 0.18106568810738252,
+      "pdr_hop_level": 0.92,
+      "source_packets_round": 50,
+      "bs_delivered_round": 0,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6760678516315821,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3855029037199162,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 120,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 77.98269429785435,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.1788438139174055,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 30,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": true,
+      "safety_extra_uplink_used": false
+    },
+    {
+      "round": 121,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 77.79659220836798,
+      "packets_sent": 50,
+      "packets_received": 49,
+      "energy_consumed": 0.18610208948636892,
+      "pdr_hop_level": 0.98,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6738511209379967,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3719655771380027,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 122,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 77.61584441906763,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.1807477893003656,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 47,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6785416043087399,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3757038254535369,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 123,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 77.43105833916309,
+      "packets_sent": 51,
+      "packets_received": 50,
+      "energy_consumed": 0.1847860799045353,
+      "pdr_hop_level": 0.9803921568627451,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6917289212684965,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.35112915339473044,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 124,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 77.2473208839491,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.18373745521398355,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 0,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6775087862805635,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.34321972497296144,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 125,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 77.06641931442398,
+      "packets_sent": 50,
+      "packets_received": 50,
+      "energy_consumed": 0.18090156952512046,
+      "pdr_hop_level": 1.0,
+      "source_packets_round": 50,
+      "bs_delivered_round": 50,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": true,
+      "safety_extra_uplink_used": false
+    },
+    {
+      "round": 126,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 76.88539776250968,
+      "packets_sent": 50,
+      "packets_received": 49,
+      "energy_consumed": 0.18102155191430563,
+      "pdr_hop_level": 0.98,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6793824209723673,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3870450902993069,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 127,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 76.70457021237654,
+      "packets_sent": 50,
+      "packets_received": 49,
+      "energy_consumed": 0.18082755013314578,
+      "pdr_hop_level": 0.98,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6871430321493962,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3571572944548294,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 128,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 76.51679122528905,
+      "packets_sent": 50,
+      "packets_received": 49,
+      "energy_consumed": 0.18777898708748014,
+      "pdr_hop_level": 0.98,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6762838078920955,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.39631030120142735,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 129,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 76.33443552063156,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.18235570465749382,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 48,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6919616494614357,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3577844782249232,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 130,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 76.1491586359492,
+      "packets_sent": 50,
+      "packets_received": 49,
+      "energy_consumed": 0.18527688468235531,
+      "pdr_hop_level": 0.98,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6831429751384083,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.39141415127663715,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 131,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 75.97041762384808,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.17874101210112817,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 47,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6961413197298565,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3385673696284589,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 132,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 75.78993047578707,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.18048714806100863,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 33,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 4
+      },
+      "cas_confidence_mean": 0.7001338697552174,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.35438674609058746,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 133,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 75.60963618208757,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.18029429369949973,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 48,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6711948295763512,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.38298404257443386,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 134,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 75.42483912565277,
+      "packets_sent": 50,
+      "packets_received": 46,
+      "energy_consumed": 0.18479705643481284,
+      "pdr_hop_level": 0.92,
+      "source_packets_round": 50,
+      "bs_delivered_round": 46,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6807761234745703,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.38261073061241746,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 135,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 75.23925611858124,
+      "packets_sent": 51,
+      "packets_received": 46,
+      "energy_consumed": 0.185583007071519,
+      "pdr_hop_level": 0.9019607843137255,
+      "source_packets_round": 50,
+      "bs_delivered_round": 45,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.7309508512210326,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3450646598611873,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 136,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 75.05795927764083,
+      "packets_sent": 50,
+      "packets_received": 49,
+      "energy_consumed": 0.181296840940403,
+      "pdr_hop_level": 0.98,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6928093199298673,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.37921356164021225,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 137,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 74.87660977286166,
+      "packets_sent": 50,
+      "packets_received": 49,
+      "energy_consumed": 0.18134950477917955,
+      "pdr_hop_level": 0.98,
+      "source_packets_round": 50,
+      "bs_delivered_round": 47,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6723587893814443,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3926537306920784,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 138,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 74.69363548256472,
+      "packets_sent": 50,
+      "packets_received": 46,
+      "energy_consumed": 0.1829742902969491,
+      "pdr_hop_level": 0.92,
+      "source_packets_round": 50,
+      "bs_delivered_round": 40,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.685829634200061,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3918006623322554,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 139,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 74.5100093095234,
+      "packets_sent": 50,
+      "packets_received": 49,
+      "energy_consumed": 0.18362617304131135,
+      "pdr_hop_level": 0.98,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.674519986048922,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.4005035580232713,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 140,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 74.3287770191808,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.18123229034260158,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 47,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.7000275633139652,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.36292968318308066,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 141,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 74.15018299835293,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.1785940208278737,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 48,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6933512986162198,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.37079172522699444,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 142,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 73.97155086292939,
+      "packets_sent": 50,
+      "packets_received": 46,
+      "energy_consumed": 0.17863213542354303,
+      "pdr_hop_level": 0.92,
+      "source_packets_round": 50,
+      "bs_delivered_round": 36,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.685124481475212,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3794796182560704,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 143,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 73.79083927226898,
+      "packets_sent": 50,
+      "packets_received": 49,
+      "energy_consumed": 0.18071159066040673,
+      "pdr_hop_level": 0.98,
+      "source_packets_round": 50,
+      "bs_delivered_round": 0,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.681068591496126,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.38170195802816076,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 144,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 73.6068907574641,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.18394851480487137,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 48,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": true,
+      "safety_extra_uplink_used": false
+    },
+    {
+      "round": 145,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 73.42240722713302,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.1844835303310804,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 38,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.687130566750812,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.4108363513924881,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 146,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 73.24125461939651,
+      "packets_sent": 50,
+      "packets_received": 45,
+      "energy_consumed": 0.1811526077365161,
+      "pdr_hop_level": 0.9,
+      "source_packets_round": 50,
+      "bs_delivered_round": 45,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6785483021278667,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.40036573430585776,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 147,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 73.06061595160112,
+      "packets_sent": 50,
+      "packets_received": 46,
+      "energy_consumed": 0.18063866779538656,
+      "pdr_hop_level": 0.92,
+      "source_packets_round": 50,
+      "bs_delivered_round": 46,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 4
+      },
+      "cas_confidence_mean": 0.7123330791450393,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3999998829175585,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 148,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 72.8767022169616,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.18391373463952124,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 44,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6967145493391306,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.4168081819850108,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 149,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 72.68650272759156,
+      "packets_sent": 50,
+      "packets_received": 49,
+      "energy_consumed": 0.19019948937004205,
+      "pdr_hop_level": 0.98,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6762245073461384,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.4285601131701985,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 150,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 72.50780685953194,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.17869586805961843,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 32,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6991180203315419,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.36924568166160676,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 151,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 72.32709357177676,
+      "packets_sent": 50,
+      "packets_received": 50,
+      "energy_consumed": 0.18071328775518972,
+      "pdr_hop_level": 1.0,
+      "source_packets_round": 50,
+      "bs_delivered_round": 50,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6805513221358298,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.38795228963939704,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 152,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 72.1438415450356,
+      "packets_sent": 50,
+      "packets_received": 50,
+      "energy_consumed": 0.1832520267411653,
+      "pdr_hop_level": 1.0,
+      "source_packets_round": 50,
+      "bs_delivered_round": 50,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6991693195347322,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.37633625355319966,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 153,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 71.95917449861177,
+      "packets_sent": 50,
+      "packets_received": 49,
+      "energy_consumed": 0.1846670464238196,
+      "pdr_hop_level": 0.98,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.677058895954398,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.41681600568486343,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 154,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 71.77241912161527,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.18675537699649689,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 48,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6750935877646321,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.43249528558430894,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 155,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 71.59145038961935,
+      "packets_sent": 50,
+      "packets_received": 46,
+      "energy_consumed": 0.1809687319959245,
+      "pdr_hop_level": 0.92,
+      "source_packets_round": 50,
+      "bs_delivered_round": 46,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6805045198315972,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.41862014349838506,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 156,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 71.406858603007,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.1845917866123645,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 47,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.703534503191823,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.37496720771123304,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 157,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 71.22168327499882,
+      "packets_sent": 51,
+      "packets_received": 47,
+      "energy_consumed": 0.18517532800816422,
+      "pdr_hop_level": 0.9215686274509803,
+      "source_packets_round": 50,
+      "bs_delivered_round": 46,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.7065126251522018,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.415082221040141,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 158,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 71.03778496342042,
+      "packets_sent": 50,
+      "packets_received": 49,
+      "energy_consumed": 0.1838983115784021,
+      "pdr_hop_level": 0.98,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6817053435442546,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.40572915310616536,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 159,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 70.85641602155785,
+      "packets_sent": 50,
+      "packets_received": 44,
+      "energy_consumed": 0.18136894186257338,
+      "pdr_hop_level": 0.88,
+      "source_packets_round": 50,
+      "bs_delivered_round": 44,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.708924940473117,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.4085055958786345,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 160,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 70.67142252324565,
+      "packets_sent": 51,
+      "packets_received": 47,
+      "energy_consumed": 0.18499349831220102,
+      "pdr_hop_level": 0.9215686274509803,
+      "source_packets_round": 50,
+      "bs_delivered_round": 45,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.702848575912688,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.39842410362147873,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 161,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 70.48541166277506,
+      "packets_sent": 50,
+      "packets_received": 49,
+      "energy_consumed": 0.1860108604705878,
+      "pdr_hop_level": 0.98,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6868803390426773,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.39656808388183273,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 162,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 70.29702573852886,
+      "packets_sent": 51,
+      "packets_received": 45,
+      "energy_consumed": 0.18838592424619863,
+      "pdr_hop_level": 0.8823529411764706,
+      "source_packets_round": 50,
+      "bs_delivered_round": 0,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 4
+      },
+      "cas_confidence_mean": 0.6919981867699314,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.42710457738777113,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 163,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 70.11211165017248,
+      "packets_sent": 50,
+      "packets_received": 50,
+      "energy_consumed": 0.1849140883563861,
+      "pdr_hop_level": 1.0,
+      "source_packets_round": 50,
+      "bs_delivered_round": 50,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": true,
+      "safety_extra_uplink_used": false
+    },
+    {
+      "round": 164,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 69.93095527727957,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.18115637289291392,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 0,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.7140643057018383,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.40040605926211903,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 165,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 69.75226856916139,
+      "packets_sent": 50,
+      "packets_received": 45,
+      "energy_consumed": 0.1786867081181768,
+      "pdr_hop_level": 0.9,
+      "source_packets_round": 50,
+      "bs_delivered_round": 45,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": true,
+      "safety_extra_uplink_used": false
+    },
+    {
+      "round": 166,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 69.56640678890581,
+      "packets_sent": 50,
+      "packets_received": 46,
+      "energy_consumed": 0.1858617802555744,
+      "pdr_hop_level": 0.92,
+      "source_packets_round": 50,
+      "bs_delivered_round": 46,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6775712064980104,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.43280869097374397,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 167,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 69.3766518888039,
+      "packets_sent": 51,
+      "packets_received": 44,
+      "energy_consumed": 0.18975490010191604,
+      "pdr_hop_level": 0.8627450980392157,
+      "source_packets_round": 50,
+      "bs_delivered_round": 0,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6778621734217516,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.4250214445609844,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 168,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 69.19571383860155,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.1809380502023584,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 48,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": true,
+      "safety_extra_uplink_used": false
+    },
+    {
+      "round": 169,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 69.01161155112294,
+      "packets_sent": 50,
+      "packets_received": 45,
+      "energy_consumed": 0.18410228747859936,
+      "pdr_hop_level": 0.9,
+      "source_packets_round": 50,
+      "bs_delivered_round": 45,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6967979023984261,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.44075286901533905,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 170,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 68.83068558075212,
+      "packets_sent": 50,
+      "packets_received": 49,
+      "energy_consumed": 0.18092597037082556,
+      "pdr_hop_level": 0.98,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6872440379236735,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.4224833436979569,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 171,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 68.6440757354354,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.18660984531672284,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 47,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6854908184474499,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.4362923297455751,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 172,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 68.46324935471893,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.18082638071647095,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 0,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6944304086493542,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.4115498898573158,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 173,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 68.28252683775678,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.180722516962156,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 33,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": true,
+      "safety_extra_uplink_used": false
+    },
+    {
+      "round": 174,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 68.10131336994239,
+      "packets_sent": 50,
+      "packets_received": 49,
+      "energy_consumed": 0.18121346781438108,
+      "pdr_hop_level": 0.98,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6880980838980504,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.38796764753507296,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 175,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 67.91696596587926,
+      "packets_sent": 50,
+      "packets_received": 49,
+      "energy_consumed": 0.18434740406313369,
+      "pdr_hop_level": 0.98,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6926311494760258,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3932677206565205,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 176,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 67.73093477132464,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.18603119455461403,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 35,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.7116533855099922,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.374162398390616,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 177,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 67.52783916208429,
+      "packets_sent": 53,
+      "packets_received": 52,
+      "energy_consumed": 0.20309560924034528,
+      "pdr_hop_level": 0.9811320754716981,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.686345027857695,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.4382380402658031,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 178,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 67.34472216334838,
+      "packets_sent": 51,
+      "packets_received": 47,
+      "energy_consumed": 0.18311699873592535,
+      "pdr_hop_level": 0.9215686274509803,
+      "source_packets_round": 50,
+      "bs_delivered_round": 39,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.7007882041435896,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.43699324693282093,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 179,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 67.1633524612758,
+      "packets_sent": 50,
+      "packets_received": 50,
+      "energy_consumed": 0.18136970207256653,
+      "pdr_hop_level": 1.0,
+      "source_packets_round": 50,
+      "bs_delivered_round": 50,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6974077432467253,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.4351140591866633,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 180,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 66.98259487954734,
+      "packets_sent": 50,
+      "packets_received": 46,
+      "energy_consumed": 0.18075758172847456,
+      "pdr_hop_level": 0.92,
+      "source_packets_round": 50,
+      "bs_delivered_round": 46,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6891622110576808,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.4229522166147489,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 181,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 66.80123906361936,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.18135581592797625,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 47,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6829806388369299,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.4295273153259485,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 182,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 66.61807797942728,
+      "packets_sent": 51,
+      "packets_received": 48,
+      "energy_consumed": 0.18316108419207358,
+      "pdr_hop_level": 0.9411764705882353,
+      "source_packets_round": 50,
+      "bs_delivered_round": 47,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 4
+      },
+      "cas_confidence_mean": 0.7452350835986778,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.41458720770182844,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 183,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 66.43691037884913,
+      "packets_sent": 50,
+      "packets_received": 46,
+      "energy_consumed": 0.18116760057815548,
+      "pdr_hop_level": 0.92,
+      "source_packets_round": 50,
+      "bs_delivered_round": 0,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6900333145207469,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.39690906463306297,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 184,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 66.25280154606243,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.1841088327867076,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 48,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": true,
+      "safety_extra_uplink_used": false
+    },
+    {
+      "round": 185,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 66.06790519674034,
+      "packets_sent": 51,
+      "packets_received": 51,
+      "energy_consumed": 0.18489634932207602,
+      "pdr_hop_level": 1.0,
+      "source_packets_round": 50,
+      "bs_delivered_round": 50,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6980660459677376,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.4221782354381931,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 186,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 65.88486937810534,
+      "packets_sent": 50,
+      "packets_received": 46,
+      "energy_consumed": 0.18303581863501384,
+      "pdr_hop_level": 0.92,
+      "source_packets_round": 50,
+      "bs_delivered_round": 32,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6855796506787859,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.42108103100298333,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 187,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 65.70126602280715,
+      "packets_sent": 50,
+      "packets_received": 49,
+      "energy_consumed": 0.18360335529819105,
+      "pdr_hop_level": 0.98,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6952282594899557,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.42689512453457573,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 188,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 65.51653759926396,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.184728423543188,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 31,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6888015799543312,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.41341047501673955,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 189,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 65.30796594917594,
+      "packets_sent": 52,
+      "packets_received": 51,
+      "energy_consumed": 0.20857165008801876,
+      "pdr_hop_level": 0.9807692307692307,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 4
+      },
+      "cas_confidence_mean": 0.6924937556021247,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.45538043143661283,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 190,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 65.125203934249,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.18276201492693156,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 47,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6869477761163866,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.4682198451794113,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 191,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 64.9346660681778,
+      "packets_sent": 50,
+      "packets_received": 49,
+      "energy_consumed": 0.19053786607120649,
+      "pdr_hop_level": 0.98,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.674275436639302,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.46292629352389464,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 192,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 64.75618935037558,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.17847671780221727,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 48,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6853048454305556,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.4467266650513769,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 193,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 64.5700228949849,
+      "packets_sent": 50,
+      "packets_received": 49,
+      "energy_consumed": 0.18616645539068233,
+      "pdr_hop_level": 0.98,
+      "source_packets_round": 50,
+      "bs_delivered_round": 49,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.7004595687311419,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.4233240188782109,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 194,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 64.38888140721897,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.1811414877659216,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 48,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.7052220704258445,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.3815279692318809,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 195,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 64.20465746220808,
+      "packets_sent": 50,
+      "packets_received": 47,
+      "energy_consumed": 0.1842239450109058,
+      "pdr_hop_level": 0.94,
+      "source_packets_round": 50,
+      "bs_delivered_round": 47,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6752023561513952,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.43713211062251,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 196,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 64.01926892622132,
+      "packets_sent": 50,
+      "packets_received": 46,
+      "energy_consumed": 0.18538853598676175,
+      "pdr_hop_level": 0.92,
+      "source_packets_round": 50,
+      "bs_delivered_round": 34,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6750989057141424,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.4347202139615124,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 197,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 63.836686354507286,
+      "packets_sent": 50,
+      "packets_received": 50,
+      "energy_consumed": 0.18258257171402734,
+      "pdr_hop_level": 1.0,
+      "source_packets_round": 50,
+      "bs_delivered_round": 50,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6777617064087191,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.4343407277553089,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 198,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 63.65328145484372,
+      "packets_sent": 50,
+      "packets_received": 48,
+      "energy_consumed": 0.18340489966356804,
+      "pdr_hop_level": 0.96,
+      "source_packets_round": 50,
+      "bs_delivered_round": 40,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.713605680439087,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.42614366072284815,
+        "two_hop": 1.0
+      }
+    },
+    {
+      "round": 199,
+      "alive_nodes": 50,
+      "cluster_heads": 5,
+      "remaining_energy": 63.46890640661671,
+      "packets_sent": 50,
+      "packets_received": 46,
+      "energy_consumed": 0.1843750482270084,
+      "pdr_hop_level": 0.92,
+      "source_packets_round": 50,
+      "bs_delivered_round": 37,
+      "env_temperature_c": 25.0,
+      "env_humidity_ratio": 0.5,
+      "safety_forced_direct": false,
+      "safety_extra_uplink_used": false,
+      "cas_mode_counts": {
+        "two_hop": 5
+      },
+      "cas_confidence_mean": 0.6835634007008777,
+      "cas_scores_mean": {
+        "direct": 0.0,
+        "chain": 0.4257530392371926,
+        "two_hop": 1.0
+      }
+    }
+  ],
+  "config": {
+    "network": {
+      "num_nodes": 50,
+      "initial_energy": 2.0,
+      "area_width": 100.0,
+      "area_height": 100.0,
+      "base_station": [
+        50.0,
+        175.0
+      ],
+      "packet_size": 1024
+    },
+    "runtime": {
+      "seed": null,
+      "profile": "default",
+      "enable_cas": true,
+      "enable_fairness": true,
+      "enable_aco_intercluster": false,
+      "enable_gateway": true,
+      "enable_skeleton": true,
+      "verbose": true
+    }
+  },
+  "additional_metrics": {
+    "total_packets_sent": 10035,
+    "total_packets_received": 9519,
+    "source_packets_total": 10000,
+    "bs_delivered_total": 8107,
+    "average_cluster_heads": 5.0,
+    "hop_count_distribution": {},
+    "cas_mode_usage_stats": {
+      "DIRECT": 0,
+      "CHAIN": 0,
+      "TWO_HOP": 881,
+      "safety_override": 103
+    },
+    "avg_hop_count": 0
+  }
+}

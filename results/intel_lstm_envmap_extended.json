@@ -1,0 +1,53 @@
+{
+  "AETHER_energy": {
+    "total_energy_consumed": 98.50802040206764,
+    "packet_delivery_ratio": 0.924337030779402,
+    "packet_delivery_ratio_end2end": 0.4260521636040308,
+    "final_alive_nodes": 53,
+    "network_lifetime": 500
+  },
+  "AETHER_robust": {
+    "total_energy_consumed": 99.2331163253916,
+    "packet_delivery_ratio": 0.9188950925653835,
+    "packet_delivery_ratio_end2end": 0.5299718435091879,
+    "final_alive_nodes": 53,
+    "network_lifetime": 500
+  },
+  "lstm_extended": {
+    "device": "cpu",
+    "seq_len": 128,
+    "epochs": 50,
+    "batch_size": 1024,
+    "training_samples": 2219799,
+    "forecast_horizon": 500,
+    "training_time_s": 10682.30436015129
+  },
+  "detailed_analysis": {
+    "energy": {
+      "end2end_mean": 0.426,
+      "end2end_std": 0.4944936804449578,
+      "end2end_p05": 0.0,
+      "end2end_p25": 0.0,
+      "end2end_p75": 1.0,
+      "end2end_p95": 1.0,
+      "safety_actions": {
+        "forced_direct": 0,
+        "extra_uplink": 0
+      },
+      "total_rounds": 500
+    },
+    "robust": {
+      "end2end_mean": 0.53,
+      "end2end_std": 0.49909918853871116,
+      "end2end_p05": 0.0,
+      "end2end_p25": 0.0,
+      "end2end_p75": 1.0,
+      "end2end_p95": 1.0,
+      "safety_actions": {
+        "forced_direct": 235,
+        "extra_uplink": 123
+      },
+      "total_rounds": 500
+    }
+  }
+}

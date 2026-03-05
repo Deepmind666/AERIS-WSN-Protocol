@@ -1,0 +1,58 @@
+# Sensors Draft Data Consistency Audit
+
+- Draft: `for_submission\AERIS_Sensors_MDPI_Submission_Draft_20260213_v11.tex`
+- Rows checked: 124
+- PASS: 124
+- WARN: 27
+- FAIL: 0
+
+## Table-level status
+
+| Table | Checks | Failures | Verdict |
+|---|---:|---:|---|
+| `tab:pdr100` | 40 | 20 warn / 0 fail | **PASS** |
+| `tab:ablation_gateway` | 20 | 7 warn / 0 fail | **PASS** |
+| `tab:scale1000` | 20 | 0 warn / 0 fail | **PASS** |
+| `tab:robust_snapshot` | 24 | 0 warn / 0 fail | **PASS** |
+| `tab:ns3_trend` | 20 | 0 warn / 0 fail | **PASS** |
+
+## Warning checks
+
+| Table | Row | Metric | Manuscript | Source | Note | Source file |
+|---|---|---|---:|---:|---|---|
+| `tab:pdr100` | `indoor_office::AERIS` | `std_population` | 0.0047 | 0.0047 | manuscript matches population-std convention | `results\mega_experiments\env_sensitivity_20260207_205317.json` |
+| `tab:pdr100` | `indoor_office::LEACH` | `std_population` | 0.0401 | 0.0401 | manuscript matches population-std convention | `results\mega_experiments\env_sensitivity_20260207_205317.json` |
+| `tab:pdr100` | `indoor_office::PEGASIS` | `std_population` | 0.0166 | 0.0166 | manuscript matches population-std convention | `results\mega_experiments\env_sensitivity_20260207_205317.json` |
+| `tab:pdr100` | `indoor_office::HEED` | `std_population` | 0.0076 | 0.0076 | manuscript matches population-std convention | `results\mega_experiments\env_sensitivity_20260207_205317.json` |
+| `tab:pdr100` | `indoor_office::TEEN` | `std_population` | 0.0044 | 0.0044 | manuscript matches population-std convention | `results\mega_experiments\env_sensitivity_20260207_205317.json` |
+| `tab:pdr100` | `indoor_factory::AERIS` | `std_population` | 0.0258 | 0.0258 | manuscript matches population-std convention | `results\mega_experiments\env_sensitivity_20260207_205317.json` |
+| `tab:pdr100` | `indoor_factory::LEACH` | `std_population` | 0.0209 | 0.0209 | manuscript matches population-std convention | `results\mega_experiments\env_sensitivity_20260207_205317.json` |
+| `tab:pdr100` | `indoor_factory::PEGASIS` | `std_population` | 0.0255 | 0.0255 | manuscript matches population-std convention | `results\mega_experiments\env_sensitivity_20260207_205317.json` |
+| `tab:pdr100` | `indoor_factory::HEED` | `std_population` | 0.0263 | 0.0263 | manuscript matches population-std convention | `results\mega_experiments\env_sensitivity_20260207_205317.json` |
+| `tab:pdr100` | `indoor_factory::TEEN` | `std_population` | 0.0245 | 0.0245 | manuscript matches population-std convention | `results\mega_experiments\env_sensitivity_20260207_205317.json` |
+| `tab:pdr100` | `outdoor_urban::AERIS` | `std_population` | 0.0354 | 0.0354 | manuscript matches population-std convention | `results\mega_experiments\env_sensitivity_20260207_205317.json` |
+| `tab:pdr100` | `outdoor_urban::LEACH` | `std_population` | 0.0127 | 0.0127 | manuscript matches population-std convention | `results\mega_experiments\env_sensitivity_20260207_205317.json` |
+| `tab:pdr100` | `outdoor_urban::PEGASIS` | `std_population` | 0.0117 | 0.0117 | manuscript matches population-std convention | `results\mega_experiments\env_sensitivity_20260207_205317.json` |
+| `tab:pdr100` | `outdoor_urban::HEED` | `std_population` | 0.0121 | 0.0121 | manuscript matches population-std convention | `results\mega_experiments\env_sensitivity_20260207_205317.json` |
+| `tab:pdr100` | `outdoor_urban::TEEN` | `std_population` | 0.0183 | 0.0183 | manuscript matches population-std convention | `results\mega_experiments\env_sensitivity_20260207_205317.json` |
+| `tab:pdr100` | `outdoor_suburban::AERIS` | `std_population` | 0.0193 | 0.0193 | manuscript matches population-std convention | `results\mega_experiments\env_sensitivity_20260207_205317.json` |
+| `tab:pdr100` | `outdoor_suburban::LEACH` | `std_population` | 0.0272 | 0.0272 | manuscript matches population-std convention | `results\mega_experiments\env_sensitivity_20260207_205317.json` |
+| `tab:pdr100` | `outdoor_suburban::PEGASIS` | `std_population` | 0.0329 | 0.0329 | manuscript matches population-std convention | `results\mega_experiments\env_sensitivity_20260207_205317.json` |
+| `tab:pdr100` | `outdoor_suburban::HEED` | `std_population` | 0.0313 | 0.0313 | manuscript matches population-std convention | `results\mega_experiments\env_sensitivity_20260207_205317.json` |
+| `tab:pdr100` | `outdoor_suburban::TEEN` | `std_population` | 0.0236 | 0.0236 | manuscript matches population-std convention | `results\mega_experiments\env_sensitivity_20260207_205317.json` |
+| `tab:ablation_gateway` | `indoor_office` | `full_std_population` | 0.0047 | 0.0047 | manuscript matches population-std convention | `results\mega_experiments\ablation_diag_multi_20260207_205448.json` |
+| `tab:ablation_gateway` | `indoor_factory` | `full_std_population` | 0.0258 | 0.0258 | manuscript matches population-std convention | `results\mega_experiments\ablation_diag_multi_20260207_205448.json` |
+| `tab:ablation_gateway` | `indoor_factory` | `nogw_std_population` | 0.0215 | 0.0215 | manuscript matches population-std convention | `results\mega_experiments\ablation_diag_multi_20260207_205448.json` |
+| `tab:ablation_gateway` | `outdoor_urban` | `full_std_population` | 0.0354 | 0.0354 | manuscript matches population-std convention | `results\mega_experiments\ablation_diag_multi_20260207_205448.json` |
+| `tab:ablation_gateway` | `outdoor_urban` | `nogw_std_population` | 0.0301 | 0.0301 | manuscript matches population-std convention | `results\mega_experiments\ablation_diag_multi_20260207_205448.json` |
+| `tab:ablation_gateway` | `outdoor_suburban` | `full_std_population` | 0.0193 | 0.0193 | manuscript matches population-std convention | `results\mega_experiments\ablation_diag_multi_20260207_205448.json` |
+| `tab:ablation_gateway` | `outdoor_suburban` | `nogw_std_population` | 0.0264 | 0.0264 | manuscript matches population-std convention | `results\mega_experiments\ablation_diag_multi_20260207_205448.json` |
+
+## Judgment
+
+- All audited tables are consistent with declared sources.
+
+## Output files
+
+- `docs\20260213_Sensors_v11_Data_Consistency_Audit.csv`
+- `docs\20260213_Sensors_v11_Data_Consistency_Audit.md`
