@@ -211,6 +211,9 @@ tmp_*.png
 *.exe
 *.jks
 
+# Local-only memory (not for remote)
+.claude/memory.md
+
 # LaTeX build artifacts
 *.aux
 *.bbl
