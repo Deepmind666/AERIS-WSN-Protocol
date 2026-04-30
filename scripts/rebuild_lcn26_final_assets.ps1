@@ -16,6 +16,9 @@ Write-Host '[LCN26] Rebuilding base figure set'
 Write-Host '[LCN26] Refreshing corrected canonical NS-3 figure'
 & $python 'scripts\build_lcn26_ns3_canonical_refresh.py'
 
+Write-Host '[LCN26] Refreshing expanded seven-protocol boundary figure'
+& $python 'scripts\build_lcn26_expanded_boundary.py'
+
 Write-Host '[LCN26] Refreshing compact canonical NS-3 figure'
 & $python 'scripts\build_lcn26_canonical_compact.py'
 

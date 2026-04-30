@@ -42,14 +42,29 @@ Assessment:
 - Riskier as the main route for the current LCN26 manuscript because it changes the paper's core claim.
 - If promoted to canonical evidence, the paper must be rewritten around a narrower boundary claim: AERIS is not the harsh-environment winner in general; it is strongest mainly in the suburban regime and competitive in selected cells, while RPL-MRHOF/CTP become the stronger deployment baselines in several environments.
 
-## Recommendation
+## Updated Recommendation After Rewrite Approval
 
-For the current LCN26 submission, keep the five-protocol corrected NS-3 route as the main canonical evidence and treat the seven-protocol sweep as supplementary/follow-up evidence, not as a replacement.
+The user accepted a full rewrite if it improves the final paper. Under that assumption, the best route is to promote the seven-protocol sweep into the main evidence story, but not as an `AERIS is globally best` claim.
+
+New main story:
+- Against classical WSN baselines (`LEACH`, `PEGASIS`, `HEED`, `TEEN`), AERIS is strong:
+  - rank-1 in `21/28` dual-sweep environment-node cells
+  - top-2 in `28/28`
+- Against the expanded seven-protocol family, AERIS has a narrower boundary:
+  - rank-1 in `7/28`
+  - top-2 in `8/28`
+  - strongest mainly in `outdoor_suburban`
+  - beaten by `CTP` in `indoor_office`
+  - beaten by `RPL-MRHOF` in most `indoor_factory` and `outdoor_urban` cells
 
 Reason:
-- The current paper is already coherent as a scoped engineering contribution: rule-based AERIS improves reliability against classical WSN baselines in harsher channels while exposing a real lifetime cost.
-- Promoting the seven-protocol sweep now would require reworking the abstract, contribution framing, result figures, discussion, and conclusion. That route is more rigorous but not better for a near-term conference submission unless the target is changed to a negative-results or boundary-mapping paper.
+- This route is stronger scientifically because it directly addresses the reviewer attack that the comparison set lacks credible LLN/collection baselines.
+- The paper becomes a boundary-mapping engineering paper rather than a simple winner paper.
+- The AERIS claim is narrower but more defensible: simple Gateway-assisted rule control beats classical WSN baselines in many harsh cells, but it is not a universal replacement for collection-tree or RPL-style routing.
 
 Practical next step:
-- Submit/polish the current five-protocol LCN26 package.
-- Preserve the seven-protocol sweep as evidence for the next revision cycle or a stronger journal version where CTP/RPL-family baselines become part of the primary design boundary.
+- Rewrite the abstract, results, discussion, and conclusion around the seven-protocol boundary.
+- Add a new LCN-style boundary figure:
+  - `scripts/build_lcn26_expanded_boundary.py`
+  - `_LCN26_AERIS/generated/fig_lcn26_ns3_expanded_boundary.pdf`
+- Keep the corrected five-protocol evidence as the classical-baseline repair anchor and provenance layer.

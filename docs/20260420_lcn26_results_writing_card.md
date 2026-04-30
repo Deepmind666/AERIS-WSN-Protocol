@@ -25,6 +25,36 @@ Key 1000-node harsh numbers:
 Interpretation:
 - Canonical baseline ranking now supports harsh-channel AERIS claims without depending only on the custom Python simulator.
 
+## Expanded Seven-Protocol NS-3 Boundary
+
+Source:
+- `ns3_validation/results/lcn26_ns3_dual_combined_20260430_191527_191528/summary/ns3_focused_descriptive.csv`
+- `ns3_validation/results/lcn26_ns3_dual_combined_20260430_191527_191528/summary/ns3_focused_significance.csv`
+
+Role in the rewritten paper:
+- main boundary figure
+- stronger scientific framing than the five-protocol-only story
+- not an `AERIS is globally best` result
+
+Key result:
+- Against classical WSN baselines only:
+  - AERIS rank-1 in `21/28` cells
+  - AERIS top-2 in `28/28` cells
+- Against all seven protocols:
+  - AERIS rank-1 in `7/28` cells
+  - AERIS top-2 in `8/28` cells
+
+Environment-level boundary:
+- `indoor_office`: CTP/RPL-MRHOF dominate; AERIS mean gap to winner is about `-8.16` percentage points.
+- `indoor_factory`: AERIS wins only at `50` nodes; RPL-MRHOF leads the larger scales; AERIS mean gap to winner is about `-1.27` points.
+- `outdoor_suburban`: AERIS wins `50,100,200,300,500,800`; RPL-MRHOF leads by only about `0.0001` PDR at `1000`; this is AERIS's strongest expanded-baseline regime.
+- `outdoor_urban`: RPL-MRHOF leads all scales; AERIS mean gap to winner is about `-5.69` points.
+
+Interpretation:
+- AERIS remains a strong rule-based alternative to classical WSN baselines.
+- CTP/RPL-MRHOF reveal the deployment boundary: richer collection-tree parent selection narrows or removes the AERIS advantage in office, factory, and urban regimes.
+- The paper should be framed as a boundary-mapping engineering paper, not a universal winner claim.
+
 ## Strict-Physics Python Matrix
 
 Source:

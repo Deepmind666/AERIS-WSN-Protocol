@@ -75,8 +75,32 @@ Used values:
 
 ## Current audit judgment
 
-- The hard numbers currently appearing in the conference draft are aligned with the active data sources above.
-- Remaining work is now mostly:
-  - prose tightening
-  - figure/caption consistency
-  - final PDF polish
+- The draft has been rewritten to promote the 2026-04-30 seven-protocol NS-3 sweep as a boundary-mapping figure.
+- The old five-protocol numbers remain valid as the classical-baseline repair anchor.
+- The main claim is no longer that AERIS is the global harsh-environment winner.
+- Active rewritten claim:
+  - AERIS strongly beats classical WSN baselines in many harsh cells.
+  - AERIS is strongest mainly in outdoor suburban cells after CTP/RPL-MRHOF are added.
+  - CTP leads office; RPL-MRHOF leads most factory and urban cells.
+
+## Expanded seven-protocol numbers now used in text
+
+Source:
+- `ns3_validation/results/lcn26_ns3_dual_combined_20260430_191527_191528/summary/ns3_focused_descriptive.csv`
+- `ns3_validation/results/lcn26_ns3_dual_combined_20260430_191527_191528/summary/ns3_focused_significance.csv`
+
+Used values:
+- Classical-only AERIS rank:
+  - rank-1 in `21/28`
+  - top-2 in `28/28`
+- All-seven AERIS rank:
+  - rank-1 in `7/28`
+  - top-2 in `8/28`
+- Outdoor suburban:
+  - AERIS wins `50,100,200,300,500,800`
+  - RPL-MRHOF leads at `1000` by about `0.0001` PDR
+- Environment-level mean gaps to winner:
+  - office: about `-8.16` percentage points
+  - factory: about `-1.27` percentage points
+  - suburban: about `0.00` percentage points
+  - urban: about `-5.69` percentage points
