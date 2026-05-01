@@ -19,8 +19,9 @@
 \title{AERIS: Boundary-Mapped Reliable Routing for Wireless Sensor Networks under Heterogeneous Channels}
 
 \author{
-\IEEEauthorblockN{Anonymous Authors}
-\IEEEauthorblockA{Paper under double-blind review}
+\IEEEauthorblockN{Kangrui Li, Junyi Lin, and Xiaobo Zhang}
+\IEEEauthorblockA{Faculty of Automation, Guangdong University of Technology, Guangzhou 510006, China\\
+\textit{Corresponding author:} Kangrui Li \texttt{1403073295@mails.gdut.edu.cn}}
 }
 
 \begin{document}
@@ -45,7 +46,7 @@ We make three contributions. First, we present AERIS as a fixed-rule routing des
 \section{Related Work}
 Classical low-overhead WSN protocols still define the main engineering operating points. LEACH and HEED reduce long-range transmission burden through clustering, but their uplink quality is still sensitive to head placement and channel degradation \cite{Heinzelman2002LEACH,Younis2004HEED}. PEGASIS spreads load through chain forwarding but pays for that robustness with long routes and serialization \cite{Lindsey2002PEGASIS}. TEEN reduces redundant transmissions under threshold-triggered sensing, but its reporting logic makes metric interpretation sensitive to how ``expected'' delivery is defined \cite{Manjeshwar2001TEEN}. These protocols span the basic reliability-energy-latency trade-offs that any new design has to face.
 
-Recent work has improved reliability through learning, hybrid control, or deployment adaptation \cite{Chen2019Survey,Naeem2024DRL,Scientific2025DRLGNN,Tossa2025Deployment,Wang2024Geographic}. AERIS is closer to this line of work than to purely energy-minimizing clustering, but it keeps the runtime logic deliberately simple: fixed coefficients, explicit control paths, and no training-time dependence. Recent 2024--2025 studies have also sharpened the surrounding context by surveying LLN path-finding requirements \cite{Almutairi2024LLNSurvey}, SDN-style management over IoT/LLN deployments \cite{Djennadi2025SDNLLN}, and AI-driven energy-efficient routing in IoT-enabled WSNs \cite{Thakur2025AIReview}.
+Recent work has improved reliability through learning, hybrid control, context-aware routing, or deployment adaptation \cite{Chen2019Survey,Naeem2024DRL,Scientific2025DRLGNN,Tossa2025Deployment,Wang2024Geographic,Khedr2025ContextAware,Almutairi2025SSIPaS}. AERIS is adjacent to this line of work, but it keeps the runtime logic deliberately simple: fixed coefficients, explicit control paths, and no training-time dependence. Recent 2024--2025 surveys further show the same drift toward richer control planes, LLN management, and AI-driven routing \cite{Almutairi2024LLNSurvey,Djennadi2025SDNLLN,Thakur2025AIReview}. Concrete routing designs continue to explore reinforcement learning, mobile-sink adaptation, hybrid clustering, and federated DDQN strategies \cite{Ren2024,Okine2024,Singh2025Enhanced,Bhukya2025Hybrid}.
 
 Collection and RPL-style protocols are especially important for deployment realism. CTP builds a collection tree toward the sink using link/path quality, while RPL with MRHOF selects parents by minimizing path cost in a low-power and lossy-network DAG. Opportunistic variants such as ORPL/ORW go further by exploiting candidate forwarder sets and local link diversity. This paper does not claim to replace that whole family. Instead, it asks where a simpler fixed-rule WSN design still buys reliability, and where the stronger collection-tree family should remain the default.
 
