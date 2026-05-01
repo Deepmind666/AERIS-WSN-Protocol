@@ -15,8 +15,9 @@ Rules applied:
 - Every icon asset is also saved as a standalone text-free SVG.
 - Every visible label is a separate draw.io text cell.
 - The QA preview uses HTML text boxes over the text-free SVG graphics layer; no full-figure SVG with text is emitted.
-- Figure uses the requested 1440 x 1080 canvas and fixed palette.
-- Colored cards use the requested HEX fills directly, without transparency dilution.
+- Figure uses the requested 1440 x 1080 canvas.
+- Palette v4 uses a restrained academic scheme: Okabe-Ito blue/sky-blue/green/orange accents and Paul-Tol-style low-chroma tints for labeled cells.
+- Text uses Helvetica in the draw.io source and an Aptos/Segoe UI/Helvetica fallback stack in the PDF preview export.
 - The previous bottom Strict-mode note bar has been removed.
 - Gateway-assisted uplink is emphasized; Skeleton and fallback remain secondary.
 - No Freepik asset is embedded in this revision; the icon set is generated locally to avoid attribution ambiguity in the submission PDF.

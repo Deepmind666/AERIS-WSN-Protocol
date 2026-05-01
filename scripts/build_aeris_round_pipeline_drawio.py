@@ -30,20 +30,30 @@ MANIFEST_PATH = OUT_DIR / f"{FIGURE_STEM}_manifest.md"
 W, H = 1440, 1080
 
 COLORS = {
-    "lavender": "#E7DFEC",
-    "green": "#DFECC0",
-    "peach": "#F8DAB9",
-    "blue": "#54B5E3",
-    "yellow": "#FFF1CC",
-    "bluegray": "#D9E7FB",
+    # Academic, color-blind-aware palette:
+    # - strong accents borrow from Okabe-Ito blue/sky-blue/green/orange;
+    # - panel fills are low-chroma tints for labeled mechanism cells.
+    "lavender": "#EEEAF7",
+    "green": "#E4F1ED",
+    "peach": "#F3E8C8",
+    "blue": "#0072B2",
+    "lightblue": "#56B4E9",
+    "teal": "#009E73",
+    "orange": "#E69F00",
+    "yellow": "#F6EBC8",
+    "bluegray": "#E6F0F7",
     "white": "#FFFFFF",
-    "text": "#1F2937",
-    "secondary": "#4B5563",
-    "line": "#64748B",
-    "border": "#CBD5E1",
+    "text": "#172033",
+    "secondary": "#4B5868",
+    "line": "#58667A",
+    "border": "#B8C4D2",
+    "purple": "#332288",
+    "sand": "#DDCC77",
+    "muted": "#EEF2F6",
 }
 
-FONT = "Arial,Helvetica"
+DRAWIO_FONT = "Helvetica"
+CSS_FONT = "'Aptos','Segoe UI','Helvetica Neue',Arial,sans-serif"
 
 
 def svg_doc(width: int, height: int, body: str, viewbox: str | None = None) -> str:
@@ -79,7 +89,7 @@ def icon_phase_cluster() -> str:
 
 def icon_phase_intra() -> str:
     c = COLORS["text"]
-    green = COLORS["green"]
+    green = COLORS["teal"]
     body = [
         f'<circle cx="54" cy="24" r="8" fill="{COLORS["white"]}" stroke="{c}" stroke-width="3"/>',
         f'<circle cx="20" cy="54" r="8" fill="{COLORS["white"]}" stroke="{c}" stroke-width="3"/>',
@@ -172,13 +182,13 @@ def simple_icon(name: str) -> str:
     if name == "clock":
         body = f'<circle cx="32" cy="32" r="22" stroke="{c}" stroke-width="4"/><path d="M32 18v16l12 7" stroke="{c}" stroke-width="4"/>'
     elif name == "battery":
-        body = f'<rect x="18" y="12" width="27" height="40" rx="3" stroke="{c}" stroke-width="4"/><path d="M26 8h11" stroke="{c}" stroke-width="4"/><rect x="24" y="21" width="15" height="22" fill="{COLORS["bluegray"]}" stroke="none"/>'
+        body = f'<rect x="18" y="12" width="27" height="40" rx="3" stroke="{c}" stroke-width="4"/><path d="M26 8h11" stroke="{c}" stroke-width="4"/><rect x="24" y="21" width="15" height="22" fill="{COLORS["lightblue"]}" fill-opacity=".28" stroke="none"/>'
     elif name == "neighborhood":
         body = f'<circle cx="32" cy="17" r="6" stroke="{c}" stroke-width="3"/><circle cx="17" cy="43" r="6" stroke="{c}" stroke-width="3"/><circle cx="47" cy="43" r="6" stroke="{c}" stroke-width="3"/><path d="M29 22L20 38M35 22l9 16M23 43h18" stroke="{c}" stroke-width="3"/>'
     elif name == "star":
         body = f'<path d="M32 10l7 14 15 2-11 11 3 16-14-8-14 8 3-16-11-11 15-2z" fill="{COLORS["white"]}" stroke="{c}" stroke-width="4"/>'
     elif name == "bars":
-        body = f'<rect x="14" y="38" width="7" height="14" fill="{COLORS["bluegray"]}" stroke="{c}" stroke-width="3"/><rect x="29" y="28" width="7" height="24" fill="{COLORS["bluegray"]}" stroke="{c}" stroke-width="3"/><rect x="44" y="16" width="7" height="36" fill="{COLORS["bluegray"]}" stroke="{c}" stroke-width="3"/>'
+        body = f'<rect x="14" y="38" width="7" height="14" fill="{COLORS["lightblue"]}" fill-opacity=".28" stroke="{c}" stroke-width="3"/><rect x="29" y="28" width="7" height="24" fill="{COLORS["lightblue"]}" fill-opacity=".28" stroke="{c}" stroke-width="3"/><rect x="44" y="16" width="7" height="36" fill="{COLORS["lightblue"]}" fill-opacity=".28" stroke="{c}" stroke-width="3"/>'
     elif name == "join":
         body = f'<path d="M10 32h24" stroke="{c}" stroke-width="4"/><path d="M26 22l10 10-10 10" stroke="{c}" stroke-width="4"/><circle cx="48" cy="32" r="10" fill="{COLORS["white"]}" stroke="{c}" stroke-width="3"/>'
     elif name == "balance":
@@ -377,7 +387,7 @@ class FigureBuilder:
     def text(self, spec: TextSpec) -> None:
         cid = self._id("txt")
         style = (
-            f"text;html=1;strokeColor=none;fillColor=none;fontFamily={FONT};fontSize={spec.size};"
+            f"text;html=1;strokeColor=none;fillColor=none;fontFamily={DRAWIO_FONT};fontSize={spec.size};"
             f"fontColor={spec.color};align={spec.align};verticalAlign={spec.valign};whiteSpace=wrap;"
         )
         font_style = 0
@@ -393,7 +403,7 @@ class FigureBuilder:
             f'          <mxGeometry x="{spec.x:.1f}" y="{spec.y:.1f}" width="{spec.w:.1f}" height="{spec.h:.1f}" as="geometry" />\n'
             f"        </mxCell>"
         )
-        weight = "700" if spec.bold else "400"
+        weight = "650" if spec.bold else "400"
         fstyle = "italic" if spec.italic else "normal"
         justify = {"left": "flex-start", "center": "center", "right": "flex-end"}.get(spec.align, "center")
         align_items = {"top": "flex-start", "middle": "center", "bottom": "flex-end"}.get(spec.valign, "center")
@@ -401,8 +411,8 @@ class FigureBuilder:
         css = (
             f"position:absolute;left:{spec.x:.1f}px;top:{spec.y:.1f}px;width:{spec.w:.1f}px;height:{spec.h:.1f}px;"
             f"display:flex;align-items:{align_items};justify-content:{justify};text-align:{spec.align};"
-            f"font-family:{FONT};font-size:{spec.size}px;font-weight:{weight};font-style:{fstyle};"
-            f"line-height:1.18;color:{spec.color};box-sizing:border-box;white-space:normal;"
+            f"font-family:{CSS_FONT};font-size:{spec.size}px;font-weight:{weight};font-style:{fstyle};"
+            f"line-height:1.16;color:{spec.color};box-sizing:border-box;white-space:normal;letter-spacing:0;"
         )
         self.text_preview.append(f'<div class="label" style="{css}">{safe_value}</div>')
 
@@ -501,8 +511,8 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
 
     # Phase headers.
     headers = [
-        (28, 74, 420, "phase_cluster", "Phase 1", "Cluster Formation", COLORS["lavender"]),
-        (496, 74, 448, "phase_intra", "Phase 2", "Intra-Cluster Communication", COLORS["green"]),
+        (28, 74, 420, "phase_cluster", "Phase 1", "Cluster Formation", COLORS["purple"]),
+        (496, 74, 448, "phase_intra", "Phase 2", "Intra-Cluster Communication", COLORS["teal"]),
         (992, 74, 420, "phase_uplink", "Phase 3", "Uplink to BS", COLORS["blue"]),
     ]
     for x, y, w, icon, phase, title, rule in headers:
@@ -581,11 +591,11 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
     b.rect(496, 574, 448, 188, fill=COLORS["bluegray"], stroke=COLORS["border"], sw=1.3, r=8)
     b.rect(546, 590, 46, 46, fill=COLORS["white"], stroke=COLORS["blue"], sw=1.6, r=23)
     b.text(TextSpec("2", 546, 590, 46, 46, size=24, bold=True))
-    b.text(TextSpec("Intra-cluster forwarding", 604, 590, 282, 34, size=25, bold=True))
+    b.text(TextSpec("Intra-cluster forwarding", 604, 590, 322, 34, size=23, bold=True))
     b.icon("forwarding", 560, 638, 326, 108)
     b.line(720, 762, 720, 790, color=COLORS["line"], sw=2.3, arrow=True)
     b.rect(496, 802, 448, 164, fill=COLORS["green"], stroke=COLORS["border"], sw=1.3, r=8)
-    b.rect(580, 818, 46, 46, fill=COLORS["white"], stroke=COLORS["green"], sw=1.6, r=23)
+    b.rect(580, 818, 46, 46, fill=COLORS["white"], stroke=COLORS["teal"], sw=1.6, r=23)
     b.text(TextSpec("3", 580, 818, 46, 46, size=24, bold=True))
     b.text(TextSpec("CH aggregation", 642, 818, 220, 34, size=25, bold=True))
     for idx, (icon, label) in enumerate([("dedup", "deduplicate"), ("fuse", "fuse"), ("buffer", "buffer")]):
@@ -602,7 +612,7 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
     q_specs = [
         ("Q1", "Direct\nacceptable?", 238, 262, 1190, 220, 222, 150, "Direct uplink", "CH \u2192 BS", "route_direct_uplink", COLORS["white"], COLORS["border"], "", ""),
         ("Q2", "Gateway\nvalid?", 438, 458, 1172, 392, 244, 206, "Gateway-assisted\nuplink", "CH \u2192 GW \u2192 BS", "route_gateway", COLORS["bluegray"], COLORS["blue"], "main gain", COLORS["blue"]),
-        ("Q3", "Skeleton\npath valid?", 656, 688, 1190, 626, 222, 178, "Skeleton reserve", "CH \u2192 CH \u2192 BS", "route_skeleton", COLORS["bluegray"], COLORS["border"], "reserve", COLORS["line"]),
+        ("Q3", "Skeleton\npath valid?", 656, 688, 1190, 626, 222, 178, "Skeleton reserve", "CH \u2192 CH \u2192 BS", "route_skeleton", COLORS["muted"], COLORS["border"], "reserve", COLORS["line"]),
     ]
     for q, label, qy, arrow_y, card_x, card_y, card_w, card_h, title, route_label, icon, fill, stroke, badge, badge_color in q_specs:
         b.rect(spine_x - 25, qy - 25, 50, 50, fill=COLORS["white"], stroke=COLORS["blue"], sw=1.6, r=25)
@@ -657,8 +667,9 @@ def write_manifest(icon_names: list[str]) -> None:
         "- Every icon asset is also saved as a standalone text-free SVG.",
         "- Every visible label is a separate draw.io text cell.",
         "- The QA preview uses HTML text boxes over the text-free SVG graphics layer; no full-figure SVG with text is emitted.",
-        "- Figure uses the requested 1440 x 1080 canvas and fixed palette.",
-        "- Colored cards use the requested HEX fills directly, without transparency dilution.",
+        "- Figure uses the requested 1440 x 1080 canvas.",
+        "- Palette v4 uses a restrained academic scheme: Okabe-Ito blue/sky-blue/green/orange accents and Paul-Tol-style low-chroma tints for labeled cells.",
+        "- Text uses Helvetica in the draw.io source and an Aptos/Segoe UI/Helvetica fallback stack in the PDF preview export.",
         "- The previous bottom Strict-mode note bar has been removed.",
         "- Gateway-assisted uplink is emphasized; Skeleton and fallback remain secondary.",
         "- No Freepik asset is embedded in this revision; the icon set is generated locally to avoid attribution ambiguity in the submission PDF.",
