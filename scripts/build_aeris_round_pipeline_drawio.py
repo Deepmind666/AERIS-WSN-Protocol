@@ -10,6 +10,7 @@ over a text-free SVG graphics layer for fast visual QA.
 from __future__ import annotations
 
 import base64
+import re
 from dataclasses import dataclass
 from html import escape
 from pathlib import Path
@@ -19,6 +20,7 @@ from urllib.parse import quote
 ROOT = Path(__file__).resolve().parents[1]
 OUT_DIR = ROOT / "overleaf_upload_ready_20260501" / "generated"
 ICON_DIR = OUT_DIR / "icons" / "aeris_round_pipeline"
+LUCIDE_DIR = ROOT / "scripts" / "assets" / "lucide_static_isc"
 FIGURE_STEM = "fig0_aeris_round_pipeline_lcn26"
 DRAWIO_PATH = OUT_DIR / f"{FIGURE_STEM}.drawio"
 GRAPHICS_SVG_PATH = OUT_DIR / f"{FIGURE_STEM}_graphics.svg"
@@ -63,6 +65,20 @@ def svg_doc(width: int, height: int, body: str, viewbox: str | None = None) -> s
         f'viewBox="{vb}" fill="none" stroke-linecap="round" stroke-linejoin="round">\n'
         f"{body}\n</svg>\n"
     )
+
+
+def lucide_icon(name: str, color: str = COLORS["text"], stroke_width: float = 2.15) -> str:
+    """Load a vendored Lucide icon and normalize it as a text-free SVG asset."""
+    src = (LUCIDE_DIR / f"{name}.svg").read_text(encoding="utf-8")
+    body_match = re.search(r"<svg\b[^>]*>\s*(.*?)\s*</svg>", src, flags=re.S)
+    if not body_match:
+        raise ValueError(f"Could not parse Lucide SVG: {name}")
+    body = body_match.group(1)
+    body = re.sub(r"<!--.*?-->", "", body, flags=re.S).strip()
+    body = body.replace('stroke="currentColor"', "")
+    body = re.sub(r'stroke-width="[^"]+"', "", body)
+    body = f'<g stroke="{color}" stroke-width="{stroke_width}">\n{body}\n</g>'
+    return svg_doc(64, 64, body, viewbox="0 0 24 24")
 
 
 def regular_polygon(cx: float, cy: float, r: float, sides: int = 6) -> str:
@@ -301,17 +317,17 @@ def make_icons() -> dict[str, str]:
         "line_intra": icon_line_sample("intra"),
         "line_uplink": icon_line_sample("uplink"),
         "line_skeleton": icon_line_sample("skeleton"),
-        "clock": simple_icon("clock"),
-        "battery": simple_icon("battery"),
-        "neighborhood": simple_icon("neighborhood"),
-        "star": simple_icon("star"),
-        "bars": simple_icon("bars"),
-        "join": simple_icon("join"),
-        "balance": simple_icon("balance"),
-        "table": simple_icon("table"),
-        "dedup": simple_icon("dedup"),
-        "fuse": simple_icon("fuse"),
-        "buffer": simple_icon("buffer"),
+        "clock": lucide_icon("clock"),
+        "battery": lucide_icon("battery-medium"),
+        "neighborhood": lucide_icon("network"),
+        "star": lucide_icon("star"),
+        "bars": lucide_icon("chart-column-increasing"),
+        "join": lucide_icon("log-in"),
+        "balance": lucide_icon("scale"),
+        "table": lucide_icon("table-2"),
+        "dedup": lucide_icon("copy-check"),
+        "fuse": lucide_icon("funnel"),
+        "buffer": lucide_icon("database"),
         "route_direct_mode": route_icon("direct_mode"),
         "route_chain_mode": route_icon("chain_mode"),
         "route_twohop_mode": route_icon("twohop_mode"),
@@ -618,7 +634,7 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
         b.rect(spine_x - 25, qy - 25, 50, 50, fill=COLORS["white"], stroke=COLORS["blue"], sw=1.6, r=25)
         b.text(TextSpec(q, spine_x - 25, qy - 25, 50, 50, size=20, bold=True))
         b.text(TextSpec(label, spine_x + 30, qy - 27, 90, 58, size=18, align="left"))
-        b.text(TextSpec("Yes", card_x - 42, arrow_y - 34, 40, 24, size=18))
+        b.text(TextSpec("Yes", 1140, arrow_y - 34, 36, 24, size=17, color=COLORS["secondary"]))
         b.line(card_x - 48, arrow_y, card_x - 10, arrow_y, color=COLORS["line"], sw=2, arrow=True)
         ch = card_h
         sw = 3.0 if title.startswith("Gateway") else 1.3
@@ -626,23 +642,23 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
         title_h = 46 if "\n" in title else 30
         b.text(TextSpec(title, card_x + 10, card_y + 10, card_w - 20, title_h, size=20 if title.startswith("Gateway") else 22, bold=True))
         b.icon(icon, card_x + 14, card_y + 58, card_w - 28, 68)
-        b.text(TextSpec(route_label, card_x + 12, card_y + 118, card_w - 24, 32, size=24, color=COLORS["blue"], bold=True))
+        b.text(TextSpec(route_label, card_x + 12, card_y + 118, card_w - 24, 32, size=22, color=COLORS["text"], bold=True))
         if badge:
             if badge == "reserve":
                 b.badge(card_x + (card_w - 92) / 2, card_y + ch - 34, 92, 26, badge, COLORS["line"], COLORS["line"], text_color=COLORS["white"])
             else:
                 b.badge(card_x + (card_w - 108) / 2, card_y + ch - 42, 108, 30, badge, badge_color, badge_color, text_color=COLORS["white"])
-    b.text(TextSpec("No", spine_x + 20, 342, 44, 24, size=18))
+    b.text(TextSpec("No", spine_x + 20, 342, 44, 24, size=17, color=COLORS["secondary"]))
     b.line(spine_x, 288, spine_x, 414, color=COLORS["line"], sw=2, arrow=True)
-    b.text(TextSpec("No", spine_x + 20, 544, 44, 24, size=18))
+    b.text(TextSpec("No", spine_x + 20, 544, 44, 24, size=17, color=COLORS["secondary"]))
     b.line(spine_x, 488, spine_x, 632, color=COLORS["line"], sw=2, arrow=True)
-    b.text(TextSpec("No", spine_x + 20, 762, 44, 24, size=18))
+    b.text(TextSpec("No", spine_x + 20, 762, 44, 24, size=17, color=COLORS["secondary"]))
     b.line(spine_x, 682, spine_x, 916, color=COLORS["line"], sw=2)
     b.line(spine_x, 916, 1190, 916, color=COLORS["line"], sw=2, arrow=True)
     b.rect(1190, 840, 222, 170, fill=COLORS["yellow"], stroke=COLORS["border"], sw=1.3, r=8)
     b.text(TextSpec("One-shot fallback", 1202, 856, 198, 30, size=22, bold=True))
     b.icon("route_fallback", 1204, 898, 194, 62)
-    b.text(TextSpec("CH \u2192 BS", 1202, 952, 198, 32, size=24, color=COLORS["blue"], bold=True))
+    b.text(TextSpec("CH \u2192 BS", 1202, 952, 198, 32, size=22, color=COLORS["text"], bold=True))
     b.badge(1238, 976, 126, 28, "single attempt", COLORS["yellow"], COLORS["border"])
 
     return b
@@ -654,6 +670,7 @@ def write_manifest(icon_names: list[str]) -> None:
         "",
         "Generated by `scripts/build_aeris_round_pipeline_drawio.py`.",
         "The default output directory is the active LCN Overleaf package: `overleaf_upload_ready_20260501/generated/`.",
+        "Common module icons are sourced from vendored `lucide-static` SVG assets under `scripts/assets/lucide_static_isc/` (ISC license).",
         "",
         "Artifacts:",
         f"- Draw.io source: `{DRAWIO_PATH.relative_to(ROOT).as_posix()}`",
@@ -670,6 +687,7 @@ def write_manifest(icon_names: list[str]) -> None:
         "- Figure uses the requested 1440 x 1080 canvas.",
         "- Palette v4 uses a restrained academic scheme: Okabe-Ito blue/sky-blue/green/orange accents and Paul-Tol-style low-chroma tints for labeled cells.",
         "- Text uses Helvetica in the draw.io source and an Aptos/Segoe UI/Helvetica fallback stack in the PDF preview export.",
+        "- Common process icons use a consistent Lucide stroke family; protocol-specific topology and route mini-diagrams remain custom SVG.",
         "- The previous bottom Strict-mode note bar has been removed.",
         "- Gateway-assisted uplink is emphasized; Skeleton and fallback remain secondary.",
         "- No Freepik asset is embedded in this revision; the icon set is generated locally to avoid attribution ambiguity in the submission PDF.",
