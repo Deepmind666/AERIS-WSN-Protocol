@@ -167,7 +167,7 @@ def build_mechanism_compact() -> None:
     cas_total = np.maximum(cas_direct + cas_twohop + cas_chain, 1e-9)
     twohop_share = cas_twohop / cas_total * 100.0
 
-    fig, (ax_top, ax_bottom) = plt.subplots(2, 1, figsize=(3.42, 4.42), sharex=True, gridspec_kw={"height_ratios": [1.42, 1.0]})
+    fig, (ax_top, ax_bottom) = plt.subplots(2, 1, figsize=(3.42, 3.82), sharex=True, gridspec_kw={"height_ratios": [1.25, 1.0]})
 
     for group_idx, env in enumerate(ENV_ORDER):
         start = group_idx * len(NODE_ORDER) - 0.5
@@ -185,16 +185,16 @@ def build_mechanism_compact() -> None:
     ax_top.set_ylabel("PDR / GW")
     ax_top.set_ylim(0.0, 1.02)
     for idx in [0, 2, 3, 5, 6, 8, 9, 11]:
-        ax_top.text(x[idx], pdr[idx] + 0.02, f"{pdr[idx]:.2f}", ha="center", va="bottom", fontsize=6.7, color=COLORS["AERIS"])
+        ax_top.text(x[idx], pdr[idx] + 0.02, f"{pdr[idx]:.2f}", ha="center", va="bottom", fontsize=6.2, color=COLORS["AERIS"])
     urban_1000 = cells.index(("outdoor_urban", 1000))
-    ax_top.annotate("GW bottleneck", xy=(urban_1000, gw[urban_1000]), xytext=(urban_1000 - 2.0, 0.42), fontsize=6.7, color=COLORS["GW"], arrowprops=dict(arrowstyle="->", color=COLORS["GW"], linewidth=0.8), bbox=dict(boxstyle="round,pad=0.15", facecolor="white", edgecolor="#D7DEE7", alpha=0.95))
+    ax_top.annotate("GW bottleneck", xy=(urban_1000, gw[urban_1000]), xytext=(urban_1000 - 2.0, 0.42), fontsize=6.2, color=COLORS["GW"], arrowprops=dict(arrowstyle="->", color=COLORS["GW"], linewidth=0.8), bbox=dict(boxstyle="round,pad=0.12", facecolor="white", edgecolor="#D7DEE7", alpha=0.95))
 
     fnd_handle, = ax_bottom.plot(x, fnd, color=COLORS["PEGASIS"], marker="s", markersize=3.0, linewidth=1.4, linestyle="--", label="FND")
     style_axes(ax_bottom)
     ax_bottom.set_ylabel("FND (rounds)")
     ax_bottom.set_ylim(0, max(float(np.max(fnd)) * 1.20, 16.0))
     ax_bottom.set_xticks(x)
-    ax_bottom.set_xticklabels([f"{ENV_TAG[e]}{('1k' if n == 1000 else n)}" for e, n in cells], fontsize=7.0, rotation=35, ha="right")
+    ax_bottom.set_xticklabels([f"{ENV_TAG[e]}{('1k' if n == 1000 else n)}" for e, n in cells], fontsize=6.4, rotation=35, ha="right")
 
     ax_share = ax_bottom.twinx()
     twohop_handle, = ax_share.plot(x, twohop_share, color=COLORS["CAS"], marker="D", markersize=3.0, linewidth=1.4, linestyle="-.", label="Two-hop %")
@@ -207,9 +207,9 @@ def build_mechanism_compact() -> None:
     ax_bottom.legend(handles=[fnd_handle, twohop_handle], frameon=False, loc="upper right", ncol=1, handlelength=1.4, columnspacing=0.8)
 
     for idx in [0, 3, 6, 9, 11]:
-        ax_bottom.text(x[idx], fnd[idx] + 1.2, f"{fnd[idx]:.1f}", ha="center", va="bottom", fontsize=6.6, color=COLORS["PEGASIS"])
+        ax_bottom.text(x[idx], fnd[idx] + 1.2, f"{fnd[idx]:.1f}", ha="center", va="bottom", fontsize=6.1, color=COLORS["PEGASIS"])
 
-    fig.subplots_adjust(hspace=0.20)
+    fig.subplots_adjust(hspace=0.14)
     save(fig, "fig_lcn26_mechanism_compact")
 
 

@@ -107,6 +107,8 @@ Source:
 - `results/lcn26_targeted_20260420/mechanism_grid_fat/mechanism_raw_merged.json`
 - targeted confirmation:
   - `results/lcn26_targeted_20260421_followup_b/mechanism_grid_fat_targeted/merged_20260421_135826/mechanism_summary.csv`
+- visual companion:
+  - `_LCN26_AERIS/generated/fig_lcn26_mechanism_compact.pdf`
 
 Main mechanism claim:
 - `Gateway` is the dominant reliability mechanism in the current publication configuration

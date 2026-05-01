@@ -77,6 +77,7 @@ Used values:
 
 - The draft has been rewritten to promote the 2026-04-30 seven-protocol NS-3 sweep as a boundary-mapping figure.
 - The draft now also uses the 2026-05-01 expanded NS-3 AERIS ablation as the main attribution figure.
+- The corrected 400-replicate mechanism matrix is back in the paper as a compact figure rather than only as prose.
 - The old five-protocol numbers remain valid as the classical-baseline repair anchor.
 - The main claim is no longer that AERIS is the global harsh-environment winner.
 - Active rewritten claim:
