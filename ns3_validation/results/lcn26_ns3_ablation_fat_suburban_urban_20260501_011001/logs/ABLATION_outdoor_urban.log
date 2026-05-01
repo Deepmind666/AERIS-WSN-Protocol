@@ -1,0 +1,24 @@
+================================================
+NS-3 AERIS Multi-Environment Validation
+Protocols: AERIS, LEACH, HEED, PEGASIS, TEEN, RPL-MRHOF, CTP
+Parameters: energy=2.0J, rounds=300, tx_power=10dBm
+Seeds: 42001-42030 (n=30)
+================================================
+Shard: protocol=ABLATION env=outdoor_urban nodes=7 counts, seeds=30
+  Ablation outdoor_urban n=50 done
+  Ablation outdoor_urban n=100 done
+  Ablation outdoor_urban n=200 done
+  Ablation outdoor_urban n=300 done
+  Ablation outdoor_urban n=500 done
+  Ablation outdoor_urban n=800 done
+  Ablation outdoor_urban n=1000 done
+  Ablation outdoor_urban done (840 experiments)
+
+Results saved to: /mnt/c/Users/sshuser/AERIS-WSN-Protocol/ns3_validation/results/lcn26_ns3_ablation_fat_suburban_urban_20260501_011001/raw/shard_ABLATION_outdoor_urban.json
+Total experiments: 840
+
+=== Per-Environment Summary ===
+  outdoor_urban|AERIS-FULL: avg PDR=20.1986% (n=210)
+  outdoor_urban|AERIS-noCAS: avg PDR=19.2916% (n=210)
+  outdoor_urban|AERIS-noFair: avg PDR=20.0837% (n=210)
+  outdoor_urban|AERIS-noGW: avg PDR=19.7890% (n=210)

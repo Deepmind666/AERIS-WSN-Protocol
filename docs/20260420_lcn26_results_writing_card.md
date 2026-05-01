@@ -65,6 +65,41 @@ Role in the paper:
 - not the sole fairness anchor
 - confirms the harsh-channel AERIS advantage under collision and relay stress
 
+## Expanded NS-3 AERIS Ablation
+
+Source:
+- `ns3_validation/results/lcn26_ns3_ablation_combined_20260501_010355_011001/summary/ns3_ablation_delta.csv`
+- `ns3_validation/results/lcn26_ns3_ablation_combined_20260501_010355_011001/summary/ns3_ablation_environment_summary.csv`
+- `ns3_validation/results/lcn26_ns3_ablation_combined_20260501_010355_011001/summary/ns3_ablation_summary.md`
+
+Role in the paper:
+- main module-attribution figure
+- replaces the weaker frozen 100-node ablation figure
+- connects the boundary result to concrete AERIS internals
+
+Run scope:
+- `3360` NS-3 experiments
+- full AERIS plus `AERIS-noGW`, `AERIS-noCAS`, and `AERIS-noFair`
+- four environments, seven node counts, `n=30` per cell
+- local shard covers office/factory; FatMachine shard covers suburban/urban
+
+Key result:
+- Gateway removal costs:
+  - `5.82` percentage points on average in `indoor_factory`, significant in `7/7` scales
+  - `7.58` percentage points on average in `outdoor_suburban`, significant in `7/7` scales
+  - near-neutral in `indoor_office`
+  - weak and not Holm-significant in `outdoor_urban`
+- CAS removal:
+  - improves office/suburban PDR in this audited configuration
+  - hurts `outdoor_urban` by `0.91` points on average, significant in `5/7` scales
+- CH-score removal:
+  - near-neutral in every environment
+
+Interpretation:
+- Gateway-assisted uplinks are the strongest measured AERIS module.
+- CAS is conditional rather than universally beneficial.
+- The current draft should not claim that CH scoring or Skeleton is the primary measured source of the PDR gain.
+
 ## Mechanism Matrix
 
 Source:
@@ -114,6 +149,7 @@ Interpretation:
 - Use `012811` as the only valid corrected NS-3 rerun.
 - Do not use `010122` for claims; it was invalid because the WSL scratch source was stale.
 - Do not overstate `Skeleton`; the corrected mechanism matrix does not support that.
+- Use the 2026-05-01 NS-3 ablation for module attribution, not the older frozen 100-node ablation figure.
 - Keep the claim scoped:
   - harsh-channel reliability-first -> `AERIS`
   - benign office-like or longevity-first -> `PEGASIS`

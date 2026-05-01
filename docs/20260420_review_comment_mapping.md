@@ -21,23 +21,27 @@ What changed:
 - Canonical NS-3 now uses the corrected five-protocol rerun at:
   - `ns3_validation/results/lcn26_ns3_audit_20260420_012811/summary/`
 - Main text now explicitly states the full environment-scoped five-protocol ranking.
+- The expanded NS-3 layer now adds a seven-protocol boundary sweep and a 3360-run AERIS module ablation:
+  - `ns3_validation/results/lcn26_ns3_dual_combined_20260430_191527_191528/summary/`
+  - `ns3_validation/results/lcn26_ns3_ablation_combined_20260501_010355_011001/summary/`
 
 Residual risk:
-- Canonical NS-3 covers `100, 500, 1000`, not the old `50..1000` sweep.
-- This is acceptable for a focused repair, but still smaller than a full independent matrix.
+- Canonical five-protocol NS-3 still covers `100, 500, 1000`.
+- This is now mitigated by the seven-scale boundary and ablation sweeps, but not by a full standards-grade LLN stack evaluation.
 
 ### 2. Baseline fairness
-Status: `Partial`
+Status: `Done`
 
 What changed:
 - The paper now separates:
   - canonical NS-3 evidence
   - adapted strict-physics evidence
 - The draft explicitly says the strict matrix is not the sole fairness anchor.
+- The expanded NS-3 boundary adds `CTP` and `RPL-MRHOF`, so the main deployment claim is no longer tested only against classical clustering/chain baselines.
 
 Residual risk:
 - The Python strict layer still depends on adapted baselines.
-- That concern is mitigated, not eliminated.
+- `ORPL` and `ORW` remain related-work/limitations items rather than implemented baselines.
 
 ### 3. Innovation depth limited / engineering combination
 Status: `Open`
@@ -57,6 +61,7 @@ What changed:
 - The corrected mechanism panel explains where the cost materializes:
   - gateway bottleneck
   - very early first-node death in many `500/1000` harsh cells
+- The expanded NS-3 ablation now shows that the PDR gain comes mainly from Gateway support in factory/suburban regimes, not from an unexplained aggregate effect.
 
 Residual risk:
 - The paper still does not propose a new mitigation mechanism.
@@ -66,17 +71,19 @@ Residual risk:
 Status: `Done`
 
 What changed:
+- Added 3360-run NS-3 AERIS ablation over four environments and seven node counts.
 - Added corrected 400-replicate mechanism matrix.
 - Current text now states:
   - `Gateway` is the dominant active mechanism
   - `CAS` is environment dependent
   - `Skeleton` is inactive in the audited publication configuration
 - Supporting source:
+  - `ns3_validation/results/lcn26_ns3_ablation_combined_20260501_010355_011001/summary/ns3_ablation_summary.md`
   - `results/lcn26_targeted_20260420/mechanism_grid_fat/mechanism_summary.csv`
 
 Residual risk:
 - Still not a closed-form causal theory.
-- But it is no longer only a shallow ablation report.
+- But it is no longer only a shallow or 100-node-only ablation report.
 
 ## Technical / clarity issues
 
@@ -141,9 +148,10 @@ What changed:
   - `RPL/ORPL/ORW`
   - coding-based reliability
   - channel-hopping systems
+- The expanded NS-3 boundary now directly compares with `CTP` and `RPL-MRHOF`.
 
 Residual risk:
-- They are acknowledged, not experimentally compared.
+- `ORPL`, `ORW`, coding-based reliability, and TSCH/channel-hopping stacks are acknowledged, not experimentally compared.
 
 ### Reviewer-side reproducibility not available
 Status: `Open`
@@ -171,5 +179,5 @@ Most improved:
 Still fundamentally limited:
 - method novelty ceiling
 - adapted-baseline external validity
-- lack of direct comparison to standards like RPL/CTP
+- lack of direct comparison to ORPL/ORW and full MAC/TSCH stacks
 - absence of reviewer-time code release

@@ -1,0 +1,17 @@
+=== LCN26 focused NS-3 audit matrix ===
+Start: Fri May  1 01:04:31 CST 2026
+NS3_ROOT: /home/lkr/ns-allinone-3.40/ns-3.40
+BIN: /home/lkr/ns-allinone-3.40/ns-3.40/build/scratch/ns3.40-aeris-validation-standalone-default
+OUT_DIR: /mnt/c/AERIS-WSN-Protocol/ns3_validation/results/lcn26_ns3_ablation_local_office_factory_20260501_010355
+PARALLEL: 2
+NODES: 50,100,200,300,500,800,1000
+Protocols: ABLATION
+Environments: indoor_office indoor_factory
+Expected shards: 2
+Expected experiments: 420
+[START] 2026-05-01 01:04:32 proto=ABLATION env=indoor_office out=/mnt/c/AERIS-WSN-Protocol/ns3_validation/results/lcn26_ns3_ablation_local_office_factory_20260501_010355/raw/shard_ABLATION_indoor_office.json
+[START] 2026-05-01 01:04:32 proto=ABLATION env=indoor_factory out=/mnt/c/AERIS-WSN-Protocol/ns3_validation/results/lcn26_ns3_ablation_local_office_factory_20260501_010355/raw/shard_ABLATION_indoor_factory.json
+[DONE ] 2026-05-01 01:08:55 proto=ABLATION env=indoor_office
+[DONE ] 2026-05-01 01:09:09 proto=ABLATION env=indoor_factory
+End: Fri May  1 01:09:10 CST 2026
+=== Focused NS-3 audit complete ===

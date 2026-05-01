@@ -76,12 +76,14 @@ Used values:
 ## Current audit judgment
 
 - The draft has been rewritten to promote the 2026-04-30 seven-protocol NS-3 sweep as a boundary-mapping figure.
+- The draft now also uses the 2026-05-01 expanded NS-3 AERIS ablation as the main attribution figure.
 - The old five-protocol numbers remain valid as the classical-baseline repair anchor.
 - The main claim is no longer that AERIS is the global harsh-environment winner.
 - Active rewritten claim:
   - AERIS strongly beats classical WSN baselines in many harsh cells.
   - AERIS is strongest mainly in outdoor suburban cells after CTP/RPL-MRHOF are added.
   - CTP leads office; RPL-MRHOF leads most factory and urban cells.
+  - AERIS's measured gain is mostly carried by Gateway-assisted uplinks, while CAS is environment dependent.
 
 ## Expanded seven-protocol numbers now used in text
 
@@ -104,3 +106,36 @@ Used values:
   - factory: about `-1.27` percentage points
   - suburban: about `0.00` percentage points
   - urban: about `-5.69` percentage points
+
+## Expanded NS-3 ablation numbers now used in text
+
+Source:
+- `ns3_validation/results/lcn26_ns3_ablation_combined_20260501_010355_011001/summary/ns3_ablation_delta.csv`
+- `ns3_validation/results/lcn26_ns3_ablation_combined_20260501_010355_011001/summary/ns3_ablation_environment_summary.csv`
+- `ns3_validation/results/lcn26_ns3_ablation_combined_20260501_010355_011001/summary/ns3_ablation_summary.md`
+
+Run scope:
+- `3360` NS-3 experiments
+- full AERIS plus `AERIS-noGW`, `AERIS-noCAS`, and `AERIS-noFair`
+- four environments, seven node counts, `n=30` per environment-node-variant cell
+- local shard: `indoor_office`, `indoor_factory`
+- FatMachine shard: `outdoor_suburban`, `outdoor_urban`
+
+Used values:
+- Gateway removal:
+  - `indoor_factory`: `-5.82` percentage-point mean delta, significant in `7/7` scales
+  - `outdoor_suburban`: `-7.58` percentage-point mean delta, significant in `7/7` scales
+  - `indoor_office`: `0.00` mean delta, significant in `0/7` scales
+  - `outdoor_urban`: `-0.41` mean delta, significant in `0/7` scales
+- CAS removal:
+  - `indoor_office`: `+1.39` mean delta, significant in `7/7` scales
+  - `outdoor_suburban`: `+0.76` mean delta, significant in `6/7` scales
+  - `outdoor_urban`: `-0.91` mean delta, significant in `5/7` scales
+- CH-score removal:
+  - near-neutral in all four environments; significant cells are at most `1/7`
+
+Interpretation used in the draft:
+- negative delta means the removed module hurts PDR relative to full AERIS.
+- Gateway is the main NS-3 gain carrier in factory and suburban regimes.
+- CAS is not universally helpful; it helps mainly where harsh links still leave viable short detours.
+- CH-score removal is near-neutral in this audited configuration, so the paper should not attribute the observed PDR gain mainly to head scoring.

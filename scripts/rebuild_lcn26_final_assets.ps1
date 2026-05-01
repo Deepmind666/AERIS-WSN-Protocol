@@ -19,6 +19,10 @@ Write-Host '[LCN26] Refreshing corrected canonical NS-3 figure'
 Write-Host '[LCN26] Refreshing expanded seven-protocol boundary figure'
 & $python 'scripts\build_lcn26_expanded_boundary.py'
 
+Write-Host '[LCN26] Refreshing expanded NS-3 ablation analysis and figure'
+& $python 'scripts\analyze_lcn26_ns3_ablation.py' --input 'ns3_validation\results\lcn26_ns3_ablation_combined_20260501_010355_011001\summary\ns3_focused_merged.json' --output-dir 'ns3_validation\results\lcn26_ns3_ablation_combined_20260501_010355_011001\summary'
+& $python 'scripts\build_lcn26_ns3_ablation_figure.py'
+
 Write-Host '[LCN26] Refreshing compact canonical NS-3 figure'
 & $python 'scripts\build_lcn26_canonical_compact.py'
 
