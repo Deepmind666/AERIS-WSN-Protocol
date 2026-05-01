@@ -17,14 +17,15 @@ from urllib.parse import quote
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT_DIR = ROOT / "for_submission" / "figures"
+OUT_DIR = ROOT / "overleaf_upload_ready_20260501" / "generated"
 ICON_DIR = OUT_DIR / "icons" / "aeris_round_pipeline"
-DRAWIO_PATH = OUT_DIR / "fig0_aeris_round_pipeline_v2.drawio"
-GRAPHICS_SVG_PATH = OUT_DIR / "fig0_aeris_round_pipeline_v2_graphics.svg"
-STALE_PREVIEW_SVG_PATH = OUT_DIR / "fig0_aeris_round_pipeline_v2_preview.svg"
-PREVIEW_HTML_PATH = OUT_DIR / "fig0_aeris_round_pipeline_v2_preview.html"
-PDF_PATH = OUT_DIR / "fig0_aeris_round_pipeline_v2.pdf"
-MANIFEST_PATH = OUT_DIR / "fig0_aeris_round_pipeline_v2_manifest.md"
+FIGURE_STEM = "fig0_aeris_round_pipeline_lcn26"
+DRAWIO_PATH = OUT_DIR / f"{FIGURE_STEM}.drawio"
+GRAPHICS_SVG_PATH = OUT_DIR / f"{FIGURE_STEM}_graphics.svg"
+STALE_PREVIEW_SVG_PATH = OUT_DIR / f"{FIGURE_STEM}_preview.svg"
+PREVIEW_HTML_PATH = OUT_DIR / f"{FIGURE_STEM}_preview.html"
+PDF_PATH = OUT_DIR / f"{FIGURE_STEM}.pdf"
+MANIFEST_PATH = OUT_DIR / f"{FIGURE_STEM}_manifest.md"
 
 W, H = 1440, 1080
 
@@ -276,6 +277,8 @@ def forwarding_icon() -> str:
 
 def make_icons() -> dict[str, str]:
     ICON_DIR.mkdir(parents=True, exist_ok=True)
+    for stale in ICON_DIR.glob("*.svg"):
+        stale.unlink()
     icons = {
         "phase_cluster": icon_phase_cluster(),
         "phase_intra": icon_phase_intra(),
@@ -299,7 +302,6 @@ def make_icons() -> dict[str, str]:
         "dedup": simple_icon("dedup"),
         "fuse": simple_icon("fuse"),
         "buffer": simple_icon("buffer"),
-        "shield": simple_icon("shield"),
         "route_direct_mode": route_icon("direct_mode"),
         "route_chain_mode": route_icon("chain_mode"),
         "route_twohop_mode": route_icon("twohop_mode"),
@@ -493,9 +495,9 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
     b = FigureBuilder(icons)
 
     # Title and vertical phase guides.
-    b.text(TextSpec("AERIS round pipeline", 0, 18, W, 48, size=36, bold=True))
-    b.line(468, 78, 468, 962, color=COLORS["border"], sw=2, dashed=True)
-    b.line(966, 78, 966, 962, color=COLORS["border"], sw=2, dashed=True)
+    b.text(TextSpec("AERIS round pipeline", 0, 18, W, 48, size=40, bold=True))
+    b.line(468, 78, 468, 1038, color=COLORS["border"], sw=2, dashed=True)
+    b.line(966, 78, 966, 1038, color=COLORS["border"], sw=2, dashed=True)
 
     # Phase headers.
     headers = [
@@ -504,148 +506,144 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
         (992, 74, 420, "phase_uplink", "Phase 3", "Uplink to BS", COLORS["blue"]),
     ]
     for x, y, w, icon, phase, title, rule in headers:
-        b.icon(icon, x + 24, y - 3, 62, 62)
-        b.text(TextSpec(phase, x + 96, y, w - 96, 30, size=27, bold=True))
-        b.text(TextSpec(title, x + 96, y + 36, w - 96, 30, size=24, bold=True))
+        b.icon(icon, x + 22, y - 4, 68, 68)
+        title_size = 24 if title.startswith("Intra") else 26
+        b.text(TextSpec(phase, x + 92, y - 2, w - 92, 32, size=30, bold=True))
+        b.text(TextSpec(title, x + 92, y + 36, w - 92, 32, size=title_size, bold=True))
         b.line(x, y + 84, x + w, y + 84, color=rule, sw=4)
 
     # Phase 1 topology and legend.
-    b.rect(28, 182, 420, 178, fill=COLORS["white"], stroke=COLORS["border"], sw=1.4, r=10)
-    b.icon("topology", 38, 190, 400, 160)
-    b.rect(28, 378, 420, 86, fill=COLORS["white"], stroke=COLORS["border"], sw=1.2, r=8)
+    b.rect(28, 176, 420, 190, fill=COLORS["white"], stroke=COLORS["border"], sw=1.5, r=8)
+    b.icon("topology", 38, 187, 400, 166)
+    b.rect(28, 384, 420, 92, fill=COLORS["white"], stroke=COLORS["border"], sw=1.2, r=8)
     legend_items = [
-        ("legend_ch", "CH", 46, 392),
-        ("legend_m", "M", 106, 392),
-        ("legend_gw", "GW", 166, 392),
-        ("legend_bs", "BS", 238, 392),
-        ("line_intra", "intra", 314, 393),
-        ("line_uplink", "uplink", 314, 420),
-        ("line_skeleton", "skeleton", 314, 447),
+        ("legend_ch", "CH", 46, 400),
+        ("legend_m", "M", 106, 400),
+        ("legend_gw", "GW", 166, 400),
+        ("legend_bs", "BS", 238, 400),
+        ("line_intra", "intra", 314, 400),
+        ("line_uplink", "uplink", 314, 429),
+        ("line_skeleton", "skeleton", 314, 458),
     ]
     for icon, label, x, y in legend_items:
         if icon.startswith("line"):
             b.icon(icon, x, y - 4, 56, 18)
-            b.text(TextSpec(label, x + 62, y - 8, 76, 26, size=16, align="left"))
+            b.text(TextSpec(label, x + 62, y - 8, 76, 26, size=18, align="left"))
         else:
             b.icon(icon, x, y, 34, 34)
-            b.text(TextSpec(label, x - 6, y + 37, 46, 20, size=17, bold=True))
+            b.text(TextSpec(label, x - 6, y + 39, 46, 22, size=18, bold=True))
 
     # Phase 1 process cards.
     process = [
-        (28, 486, COLORS["lavender"], "1", "Round state", [("clock", "time slot"), ("battery", "residual\u00a0energy"), ("neighborhood", "neighborhood")]),
-        (28, 620, COLORS["peach"], "2", "CH scoring", [("battery", "energy"), ("star", "centrality"), ("bars", "link\u00a0quality")]),
-        (28, 754, COLORS["bluegray"], "3", "Cluster association", [("join", "join CH"), ("balance", "balance"), ("table", "update")]),
+        (28, 498, COLORS["lavender"], "1", "Round state", [("clock", "time slot"), ("battery", "residual\u00a0energy"), ("neighborhood", "neighborhood")]),
+        (28, 650, COLORS["peach"], "2", "CH scoring", [("battery", "energy"), ("star", "centrality"), ("bars", "link\u00a0quality")]),
+        (28, 802, COLORS["bluegray"], "3", "Cluster association", [("join", "join CH"), ("balance", "balance"), ("table", "update")]),
     ]
     for x, y, fill, num, title, items in process:
-        b.rect(x, y, 420, 114, fill=fill, stroke=COLORS["border"], sw=1.2, r=10, opacity=0.45)
-        b.rect(x + 10, y + 12, 40, 40, fill=COLORS["white"], stroke=COLORS["blue"], sw=1.5, r=20)
-        b.text(TextSpec(num, x + 10, y + 12, 40, 40, size=22, bold=True))
-        b.text(TextSpec(title, x + 70, y + 10, 270, 30, size=23, bold=True))
+        b.rect(x, y, 420, 134, fill=fill, stroke=COLORS["border"], sw=1.3, r=8)
+        b.rect(x + 12, y + 14, 44, 44, fill=COLORS["white"], stroke=COLORS["blue"], sw=1.6, r=22)
+        b.text(TextSpec(num, x + 12, y + 14, 44, 44, size=24, bold=True))
+        b.text(TextSpec(title, x + 72, y + 12, 270, 34, size=25, bold=True))
         if title == "CH scoring":
-            b.rect(x + 330, y + 14, 82, 28, fill=COLORS["white"], stroke=COLORS["blue"], sw=1.0, r=14)
-            b.text(TextSpec("Elect CH", x + 330, y + 16, 82, 24, size=14, bold=True))
+            b.rect(x + 322, y + 15, 90, 30, fill=COLORS["white"], stroke=COLORS["blue"], sw=1.2, r=15)
+            b.text(TextSpec("Elect CH", x + 322, y + 17, 90, 26, size=16, bold=True))
         for idx, (icon, label) in enumerate(items):
             ix = x + 72 + idx * 122
-            b.icon(icon, ix, y + 42, 42, 42)
-            b.text(TextSpec(label, ix - 36, y + 82, 114, 24, size=16))
+            b.icon(icon, ix, y + 54, 46, 46)
+            b.text(TextSpec(label, ix - 38, y + 100, 118, 26, size=18))
             if idx:
-                b.line(x + 48 + idx * 122, y + 42, x + 48 + idx * 122, y + 94, color=COLORS["border"], sw=1.4, dashed=True)
+                b.line(x + 48 + idx * 122, y + 54, x + 48 + idx * 122, y + 116, color=COLORS["border"], sw=1.4, dashed=True)
 
     # Phase 2.
     b.rect(496, 182, 448, 52, fill=COLORS["white"], stroke=COLORS["border"], sw=1.1, r=10)
-    b.text(TextSpec("Inputs:", 520, 192, 86, 30, size=20, bold=True, align="left"))
-    b.text(TextSpec("energy \u00b7 link quality \u00b7 density \u00b7 buffer", 606, 192, 308, 30, size=18, align="left"))
-    b.rect(496, 260, 448, 250, fill=COLORS["lavender"], stroke=COLORS["border"], sw=1.3, r=12, opacity=0.35)
-    b.rect(560, 274, 42, 42, fill=COLORS["white"], stroke=COLORS["blue"], sw=1.5, r=20)
-    b.text(TextSpec("1", 560, 274, 42, 42, size=22, bold=True))
-    b.text(TextSpec("CAS mode selector", 620, 273, 244, 30, size=23, bold=True))
-    b.text(TextSpec("select one mode", 632, 307, 206, 24, size=17))
+    b.text(TextSpec("Inputs:", 520, 192, 86, 30, size=22, bold=True, align="left"))
+    b.text(TextSpec("energy \u00b7 link quality \u00b7 density \u00b7 buffer", 610, 192, 318, 30, size=18, align="left"))
+    b.rect(496, 260, 448, 276, fill=COLORS["lavender"], stroke=COLORS["border"], sw=1.4, r=8)
+    b.rect(558, 278, 46, 46, fill=COLORS["white"], stroke=COLORS["blue"], sw=1.6, r=23)
+    b.text(TextSpec("1", 558, 278, 46, 46, size=24, bold=True))
+    b.text(TextSpec("CAS mode selector", 620, 276, 244, 34, size=25, bold=True))
+    b.text(TextSpec("select one mode", 632, 314, 206, 26, size=19))
     mode_cards = [
         (508, "Direct", "M\u00a0\u2192\u00a0CH", "route_direct_mode"),
         (634, "Chain", "M\u00a0\u2192\u00a0M\u00a0\u2192\u00a0CH", "route_chain_mode"),
         (760, "Two-hop", "M\u00a0\u2192\u00a0R\u00a0\u2192\u00a0CH", "route_twohop_mode"),
     ]
     for x, title, label, icon in mode_cards:
-        b.rect(x, 344, 116, 146, fill=COLORS["white"], stroke=COLORS["border"], sw=1.2, r=9)
-        b.text(TextSpec(title, x + 8, 358, 100, 28, size=21, bold=True))
-        b.text(TextSpec(label, x + 4, 397, 108, 24, size=16, bold=True))
-        b.icon(icon, x + 8, 430, 100, 42)
+        b.rect(x, 350, 116, 152, fill=COLORS["white"], stroke=COLORS["border"], sw=1.2, r=8)
+        b.text(TextSpec(title, x + 8, 364, 100, 30, size=22, bold=True))
+        b.text(TextSpec(label, x + 4, 404, 108, 26, size=17, bold=True))
+        b.icon(icon, x + 8, 438, 100, 44)
     for idx, (icon, label) in enumerate([("role_m", "M"), ("role_r", "R"), ("role_ch", "CH")]):
         cx = 625 + idx * 64
-        b.icon(icon, cx, 480, 24, 24)
-        b.text(TextSpec(label, cx + 25, 480, 26, 22, size=12, color=COLORS["secondary"], bold=True, align="left"))
-    b.line(720, 510, 720, 540, color=COLORS["line"], sw=2.2, arrow=True)
-    b.rect(496, 552, 448, 166, fill=COLORS["bluegray"], stroke=COLORS["border"], sw=1.2, r=10, opacity=0.55)
-    b.rect(548, 566, 42, 42, fill=COLORS["white"], stroke=COLORS["blue"], sw=1.5, r=20)
-    b.text(TextSpec("2", 548, 566, 42, 42, size=22, bold=True))
-    b.text(TextSpec("Intra-cluster forwarding", 604, 566, 272, 30, size=23, bold=True))
-    b.icon("forwarding", 566, 606, 320, 102)
-    b.line(720, 718, 720, 746, color=COLORS["line"], sw=2.2, arrow=True)
-    b.rect(496, 760, 448, 142, fill=COLORS["green"], stroke=COLORS["border"], sw=1.2, r=10, opacity=0.55)
-    b.rect(580, 774, 42, 42, fill=COLORS["white"], stroke=COLORS["green"], sw=1.5, r=20)
-    b.text(TextSpec("3", 580, 774, 42, 42, size=22, bold=True))
-    b.text(TextSpec("CH aggregation", 642, 774, 220, 30, size=23, bold=True))
+        b.icon(icon, cx, 502, 25, 25)
+        b.text(TextSpec(label, cx + 26, 502, 28, 23, size=15, color=COLORS["secondary"], bold=True, align="left"))
+    b.line(720, 536, 720, 564, color=COLORS["line"], sw=2.3, arrow=True)
+    b.rect(496, 574, 448, 188, fill=COLORS["bluegray"], stroke=COLORS["border"], sw=1.3, r=8)
+    b.rect(546, 590, 46, 46, fill=COLORS["white"], stroke=COLORS["blue"], sw=1.6, r=23)
+    b.text(TextSpec("2", 546, 590, 46, 46, size=24, bold=True))
+    b.text(TextSpec("Intra-cluster forwarding", 604, 590, 282, 34, size=25, bold=True))
+    b.icon("forwarding", 560, 638, 326, 108)
+    b.line(720, 762, 720, 790, color=COLORS["line"], sw=2.3, arrow=True)
+    b.rect(496, 802, 448, 164, fill=COLORS["green"], stroke=COLORS["border"], sw=1.3, r=8)
+    b.rect(580, 818, 46, 46, fill=COLORS["white"], stroke=COLORS["green"], sw=1.6, r=23)
+    b.text(TextSpec("3", 580, 818, 46, 46, size=24, bold=True))
+    b.text(TextSpec("CH aggregation", 642, 818, 220, 34, size=25, bold=True))
     for idx, (icon, label) in enumerate([("dedup", "deduplicate"), ("fuse", "fuse"), ("buffer", "buffer")]):
         ix = 548 + idx * 135
-        b.icon(icon, ix, 824, 54, 54)
-        b.text(TextSpec(label, ix - 20, 876, 94, 22, size=16))
+        b.icon(icon, ix, 864, 58, 58)
+        b.text(TextSpec(label, ix - 24, 924, 106, 24, size=18))
         if idx:
-            b.line(ix - 38, 818, ix - 38, 890, color=COLORS["border"], sw=1.2, dashed=True)
+            b.line(ix - 38, 858, ix - 38, 946, color=COLORS["border"], sw=1.2, dashed=True)
 
     # Phase 3 decision selector.
-    b.text(TextSpec("pre-transmission route selection", 1026, 170, 360, 30, size=20, italic=True))
+    b.text(TextSpec("pre-transmission route selection", 1026, 170, 360, 32, size=22, italic=True))
     spine_x = 1014
-    b.line(spine_x, 264, spine_x, 828, color=COLORS["line"], sw=2.2)
+    b.line(spine_x, 264, spine_x, 902, color=COLORS["line"], sw=2.3)
     q_specs = [
-        ("Q1", "Direct\nacceptable?", 238, 260, 1194, 220, 218, 144, "Direct uplink", "CH \u2192 BS", "route_direct_uplink", COLORS["white"], COLORS["border"], "", ""),
-        ("Q2", "Gateway\nvalid?", 438, 458, 1172, 388, 244, 188, "Gateway-assisted\nuplink", "CH \u2192 GW \u2192 BS", "route_gateway", COLORS["bluegray"], COLORS["blue"], "main gain", COLORS["blue"]),
-        ("Q3", "Skeleton\npath valid?", 640, 666, 1190, 604, 222, 176, "Skeleton reserve", "CH \u2192 CH \u2192 BS", "route_skeleton", COLORS["bluegray"], COLORS["border"], "reserve", COLORS["line"]),
+        ("Q1", "Direct\nacceptable?", 238, 262, 1190, 220, 222, 150, "Direct uplink", "CH \u2192 BS", "route_direct_uplink", COLORS["white"], COLORS["border"], "", ""),
+        ("Q2", "Gateway\nvalid?", 438, 458, 1172, 392, 244, 206, "Gateway-assisted\nuplink", "CH \u2192 GW \u2192 BS", "route_gateway", COLORS["bluegray"], COLORS["blue"], "main gain", COLORS["blue"]),
+        ("Q3", "Skeleton\npath valid?", 656, 688, 1190, 626, 222, 178, "Skeleton reserve", "CH \u2192 CH \u2192 BS", "route_skeleton", COLORS["bluegray"], COLORS["border"], "reserve", COLORS["line"]),
     ]
     for q, label, qy, arrow_y, card_x, card_y, card_w, card_h, title, route_label, icon, fill, stroke, badge, badge_color in q_specs:
-        b.rect(spine_x - 24, qy - 24, 48, 48, fill=COLORS["white"], stroke=COLORS["blue"], sw=1.5, r=24)
-        b.text(TextSpec(q, spine_x - 24, qy - 24, 48, 48, size=18, bold=True))
-        b.text(TextSpec(label, spine_x + 36, qy - 26, 92, 54, size=16, align="left"))
-        b.text(TextSpec("Yes", card_x - 58, arrow_y - 31, 44, 22, size=16))
+        b.rect(spine_x - 25, qy - 25, 50, 50, fill=COLORS["white"], stroke=COLORS["blue"], sw=1.6, r=25)
+        b.text(TextSpec(q, spine_x - 25, qy - 25, 50, 50, size=20, bold=True))
+        b.text(TextSpec(label, spine_x + 30, qy - 27, 90, 58, size=18, align="left"))
+        b.text(TextSpec("Yes", card_x - 42, arrow_y - 34, 40, 24, size=18))
         b.line(card_x - 48, arrow_y, card_x - 10, arrow_y, color=COLORS["line"], sw=2, arrow=True)
         ch = card_h
         sw = 3.0 if title.startswith("Gateway") else 1.3
-        b.rect(card_x, card_y, card_w, ch, fill=fill, stroke=stroke, sw=sw, r=10, opacity=0.55 if fill != COLORS["white"] else 1)
+        b.rect(card_x, card_y, card_w, ch, fill=fill, stroke=stroke, sw=sw, r=8)
         title_h = 46 if "\n" in title else 30
-        b.text(TextSpec(title, card_x + 10, card_y + 10, card_w - 20, title_h, size=18 if title.startswith("Gateway") else 20, bold=True))
-        b.icon(icon, card_x + 14, card_y + 54, card_w - 28, 64)
-        b.text(TextSpec(route_label, card_x + 12, card_y + 108, card_w - 24, 30, size=22, color=COLORS["blue"], bold=True))
+        b.text(TextSpec(title, card_x + 10, card_y + 10, card_w - 20, title_h, size=20 if title.startswith("Gateway") else 22, bold=True))
+        b.icon(icon, card_x + 14, card_y + 58, card_w - 28, 68)
+        b.text(TextSpec(route_label, card_x + 12, card_y + 118, card_w - 24, 32, size=24, color=COLORS["blue"], bold=True))
         if badge:
             if badge == "reserve":
-                b.badge(card_x + (card_w - 86) / 2, card_y + ch - 32, 86, 24, badge, COLORS["line"], COLORS["line"], text_color=COLORS["white"])
+                b.badge(card_x + (card_w - 92) / 2, card_y + ch - 34, 92, 26, badge, COLORS["line"], COLORS["line"], text_color=COLORS["white"])
             else:
-                b.badge(card_x + (card_w - 100) / 2, card_y + ch - 40, 100, 28, badge, badge_color, badge_color, text_color=COLORS["white"])
-    b.text(TextSpec("No", spine_x + 20, 342, 44, 22, size=16))
-    b.line(spine_x, 284, spine_x, 414, color=COLORS["line"], sw=2, arrow=True)
-    b.text(TextSpec("No", spine_x + 20, 544, 44, 22, size=16))
-    b.line(spine_x, 486, spine_x, 616, color=COLORS["line"], sw=2, arrow=True)
-    b.text(TextSpec("No", spine_x + 20, 746, 44, 22, size=16))
-    b.line(spine_x, 688, spine_x, 848, color=COLORS["line"], sw=2)
-    b.line(spine_x, 848, 1190, 848, color=COLORS["line"], sw=2, arrow=True)
-    b.rect(1190, 792, 222, 160, fill=COLORS["yellow"], stroke=COLORS["border"], sw=1.3, r=10, opacity=0.72)
-    b.text(TextSpec("One-shot fallback", 1202, 806, 198, 28, size=20, bold=True))
-    b.icon("route_fallback", 1204, 842, 194, 62)
-    b.text(TextSpec("CH \u2192 BS", 1202, 896, 198, 30, size=22, color=COLORS["blue"], bold=True))
-    b.badge(1238, 918, 126, 28, "single attempt", COLORS["yellow"], COLORS["border"])
-
-    # Bottom note.
-    b.rect(24, 980, 1392, 58, fill=COLORS["white"], stroke=COLORS["blue"], sw=1.4, r=8)
-    b.icon("shield", 356, 985, 50, 50)
-    b.text(TextSpec("Strict mode:", 430, 994, 170, 34, size=26, bold=True, align="left"))
-    b.text(TextSpec("no retransmission; no power step-up", 600, 994, 420, 34, size=22, align="left"))
+                b.badge(card_x + (card_w - 108) / 2, card_y + ch - 42, 108, 30, badge, badge_color, badge_color, text_color=COLORS["white"])
+    b.text(TextSpec("No", spine_x + 20, 342, 44, 24, size=18))
+    b.line(spine_x, 288, spine_x, 414, color=COLORS["line"], sw=2, arrow=True)
+    b.text(TextSpec("No", spine_x + 20, 544, 44, 24, size=18))
+    b.line(spine_x, 488, spine_x, 632, color=COLORS["line"], sw=2, arrow=True)
+    b.text(TextSpec("No", spine_x + 20, 762, 44, 24, size=18))
+    b.line(spine_x, 682, spine_x, 916, color=COLORS["line"], sw=2)
+    b.line(spine_x, 916, 1190, 916, color=COLORS["line"], sw=2, arrow=True)
+    b.rect(1190, 840, 222, 170, fill=COLORS["yellow"], stroke=COLORS["border"], sw=1.3, r=8)
+    b.text(TextSpec("One-shot fallback", 1202, 856, 198, 30, size=22, bold=True))
+    b.icon("route_fallback", 1204, 898, 194, 62)
+    b.text(TextSpec("CH \u2192 BS", 1202, 952, 198, 32, size=24, color=COLORS["blue"], bold=True))
+    b.badge(1238, 976, 126, 28, "single attempt", COLORS["yellow"], COLORS["border"])
 
     return b
 
 
 def write_manifest(icon_names: list[str]) -> None:
     lines = [
-        "# AERIS Round Pipeline Figure v2",
+        "# AERIS Round Pipeline Figure v3",
         "",
         "Generated by `scripts/build_aeris_round_pipeline_drawio.py`.",
+        "The default output directory is the active LCN Overleaf package: `overleaf_upload_ready_20260501/generated/`.",
         "",
         "Artifacts:",
         f"- Draw.io source: `{DRAWIO_PATH.relative_to(ROOT).as_posix()}`",
@@ -660,6 +658,8 @@ def write_manifest(icon_names: list[str]) -> None:
         "- Every visible label is a separate draw.io text cell.",
         "- The QA preview uses HTML text boxes over the text-free SVG graphics layer; no full-figure SVG with text is emitted.",
         "- Figure uses the requested 1440 x 1080 canvas and fixed palette.",
+        "- Colored cards use the requested HEX fills directly, without transparency dilution.",
+        "- The previous bottom Strict-mode note bar has been removed.",
         "- Gateway-assisted uplink is emphasized; Skeleton and fallback remain secondary.",
         "- No Freepik asset is embedded in this revision; the icon set is generated locally to avoid attribution ambiguity in the submission PDF.",
         "",
