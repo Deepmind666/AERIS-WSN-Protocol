@@ -12,14 +12,14 @@ Artifacts:
 - Text-free SVG icon directory: `overleaf_upload_ready_20260501/generated/icons/aeris_round_pipeline`
 
 Rules applied:
-- Every non-text graphical element is produced in a text-free SVG graphics layer.
-- Every icon asset is also saved as a standalone text-free SVG.
+- Every visible non-text graphical element is emitted as a text-free SVG image cell in the draw.io source, except for the locked white page background.
+- Reusable icon assets are also saved as standalone text-free SVG files.
 - Every visible label is a separate draw.io text cell.
-- The QA preview uses HTML text boxes over the text-free SVG graphics layer; no full-figure SVG with text is emitted.
+- The QA preview uses positioned SVG image elements plus HTML text boxes; no full-figure SVG with embedded text is emitted.
 - Figure uses the requested 1440 x 1080 canvas.
 - Palette v4 uses a restrained academic scheme: Okabe-Ito blue/sky-blue/green/orange accents and Paul-Tol-style low-chroma tints for labeled cells.
 - Text uses Arial in the draw.io source and an Arial/Helvetica fallback stack in the PDF preview export.
-- Common process icons use a consistent Lucide stroke family; protocol-specific route mini-diagrams are decomposed into atomic SVG image cells so individual nodes and arrows remain editable in draw.io.
+- Common process icons use a consistent Lucide stroke family; cards, number circles, separators, arrows, icons, and route mini-diagrams are decomposed into movable SVG image cells.
 - The previous bottom Strict-mode note bar has been removed.
 - Gateway-assisted uplink is emphasized; Skeleton and fallback remain secondary.
 - No Freepik asset is embedded in this revision; the icon set is generated locally to avoid attribution ambiguity in the submission PDF.

@@ -14,7 +14,6 @@ import re
 from dataclasses import dataclass
 from html import escape
 from pathlib import Path
-from urllib.parse import quote
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -270,9 +269,10 @@ def atom_row_width(parts: list[tuple[str, float, float]]) -> float:
 
 
 def place_atom_row(builder: FigureBuilder, x: float, y: float, parts: list[tuple[str, float, float]]) -> None:
+    row_h = max(h for _, _, h in parts)
     cursor = x
     for name, w, h in parts:
-        builder.image(name, cursor, y, w, h)
+        builder.image(name, cursor, y + (row_h - h) / 2, w, h)
         cursor += w
 
 
@@ -424,30 +424,9 @@ class FigureBuilder:
             f"        </mxCell>"
         )
 
-    def rect(self, x: float, y: float, w: float, h: float, fill: str = COLORS["white"], stroke: str = COLORS["border"], sw: float = 1.2, r: int = 8, dashed: bool = False, opacity: float = 1.0) -> None:
-        dash = ' stroke-dasharray="8 6"' if dashed else ""
-        opacity_attr = f' fill-opacity="{opacity}"' if opacity < 1 else ""
-        self.graphics.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{r}" fill="{fill}"{opacity_attr} stroke="{stroke}" stroke-width="{sw}"{dash}/>')
-
-    def line(self, x1: float, y1: float, x2: float, y2: float, color: str = COLORS["line"], sw: float = 2, dashed: bool = False, arrow: bool = False) -> None:
-        cid = self._id("line")
-        direction = "east" if abs(x2 - x1) >= abs(y2 - y1) else "south"
-        style = f"shape=line;html=1;strokeColor={color};strokeWidth={sw};direction={direction};"
-        if dashed:
-            style += "dashed=1;dashPattern=8 6;"
-        if arrow:
-            style += "endArrow=blockThin;endFill=1;endSize=8;"
-        dash = ' stroke-dasharray="8 6"' if dashed else ""
-        marker = f' marker-end="url(#arrow-{color[1:]})"' if arrow else ""
-        self.graphics.append(f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{color}" stroke-width="{sw}"{dash}{marker}/>')
-
-    def icon(self, name: str, x: float, y: float, w: float, h: float) -> None:
-        b64 = base64.b64encode(self.icons[name].encode("utf-8")).decode("ascii")
-        self.graphics.append(f'<image x="{x}" y="{y}" width="{w}" height="{h}" href="data:image/svg+xml;base64,{b64}"/>')
-
-    def image(self, name: str, x: float, y: float, w: float, h: float) -> None:
+    def image_svg(self, svg: str, x: float, y: float, w: float, h: float) -> None:
         cid = self._id("img")
-        b64 = base64.b64encode(self.icons[name].encode("utf-8")).decode("ascii")
+        b64 = base64.b64encode(svg.encode("utf-8")).decode("ascii")
         style = (
             "shape=image;html=1;imageAspect=0;aspect=fixed;"
             f"strokeColor=none;fillColor=none;image=data:image/svg+xml;base64,{b64};"
@@ -461,6 +440,57 @@ class FigureBuilder:
             f'<img alt="" src="data:image/svg+xml;base64,{b64}" '
             f'style="position:absolute;left:{x:.1f}px;top:{y:.1f}px;width:{w:.1f}px;height:{h:.1f}px;z-index:1;" />'
         )
+
+    def rect(self, x: float, y: float, w: float, h: float, fill: str = COLORS["white"], stroke: str = COLORS["border"], sw: float = 1.2, r: int = 8, dashed: bool = False, opacity: float = 1.0) -> None:
+        dash = ' stroke-dasharray="8 6"' if dashed else ""
+        opacity_attr = f' fill-opacity="{opacity}"' if opacity < 1 else ""
+        inset = sw / 2
+        body = (
+            f'<rect x="{inset:.2f}" y="{inset:.2f}" width="{max(0.1, w - sw):.2f}" height="{max(0.1, h - sw):.2f}" '
+            f'rx="{max(0, r - inset):.2f}" fill="{fill}"{opacity_attr} stroke="{stroke}" stroke-width="{sw}"{dash}/>'
+        )
+        self.image_svg(svg_doc(w, h, body, viewbox=f"0 0 {w} {h}"), x, y, w, h)
+
+    def ellipse(self, x: float, y: float, w: float, h: float, fill: str = COLORS["white"], stroke: str = COLORS["border"], sw: float = 1.2, dashed: bool = False, opacity: float = 1.0) -> None:
+        dash = ' stroke-dasharray="8 6"' if dashed else ""
+        opacity_attr = f' fill-opacity="{opacity}"' if opacity < 1 else ""
+        inset = sw / 2
+        body = (
+            f'<ellipse cx="{w / 2:.2f}" cy="{h / 2:.2f}" rx="{max(0.1, (w - sw) / 2):.2f}" ry="{max(0.1, (h - sw) / 2):.2f}" '
+            f'fill="{fill}"{opacity_attr} stroke="{stroke}" stroke-width="{sw}"{dash}/>'
+        )
+        self.image_svg(svg_doc(w, h, body, viewbox=f"0 0 {w} {h}"), x, y, w, h)
+
+    def local_path(self, x: float, y: float, w: float, h: float, d: str, color: str = COLORS["line"], sw: float = 2, dashed: bool = False, fill: str = "none") -> None:
+        dash = ' stroke-dasharray="8 6"' if dashed else ""
+        body = f'<path d="{d}" stroke="{color}" stroke-width="{sw}" fill="{fill}"{dash}/>'
+        self.image_svg(svg_doc(w, h, body, viewbox=f"0 0 {w} {h}"), x, y, w, h)
+
+    def line(self, x1: float, y1: float, x2: float, y2: float, color: str = COLORS["line"], sw: float = 2, dashed: bool = False, arrow: bool = False) -> None:
+        dash = ' stroke-dasharray="8 6"' if dashed else ""
+        pad = 12 if arrow else max(3, sw + 2)
+        left = min(x1, x2) - pad
+        top = min(y1, y2) - pad
+        w = abs(x2 - x1) + pad * 2
+        h = abs(y2 - y1) + pad * 2
+        lx1, ly1 = x1 - left, y1 - top
+        lx2, ly2 = x2 - left, y2 - top
+        marker = ""
+        defs = ""
+        if arrow:
+            defs = (
+                '<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8.8" refY="5" '
+                f'orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L10,5 L0,10 Z" fill="{color}"/></marker></defs>'
+            )
+            marker = ' marker-end="url(#arrow)"'
+        body = f'{defs}<line x1="{lx1:.2f}" y1="{ly1:.2f}" x2="{lx2:.2f}" y2="{ly2:.2f}" stroke="{color}" stroke-width="{sw}"{dash}{marker}/>'
+        self.image_svg(svg_doc(w, h, body, viewbox=f"0 0 {w} {h}"), left, top, w, h)
+
+    def icon(self, name: str, x: float, y: float, w: float, h: float) -> None:
+        self.image(name, x, y, w, h)
+
+    def image(self, name: str, x: float, y: float, w: float, h: float) -> None:
+        self.image_svg(self.icons[name], x, y, w, h)
 
     def text(self, spec: TextSpec) -> None:
         cid = self._id("txt")
@@ -500,10 +530,10 @@ class FigureBuilder:
 
     def save_drawio(self) -> None:
         graphics_svg = self.graphics_svg()
-        encoded = quote(graphics_svg, safe="")
+        encoded = base64.b64encode(graphics_svg.encode("utf-8")).decode("ascii")
         bg_style = (
             "shape=image;html=1;imageAspect=0;aspect=fixed;locked=1;"
-            f"strokeColor=none;fillColor=none;image=data:image/svg+xml,{encoded};"
+            f"strokeColor=none;fillColor=none;image=data:image/svg+xml;base64,{encoded};"
         )
         bg_cell = (
             f'        <mxCell id="graphics_layer" value="" style="{escape(bg_style)}" vertex="1" parent="1">\n'
@@ -581,6 +611,63 @@ class FigureBuilder:
         )
 
 
+def draw_topology_atoms(b: FigureBuilder) -> None:
+    left, top = 38, 187
+    sx, sy = 400 / 420, 1.0
+
+    def px(v: float) -> float:
+        return left + v * sx
+
+    def py(v: float) -> float:
+        return top + v * sy
+
+    b.ellipse(px(24), py(20), 176 * sx, 116, fill=COLORS["lavender"], stroke=COLORS["border"], sw=2, dashed=True, opacity=0.38)
+    b.ellipse(px(168), py(38), 152 * sx, 108, fill=COLORS["green"], stroke=COLORS["border"], sw=2, dashed=True, opacity=0.32)
+
+    ch1 = (112, 78)
+    ch2 = (232, 96)
+    m1 = [(60, 30), (56, 78), (77, 125), (136, 26), (156, 62), (148, 126)]
+    m2 = [(192, 52), (190, 126), (282, 58), (270, 132)]
+    for x, y in m1:
+        b.line(px(ch1[0]), py(ch1[1]), px(x), py(y), color=COLORS["line"], sw=2.3, dashed=True)
+    for x, y in m2:
+        b.line(px(ch2[0]), py(ch2[1]), px(x), py(y), color=COLORS["line"], sw=2.3, dashed=True)
+    b.line(px(ch1[0]), py(ch1[1]), px(ch2[0]), py(ch2[1]), color=COLORS["line"], sw=2.7)
+    b.line(px(ch2[0]), py(ch2[1]), px(310), py(86), color=COLORS["blue"], sw=4)
+    b.line(px(328), py(86), px(397), py(67), color=COLORS["blue"], sw=4)
+    b.local_path(px(270), py(103), px(397) - px(270) + 8, 52, "M0 29 C32 51 78 43 129 5", color=COLORS["blue"], sw=2.8, dashed=True)
+
+    for x, y in m1 + m2:
+        b.image("route_m", px(x) - 11, py(y) - 11, 22, 22)
+    b.image("route_m", px(316) - 11, py(144) - 11, 22, 22)
+    b.image("route_ch", px(ch1[0]) - 14, py(ch1[1]) - 14, 28, 28)
+    b.image("route_ch", px(ch2[0]) - 14, py(ch2[1]) - 14, 28, 28)
+    b.image("route_gw", px(320) - 15, py(86) - 15, 30, 30)
+    b.image("route_bs", px(397) - 23, py(102) - 34, 46, 68)
+
+
+def draw_forwarding_atoms(b: FigureBuilder) -> None:
+    left, top = 560, 638
+    sx, sy = 326 / 320, 108 / 156
+
+    def px(v: float) -> float:
+        return left + v * sx
+
+    def py(v: float) -> float:
+        return top + v * sy
+
+    center = (150, 78)
+    members = [(62, 28), (42, 78), (72, 125), (250, 28), (278, 78), (238, 125)]
+    for x, y in members:
+        start_x = x + (13 if x < center[0] else -13)
+        end_x = center[0] + (-23 if x < center[0] else 23)
+        b.line(px(start_x), py(y), px(end_x), py(center[1]), color=COLORS["line"], sw=3, dashed=True, arrow=True)
+    for x, y in members:
+        b.image("route_m", px(x) - 12, py(y) - 12, 24, 24)
+    b.image("route_ch", px(center[0]) - 18, py(center[1]) - 18, 36, 36)
+    b.local_path(px(center[0]) - 36, py(center[1]) - 44, 72, 38, "M20 24 C30 14 42 14 52 24 M12 12 C28 -2 46 -2 60 12", color=COLORS["blue"], sw=3)
+
+
 def build_figure(icons: dict[str, str]) -> FigureBuilder:
     b = FigureBuilder(icons)
 
@@ -604,7 +691,7 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
 
     # Phase 1 topology and legend.
     b.rect(28, 176, 420, 190, fill=COLORS["white"], stroke=COLORS["border"], sw=1.5, r=8)
-    b.icon("topology", 38, 187, 400, 166)
+    draw_topology_atoms(b)
     b.rect(28, 384, 420, 92, fill=COLORS["white"], stroke=COLORS["border"], sw=1.2, r=8)
     legend_items = [
         ("legend_ch", "CH", 46, 400),
@@ -655,22 +742,22 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
     b.text(TextSpec("select one mode", 632, 313, 206, 28, size=20))
     mode_cards = [
         (
-            508,
+            536,
             "Direct",
             "M\u00a0\u2192\u00a0CH",
-            [("route_m", 18, 18), ("route_arrow_blue", 20, 12), ("route_ch", 18, 18)],
+            [("route_m", 22, 22), ("route_arrow_blue", 30, 14), ("route_ch", 22, 22)],
         ),
         (
-            634,
+            662,
             "Chain",
             "M\u00a0\u2192\u00a0M\u00a0\u2192\u00a0CH",
-            [("route_m", 18, 18), ("route_arrow_blue", 20, 12), ("route_m", 18, 18), ("route_arrow_blue", 20, 12), ("route_ch", 18, 18)],
+            [("route_m", 20, 20), ("route_arrow_blue", 26, 13), ("route_m", 20, 20), ("route_arrow_blue", 26, 13), ("route_ch", 20, 20)],
         ),
         (
-            760,
+            788,
             "Two-hop",
             "M\u00a0\u2192\u00a0R\u00a0\u2192\u00a0CH",
-            [("route_m", 18, 18), ("route_arrow_blue", 20, 12), ("route_r", 18, 18), ("route_arrow_blue", 20, 12), ("route_ch", 18, 18)],
+            [("route_m", 20, 20), ("route_arrow_blue", 26, 13), ("route_r", 20, 20), ("route_arrow_blue", 26, 13), ("route_ch", 20, 20)],
         ),
     ]
     for x, title, label, atoms in mode_cards:
@@ -688,7 +775,7 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
     b.rect(546, 590, 46, 46, fill=COLORS["white"], stroke=COLORS["blue"], sw=1.6, r=23)
     b.text(TextSpec("2", 546, 590, 46, 46, size=25, bold=True))
     b.text(TextSpec("Intra-cluster forwarding", 604, 588, 322, 36, size=25, bold=True))
-    b.icon("forwarding", 560, 638, 326, 108)
+    draw_forwarding_atoms(b)
     b.line(720, 762, 720, 790, color=COLORS["line"], sw=2.3, arrow=True)
     b.rect(496, 802, 448, 164, fill=COLORS["green"], stroke=COLORS["border"], sw=1.3, r=8)
     b.rect(580, 818, 46, 46, fill=COLORS["white"], stroke=COLORS["teal"], sw=1.6, r=23)
@@ -717,7 +804,7 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
             150,
             "Direct uplink",
             "CH \u2192 BS",
-            [("route_ch", 22, 22), ("route_arrow_blue", 28, 12), ("route_bs", 22, 32)],
+            [("route_ch", 28, 28), ("route_arrow_blue", 42, 16), ("route_bs", 28, 40)],
             COLORS["white"],
             COLORS["border"],
             "",
@@ -734,7 +821,7 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
             206,
             "Gateway-assisted\nuplink",
             "CH \u2192 GW \u2192 BS",
-            [("route_ch", 22, 22), ("route_arrow_blue", 24, 12), ("route_gw", 22, 22), ("route_arrow_blue", 24, 12), ("route_bs", 22, 32)],
+            [("route_ch", 28, 28), ("route_arrow_blue", 34, 16), ("route_gw", 28, 28), ("route_arrow_blue", 34, 16), ("route_bs", 28, 40)],
             COLORS["bluegray"],
             COLORS["blue"],
             "main gain",
@@ -751,7 +838,7 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
             178,
             "Skeleton reserve",
             "CH \u2192 CH \u2192 BS",
-            [("route_ch", 22, 22), ("route_arrow_blue_dashed", 24, 12), ("route_ch", 22, 22), ("route_arrow_blue_dashed", 24, 12), ("route_bs", 22, 32)],
+            [("route_ch", 28, 28), ("route_arrow_blue_dashed", 34, 16), ("route_ch", 28, 28), ("route_arrow_blue_dashed", 34, 16), ("route_bs", 28, 40)],
             COLORS["muted"],
             COLORS["border"],
             "reserve",
@@ -788,9 +875,8 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
     b.line(spine_x, 916, 1190, 916, color=COLORS["line"], sw=2, arrow=True)
     b.rect(1190, 840, 222, 170, fill=COLORS["yellow"], stroke=COLORS["border"], sw=1.3, r=8)
     b.text(TextSpec("One-shot fallback", 1200, 852, 202, 34, size=24, bold=True))
-    b.image("route_ch", 1267, 900, 22, 22)
-    b.image("route_arrow_line_dashed", 1289, 904, 24, 12)
-    b.image("route_bs", 1313, 894, 22, 32)
+    fallback_atoms = [("route_ch", 28, 28), ("route_arrow_line_dashed", 40, 16), ("route_bs", 28, 40)]
+    place_atom_row(b, 1252, 892, fallback_atoms)
     b.text(TextSpec("CH \u2192 BS", 1200, 938, 202, 34, size=23, color=COLORS["text"], bold=True))
     b.badge(1232, 978, 138, 30, "single attempt", COLORS["yellow"], COLORS["border"])
 
@@ -813,14 +899,14 @@ def write_manifest(icon_names: list[str]) -> None:
         f"- Text-free SVG icon directory: `{ICON_DIR.relative_to(ROOT).as_posix()}`",
         "",
         "Rules applied:",
-        "- Every non-text graphical element is produced in a text-free SVG graphics layer.",
-        "- Every icon asset is also saved as a standalone text-free SVG.",
+        "- Every visible non-text graphical element is emitted as a text-free SVG image cell in the draw.io source, except for the locked white page background.",
+        "- Reusable icon assets are also saved as standalone text-free SVG files.",
         "- Every visible label is a separate draw.io text cell.",
-        "- The QA preview uses HTML text boxes over the text-free SVG graphics layer; no full-figure SVG with text is emitted.",
+        "- The QA preview uses positioned SVG image elements plus HTML text boxes; no full-figure SVG with embedded text is emitted.",
         "- Figure uses the requested 1440 x 1080 canvas.",
         "- Palette v4 uses a restrained academic scheme: Okabe-Ito blue/sky-blue/green/orange accents and Paul-Tol-style low-chroma tints for labeled cells.",
         "- Text uses Arial in the draw.io source and an Arial/Helvetica fallback stack in the PDF preview export.",
-        "- Common process icons use a consistent Lucide stroke family; protocol-specific route mini-diagrams are decomposed into atomic SVG image cells so individual nodes and arrows remain editable in draw.io.",
+        "- Common process icons use a consistent Lucide stroke family; cards, number circles, separators, arrows, icons, and route mini-diagrams are decomposed into movable SVG image cells.",
         "- The previous bottom Strict-mode note bar has been removed.",
         "- Gateway-assisted uplink is emphasized; Skeleton and fallback remain secondary.",
         "- No Freepik asset is embedded in this revision; the icon set is generated locally to avoid attribution ambiguity in the submission PDF.",
