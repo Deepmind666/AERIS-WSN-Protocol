@@ -18,7 +18,7 @@ Rules applied:
 - The QA preview uses HTML text boxes over the text-free SVG graphics layer; no full-figure SVG with text is emitted.
 - Figure uses the requested 1440 x 1080 canvas.
 - Palette v4 uses a restrained academic scheme: Okabe-Ito blue/sky-blue/green/orange accents and Paul-Tol-style low-chroma tints for labeled cells.
-- Text uses Helvetica in the draw.io source and an Aptos/Segoe UI/Helvetica fallback stack in the PDF preview export.
+- Text uses Arial in the draw.io source and an Arial/Helvetica fallback stack in the PDF preview export.
 - Common process icons use a consistent Lucide stroke family; protocol-specific topology and route mini-diagrams remain custom SVG.
 - The previous bottom Strict-mode note bar has been removed.
 - Gateway-assisted uplink is emphasized; Skeleton and fallback remain secondary.

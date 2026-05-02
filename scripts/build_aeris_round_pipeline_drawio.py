@@ -54,8 +54,8 @@ COLORS = {
     "muted": "#EEF2F6",
 }
 
-DRAWIO_FONT = "Helvetica"
-CSS_FONT = "'Aptos','Segoe UI','Helvetica Neue',Arial,sans-serif"
+DRAWIO_FONT = "Arial"
+CSS_FONT = "'Arial','Helvetica Neue',Helvetica,sans-serif"
 
 
 def svg_doc(width: int, height: int, body: str, viewbox: str | None = None) -> str:
@@ -419,7 +419,7 @@ class FigureBuilder:
             f'          <mxGeometry x="{spec.x:.1f}" y="{spec.y:.1f}" width="{spec.w:.1f}" height="{spec.h:.1f}" as="geometry" />\n'
             f"        </mxCell>"
         )
-        weight = "650" if spec.bold else "400"
+        weight = "700" if spec.bold else "400"
         fstyle = "italic" if spec.italic else "normal"
         justify = {"left": "flex-start", "center": "center", "right": "flex-end"}.get(spec.align, "center")
         align_items = {"top": "flex-start", "middle": "center", "bottom": "flex-end"}.get(spec.valign, "center")
@@ -428,13 +428,13 @@ class FigureBuilder:
             f"position:absolute;left:{spec.x:.1f}px;top:{spec.y:.1f}px;width:{spec.w:.1f}px;height:{spec.h:.1f}px;"
             f"display:flex;align-items:{align_items};justify-content:{justify};text-align:{spec.align};"
             f"font-family:{CSS_FONT};font-size:{spec.size}px;font-weight:{weight};font-style:{fstyle};"
-            f"line-height:1.16;color:{spec.color};box-sizing:border-box;white-space:normal;letter-spacing:0;"
+            f"line-height:1.10;color:{spec.color};box-sizing:border-box;white-space:normal;letter-spacing:0;"
         )
         self.text_preview.append(f'<div class="label" style="{css}">{safe_value}</div>')
 
     def badge(self, x: float, y: float, w: float, h: float, label: str, fill: str, stroke: str, text_color: str = COLORS["text"]) -> None:
         self.rect(x, y, w, h, fill=fill, stroke=stroke, sw=1.0, r=16)
-        self.text(TextSpec(label, x, y + 1, w, h, size=16, color=text_color, bold=True))
+        self.text(TextSpec(label, x, y + 1, w, h, size=18, color=text_color, bold=True))
 
     def save_drawio(self) -> None:
         graphics_svg = self.graphics_svg()
@@ -521,7 +521,7 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
     b = FigureBuilder(icons)
 
     # Title and vertical phase guides.
-    b.text(TextSpec("AERIS round pipeline", 0, 18, W, 48, size=40, bold=True))
+    b.text(TextSpec("AERIS round pipeline", 0, 18, W, 50, size=42, bold=True))
     b.line(468, 78, 468, 1038, color=COLORS["border"], sw=2, dashed=True)
     b.line(966, 78, 966, 1038, color=COLORS["border"], sw=2, dashed=True)
 
@@ -534,8 +534,8 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
     for x, y, w, icon, phase, title, rule in headers:
         b.icon(icon, x + 22, y - 4, 68, 68)
         title_size = 24 if title.startswith("Intra") else 26
-        b.text(TextSpec(phase, x + 92, y - 2, w - 92, 32, size=30, bold=True))
-        b.text(TextSpec(title, x + 92, y + 36, w - 92, 32, size=title_size, bold=True))
+        b.text(TextSpec(phase, x + 92, y - 2, w - 92, 34, size=31, bold=True))
+        b.text(TextSpec(title, x + 92, y + 36, w - 92, 34, size=title_size + 1, bold=True))
         b.line(x, y + 84, x + w, y + 84, color=rule, sw=4)
 
     # Phase 1 topology and legend.
@@ -547,48 +547,48 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
         ("legend_m", "M", 106, 400),
         ("legend_gw", "GW", 166, 400),
         ("legend_bs", "BS", 238, 400),
-        ("line_intra", "intra", 314, 400),
-        ("line_uplink", "uplink", 314, 429),
-        ("line_skeleton", "skeleton", 314, 458),
+        ("line_intra", "intra", 296, 400),
+        ("line_uplink", "uplink", 296, 429),
+        ("line_skeleton", "skeleton", 296, 458),
     ]
     for icon, label, x, y in legend_items:
         if icon.startswith("line"):
             b.icon(icon, x, y - 4, 56, 18)
-            b.text(TextSpec(label, x + 62, y - 8, 76, 26, size=18, align="left"))
+            b.text(TextSpec(label, x + 62, y - 9, 88, 28, size=20, align="left"))
         else:
             b.icon(icon, x, y, 34, 34)
-            b.text(TextSpec(label, x - 6, y + 39, 46, 22, size=18, bold=True))
+            b.text(TextSpec(label, x - 8, y + 39, 50, 24, size=19, bold=True))
 
     # Phase 1 process cards.
     process = [
-        (28, 498, COLORS["lavender"], "1", "Round state", [("clock", "time slot"), ("battery", "residual\u00a0energy"), ("neighborhood", "neighborhood")]),
-        (28, 650, COLORS["peach"], "2", "CH scoring", [("battery", "energy"), ("star", "centrality"), ("bars", "link\u00a0quality")]),
+        (28, 498, COLORS["lavender"], "1", "Round state", [("clock", "time slot"), ("battery", "residual\nenergy"), ("neighborhood", "neighborhood")]),
+        (28, 650, COLORS["peach"], "2", "CH scoring", [("battery", "energy"), ("star", "centrality"), ("bars", "link\nquality")]),
         (28, 802, COLORS["bluegray"], "3", "Cluster association", [("join", "join CH"), ("balance", "balance"), ("table", "update")]),
     ]
     for x, y, fill, num, title, items in process:
         b.rect(x, y, 420, 134, fill=fill, stroke=COLORS["border"], sw=1.3, r=8)
         b.rect(x + 12, y + 14, 44, 44, fill=COLORS["white"], stroke=COLORS["blue"], sw=1.6, r=22)
-        b.text(TextSpec(num, x + 12, y + 14, 44, 44, size=24, bold=True))
-        b.text(TextSpec(title, x + 72, y + 12, 270, 34, size=25, bold=True))
+        b.text(TextSpec(num, x + 12, y + 14, 44, 44, size=25, bold=True))
+        b.text(TextSpec(title, x + 72, y + 10, 270, 36, size=27, bold=True))
         if title == "CH scoring":
             b.rect(x + 322, y + 15, 90, 30, fill=COLORS["white"], stroke=COLORS["blue"], sw=1.2, r=15)
-            b.text(TextSpec("Elect CH", x + 322, y + 17, 90, 26, size=16, bold=True))
+            b.text(TextSpec("Elect CH", x + 322, y + 16, 90, 28, size=18, bold=True))
         for idx, (icon, label) in enumerate(items):
             ix = x + 72 + idx * 122
             b.icon(icon, ix, y + 54, 46, 46)
-            b.text(TextSpec(label, ix - 38, y + 100, 118, 26, size=18))
+            b.text(TextSpec(label, ix - 40, y + 96, 126, 36, size=19))
             if idx:
                 b.line(x + 48 + idx * 122, y + 54, x + 48 + idx * 122, y + 116, color=COLORS["border"], sw=1.4, dashed=True)
 
     # Phase 2.
     b.rect(496, 182, 448, 52, fill=COLORS["white"], stroke=COLORS["border"], sw=1.1, r=10)
-    b.text(TextSpec("Inputs:", 520, 192, 86, 30, size=22, bold=True, align="left"))
-    b.text(TextSpec("energy \u00b7 link quality \u00b7 density \u00b7 buffer", 610, 192, 318, 30, size=18, align="left"))
+    b.text(TextSpec("Inputs:", 520, 191, 88, 32, size=24, bold=True, align="left"))
+    b.text(TextSpec("energy \u00b7 link quality \u00b7 density \u00b7 buffer", 612, 191, 318, 32, size=19, align="left"))
     b.rect(496, 260, 448, 276, fill=COLORS["lavender"], stroke=COLORS["border"], sw=1.4, r=8)
     b.rect(558, 278, 46, 46, fill=COLORS["white"], stroke=COLORS["blue"], sw=1.6, r=23)
-    b.text(TextSpec("1", 558, 278, 46, 46, size=24, bold=True))
-    b.text(TextSpec("CAS mode selector", 620, 276, 244, 34, size=25, bold=True))
-    b.text(TextSpec("select one mode", 632, 314, 206, 26, size=19))
+    b.text(TextSpec("1", 558, 278, 46, 46, size=25, bold=True))
+    b.text(TextSpec("CAS mode selector", 620, 274, 250, 36, size=27, bold=True))
+    b.text(TextSpec("select one mode", 632, 313, 206, 28, size=20))
     mode_cards = [
         (508, "Direct", "M\u00a0\u2192\u00a0CH", "route_direct_mode"),
         (634, "Chain", "M\u00a0\u2192\u00a0M\u00a0\u2192\u00a0CH", "route_chain_mode"),
@@ -596,33 +596,33 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
     ]
     for x, title, label, icon in mode_cards:
         b.rect(x, 350, 116, 152, fill=COLORS["white"], stroke=COLORS["border"], sw=1.2, r=8)
-        b.text(TextSpec(title, x + 8, 364, 100, 30, size=22, bold=True))
-        b.text(TextSpec(label, x + 4, 404, 108, 26, size=17, bold=True))
+        b.text(TextSpec(title, x + 8, 362, 100, 32, size=24, bold=True))
+        b.text(TextSpec(label, x + 2, 402, 112, 28, size=18, bold=True))
         b.icon(icon, x + 8, 438, 100, 44)
     for idx, (icon, label) in enumerate([("role_m", "M"), ("role_r", "R"), ("role_ch", "CH")]):
         cx = 625 + idx * 64
         b.icon(icon, cx, 502, 25, 25)
-        b.text(TextSpec(label, cx + 26, 502, 28, 23, size=15, color=COLORS["secondary"], bold=True, align="left"))
+        b.text(TextSpec(label, cx + 27, 501, 32, 25, size=17, color=COLORS["secondary"], bold=True, align="left"))
     b.line(720, 536, 720, 564, color=COLORS["line"], sw=2.3, arrow=True)
     b.rect(496, 574, 448, 188, fill=COLORS["bluegray"], stroke=COLORS["border"], sw=1.3, r=8)
     b.rect(546, 590, 46, 46, fill=COLORS["white"], stroke=COLORS["blue"], sw=1.6, r=23)
-    b.text(TextSpec("2", 546, 590, 46, 46, size=24, bold=True))
-    b.text(TextSpec("Intra-cluster forwarding", 604, 590, 322, 34, size=23, bold=True))
+    b.text(TextSpec("2", 546, 590, 46, 46, size=25, bold=True))
+    b.text(TextSpec("Intra-cluster forwarding", 604, 588, 322, 36, size=25, bold=True))
     b.icon("forwarding", 560, 638, 326, 108)
     b.line(720, 762, 720, 790, color=COLORS["line"], sw=2.3, arrow=True)
     b.rect(496, 802, 448, 164, fill=COLORS["green"], stroke=COLORS["border"], sw=1.3, r=8)
     b.rect(580, 818, 46, 46, fill=COLORS["white"], stroke=COLORS["teal"], sw=1.6, r=23)
-    b.text(TextSpec("3", 580, 818, 46, 46, size=24, bold=True))
-    b.text(TextSpec("CH aggregation", 642, 818, 220, 34, size=25, bold=True))
+    b.text(TextSpec("3", 580, 818, 46, 46, size=25, bold=True))
+    b.text(TextSpec("CH aggregation", 642, 816, 220, 36, size=27, bold=True))
     for idx, (icon, label) in enumerate([("dedup", "deduplicate"), ("fuse", "fuse"), ("buffer", "buffer")]):
         ix = 548 + idx * 135
         b.icon(icon, ix, 864, 58, 58)
-        b.text(TextSpec(label, ix - 24, 924, 106, 24, size=18))
+        b.text(TextSpec(label, ix - 30, 923, 118, 28, size=20))
         if idx:
             b.line(ix - 38, 858, ix - 38, 946, color=COLORS["border"], sw=1.2, dashed=True)
 
     # Phase 3 decision selector.
-    b.text(TextSpec("pre-transmission route selection", 1026, 170, 360, 32, size=22, italic=True))
+    b.text(TextSpec("pre-transmission route selection", 1012, 168, 390, 34, size=24, italic=True))
     spine_x = 1014
     b.line(spine_x, 264, spine_x, 902, color=COLORS["line"], sw=2.3)
     q_specs = [
@@ -632,34 +632,35 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
     ]
     for q, label, qy, arrow_y, card_x, card_y, card_w, card_h, title, route_label, icon, fill, stroke, badge, badge_color in q_specs:
         b.rect(spine_x - 25, qy - 25, 50, 50, fill=COLORS["white"], stroke=COLORS["blue"], sw=1.6, r=25)
-        b.text(TextSpec(q, spine_x - 25, qy - 25, 50, 50, size=20, bold=True))
-        b.text(TextSpec(label, spine_x + 30, qy - 27, 90, 58, size=18, align="left"))
-        b.text(TextSpec("Yes", 1140, arrow_y - 34, 36, 24, size=17, color=COLORS["secondary"]))
+        b.text(TextSpec(q, spine_x - 25, qy - 25, 50, 50, size=21, bold=True))
+        b.text(TextSpec(label, spine_x + 30, qy - 28, 100, 60, size=19, align="left"))
+        b.text(TextSpec("Yes", 1154, arrow_y - 35, 40, 26, size=18, color=COLORS["secondary"]))
         b.line(card_x - 48, arrow_y, card_x - 10, arrow_y, color=COLORS["line"], sw=2, arrow=True)
         ch = card_h
         sw = 3.0 if title.startswith("Gateway") else 1.3
         b.rect(card_x, card_y, card_w, ch, fill=fill, stroke=stroke, sw=sw, r=8)
         title_h = 46 if "\n" in title else 30
-        b.text(TextSpec(title, card_x + 10, card_y + 10, card_w - 20, title_h, size=20 if title.startswith("Gateway") else 22, bold=True))
+        b.text(TextSpec(title, card_x + 10, card_y + 8, card_w - 20, title_h + 4, size=21 if title.startswith("Gateway") else 24, bold=True))
         b.icon(icon, card_x + 14, card_y + 58, card_w - 28, 68)
-        b.text(TextSpec(route_label, card_x + 12, card_y + 118, card_w - 24, 32, size=22, color=COLORS["text"], bold=True))
+        label_y = card_y + (110 if badge == "reserve" else 118)
+        b.text(TextSpec(route_label, card_x + 10, label_y, card_w - 20, 34, size=23, color=COLORS["text"], bold=True))
         if badge:
             if badge == "reserve":
-                b.badge(card_x + (card_w - 92) / 2, card_y + ch - 34, 92, 26, badge, COLORS["line"], COLORS["line"], text_color=COLORS["white"])
+                b.badge(card_x + (card_w - 100) / 2, card_y + ch - 32, 100, 28, badge, COLORS["line"], COLORS["line"], text_color=COLORS["white"])
             else:
-                b.badge(card_x + (card_w - 108) / 2, card_y + ch - 42, 108, 30, badge, badge_color, badge_color, text_color=COLORS["white"])
-    b.text(TextSpec("No", spine_x + 20, 342, 44, 24, size=17, color=COLORS["secondary"]))
+                b.badge(card_x + (card_w - 118) / 2, card_y + ch - 42, 118, 30, badge, badge_color, badge_color, text_color=COLORS["white"])
+    b.text(TextSpec("No", spine_x + 20, 341, 48, 26, size=18, color=COLORS["secondary"]))
     b.line(spine_x, 288, spine_x, 414, color=COLORS["line"], sw=2, arrow=True)
-    b.text(TextSpec("No", spine_x + 20, 544, 44, 24, size=17, color=COLORS["secondary"]))
+    b.text(TextSpec("No", spine_x + 20, 543, 48, 26, size=18, color=COLORS["secondary"]))
     b.line(spine_x, 488, spine_x, 632, color=COLORS["line"], sw=2, arrow=True)
-    b.text(TextSpec("No", spine_x + 20, 762, 44, 24, size=17, color=COLORS["secondary"]))
+    b.text(TextSpec("No", spine_x + 20, 761, 48, 26, size=18, color=COLORS["secondary"]))
     b.line(spine_x, 682, spine_x, 916, color=COLORS["line"], sw=2)
     b.line(spine_x, 916, 1190, 916, color=COLORS["line"], sw=2, arrow=True)
     b.rect(1190, 840, 222, 170, fill=COLORS["yellow"], stroke=COLORS["border"], sw=1.3, r=8)
-    b.text(TextSpec("One-shot fallback", 1202, 856, 198, 30, size=22, bold=True))
-    b.icon("route_fallback", 1204, 898, 194, 62)
-    b.text(TextSpec("CH \u2192 BS", 1202, 952, 198, 32, size=22, color=COLORS["text"], bold=True))
-    b.badge(1238, 976, 126, 28, "single attempt", COLORS["yellow"], COLORS["border"])
+    b.text(TextSpec("One-shot fallback", 1200, 852, 202, 34, size=24, bold=True))
+    b.icon("route_fallback", 1204, 892, 194, 58)
+    b.text(TextSpec("CH \u2192 BS", 1200, 938, 202, 34, size=23, color=COLORS["text"], bold=True))
+    b.badge(1232, 978, 138, 30, "single attempt", COLORS["yellow"], COLORS["border"])
 
     return b
 
@@ -686,7 +687,7 @@ def write_manifest(icon_names: list[str]) -> None:
         "- The QA preview uses HTML text boxes over the text-free SVG graphics layer; no full-figure SVG with text is emitted.",
         "- Figure uses the requested 1440 x 1080 canvas.",
         "- Palette v4 uses a restrained academic scheme: Okabe-Ito blue/sky-blue/green/orange accents and Paul-Tol-style low-chroma tints for labeled cells.",
-        "- Text uses Helvetica in the draw.io source and an Aptos/Segoe UI/Helvetica fallback stack in the PDF preview export.",
+        "- Text uses Arial in the draw.io source and an Arial/Helvetica fallback stack in the PDF preview export.",
         "- Common process icons use a consistent Lucide stroke family; protocol-specific topology and route mini-diagrams remain custom SVG.",
         "- The previous bottom Strict-mode note bar has been removed.",
         "- Gateway-assisted uplink is emphasized; Skeleton and fallback remain secondary.",
