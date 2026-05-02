@@ -235,6 +235,47 @@ def mini_role_chip(kind: str) -> str:
     return svg_doc(48, 48, body)
 
 
+def route_atom(kind: str) -> str:
+    c = COLORS["text"]
+    blue = COLORS["blue"]
+    if kind == "m":
+        body = f'<circle cx="24" cy="24" r="12" fill="{COLORS["white"]}" stroke="{c}" stroke-width="3"/>'
+    elif kind == "r":
+        body = f'<circle cx="24" cy="24" r="12" fill="{COLORS["bluegray"]}" stroke="{blue}" stroke-width="3"/>'
+    elif kind == "ch":
+        body = f'<circle cx="24" cy="24" r="12" fill="{blue}" stroke="{c}" stroke-width="3"/>'
+    elif kind == "gw":
+        body = f'<polygon points="{regular_polygon(24, 24, 13)}" fill="{COLORS["peach"]}" stroke="{c}" stroke-width="2.5"/>'
+    elif kind == "bs":
+        body = tower(24, 26, 0.34, blue)
+    else:
+        raise ValueError(f"Unknown route atom: {kind}")
+    return svg_doc(48, 48, body)
+
+
+def route_arrow(color: str, dashed: bool = False) -> str:
+    dash = ' stroke-dasharray="7 6"' if dashed else ""
+    return svg_doc(
+        64,
+        24,
+        (
+            f'<path d="M6 12H48" stroke="{color}" stroke-width="4"{dash}/>'
+            f'<path d="M40 5L48 12L40 19" stroke="{color}" stroke-width="4" fill="none"/>'
+        ),
+    )
+
+
+def atom_row_width(parts: list[tuple[str, float, float]]) -> float:
+    return sum(w for _, w, _ in parts)
+
+
+def place_atom_row(builder: FigureBuilder, x: float, y: float, parts: list[tuple[str, float, float]]) -> None:
+    cursor = x
+    for name, w, h in parts:
+        builder.image(name, cursor, y, w, h)
+        cursor += w
+
+
 def route_icon(kind: str) -> str:
     c = COLORS["text"]
     line = COLORS["blue"]
@@ -328,13 +369,15 @@ def make_icons() -> dict[str, str]:
         "dedup": lucide_icon("copy-check"),
         "fuse": lucide_icon("funnel"),
         "buffer": lucide_icon("database"),
-        "route_direct_mode": route_icon("direct_mode"),
-        "route_chain_mode": route_icon("chain_mode"),
-        "route_twohop_mode": route_icon("twohop_mode"),
-        "route_direct_uplink": route_icon("direct_uplink"),
-        "route_gateway": route_icon("gateway"),
-        "route_skeleton": route_icon("skeleton"),
-        "route_fallback": route_icon("fallback"),
+        "route_m": route_atom("m"),
+        "route_r": route_atom("r"),
+        "route_ch": route_atom("ch"),
+        "route_gw": route_atom("gw"),
+        "route_bs": route_atom("bs"),
+        "route_arrow_blue": route_arrow(COLORS["blue"]),
+        "route_arrow_blue_dashed": route_arrow(COLORS["blue"], dashed=True),
+        "route_arrow_line": route_arrow(COLORS["line"]),
+        "route_arrow_line_dashed": route_arrow(COLORS["line"], dashed=True),
         "forwarding": forwarding_icon(),
         "role_m": mini_role_chip("member"),
         "role_r": mini_role_chip("relay"),
@@ -364,8 +407,10 @@ class FigureBuilder:
     def __init__(self, icons: dict[str, str]) -> None:
         self.icons = icons
         self.text_cells: list[str] = []
+        self.image_cells: list[str] = []
         self.graphics: list[str] = []
         self.text_preview: list[str] = []
+        self.image_preview: list[str] = []
         self.next_id = 10
 
     def _id(self, prefix: str) -> str:
@@ -399,6 +444,23 @@ class FigureBuilder:
     def icon(self, name: str, x: float, y: float, w: float, h: float) -> None:
         b64 = base64.b64encode(self.icons[name].encode("utf-8")).decode("ascii")
         self.graphics.append(f'<image x="{x}" y="{y}" width="{w}" height="{h}" href="data:image/svg+xml;base64,{b64}"/>')
+
+    def image(self, name: str, x: float, y: float, w: float, h: float) -> None:
+        cid = self._id("img")
+        b64 = base64.b64encode(self.icons[name].encode("utf-8")).decode("ascii")
+        style = (
+            "shape=image;html=1;imageAspect=0;aspect=fixed;"
+            f"strokeColor=none;fillColor=none;image=data:image/svg+xml;base64,{b64};"
+        )
+        self.image_cells.append(
+            f'        <mxCell id="{cid}" value="" style="{escape(style)}" vertex="1" parent="1">\n'
+            f'          <mxGeometry x="{x:.1f}" y="{y:.1f}" width="{w:.1f}" height="{h:.1f}" as="geometry" />\n'
+            f"        </mxCell>"
+        )
+        self.image_preview.append(
+            f'<img alt="" src="data:image/svg+xml;base64,{b64}" '
+            f'style="position:absolute;left:{x:.1f}px;top:{y:.1f}px;width:{w:.1f}px;height:{h:.1f}px;z-index:1;" />'
+        )
 
     def text(self, spec: TextSpec) -> None:
         cid = self._id("txt")
@@ -457,6 +519,7 @@ class FigureBuilder:
                 '        <mxCell id="0" />',
                 '        <mxCell id="1" parent="0" />',
                 bg_cell,
+                *self.image_cells,
                 *self.text_cells,
                 "      </root>",
                 "    </mxGraphModel>",
@@ -507,6 +570,7 @@ class FigureBuilder:
                     "</head><body>",
                     '<div class="canvas">',
                     graphics_svg,
+                    *self.image_preview,
                     *self.text_preview,
                     "</div>",
                     "</body></html>",
@@ -590,15 +654,31 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
     b.text(TextSpec("CAS mode selector", 620, 274, 250, 36, size=27, bold=True))
     b.text(TextSpec("select one mode", 632, 313, 206, 28, size=20))
     mode_cards = [
-        (508, "Direct", "M\u00a0\u2192\u00a0CH", "route_direct_mode"),
-        (634, "Chain", "M\u00a0\u2192\u00a0M\u00a0\u2192\u00a0CH", "route_chain_mode"),
-        (760, "Two-hop", "M\u00a0\u2192\u00a0R\u00a0\u2192\u00a0CH", "route_twohop_mode"),
+        (
+            508,
+            "Direct",
+            "M\u00a0\u2192\u00a0CH",
+            [("route_m", 18, 18), ("route_arrow_blue", 20, 12), ("route_ch", 18, 18)],
+        ),
+        (
+            634,
+            "Chain",
+            "M\u00a0\u2192\u00a0M\u00a0\u2192\u00a0CH",
+            [("route_m", 18, 18), ("route_arrow_blue", 20, 12), ("route_m", 18, 18), ("route_arrow_blue", 20, 12), ("route_ch", 18, 18)],
+        ),
+        (
+            760,
+            "Two-hop",
+            "M\u00a0\u2192\u00a0R\u00a0\u2192\u00a0CH",
+            [("route_m", 18, 18), ("route_arrow_blue", 20, 12), ("route_r", 18, 18), ("route_arrow_blue", 20, 12), ("route_ch", 18, 18)],
+        ),
     ]
-    for x, title, label, icon in mode_cards:
+    for x, title, label, atoms in mode_cards:
         b.rect(x, 350, 116, 152, fill=COLORS["white"], stroke=COLORS["border"], sw=1.2, r=8)
         b.text(TextSpec(title, x + 8, 362, 100, 32, size=24, bold=True))
         b.text(TextSpec(label, x + 2, 402, 112, 28, size=18, bold=True))
-        b.icon(icon, x + 8, 438, 100, 44)
+        atom_x = x + (116 - atom_row_width(atoms)) / 2
+        place_atom_row(b, atom_x, 440, atoms)
     for idx, (icon, label) in enumerate([("role_m", "M"), ("role_r", "R"), ("role_ch", "CH")]):
         cx = 625 + idx * 64
         b.icon(icon, cx, 502, 25, 25)
@@ -626,11 +706,59 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
     spine_x = 1014
     b.line(spine_x, 264, spine_x, 902, color=COLORS["line"], sw=2.3)
     q_specs = [
-        ("Q1", "Direct\nacceptable?", 238, 262, 1190, 220, 222, 150, "Direct uplink", "CH \u2192 BS", "route_direct_uplink", COLORS["white"], COLORS["border"], "", ""),
-        ("Q2", "Gateway\nvalid?", 438, 458, 1172, 392, 244, 206, "Gateway-assisted\nuplink", "CH \u2192 GW \u2192 BS", "route_gateway", COLORS["bluegray"], COLORS["blue"], "main gain", COLORS["blue"]),
-        ("Q3", "Skeleton\npath valid?", 656, 688, 1190, 626, 222, 178, "Skeleton reserve", "CH \u2192 CH \u2192 BS", "route_skeleton", COLORS["muted"], COLORS["border"], "reserve", COLORS["line"]),
+        (
+            "Q1",
+            "Direct\nacceptable?",
+            238,
+            262,
+            1190,
+            220,
+            222,
+            150,
+            "Direct uplink",
+            "CH \u2192 BS",
+            [("route_ch", 22, 22), ("route_arrow_blue", 28, 12), ("route_bs", 22, 32)],
+            COLORS["white"],
+            COLORS["border"],
+            "",
+            "",
+        ),
+        (
+            "Q2",
+            "Gateway\nvalid?",
+            438,
+            458,
+            1172,
+            392,
+            244,
+            206,
+            "Gateway-assisted\nuplink",
+            "CH \u2192 GW \u2192 BS",
+            [("route_ch", 22, 22), ("route_arrow_blue", 24, 12), ("route_gw", 22, 22), ("route_arrow_blue", 24, 12), ("route_bs", 22, 32)],
+            COLORS["bluegray"],
+            COLORS["blue"],
+            "main gain",
+            COLORS["blue"],
+        ),
+        (
+            "Q3",
+            "Skeleton\npath valid?",
+            656,
+            688,
+            1190,
+            626,
+            222,
+            178,
+            "Skeleton reserve",
+            "CH \u2192 CH \u2192 BS",
+            [("route_ch", 22, 22), ("route_arrow_blue_dashed", 24, 12), ("route_ch", 22, 22), ("route_arrow_blue_dashed", 24, 12), ("route_bs", 22, 32)],
+            COLORS["muted"],
+            COLORS["border"],
+            "reserve",
+            COLORS["line"],
+        ),
     ]
-    for q, label, qy, arrow_y, card_x, card_y, card_w, card_h, title, route_label, icon, fill, stroke, badge, badge_color in q_specs:
+    for q, label, qy, arrow_y, card_x, card_y, card_w, card_h, title, route_label, atoms, fill, stroke, badge, badge_color in q_specs:
         b.rect(spine_x - 25, qy - 25, 50, 50, fill=COLORS["white"], stroke=COLORS["blue"], sw=1.6, r=25)
         b.text(TextSpec(q, spine_x - 25, qy - 25, 50, 50, size=21, bold=True))
         b.text(TextSpec(label, spine_x + 30, qy - 28, 100, 60, size=19, align="left"))
@@ -641,7 +769,9 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
         b.rect(card_x, card_y, card_w, ch, fill=fill, stroke=stroke, sw=sw, r=8)
         title_h = 46 if "\n" in title else 30
         b.text(TextSpec(title, card_x + 10, card_y + 8, card_w - 20, title_h + 4, size=21 if title.startswith("Gateway") else 24, bold=True))
-        b.icon(icon, card_x + 14, card_y + 58, card_w - 28, 68)
+        atom_w = atom_row_width(atoms)
+        atom_x = card_x + (card_w - atom_w) / 2
+        place_atom_row(b, atom_x, card_y + 58, atoms)
         label_y = card_y + (110 if badge == "reserve" else 118)
         b.text(TextSpec(route_label, card_x + 10, label_y, card_w - 20, 34, size=23, color=COLORS["text"], bold=True))
         if badge:
@@ -658,7 +788,9 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
     b.line(spine_x, 916, 1190, 916, color=COLORS["line"], sw=2, arrow=True)
     b.rect(1190, 840, 222, 170, fill=COLORS["yellow"], stroke=COLORS["border"], sw=1.3, r=8)
     b.text(TextSpec("One-shot fallback", 1200, 852, 202, 34, size=24, bold=True))
-    b.icon("route_fallback", 1204, 892, 194, 58)
+    b.image("route_ch", 1267, 900, 22, 22)
+    b.image("route_arrow_line_dashed", 1289, 904, 24, 12)
+    b.image("route_bs", 1313, 894, 22, 32)
     b.text(TextSpec("CH \u2192 BS", 1200, 938, 202, 34, size=23, color=COLORS["text"], bold=True))
     b.badge(1232, 978, 138, 30, "single attempt", COLORS["yellow"], COLORS["border"])
 
@@ -688,7 +820,7 @@ def write_manifest(icon_names: list[str]) -> None:
         "- Figure uses the requested 1440 x 1080 canvas.",
         "- Palette v4 uses a restrained academic scheme: Okabe-Ito blue/sky-blue/green/orange accents and Paul-Tol-style low-chroma tints for labeled cells.",
         "- Text uses Arial in the draw.io source and an Arial/Helvetica fallback stack in the PDF preview export.",
-        "- Common process icons use a consistent Lucide stroke family; protocol-specific topology and route mini-diagrams remain custom SVG.",
+        "- Common process icons use a consistent Lucide stroke family; protocol-specific route mini-diagrams are decomposed into atomic SVG image cells so individual nodes and arrows remain editable in draw.io.",
         "- The previous bottom Strict-mode note bar has been removed.",
         "- Gateway-assisted uplink is emphasized; Skeleton and fallback remain secondary.",
         "- No Freepik asset is embedded in this revision; the icon set is generated locally to avoid attribution ambiguity in the submission PDF.",

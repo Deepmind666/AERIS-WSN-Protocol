@@ -19,7 +19,7 @@ Rules applied:
 - Figure uses the requested 1440 x 1080 canvas.
 - Palette v4 uses a restrained academic scheme: Okabe-Ito blue/sky-blue/green/orange accents and Paul-Tol-style low-chroma tints for labeled cells.
 - Text uses Arial in the draw.io source and an Arial/Helvetica fallback stack in the PDF preview export.
-- Common process icons use a consistent Lucide stroke family; protocol-specific topology and route mini-diagrams remain custom SVG.
+- Common process icons use a consistent Lucide stroke family; protocol-specific route mini-diagrams are decomposed into atomic SVG image cells so individual nodes and arrows remain editable in draw.io.
 - The previous bottom Strict-mode note bar has been removed.
 - Gateway-assisted uplink is emphasized; Skeleton and fallback remain secondary.
 - No Freepik asset is embedded in this revision; the icon set is generated locally to avoid attribution ambiguity in the submission PDF.
@@ -48,13 +48,15 @@ Generated icon assets:
 - `role_ch.svg`
 - `role_m.svg`
 - `role_r.svg`
-- `route_chain_mode.svg`
-- `route_direct_mode.svg`
-- `route_direct_uplink.svg`
-- `route_fallback.svg`
-- `route_gateway.svg`
-- `route_skeleton.svg`
-- `route_twohop_mode.svg`
+- `route_arrow_blue.svg`
+- `route_arrow_blue_dashed.svg`
+- `route_arrow_line.svg`
+- `route_arrow_line_dashed.svg`
+- `route_bs.svg`
+- `route_ch.svg`
+- `route_gw.svg`
+- `route_m.svg`
+- `route_r.svg`
 - `star.svg`
 - `table.svg`
 - `topology.svg`
