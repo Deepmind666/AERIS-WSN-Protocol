@@ -55,12 +55,13 @@ Collection and RPL-style protocols are especially important for deployment reali
 \begin{figure*}[t]
 \centering
 \includegraphics[width=0.92\textwidth]{fig0_aeris_round_pipeline_lcn26.pdf}
-\caption{AERIS round pipeline.}
+\caption{AERIS round pipeline. Phase 1 forms clusters, Phase 2 handles CAS-driven intra-cluster communication and CH aggregation, and Phase 3 performs pre-transmission uplink selection with direct, Gateway-assisted, Skeleton-reserve, and one-shot fallback branches.}
 \label{fig:aeris_workflow}
 \end{figure*}
 
 \section{Protocol Design}
 AERIS combines CAS for intra-cluster transmission mode selection, Gateway reinforcement for cluster-head to base-station uplinks, and a sparse Skeleton CH relay backbone as a reserve fallback. The goal is to add reliability support only where direct forwarding becomes unreliable, while keeping online logic deterministic and auditable.
+Figure~\ref{fig:aeris_workflow} summarizes the round pipeline in the same order: cluster formation, intra-cluster communication, and pre-transmission uplink selection to the BS.
 
 Gateway candidates are ranked by a fixed linear score,
 \begin{equation}
