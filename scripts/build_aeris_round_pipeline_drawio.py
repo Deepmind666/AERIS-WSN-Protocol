@@ -524,7 +524,7 @@ class FigureBuilder:
         fstyle = "italic" if spec.italic else "normal"
         justify = {"left": "flex-start", "center": "center", "right": "flex-end"}.get(spec.align, "center")
         align_items = {"top": "flex-start", "middle": "center", "bottom": "flex-end"}.get(spec.valign, "center")
-        safe_value = escape(spec.value).replace("\n", "<br>")
+        safe_value = spec.value.replace("\n", "<br>")
         css = (
             f"position:absolute;left:{spec.x:.1f}px;top:{spec.y:.1f}px;width:{spec.w:.1f}px;height:{spec.h:.1f}px;"
             f"display:flex;align-items:{align_items};justify-content:{justify};text-align:{spec.align};"
@@ -870,7 +870,8 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
         b.text(TextSpec(label, spine_x + 30, qy - 28, 100, 60, size=19, align="left"))
         b.formula_chip(*formula_box, formula)
         b.text(TextSpec("Yes", 1154, arrow_y - 35, 40, 26, size=18, color=COLORS["secondary"]))
-        b.line(card_x - 48, arrow_y, card_x - 2, arrow_y, color=COLORS["line"], sw=2, arrow=True)
+        arrow_left = card_x - (40 if q == "Q1" else 48)
+        b.line(arrow_left, arrow_y, card_x - 2, arrow_y, color=COLORS["line"], sw=2, arrow=True)
         ch = card_h
         sw = 3.0 if title.startswith("Gateway") else 1.3
         b.rect(card_x, card_y, card_w, ch, fill=fill, stroke=stroke, sw=sw, r=8)
@@ -913,16 +914,19 @@ def write_manifest(icon_names: list[str]) -> None:
         "",
         "Artifacts:",
         f"- Draw.io source: `{DRAWIO_PATH.relative_to(ROOT).as_posix()}`",
+        f"- Manual editing mirror: `{(OUT_DIR / f'fig0_aeris_lcn26.drawio').relative_to(ROOT).as_posix()}`",
         f"- Text-free graphics layer SVG: `{GRAPHICS_SVG_PATH.relative_to(ROOT).as_posix()}`",
         f"- Visual QA preview HTML: `{PREVIEW_HTML_PATH.relative_to(ROOT).as_posix()}`",
         f"- PDF export target: `{PDF_PATH.relative_to(ROOT).as_posix()}`",
         f"- Text-free SVG icon directory: `{ICON_DIR.relative_to(ROOT).as_posix()}`",
         "",
         "Rules applied:",
-        "- Every visible non-text graphical element is emitted as a text-free SVG image cell in the draw.io source, except for the locked white page background.",
+        "- Every visible non-text graphical element is emitted as a text-free SVG image cell in the draw.io source, including the white page background.",
+        "- SVG image cells are left unlocked and do not use fixed-aspect scaling, so manual non-uniform resizing remains available in draw.io.",
         "- Reusable icon assets are also saved as standalone text-free SVG files.",
         "- Every visible label is a separate draw.io text cell.",
-        "- The QA preview uses positioned SVG image elements plus HTML text boxes; no full-figure SVG with embedded text is emitted.",
+        "- Formula chips are separate editable text boxes using native HTML subscript formatting, not LaTeX strings or SVG paths.",
+        "- The QA preview uses positioned SVG image elements plus HTML text boxes; formula markup such as subscript is preserved in the preview.",
         "- Figure uses the requested 1440 x 1080 canvas.",
         "- Palette v4 uses a restrained academic scheme: Okabe-Ito blue/sky-blue/green/orange accents and Paul-Tol-style low-chroma tints for labeled cells.",
         "- Text uses Arial in the draw.io source and an Arial/Helvetica fallback stack in the PDF preview export.",

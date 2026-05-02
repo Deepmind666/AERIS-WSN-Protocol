@@ -18,8 +18,7 @@ Rules applied:
 - Reusable icon assets are also saved as standalone text-free SVG files.
 - Every visible label is a separate draw.io text cell.
 - Formula chips are separate editable text boxes using native HTML subscript formatting, not LaTeX strings or SVG paths.
-- The manual editing mirror is kept byte-identical to the paper-linked Draw.io source.
-- The QA preview uses positioned SVG image elements plus HTML text boxes; no full-figure SVG with embedded text is emitted.
+- The QA preview uses positioned SVG image elements plus HTML text boxes; formula markup such as subscript is preserved in the preview.
 - Figure uses the requested 1440 x 1080 canvas.
 - Palette v4 uses a restrained academic scheme: Okabe-Ito blue/sky-blue/green/orange accents and Paul-Tol-style low-chroma tints for labeled cells.
 - Text uses Arial in the draw.io source and an Arial/Helvetica fallback stack in the PDF preview export.
