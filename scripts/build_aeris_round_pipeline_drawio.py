@@ -14,6 +14,7 @@ import re
 from dataclasses import dataclass
 from html import escape
 from pathlib import Path
+from urllib.parse import quote
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -264,6 +265,13 @@ def route_arrow(color: str, dashed: bool = False) -> str:
     )
 
 
+def svg_data_uri(svg: str, *, base64_mode: bool) -> str:
+    if base64_mode:
+        encoded = base64.b64encode(svg.encode("utf-8")).decode("ascii")
+        return f"data:image/svg+xml;base64,{encoded}"
+    return f"data:image/svg+xml,{quote(svg, safe='')}"
+
+
 def atom_row_width(parts: list[tuple[str, float, float]]) -> float:
     return sum(w for _, w, _ in parts)
 
@@ -426,10 +434,11 @@ class FigureBuilder:
 
     def image_svg(self, svg: str, x: float, y: float, w: float, h: float) -> None:
         cid = self._id("img")
-        b64 = base64.b64encode(svg.encode("utf-8")).decode("ascii")
+        drawio_uri = svg_data_uri(svg, base64_mode=False)
+        preview_uri = svg_data_uri(svg, base64_mode=True)
         style = (
-            "shape=image;html=1;imageAspect=0;aspect=fixed;"
-            f"strokeColor=none;fillColor=none;image=data:image/svg+xml;base64,{b64};"
+            "shape=image;imageAspect=0;aspect=fixed;resizable=0;rotatable=0;"
+            f"strokeColor=none;fillColor=none;image={drawio_uri};"
         )
         self.image_cells.append(
             f'        <mxCell id="{cid}" value="" style="{escape(style)}" vertex="1" parent="1">\n'
@@ -437,7 +446,7 @@ class FigureBuilder:
             f"        </mxCell>"
         )
         self.image_preview.append(
-            f'<img alt="" src="data:image/svg+xml;base64,{b64}" '
+            f'<img alt="" src="{preview_uri}" '
             f'style="position:absolute;left:{x:.1f}px;top:{y:.1f}px;width:{w:.1f}px;height:{h:.1f}px;z-index:1;" />'
         )
 
@@ -530,10 +539,10 @@ class FigureBuilder:
 
     def save_drawio(self) -> None:
         graphics_svg = self.graphics_svg()
-        encoded = base64.b64encode(graphics_svg.encode("utf-8")).decode("ascii")
+        encoded = quote(graphics_svg, safe="")
         bg_style = (
-            "shape=image;html=1;imageAspect=0;aspect=fixed;locked=1;"
-            f"strokeColor=none;fillColor=none;image=data:image/svg+xml;base64,{encoded};"
+            "shape=image;imageAspect=0;aspect=fixed;locked=1;resizable=0;rotatable=0;"
+            f"strokeColor=none;fillColor=none;image=data:image/svg+xml,{encoded};"
         )
         bg_cell = (
             f'        <mxCell id="graphics_layer" value="" style="{escape(bg_style)}" vertex="1" parent="1">\n'
