@@ -29,11 +29,11 @@ NODE_ORDER = [100, 200, 300, 500, 800, 1000]
 PROTO_ORDER = ["AERIS", "PEGASIS", "LEACH", "HEED", "TEEN"]
 DRAW_ORDER = ["LEACH", "HEED", "TEEN", "PEGASIS", "AERIS"]
 COLORS = {
-    "AERIS": "#2F5D7C",
-    "PEGASIS": "#B07A8F",
-    "LEACH": "#D58A5B",
-    "HEED": "#7AA08D",
-    "TEEN": "#C7A74D",
+    "AERIS": "#5A5A5A",
+    "PEGASIS": "#36A657",
+    "LEACH": "#2D83BD",
+    "HEED": "#C6373D",
+    "TEEN": "#D15B9A",
     "grid": "#D9DEE5",
     "axis": "#556270",
     "text": "#24323F",
@@ -42,10 +42,10 @@ COLORS = {
 MARKERS = {"AERIS": "o", "PEGASIS": "s", "LEACH": "^", "HEED": "D", "TEEN": "P"}
 LINESTYLES = {
     "AERIS": "-",
-    "PEGASIS": "--",
-    "LEACH": (0, (4, 2)),
-    "HEED": (0, (2, 2)),
-    "TEEN": (0, (1.5, 1.5)),
+    "PEGASIS": "-",
+    "LEACH": "-",
+    "HEED": "-",
+    "TEEN": "-",
 }
 
 
@@ -120,17 +120,16 @@ def build() -> None:
             s = np.asarray([data[(env, n, proto)][1] for n in NODE_ORDER], dtype=float)
             nrep = np.asarray([data[(env, n, proto)][2] for n in NODE_ORDER], dtype=float)
             band = np.asarray([ci95(si, int(ni)) for si, ni in zip(s, nrep)], dtype=float)
-            if proto in {"AERIS", "PEGASIS"}:
-                ax.fill_between(x, y - band, y + band, color=COLORS[proto], alpha=0.14 if proto == "AERIS" else 0.10, linewidth=0)
+            ax.fill_between(x, y - band, y + band, color=COLORS[proto], alpha=0.08 if proto == "AERIS" else 0.055, linewidth=0)
             ax.plot(
                 x,
                 y,
                 color=COLORS[proto],
                 marker=MARKERS[proto],
-                markersize=2.6 if proto in {"AERIS", "PEGASIS"} else 2.2,
-                linewidth=1.4 if proto == "AERIS" else 1.2 if proto == "PEGASIS" else 0.95,
+                markersize=2.4,
+                linewidth=1.6 if proto == "AERIS" else 1.35,
                 linestyle=LINESTYLES[proto],
-                alpha=1.0 if proto in {"AERIS", "PEGASIS"} else 0.72,
+                alpha=0.98,
             )
         style_axes(ax)
         ax.set_title(ENV_LABELS[env], pad=3)

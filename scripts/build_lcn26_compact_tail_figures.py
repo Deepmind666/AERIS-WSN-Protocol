@@ -25,10 +25,10 @@ ENV_SHORT = {"indoor_office": "Office", "indoor_factory": "Factory", "outdoor_su
 ENV_TAG = {"indoor_office": "O", "indoor_factory": "F", "outdoor_suburban": "S", "outdoor_urban": "U"}
 NODE_ORDER = [100, 500, 1000]
 COLORS = {
-    "AERIS": "#2F5D7C",
-    "PEGASIS": "#B07A8F",
-    "GW": "#D56C5B",
-    "CAS": "#3E8E9B",
+    "AERIS": "#5A5A5A",
+    "PEGASIS": "#C6373D",
+    "GW": "#36A657",
+    "CAS": "#2D83BD",
     "grid": "#D9DEE5",
     "axis": "#556270",
     "text": "#24323F",
@@ -172,15 +172,15 @@ def build_mechanism_compact() -> None:
     for group_idx, env in enumerate(ENV_ORDER):
         start = group_idx * len(NODE_ORDER) - 0.5
         stop = start + len(NODE_ORDER)
-        bg = "#FAF3F0" if env == "indoor_office" else "#F5F8FA"
+        bg = "#F6F7F8" if env == "indoor_office" else "#F9FAFB"
         ax_top.axvspan(start, stop, color=bg, alpha=0.95, zorder=0)
         ax_bottom.axvspan(start, stop, color=bg, alpha=0.95, zorder=0)
         if group_idx > 0:
             ax_top.axvline(start, color="#C7D0DA", linestyle="--", linewidth=0.7)
             ax_bottom.axvline(start, color="#C7D0DA", linestyle="--", linewidth=0.7)
 
-    ax_top.bar(x, pdr, width=0.56, color=COLORS["AERIS"], alpha=0.72, edgecolor="white", linewidth=0.5, zorder=3)
-    ax_top.plot(x, gw, color=COLORS["GW"], marker="o", markersize=3.2, linewidth=1.5, zorder=4)
+    ax_top.bar(x, pdr, width=0.56, color=COLORS["AERIS"], alpha=0.76, edgecolor="white", linewidth=0.5, zorder=3)
+    ax_top.plot(x, gw, color=COLORS["GW"], marker="o", markersize=3.2, linewidth=1.55, zorder=4)
     style_axes(ax_top)
     ax_top.set_ylabel("PDR / GW")
     ax_top.set_ylim(0.0, 1.02)
