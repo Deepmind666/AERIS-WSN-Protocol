@@ -850,7 +850,7 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
         b.text(TextSpec(q, spine_x - 25, qy - 25, 50, 50, size=21, bold=True))
         b.text(TextSpec(label, spine_x + 30, qy - 28, 100, 60, size=19, align="left"))
         b.text(TextSpec("Yes", 1154, arrow_y - 35, 40, 26, size=18, color=COLORS["secondary"]))
-        b.line(card_x - 48, arrow_y, card_x - 10, arrow_y, color=COLORS["line"], sw=2, arrow=True)
+        b.line(card_x - 48, arrow_y, card_x - 2, arrow_y, color=COLORS["line"], sw=2, arrow=True)
         ch = card_h
         sw = 3.0 if title.startswith("Gateway") else 1.3
         b.rect(card_x, card_y, card_w, ch, fill=fill, stroke=stroke, sw=sw, r=8)
@@ -878,7 +878,7 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
     fallback_atoms = [("route_ch", 28, 28), ("route_arrow_line_dashed", 40, 16), ("route_bs", 28, 40)]
     place_atom_row(b, 1252, 892, fallback_atoms)
     b.text(TextSpec("CH \u2192 BS", 1200, 938, 202, 34, size=23, color=COLORS["text"], bold=True))
-    b.badge(1232, 978, 138, 30, "single attempt", COLORS["yellow"], COLORS["border"])
+    b.badge(1232, 966, 138, 30, "single attempt", COLORS["yellow"], COLORS["border"])
 
     return b
 
