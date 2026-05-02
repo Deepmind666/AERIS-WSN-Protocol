@@ -437,7 +437,7 @@ class FigureBuilder:
         drawio_uri = svg_data_uri(svg, base64_mode=False)
         preview_uri = svg_data_uri(svg, base64_mode=True)
         style = (
-            "shape=image;imageAspect=0;aspect=fixed;resizable=0;rotatable=0;"
+            "shape=image;imageAspect=0;aspect=fixed;"
             f"strokeColor=none;fillColor=none;image={drawio_uri};"
         )
         self.image_cells.append(
@@ -785,17 +785,17 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
     b.text(TextSpec("2", 546, 590, 46, 46, size=25, bold=True))
     b.text(TextSpec("Intra-cluster forwarding", 604, 588, 322, 36, size=25, bold=True))
     draw_forwarding_atoms(b)
-    b.line(720, 762, 720, 790, color=COLORS["line"], sw=2.3, arrow=True)
-    b.rect(496, 802, 448, 164, fill=COLORS["green"], stroke=COLORS["border"], sw=1.3, r=8)
-    b.rect(580, 818, 46, 46, fill=COLORS["white"], stroke=COLORS["teal"], sw=1.6, r=23)
-    b.text(TextSpec("3", 580, 818, 46, 46, size=25, bold=True))
-    b.text(TextSpec("CH aggregation", 642, 816, 220, 36, size=27, bold=True))
+    b.line(720, 762, 720, 772, color=COLORS["line"], sw=2.3, arrow=True)
+    b.rect(496, 772, 448, 164, fill=COLORS["green"], stroke=COLORS["border"], sw=1.3, r=8)
+    b.rect(580, 788, 46, 46, fill=COLORS["white"], stroke=COLORS["teal"], sw=1.6, r=23)
+    b.text(TextSpec("3", 580, 788, 46, 46, size=25, bold=True))
+    b.text(TextSpec("CH aggregation", 642, 786, 220, 36, size=27, bold=True))
     for idx, (icon, label) in enumerate([("dedup", "deduplicate"), ("fuse", "fuse"), ("buffer", "buffer")]):
         ix = 548 + idx * 135
-        b.icon(icon, ix, 864, 58, 58)
-        b.text(TextSpec(label, ix - 30, 923, 118, 28, size=20))
+        b.icon(icon, ix, 834, 58, 58)
+        b.text(TextSpec(label, ix - 30, 893, 118, 28, size=20))
         if idx:
-            b.line(ix - 38, 858, ix - 38, 946, color=COLORS["border"], sw=1.2, dashed=True)
+            b.line(ix - 38, 828, ix - 38, 916, color=COLORS["border"], sw=1.2, dashed=True)
 
     # Phase 3 decision selector.
     b.text(TextSpec("pre-transmission route selection", 1012, 168, 390, 34, size=24, italic=True))
@@ -842,7 +842,7 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
             656,
             688,
             1190,
-            626,
+            584,
             222,
             178,
             "Skeleton reserve",
@@ -879,15 +879,15 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
     b.line(spine_x, 288, spine_x, 414, color=COLORS["line"], sw=2, arrow=True)
     b.text(TextSpec("No", spine_x + 20, 543, 48, 26, size=18, color=COLORS["secondary"]))
     b.line(spine_x, 488, spine_x, 632, color=COLORS["line"], sw=2, arrow=True)
-    b.text(TextSpec("No", spine_x + 20, 761, 48, 26, size=18, color=COLORS["secondary"]))
-    b.line(spine_x, 682, spine_x, 916, color=COLORS["line"], sw=2)
-    b.line(spine_x, 916, 1190, 916, color=COLORS["line"], sw=2, arrow=True)
-    b.rect(1190, 840, 222, 170, fill=COLORS["yellow"], stroke=COLORS["border"], sw=1.3, r=8)
-    b.text(TextSpec("One-shot fallback", 1200, 852, 202, 34, size=24, bold=True))
+    b.text(TextSpec("No", spine_x + 20, 697, 48, 26, size=18, color=COLORS["secondary"]))
+    b.line(spine_x, 682, spine_x, 851, color=COLORS["line"], sw=2)
+    b.line(spine_x, 851, 1190, 851, color=COLORS["line"], sw=2, arrow=True)
+    b.rect(1190, 766, 222, 170, fill=COLORS["yellow"], stroke=COLORS["border"], sw=1.3, r=8)
+    b.text(TextSpec("One-shot fallback", 1200, 778, 202, 34, size=24, bold=True))
     fallback_atoms = [("route_ch", 28, 28), ("route_arrow_line_dashed", 40, 16), ("route_bs", 28, 40)]
-    place_atom_row(b, 1252, 892, fallback_atoms)
-    b.text(TextSpec("CH \u2192 BS", 1200, 938, 202, 34, size=23, color=COLORS["text"], bold=True))
-    b.badge(1232, 966, 138, 30, "single attempt", COLORS["yellow"], COLORS["border"])
+    place_atom_row(b, 1252, 818, fallback_atoms)
+    b.text(TextSpec("CH \u2192 BS", 1200, 864, 202, 34, size=23, color=COLORS["text"], bold=True))
+    b.badge(1232, 892, 138, 30, "single attempt", COLORS["yellow"], COLORS["border"])
 
     return b
 
