@@ -55,7 +55,7 @@ Collection and RPL-style protocols are especially important for deployment reali
 \begin{figure*}[t]
 \centering
 \includegraphics[width=0.92\textwidth]{fig0_aeris_round_pipeline_lcn26.pdf}
-\caption{AERIS round framework. Phase 1 combines an abstract topology inset with a compact legend that maps the role symbols M, R, CH, GW, and BS, together with intra-cluster, uplink, and skeleton links, and three process cards for round-state sensing, CH scoring, and cluster association. Phase 2 contains the CAS selector with direct, chain, and two-hop modes, the sparse intra-cluster forwarding sketch, and CH-level packet aggregation. Phase 3 places a pre-transmission decision spine beside four route outcomes: direct uplink, Gateway-assisted uplink as the main gain path, Skeleton reserve, and one-shot fallback.}
+\caption{AERIS round framework. Phase 1 shows the illustrative cluster topology, the role/link legend, and the round setup sequence for state sensing, CH scoring, and cluster association. Phase 2 uses energy, link-quality, density, and buffer inputs to choose one CAS local mode, then performs sparse intra-cluster forwarding and CH-side packet aggregation. Phase 3 is a cascaded first-hit uplink selector that checks direct link quality, Gateway validity, and Skeleton availability before selecting direct uplink, Gateway-assisted uplink as the primary gain path, Skeleton reserve, or one-shot fallback.}
 \label{fig:aeris_workflow}
 \end{figure*}
 

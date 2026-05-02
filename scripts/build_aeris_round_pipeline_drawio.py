@@ -437,7 +437,7 @@ class FigureBuilder:
         drawio_uri = svg_data_uri(svg, base64_mode=False)
         preview_uri = svg_data_uri(svg, base64_mode=True)
         style = (
-            "shape=image;imageAspect=0;aspect=fixed;"
+            "shape=image;imageAspect=0;"
             f"strokeColor=none;fillColor=none;image={drawio_uri};"
         )
         self.image_cells.append(
@@ -537,11 +537,15 @@ class FigureBuilder:
         self.rect(x, y, w, h, fill=fill, stroke=stroke, sw=1.0, r=16)
         self.text(TextSpec(label, x, y + 1, w, h, size=18, color=text_color, bold=True))
 
+    def formula_chip(self, x: float, y: float, w: float, h: float, label: str) -> None:
+        self.rect(x, y, w, h, fill="#F8FAFC", stroke=COLORS["border"], sw=1.1, r=8)
+        self.text(TextSpec(label, x + 4, y + 1, w - 8, h - 1, size=16, color=COLORS["text"], bold=True))
+
     def save_drawio(self) -> None:
         graphics_svg = self.graphics_svg()
         encoded = quote(graphics_svg, safe="")
         bg_style = (
-            "shape=image;imageAspect=0;aspect=fixed;locked=1;resizable=0;rotatable=0;"
+            "shape=image;imageAspect=0;"
             f"strokeColor=none;fillColor=none;image=data:image/svg+xml,{encoded};"
         )
         bg_cell = (
@@ -805,6 +809,8 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
         (
             "Q1",
             "Direct\nacceptable?",
+            "LQ(CH, BS) \u2265 \u03c4<sub>d</sub>",
+            (1044, 278, 132, 30),
             238,
             262,
             1190,
@@ -822,6 +828,8 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
         (
             "Q2",
             "Gateway\nvalid?",
+            "Score<sub>GW</sub> \u2265 \u03c4<sub>g</sub>",
+            (1044, 478, 126, 30),
             438,
             458,
             1172,
@@ -839,6 +847,8 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
         (
             "Q3",
             "Skeleton\npath valid?",
+            "Path<sub>skel</sub> \u2260 \u2205",
+            (1086, 704, 106, 30),
             656,
             688,
             1190,
@@ -854,10 +864,11 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
             COLORS["line"],
         ),
     ]
-    for q, label, qy, arrow_y, card_x, card_y, card_w, card_h, title, route_label, atoms, fill, stroke, badge, badge_color in q_specs:
+    for q, label, formula, formula_box, qy, arrow_y, card_x, card_y, card_w, card_h, title, route_label, atoms, fill, stroke, badge, badge_color in q_specs:
         b.rect(spine_x - 25, qy - 25, 50, 50, fill=COLORS["white"], stroke=COLORS["blue"], sw=1.6, r=25)
         b.text(TextSpec(q, spine_x - 25, qy - 25, 50, 50, size=21, bold=True))
         b.text(TextSpec(label, spine_x + 30, qy - 28, 100, 60, size=19, align="left"))
+        b.formula_chip(*formula_box, formula)
         b.text(TextSpec("Yes", 1154, arrow_y - 35, 40, 26, size=18, color=COLORS["secondary"]))
         b.line(card_x - 48, arrow_y, card_x - 2, arrow_y, color=COLORS["line"], sw=2, arrow=True)
         ch = card_h

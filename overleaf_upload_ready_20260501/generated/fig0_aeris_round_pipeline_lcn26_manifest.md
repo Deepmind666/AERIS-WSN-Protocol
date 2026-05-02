@@ -6,15 +6,19 @@ Common module icons are sourced from vendored `lucide-static` SVG assets under `
 
 Artifacts:
 - Draw.io source: `overleaf_upload_ready_20260501/generated/fig0_aeris_round_pipeline_lcn26.drawio`
+- Manual editing mirror: `overleaf_upload_ready_20260501/generated/fig0_aeris_lcn26.drawio`
 - Text-free graphics layer SVG: `overleaf_upload_ready_20260501/generated/fig0_aeris_round_pipeline_lcn26_graphics.svg`
 - Visual QA preview HTML: `overleaf_upload_ready_20260501/generated/fig0_aeris_round_pipeline_lcn26_preview.html`
 - PDF export target: `overleaf_upload_ready_20260501/generated/fig0_aeris_round_pipeline_lcn26.pdf`
 - Text-free SVG icon directory: `overleaf_upload_ready_20260501/generated/icons/aeris_round_pipeline`
 
 Rules applied:
-- Every visible non-text graphical element is emitted as a text-free SVG image cell in the draw.io source, except for the locked white page background.
+- Every visible non-text graphical element is emitted as a text-free SVG image cell in the draw.io source, including the white page background.
+- SVG image cells are left unlocked and do not use fixed-aspect scaling, so manual non-uniform resizing remains available in draw.io.
 - Reusable icon assets are also saved as standalone text-free SVG files.
 - Every visible label is a separate draw.io text cell.
+- Formula chips are separate editable text boxes using native HTML subscript formatting, not LaTeX strings or SVG paths.
+- The manual editing mirror is kept byte-identical to the paper-linked Draw.io source.
 - The QA preview uses positioned SVG image elements plus HTML text boxes; no full-figure SVG with embedded text is emitted.
 - Figure uses the requested 1440 x 1080 canvas.
 - Palette v4 uses a restrained academic scheme: Okabe-Ito blue/sky-blue/green/orange accents and Paul-Tol-style low-chroma tints for labeled cells.
