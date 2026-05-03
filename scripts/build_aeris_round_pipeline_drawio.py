@@ -14,7 +14,6 @@ import re
 from dataclasses import dataclass
 from html import escape
 from pathlib import Path
-from urllib.parse import quote
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -265,13 +264,6 @@ def route_arrow(color: str, dashed: bool = False) -> str:
     )
 
 
-def svg_data_uri(svg: str, *, base64_mode: bool) -> str:
-    if base64_mode:
-        encoded = base64.b64encode(svg.encode("utf-8")).decode("ascii")
-        return f"data:image/svg+xml;base64,{encoded}"
-    return f"data:image/svg+xml,{quote(svg, safe='')}"
-
-
 def atom_row_width(parts: list[tuple[str, float, float]]) -> float:
     return sum(w for _, w, _ in parts)
 
@@ -434,11 +426,10 @@ class FigureBuilder:
 
     def image_svg(self, svg: str, x: float, y: float, w: float, h: float) -> None:
         cid = self._id("img")
-        drawio_uri = svg_data_uri(svg, base64_mode=False)
-        preview_uri = svg_data_uri(svg, base64_mode=True)
+        b64 = base64.b64encode(svg.encode("utf-8")).decode("ascii")
         style = (
-            "shape=image;imageAspect=0;"
-            f"strokeColor=none;fillColor=none;image={drawio_uri};"
+            "shape=image;html=1;imageAspect=0;aspect=fixed;"
+            f"strokeColor=none;fillColor=none;image=data:image/svg+xml;base64,{b64};"
         )
         self.image_cells.append(
             f'        <mxCell id="{cid}" value="" style="{escape(style)}" vertex="1" parent="1">\n'
@@ -446,7 +437,7 @@ class FigureBuilder:
             f"        </mxCell>"
         )
         self.image_preview.append(
-            f'<img alt="" src="{preview_uri}" '
+            f'<img alt="" src="data:image/svg+xml;base64,{b64}" '
             f'style="position:absolute;left:{x:.1f}px;top:{y:.1f}px;width:{w:.1f}px;height:{h:.1f}px;z-index:1;" />'
         )
 
@@ -524,7 +515,7 @@ class FigureBuilder:
         fstyle = "italic" if spec.italic else "normal"
         justify = {"left": "flex-start", "center": "center", "right": "flex-end"}.get(spec.align, "center")
         align_items = {"top": "flex-start", "middle": "center", "bottom": "flex-end"}.get(spec.valign, "center")
-        safe_value = spec.value.replace("\n", "<br>")
+        safe_value = escape(spec.value).replace("\n", "<br>")
         css = (
             f"position:absolute;left:{spec.x:.1f}px;top:{spec.y:.1f}px;width:{spec.w:.1f}px;height:{spec.h:.1f}px;"
             f"display:flex;align-items:{align_items};justify-content:{justify};text-align:{spec.align};"
@@ -537,16 +528,12 @@ class FigureBuilder:
         self.rect(x, y, w, h, fill=fill, stroke=stroke, sw=1.0, r=16)
         self.text(TextSpec(label, x, y + 1, w, h, size=18, color=text_color, bold=True))
 
-    def formula_chip(self, x: float, y: float, w: float, h: float, label: str) -> None:
-        self.rect(x, y, w, h, fill="#F8FAFC", stroke=COLORS["border"], sw=1.1, r=8)
-        self.text(TextSpec(label, x + 4, y + 1, w - 8, h - 1, size=16, color=COLORS["text"], bold=True))
-
     def save_drawio(self) -> None:
         graphics_svg = self.graphics_svg()
-        encoded = quote(graphics_svg, safe="")
+        encoded = base64.b64encode(graphics_svg.encode("utf-8")).decode("ascii")
         bg_style = (
-            "shape=image;imageAspect=0;"
-            f"strokeColor=none;fillColor=none;image=data:image/svg+xml,{encoded};"
+            "shape=image;html=1;imageAspect=0;aspect=fixed;locked=1;"
+            f"strokeColor=none;fillColor=none;image=data:image/svg+xml;base64,{encoded};"
         )
         bg_cell = (
             f'        <mxCell id="graphics_layer" value="" style="{escape(bg_style)}" vertex="1" parent="1">\n'
@@ -686,8 +673,8 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
 
     # Title and vertical phase guides.
     b.text(TextSpec("AERIS round", 0, 14, W, 44, size=38, bold=True))
-    b.line(468, 78, 468, 1038, color=COLORS["border"], sw=2, dashed=True)
-    b.line(966, 78, 966, 1038, color=COLORS["border"], sw=2, dashed=True)
+    b.line(468, 78, 468, 890, color=COLORS["border"], sw=2, dashed=True)
+    b.line(966, 78, 966, 890, color=COLORS["border"], sw=2, dashed=True)
 
     # Phase headers.
     headers = [
@@ -789,17 +776,17 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
     b.text(TextSpec("2", 546, 590, 46, 46, size=25, bold=True))
     b.text(TextSpec("Intra-cluster forwarding", 604, 588, 322, 36, size=25, bold=True))
     draw_forwarding_atoms(b)
-    b.line(720, 762, 720, 772, color=COLORS["line"], sw=2.3, arrow=True)
-    b.rect(496, 772, 448, 164, fill=COLORS["green"], stroke=COLORS["border"], sw=1.3, r=8)
-    b.rect(580, 788, 46, 46, fill=COLORS["white"], stroke=COLORS["teal"], sw=1.6, r=23)
-    b.text(TextSpec("3", 580, 788, 46, 46, size=25, bold=True))
-    b.text(TextSpec("CH aggregation", 642, 786, 220, 36, size=27, bold=True))
+    b.line(720, 762, 720, 790, color=COLORS["line"], sw=2.3, arrow=True)
+    b.rect(496, 802, 448, 164, fill=COLORS["green"], stroke=COLORS["border"], sw=1.3, r=8)
+    b.rect(580, 818, 46, 46, fill=COLORS["white"], stroke=COLORS["teal"], sw=1.6, r=23)
+    b.text(TextSpec("3", 580, 818, 46, 46, size=25, bold=True))
+    b.text(TextSpec("CH aggregation", 642, 816, 220, 36, size=27, bold=True))
     for idx, (icon, label) in enumerate([("dedup", "deduplicate"), ("fuse", "fuse"), ("buffer", "buffer")]):
         ix = 548 + idx * 135
-        b.icon(icon, ix, 834, 58, 58)
-        b.text(TextSpec(label, ix - 30, 893, 118, 28, size=20))
+        b.icon(icon, ix, 864, 58, 58)
+        b.text(TextSpec(label, ix - 30, 923, 118, 28, size=20))
         if idx:
-            b.line(ix - 38, 828, ix - 38, 916, color=COLORS["border"], sw=1.2, dashed=True)
+            b.line(ix - 38, 858, ix - 38, 946, color=COLORS["border"], sw=1.2, dashed=True)
 
     # Phase 3 decision selector.
     b.text(TextSpec("pre-transmission route selection", 1012, 168, 390, 34, size=24, italic=True))
@@ -809,8 +796,6 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
         (
             "Q1",
             "Direct\nacceptable?",
-            "LQ(CH, BS) \u2265 \u03c4<sub>d</sub>",
-            (1044, 278, 132, 30),
             238,
             262,
             1190,
@@ -828,8 +813,6 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
         (
             "Q2",
             "Gateway\nvalid?",
-            "Score<sub>GW</sub> \u2265 \u03c4<sub>g</sub>",
-            (1044, 478, 126, 30),
             438,
             458,
             1172,
@@ -847,12 +830,10 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
         (
             "Q3",
             "Skeleton\npath valid?",
-            "Path<sub>skel</sub> \u2260 \u2205",
-            (1086, 704, 106, 30),
             656,
             688,
             1190,
-            584,
+            626,
             222,
             178,
             "Skeleton reserve",
@@ -864,14 +845,12 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
             COLORS["line"],
         ),
     ]
-    for q, label, formula, formula_box, qy, arrow_y, card_x, card_y, card_w, card_h, title, route_label, atoms, fill, stroke, badge, badge_color in q_specs:
+    for q, label, qy, arrow_y, card_x, card_y, card_w, card_h, title, route_label, atoms, fill, stroke, badge, badge_color in q_specs:
         b.rect(spine_x - 25, qy - 25, 50, 50, fill=COLORS["white"], stroke=COLORS["blue"], sw=1.6, r=25)
         b.text(TextSpec(q, spine_x - 25, qy - 25, 50, 50, size=21, bold=True))
         b.text(TextSpec(label, spine_x + 30, qy - 28, 100, 60, size=19, align="left"))
-        b.formula_chip(*formula_box, formula)
         b.text(TextSpec("Yes", 1154, arrow_y - 35, 40, 26, size=18, color=COLORS["secondary"]))
-        arrow_left = card_x - (40 if q == "Q1" else 48)
-        b.line(arrow_left, arrow_y, card_x - 2, arrow_y, color=COLORS["line"], sw=2, arrow=True)
+        b.line(card_x - 48, arrow_y, card_x - 2, arrow_y, color=COLORS["line"], sw=2, arrow=True)
         ch = card_h
         sw = 3.0 if title.startswith("Gateway") else 1.3
         b.rect(card_x, card_y, card_w, ch, fill=fill, stroke=stroke, sw=sw, r=8)
@@ -891,15 +870,15 @@ def build_figure(icons: dict[str, str]) -> FigureBuilder:
     b.line(spine_x, 288, spine_x, 414, color=COLORS["line"], sw=2, arrow=True)
     b.text(TextSpec("No", spine_x + 20, 543, 48, 26, size=18, color=COLORS["secondary"]))
     b.line(spine_x, 488, spine_x, 632, color=COLORS["line"], sw=2, arrow=True)
-    b.text(TextSpec("No", spine_x + 20, 697, 48, 26, size=18, color=COLORS["secondary"]))
-    b.line(spine_x, 682, spine_x, 851, color=COLORS["line"], sw=2)
-    b.line(spine_x, 851, 1190, 851, color=COLORS["line"], sw=2, arrow=True)
-    b.rect(1190, 766, 222, 170, fill=COLORS["yellow"], stroke=COLORS["border"], sw=1.3, r=8)
-    b.text(TextSpec("One-shot fallback", 1200, 778, 202, 34, size=24, bold=True))
+    b.text(TextSpec("No", spine_x + 20, 761, 48, 26, size=18, color=COLORS["secondary"]))
+    b.line(spine_x, 682, spine_x, 916, color=COLORS["line"], sw=2)
+    b.line(spine_x, 916, 1190, 916, color=COLORS["line"], sw=2, arrow=True)
+    b.rect(1190, 840, 222, 170, fill=COLORS["yellow"], stroke=COLORS["border"], sw=1.3, r=8)
+    b.text(TextSpec("One-shot fallback", 1200, 852, 202, 34, size=24, bold=True))
     fallback_atoms = [("route_ch", 28, 28), ("route_arrow_line_dashed", 40, 16), ("route_bs", 28, 40)]
-    place_atom_row(b, 1252, 818, fallback_atoms)
-    b.text(TextSpec("CH \u2192 BS", 1200, 864, 202, 34, size=23, color=COLORS["text"], bold=True))
-    b.badge(1232, 892, 138, 30, "single attempt", COLORS["yellow"], COLORS["border"])
+    place_atom_row(b, 1252, 892, fallback_atoms)
+    b.text(TextSpec("CH \u2192 BS", 1200, 938, 202, 34, size=23, color=COLORS["text"], bold=True))
+    b.badge(1232, 966, 138, 30, "single attempt", COLORS["yellow"], COLORS["border"])
 
     return b
 
@@ -914,19 +893,16 @@ def write_manifest(icon_names: list[str]) -> None:
         "",
         "Artifacts:",
         f"- Draw.io source: `{DRAWIO_PATH.relative_to(ROOT).as_posix()}`",
-        f"- Manual editing mirror: `{(OUT_DIR / f'fig0_aeris_lcn26.drawio').relative_to(ROOT).as_posix()}`",
         f"- Text-free graphics layer SVG: `{GRAPHICS_SVG_PATH.relative_to(ROOT).as_posix()}`",
         f"- Visual QA preview HTML: `{PREVIEW_HTML_PATH.relative_to(ROOT).as_posix()}`",
         f"- PDF export target: `{PDF_PATH.relative_to(ROOT).as_posix()}`",
         f"- Text-free SVG icon directory: `{ICON_DIR.relative_to(ROOT).as_posix()}`",
         "",
         "Rules applied:",
-        "- Every visible non-text graphical element is emitted as a text-free SVG image cell in the draw.io source, including the white page background.",
-        "- SVG image cells are left unlocked and do not use fixed-aspect scaling, so manual non-uniform resizing remains available in draw.io.",
+        "- Every visible non-text graphical element is emitted as a text-free SVG image cell in the draw.io source, except for the locked white page background.",
         "- Reusable icon assets are also saved as standalone text-free SVG files.",
         "- Every visible label is a separate draw.io text cell.",
-        "- Formula chips are separate editable text boxes using native HTML subscript formatting, not LaTeX strings or SVG paths.",
-        "- The QA preview uses positioned SVG image elements plus HTML text boxes; formula markup such as subscript is preserved in the preview.",
+        "- The QA preview uses positioned SVG image elements plus HTML text boxes; no full-figure SVG with embedded text is emitted.",
         "- Figure uses the requested 1440 x 1080 canvas.",
         "- Palette v4 uses a restrained academic scheme: Okabe-Ito blue/sky-blue/green/orange accents and Paul-Tol-style low-chroma tints for labeled cells.",
         "- Text uses Arial in the draw.io source and an Arial/Helvetica fallback stack in the PDF preview export.",
