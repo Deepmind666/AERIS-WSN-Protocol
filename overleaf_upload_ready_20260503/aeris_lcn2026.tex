@@ -155,12 +155,12 @@ Because LEACH, HEED, and TEEN are minimally augmented with a simple relay layer 
 \end{figure}
 
 \subsection{Ablation and Deployment Boundary}
-Figure~\ref{fig:ablation} gives the expanded NS-3 module attribution test. It compares full AERIS with three ablated variants over the four-environment, seven-scale matrix used in the boundary sweep, for 3360 experiments in total. The result is sharper than the earlier fixed 100-node ablation: Gateway is the main gain carrier in factory and suburban cells. Removing Gateway costs 5.82 percentage points on average in factory and 7.58 points in suburban, with all seven node scales significant after Holm correction in both environments. It is essentially neutral in office and weak in urban, which matches the boundary result: office does not need extra uplink protection, while urban links can become too poor for a nearby Gateway to rescue reliably.
+Figure~\ref{fig:ablation} summarizes the expanded NS-3 module attribution test. It compares full AERIS with three ablated variants over the four-environment, seven-scale matrix used in the boundary sweep, for 3360 experiments in total. The result is sharper than the earlier fixed 100-node ablation: Gateway is the main gain carrier in factory and suburban cells. Removing Gateway costs 5.82 percentage points on average in factory and 7.58 points in suburban, with all seven node scales significant after Holm correction in both environments. It is essentially neutral in office and weak in urban, which matches the boundary result: office does not need extra uplink protection, while urban links can become too poor for a nearby Gateway to rescue reliably.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{generated/fig_lcn26_ns3_ablation_expanded.pdf}
-\caption{Expanded NS-3 AERIS ablation across four environments and 50--1000 nodes ($n=30$ per cell). Bars report the mean full-minus-ablated PDR contribution over the seven node scales; intervals show the observed cell range, and parentheses give the number of significant node-scale cells after Welch tests with Holm correction.}
+\caption{Expanded NS-3 AERIS ablation across four environments and 50--1000 nodes ($n=30$ per cell). Each panel summarizes one ablated module as the mean full-minus-ablated PDR contribution by environment; whiskers show the observed node-scale range, and the counts in parentheses give the number of significant node-scale cells after Welch tests with Holm correction.}
 \label{fig:ablation}
 \end{figure}
 
@@ -172,7 +172,7 @@ The 400-replicate-per-cell mechanism study is summarized in Fig.~\ref{fig:mechan
 \begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{generated/fig_lcn26_mechanism_compact.pdf}
-\caption{AERIS mechanism study from 400 replicates per environment-node cell across 12 cells (4800 runs total). The four panels track end-to-end PDR, Gateway-uplink PDR, first-node death (FND), and CAS two-hop share over node scale.}
+\caption{AERIS mechanism study from 400 replicates per environment-node cell across 12 cells (4800 runs total). The four panels use grouped bars to show end-to-end PDR, Gateway-uplink PDR, first-node death (FND), and CAS two-hop share by environment and node scale.}
 \label{fig:mechanism}
 \end{figure}
 

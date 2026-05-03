@@ -116,17 +116,14 @@ def load_cell_deltas() -> dict[tuple[str, str, int], tuple[float, bool]]:
 def build() -> None:
     apply_style()
     summary = load_summary()
-    fig, axes = plt.subplots(3, 1, figsize=(3.50, 2.62), sharex=True)
-    y = np.arange(len(ENV_ORDER), dtype=float)
-    x_min, x_max = -2.1, 8.4
-    panel_tags = ["(a)", "(b)", "(c)"]
+    fig, axes = plt.subplots(3, 1, figsize=(3.50, 2.72), sharex=True)
+    x = np.arange(len(ENV_ORDER), dtype=float)
+    env_labels = [ENV_LABEL[e] for e in ENV_ORDER]
 
     def pretty_value(value: float) -> str:
-        if abs(value) < 0.05:
-            return "+0.0"
-        return f"{value:+.1f}"
+        return "+0.0" if abs(value) < 0.05 else f"{value:+.1f}"
 
-    for panel, ax, (variant, label) in zip(panel_tags, axes, VARIANTS):
+    for ax, (variant, label), tag in zip(axes, VARIANTS, ["(a)", "(b)", "(c)"]):
         vals = np.asarray([summary[(env, variant)][0] for env in ENV_ORDER], dtype=float)
         lo = np.asarray([summary[(env, variant)][1] for env in ENV_ORDER], dtype=float)
         hi = np.asarray([summary[(env, variant)][2] for env in ENV_ORDER], dtype=float)
@@ -134,58 +131,51 @@ def build() -> None:
         total = [summary[(env, variant)][4] for env in ENV_ORDER]
         color = COLORS[label]
 
-        ax.axvspan(-0.1, 0.1, color="#EFEFEF", zorder=0)
-        ax.axvline(0.0, color=COLORS["axis"], linewidth=0.70, zorder=1)
-        ax.barh(y, vals, height=0.50, color=color, alpha=0.86, edgecolor="white", linewidth=0.45, zorder=3)
+        ax.axhline(0.0, color=COLORS["axis"], linewidth=0.70, zorder=1)
+        ax.bar(x, vals, width=0.58, color=color, alpha=0.88, edgecolor="white", linewidth=0.45, zorder=3)
+        err_low = np.maximum(vals - lo, 0.0)
+        err_high = np.maximum(hi - vals, 0.0)
         ax.errorbar(
+            x,
             vals,
-            y,
-            xerr=[np.maximum(vals - lo, 0.0), np.maximum(hi - vals, 0.0)],
+            yerr=[err_low, err_high],
             fmt="none",
             ecolor="#333333",
-            elinewidth=0.65,
-            capsize=1.8,
+            elinewidth=0.70,
+            capsize=2.0,
             zorder=4,
         )
 
-        for yi, val, sc, tc in zip(y, vals, sig, total):
-            ha = "left"
-            offset = 0.14
+        for xi, val, sc, tc in zip(x, vals, sig, total):
             ax.text(
-                val + offset,
-                yi,
+                xi,
+                val + (0.16 if val >= 0 else -0.16),
                 f"{pretty_value(val)} ({sc}/{tc})",
-                ha=ha,
-                va="center",
-                fontsize=5.5,
+                ha="center",
+                va="bottom" if val >= 0 else "top",
+                fontsize=5.3,
                 color=COLORS["text"],
             )
 
-        ax.set_yticks(y)
-        ax.set_yticklabels([ENV_LABEL[e] for e in ENV_ORDER])
-        ax.set_xlim(x_min, x_max)
-        ax.invert_yaxis()
-        ax.grid(axis="x", linestyle="--", linewidth=0.50, color=COLORS["grid"])
-        ax.grid(axis="y", visible=False)
-        ax.set_title(f"{panel} remove {label}", loc="left", pad=1.4, fontsize=6.8, fontweight="bold")
+        low = float(min(np.min(lo), 0.0))
+        high = float(max(np.max(hi), 0.0))
+        span = max(high - low, 1.0)
+        pad = 0.22 * span
+        ax.set_ylim(low - pad, high + pad)
+        ax.set_xticks(x)
+        ax.set_xticklabels(env_labels)
+        ax.grid(axis="y", linestyle="--", linewidth=0.50, color=COLORS["grid"])
+        ax.grid(axis="x", visible=False)
+        ax.set_title(f"{tag} remove {label}", loc="left", pad=1.3, fontsize=6.8, fontweight="bold")
         ax.tick_params(length=2.0, pad=1.4)
         for spine in ["top", "right"]:
             ax.spines[spine].set_visible(False)
-        ax.spines["left"].set_visible(False)
+        ax.spines["left"].set_color(COLORS["axis"])
         ax.spines["bottom"].set_color(COLORS["axis"])
 
-    axes[-1].set_xlabel("Full AERIS minus ablated PDR (percentage points)")
-    axes[-1].text(
-        1.0,
-        -0.46,
-        "parentheses = significant node scales after Holm correction",
-        transform=axes[-1].transAxes,
-        ha="right",
-        va="top",
-        fontsize=5.1,
-        color=COLORS["muted"],
-    )
-    fig.subplots_adjust(left=0.20, right=0.965, top=0.965, bottom=0.19, hspace=0.31)
+    axes[1].set_ylabel("Full AERIS minus ablated PDR (percentage points)")
+    axes[-1].set_xlabel("Environment")
+    fig.subplots_adjust(left=0.16, right=0.98, top=0.965, bottom=0.14, hspace=0.31)
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     fig.savefig(OUT_DIR / "fig_lcn26_ns3_ablation_expanded.pdf")
