@@ -15,20 +15,20 @@ COLUMN_WIDTH_IN = 3.5
 TEXT_WIDTH_IN = 7.16
 
 PALETTE = {
-    "AERIS": "#1F77B4",
-    "AERIS_dark": "#0B3C5D",
-    "AERIS_band": "#1F77B4",
-    "PEGASIS": "#FF7F0E",
+    "AERIS": "#5A5A5A",
+    "AERIS_dark": "#333333",
+    "AERIS_band": "#5A5A5A",
+    "PEGASIS": "#36A657",
     "RPL-MRHOF": "#FF7F0E",
     "RPL": "#FF7F0E",
     "CTP": "#4D4D4D",
-    "LEACH": "#BDBDBD",
-    "HEED": "#8C8C8C",
-    "TEEN": "#D9D9D9",
+    "LEACH": "#2D83BD",
+    "HEED": "#C6373D",
+    "TEEN": "#D15B9A",
     "classical": "#BDBDBD",
     "collection": "#4D4D4D",
-    "GW": "#1F77B4",
-    "CAS": "#FF7F0E",
+    "GW": "#36A657",
+    "CAS": "#2D83BD",
     "CHscore": "#9E9E9E",
     "cost": "#D62728",
     "secondary": "#2CA02C",
@@ -67,12 +67,12 @@ def apply_lcn26_style() -> None:
     plt.style.use("default")
     mpl.rcParams.update(
         {
-            # Type1 fonts so reviewers and IEEE compliance tooling see embedded fonts.
+            # TrueType embedding avoids Type 3 text in generated PDF figures.
             "pdf.fonttype": 42,
             "ps.fonttype": 42,
-            "font.family": "serif",
-            "font.serif": ["Times New Roman", "Times", "DejaVu Serif"],
-            "mathtext.fontset": "stix",
+            "font.family": "sans-serif",
+            "font.sans-serif": ["Arial", "Helvetica", "DejaVu Sans"],
+            "mathtext.fontset": "stixsans",
             "font.size": 8.0,
             "axes.labelsize": 8.4,
             "axes.titlesize": 8.8,

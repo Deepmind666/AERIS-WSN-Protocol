@@ -22,21 +22,20 @@ MECH_FILE = ROOT / "results" / "lcn26_targeted_20260420" / "mechanism_grid_fat" 
 
 ENV_ORDER = ["indoor_office", "indoor_factory", "outdoor_suburban", "outdoor_urban"]
 ENV_SHORT = {"indoor_office": "Office", "indoor_factory": "Factory", "outdoor_suburban": "Suburb", "outdoor_urban": "Urban"}
-ENV_LABEL = {"indoor_office": "Office", "indoor_factory": "Factory", "outdoor_suburban": "Suburban", "outdoor_urban": "Urban"}
 ENV_TAG = {"indoor_office": "O", "indoor_factory": "F", "outdoor_suburban": "S", "outdoor_urban": "U"}
 NODE_ORDER = [100, 500, 1000]
 COLORS = {
-    "AERIS": "#1F77B4",
-    "PEGASIS": "#D62728",
-    "GW": "#2CA02C",
-    "CAS": "#FF7F0E",
-    "grid": "#CFCFCF",
-    "axis": "#111111",
-    "text": "#111111",
-    "muted": "#555555",
-    "best": "#E6E6E6",
-    "second": "#F2F2F2",
-    "third": "#F7F7F7",
+    "AERIS": "#5A5A5A",
+    "PEGASIS": "#C6373D",
+    "GW": "#36A657",
+    "CAS": "#2D83BD",
+    "grid": "#D9DEE5",
+    "axis": "#556270",
+    "text": "#24323F",
+    "muted": "#7A8794",
+    "best": "#FFF2A8",
+    "second": "#F6DFC2",
+    "third": "#F4CED6",
 }
 
 
@@ -51,15 +50,15 @@ def apply_style() -> None:
         {
             "pdf.fonttype": 42,
             "ps.fonttype": 42,
-            "font.family": "serif",
-            "font.serif": ["Times New Roman", "Times", "DejaVu Serif"],
-            "mathtext.fontset": "stix",
-            "font.size": 6.6,
-            "axes.labelsize": 6.8,
-            "axes.titlesize": 6.4,
-            "xtick.labelsize": 5.8,
-            "ytick.labelsize": 5.9,
-            "legend.fontsize": 5.8,
+            "font.family": "sans-serif",
+            "font.sans-serif": ["Arial", "Helvetica", "DejaVu Sans"],
+            "mathtext.fontset": "stixsans",
+            "font.size": 8.2,
+            "axes.labelsize": 8.6,
+            "axes.titlesize": 9.0,
+            "xtick.labelsize": 7.4,
+            "ytick.labelsize": 7.4,
+            "legend.fontsize": 7.0,
             "figure.facecolor": "white",
             "axes.facecolor": "white",
             "savefig.facecolor": "white",
@@ -68,8 +67,7 @@ def apply_style() -> None:
             "savefig.dpi": 300,
             "grid.color": COLORS["grid"],
             "grid.linewidth": 0.55,
-            "grid.alpha": 0.95,
-            "grid.linestyle": "--",
+            "grid.alpha": 0.7,
             "axes.edgecolor": COLORS["axis"],
             "xtick.color": COLORS["axis"],
             "ytick.color": COLORS["axis"],
@@ -83,7 +81,7 @@ def style_axes(ax: plt.Axes) -> None:
     ax.spines["right"].set_visible(False)
     ax.spines["left"].set_color(COLORS["axis"])
     ax.spines["bottom"].set_color(COLORS["axis"])
-    ax.grid(axis="y", linestyle="--", linewidth=0.5, color=COLORS["grid"])
+    ax.grid(axis="y")
 
 
 def save(fig: plt.Figure, stem: str) -> None:
@@ -160,70 +158,55 @@ def build_ablation_compact() -> None:
 
 def build_mechanism_compact() -> None:
     mech_rows = {(row["environment"], int(row["num_nodes"])): row for row in load_csv(MECH_FILE)}
-    cells = [(env, n) for env in ENV_ORDER for n in NODE_ORDER]
-    x = np.arange(len(cells), dtype=float)
-    pdr = np.asarray([float(mech_rows[(env, n)]["pdr_expected_mean"]) for env, n in cells], dtype=float)
-    gw = np.asarray([float(mech_rows[(env, n)]["gateway_uplink_pdr_total_mean"]) for env, n in cells], dtype=float)
-    fnd = np.asarray([float(mech_rows[(env, n)]["first_node_death_round_mean"]) for env, n in cells], dtype=float)
-    cas_direct = np.asarray([float(mech_rows[(env, n)]["cas_DIRECT_mean"]) for env, n in cells], dtype=float)
-    cas_twohop = np.asarray([float(mech_rows[(env, n)]["cas_TWO_HOP_mean"]) for env, n in cells], dtype=float)
-    cas_chain = np.asarray([float(mech_rows[(env, n)]["cas_CHAIN_mean"]) for env, n in cells], dtype=float)
+    pdr = np.asarray([[float(mech_rows[(env, n)]["pdr_expected_mean"]) for n in NODE_ORDER] for env in ENV_ORDER])
+    gw = np.asarray([[float(mech_rows[(env, n)]["gateway_uplink_pdr_total_mean"]) for n in NODE_ORDER] for env in ENV_ORDER])
+    fnd = np.asarray([[float(mech_rows[(env, n)]["first_node_death_round_mean"]) for n in NODE_ORDER] for env in ENV_ORDER])
+    cas_direct = np.asarray([[float(mech_rows[(env, n)]["cas_DIRECT_mean"]) for n in NODE_ORDER] for env in ENV_ORDER])
+    cas_twohop = np.asarray([[float(mech_rows[(env, n)]["cas_TWO_HOP_mean"]) for n in NODE_ORDER] for env in ENV_ORDER])
+    cas_chain = np.asarray([[float(mech_rows[(env, n)]["cas_CHAIN_mean"]) for n in NODE_ORDER] for env in ENV_ORDER])
     cas_total = np.maximum(cas_direct + cas_twohop + cas_chain, 1e-9)
     twohop_share = cas_twohop / cas_total * 100.0
 
-    fig, axes = plt.subplots(2, 2, figsize=(3.52, 3.02), sharex=True)
-    ax_pdr, ax_gw, ax_fnd, ax_twohop = axes.flatten()
-    plot_axes = (ax_pdr, ax_gw, ax_fnd, ax_twohop)
-    xlabels = [f"{ENV_TAG[e]}{('1k' if n == 1000 else n)}" for e, n in cells]
+    fig, axes = plt.subplots(2, 2, figsize=(3.50, 2.52))
+    panels = [
+        (axes[0, 0], "(a) End-to-end PDR", pdr, "Blues", 0.0, 1.0, "{:.2f}"),
+        (axes[0, 1], "(b) Gateway PDR", gw, "Greens", 0.0, 1.0, "{:.2f}"),
+        (axes[1, 0], "(c) FND rounds", fnd, "Reds", 0.0, max(15.0, float(np.max(fnd))), "{:.1f}"),
+        (axes[1, 1], "(d) CAS two-hop %", twohop_share, "Oranges", 0.0, 80.0, "{:.0f}"),
+    ]
 
-    for ax in plot_axes:
-        style_axes(ax)
-        ax.set_xlim(-0.6, len(cells) - 0.4)
-        for group_idx, _env in enumerate(ENV_ORDER):
-            start = group_idx * len(NODE_ORDER) - 0.5
-            if group_idx > 0:
-                ax.axvline(start, color=COLORS["grid"], linestyle="--", linewidth=0.7, zorder=1)
-        ax.tick_params(axis="x", length=2.0, pad=1.2)
+    for ax, title, matrix, cmap, vmin, vmax, fmt in panels:
+        image = ax.imshow(matrix, aspect="auto", cmap=cmap, vmin=vmin, vmax=vmax)
+        del image
+        ax.set_title(title, loc="left", pad=1.5, fontsize=6.8, fontweight="bold")
+        ax.set_xticks(np.arange(len(NODE_ORDER)))
+        ax.set_xticklabels(["100", "500", "1k"])
+        ax.set_yticks(np.arange(len(ENV_ORDER)))
+        ax.set_yticklabels([ENV_SHORT[e] for e in ENV_ORDER])
+        ax.set_xticks(np.arange(-0.5, len(NODE_ORDER), 1), minor=True)
+        ax.set_yticks(np.arange(-0.5, len(ENV_ORDER), 1), minor=True)
+        ax.grid(which="minor", color="white", linewidth=0.7)
+        ax.tick_params(which="minor", bottom=False, left=False)
+        ax.tick_params(axis="both", length=0, pad=1.4, labelsize=5.8)
+        for row_idx in range(matrix.shape[0]):
+            for col_idx in range(matrix.shape[1]):
+                val = float(matrix[row_idx, col_idx])
+                normed = (val - vmin) / max(vmax - vmin, 1e-9)
+                txt_color = "white" if normed > 0.58 else "#222222"
+                ax.text(col_idx, row_idx, fmt.format(val), ha="center", va="center", fontsize=5.4, color=txt_color)
+        for spine in ax.spines.values():
+            spine.set_visible(False)
 
-    ax_pdr.bar(x, pdr, width=0.58, color=COLORS["AERIS"], edgecolor="black", linewidth=0.35, zorder=3)
-    ax_pdr.set_ylim(0.0, 1.05)
-    ax_pdr.set_ylabel("PDR")
-    ax_pdr.set_title("(a) End-to-end", pad=1.5)
-
-    ax_gw.plot(x, gw, color=COLORS["GW"], marker="o", markersize=3.0, linewidth=1.35, zorder=3)
-    ax_gw.set_ylim(0.0, 1.05)
-    ax_gw.set_ylabel("PDR")
-    ax_gw.set_title("(b) Gateway uplink", pad=1.5)
-
-    ax_fnd.bar(x, fnd, width=0.58, color=COLORS["PEGASIS"], edgecolor="black", linewidth=0.35, zorder=3)
-    ax_fnd.set_ylim(0, max(float(np.max(fnd)) * 1.18, 15.0))
-    ax_fnd.set_ylabel("FND")
-    ax_fnd.set_title("(c) First-node death", pad=1.5)
-
-    ax_twohop.plot(x, twohop_share, color=COLORS["CAS"], marker="s", markersize=2.8, linewidth=1.25, zorder=3)
-    ax_twohop.set_ylim(0, 100)
-    ax_twohop.set_ylabel("Two-hop (%)")
-    ax_twohop.set_title("(d) CAS two-hop", pad=1.5)
-
-    urban_1000 = cells.index(("outdoor_urban", 1000))
-    ax_pdr.text(urban_1000, pdr[urban_1000] + 0.035, f"{pdr[urban_1000]:.2f}", ha="center", va="bottom", fontsize=5.0, color=COLORS["AERIS"])
-    for idx in [0, 3, 6, 9, 11]:
-            ax_fnd.text(idx, fnd[idx] + 0.35, f"{fnd[idx]:.1f}", ha="center", va="bottom", fontsize=4.9, color=COLORS["PEGASIS"])
-
-    for ax in (ax_pdr, ax_gw):
+    for ax in axes[0, :]:
         ax.tick_params(axis="x", labelbottom=False)
-    for ax in (ax_fnd, ax_twohop):
-        ax.set_xticks(x)
-        ax.set_xticklabels(xlabels, fontsize=5.4, rotation=38, ha="right")
-
-    fig.subplots_adjust(left=0.13, right=0.985, top=0.85, bottom=0.16, wspace=0.34, hspace=0.44)
+    for ax in axes[:, 1]:
+        ax.tick_params(axis="y", labelleft=False)
+    fig.text(0.50, 0.03, "Node scale", ha="center", va="center", fontsize=6.5, color=COLORS["text"])
+    fig.subplots_adjust(left=0.14, right=0.985, top=0.93, bottom=0.12, wspace=0.12, hspace=0.25)
     save(fig, "fig_lcn26_mechanism_compact")
 
 
 if __name__ == "__main__":
     apply_style()
-    if ABLATION_FILE.exists():
-        build_ablation_compact()
-    else:
-        print(f"[LCN26] Skipping compact ablation figure; missing {ABLATION_FILE}")
+    build_ablation_compact()
     build_mechanism_compact()

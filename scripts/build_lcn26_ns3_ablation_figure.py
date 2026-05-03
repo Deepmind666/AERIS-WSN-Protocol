@@ -7,6 +7,7 @@ import csv
 from pathlib import Path
 
 import matplotlib
+from matplotlib.colors import TwoSlopeNorm
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -17,6 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT_DIR = ROOT / "_LCN26_AERIS" / "generated"
 ABLATION_DIR = ROOT / "ns3_validation" / "results" / "lcn26_ns3_ablation_combined_20260501_010355_011001" / "summary"
 SUMMARY_FILE = ABLATION_DIR / "ns3_ablation_environment_summary.csv"
+DELTA_FILE = ABLATION_DIR / "ns3_ablation_delta.csv"
 
 ENV_ORDER = ["indoor_office", "indoor_factory", "outdoor_suburban", "outdoor_urban"]
 ENV_LABEL = {
@@ -30,6 +32,8 @@ VARIANTS = [
     ("AERIS-noCAS", "CAS"),
     ("AERIS-noFair", "CH score"),
 ]
+NODE_ORDER = [50, 100, 200, 300, 500, 800, 1000]
+NODE_LABELS = ["50", "100", "200", "300", "500", "800", "1k"]
 COLORS = {
     "Gateway": "#1F77B4",
     "CAS": "#FF7F0E",
@@ -52,14 +56,14 @@ def apply_style() -> None:
         {
             "pdf.fonttype": 42,
             "ps.fonttype": 42,
-            "font.family": "serif",
-            "font.serif": ["Times New Roman", "Times", "DejaVu Serif"],
-            "mathtext.fontset": "stix",
-            "font.size": 6.6,
-            "axes.labelsize": 6.8,
+            "font.family": "sans-serif",
+            "font.sans-serif": ["Arial", "Helvetica", "DejaVu Sans"],
+            "mathtext.fontset": "stixsans",
+            "font.size": 6.4,
+            "axes.labelsize": 6.6,
             "axes.titlesize": 6.8,
-            "xtick.labelsize": 6.1,
-            "ytick.labelsize": 6.2,
+            "xtick.labelsize": 5.9,
+            "ytick.labelsize": 5.9,
             "legend.fontsize": 5.6,
             "figure.facecolor": "white",
             "axes.facecolor": "white",
@@ -96,62 +100,69 @@ def load_summary() -> dict[tuple[str, str], tuple[float, float, float, int, int]
     return summary
 
 
+def load_cell_deltas() -> dict[tuple[str, str, int], tuple[float, bool]]:
+    cells: dict[tuple[str, str, int], tuple[float, bool]] = {}
+    for row in load_rows(DELTA_FILE):
+        # Stored delta is ablated-full. Contribution is full-ablated.
+        contribution = -float(row["delta_points"])
+        sig_flag = row["significant_005"].strip().lower()
+        cells[(row["environment"], row["variant"], int(row["num_nodes"]))] = (
+            contribution,
+            sig_flag in {"true", "yes", "1"},
+        )
+    return cells
+
+
 def build() -> None:
     apply_style()
-    summary = load_summary()
-    fig, ax = plt.subplots(figsize=(3.52, 2.58))
-    y_base = np.arange(len(ENV_ORDER), dtype=float)
-    offsets = [-0.26, 0.0, 0.26]
-    bar_h = 0.16
+    cells = load_cell_deltas()
+    fig, axes = plt.subplots(3, 1, figsize=(3.50, 2.52), sharex=True)
+    norm = TwoSlopeNorm(vmin=-2.0, vcenter=0.0, vmax=8.0)
+    last_heat = None
 
-    ax.axvline(0, color=COLORS["axis"], linewidth=0.8, linestyle="--", zorder=1)
-    for offset, (variant, label) in zip(offsets, VARIANTS):
-        vals = np.asarray([summary[(env, variant)][0] for env in ENV_ORDER], dtype=float)
-        mins = np.asarray([summary[(env, variant)][1] for env in ENV_ORDER], dtype=float)
-        maxs = np.asarray([summary[(env, variant)][2] for env in ENV_ORDER], dtype=float)
-        sig = [summary[(env, variant)][3] for env in ENV_ORDER]
-        y = y_base + offset
-        xerr = np.vstack((np.maximum(vals - mins, 0.0), np.maximum(maxs - vals, 0.0)))
-        ax.barh(y, vals, height=bar_h, color=COLORS[label], edgecolor="black", linewidth=0.35, label=label, zorder=3)
-        ax.errorbar(vals, y, xerr=xerr, fmt="none", ecolor=COLORS["axis"], elinewidth=0.55, capsize=1.8, zorder=4)
-        for yi, val, sig_count in zip(y, vals, sig):
-            if abs(val) < 0.45 and sig_count < 5:
-                continue
-            dx = 0.12
-            ax.text(
-                val + dx,
-                yi,
-                f"{val:+.1f} ({sig_count}/7)",
-                ha="left",
-                va="center",
-                fontsize=5.8,
-                color=COLORS["muted"],
-            )
+    panel_tags = ["(a)", "(b)", "(c)"]
+    for panel, ax, (variant, label) in zip(panel_tags, axes, VARIANTS):
+        matrix = np.asarray(
+            [
+                [cells[(env, variant, node)][0] for node in NODE_ORDER]
+                for env in ENV_ORDER
+            ],
+            dtype=float,
+        )
+        sig_matrix = np.asarray(
+            [
+                [cells[(env, variant, node)][1] for node in NODE_ORDER]
+                for env in ENV_ORDER
+            ],
+            dtype=bool,
+        )
+        last_heat = ax.imshow(matrix, aspect="auto", cmap="RdBu", norm=norm)
+        ax.set_yticks(np.arange(len(ENV_ORDER)))
+        ax.set_yticklabels([ENV_LABEL[e] for e in ENV_ORDER])
+        ax.set_title(f"{panel} {label}", loc="left", pad=1.5, fontsize=6.8, fontweight="bold")
+        sig_y, sig_x = np.where(sig_matrix)
+        ax.set_xticks(np.arange(len(NODE_ORDER)))
+        ax.set_xticklabels(NODE_LABELS)
+        ax.set_xticks(np.arange(-0.5, len(NODE_ORDER), 1), minor=True)
+        ax.set_yticks(np.arange(-0.5, len(ENV_ORDER), 1), minor=True)
+        ax.grid(which="minor", color="white", linewidth=0.55)
+        ax.tick_params(which="minor", bottom=False, left=False)
+        ax.tick_params(axis="y", length=0, pad=1.5)
+        ax.tick_params(axis="x", length=2.2, pad=1.5)
+        for spine in ["top", "right", "left", "bottom"]:
+            ax.spines[spine].set_visible(False)
+        ax.scatter(sig_x, sig_y, marker="o", s=15, facecolor="white", edgecolor="black", linewidth=0.55, alpha=0.98, zorder=5)
 
-    ax.set_yticks(y_base)
-    ax.set_yticklabels([ENV_LABEL[e] for e in ENV_ORDER])
-    ax.invert_yaxis()
-    ax.set_xlim(-2.8, 8.95)
-    ax.set_xlabel("Mean PDR contribution (percentage points)")
-    ax.grid(axis="x", linestyle="--", linewidth=0.5, color=COLORS["grid"])
-    ax.grid(axis="y", visible=False)
-    for spine in ["top", "right", "left"]:
-        ax.spines[spine].set_visible(False)
-    ax.spines["bottom"].set_color(COLORS["axis"])
-    ax.tick_params(axis="y", length=0, pad=2)
-    ax.legend(
-        loc="upper center",
-        frameon=True,
-        facecolor="white",
-        edgecolor=COLORS["grid"],
-        framealpha=0.95,
-        handletextpad=0.25,
-        borderaxespad=0.05,
-        ncol=3,
-        bbox_to_anchor=(0.5, 1.08),
-        columnspacing=0.8,
-    )
-    fig.subplots_adjust(left=0.27, right=0.985, top=0.82, bottom=0.17)
+    for ax in axes[:-1]:
+        ax.tick_params(axis="x", labelbottom=False)
+    axes[-1].set_xlabel("")
+    fig.text(0.025, 0.56, "Environment", rotation=90, ha="center", va="center", fontsize=6.6)
+    if last_heat is not None:
+        cax = fig.add_axes([0.18, 0.075, 0.77, 0.035])
+        cbar = fig.colorbar(last_heat, cax=cax, orientation="horizontal")
+        cbar.set_label("Contribution: full minus ablated PDR (pp); dots = significant", fontsize=5.6, labelpad=1)
+        cbar.ax.tick_params(labelsize=5.3, length=2.0, pad=1)
+    fig.subplots_adjust(left=0.18, right=0.98, top=0.965, bottom=0.18, hspace=0.20)
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     fig.savefig(OUT_DIR / "fig_lcn26_ns3_ablation_expanded.pdf")

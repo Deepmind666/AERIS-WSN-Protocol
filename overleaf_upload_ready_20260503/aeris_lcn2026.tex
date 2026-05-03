@@ -50,13 +50,6 @@ We make three primary contributions:
     \item Through extensive ablation and pooled trade-off statistics, we demonstrate that the reliability gains are primarily driven by Gateway support and are fundamentally paid for through earlier node death.
 \end{enumerate}
 
-\section{RELATED WORK}
-Classical low-overhead WSN protocols continue to define the primary engineering operating points. LEACH and HEED mitigate long-range transmission costs via clustering, though their uplink quality remains highly sensitive to head placement and channel degradation~\cite{heinzelman2002application,younis2004heed}. PEGASIS distributes load through chain forwarding, but this robustness incurs the cost of increased latency and serialization~\cite{lindsey2002pegasis}. While TEEN suppresses redundant transmissions, its logic makes performance metrics sensitive to the specific definition of ``expected'' delivery~\cite{manjeshwar2001teen}. Collectively, these protocols represent the reliability-energy-latency trade-off that any contemporary design must confront.
-
-Recent research has sought to improve reliability through machine learning, hybrid control, and context-aware adaptation~\cite{kumar2019machine,hu2024security,pushpa2025optimizing,tossa2025wireless,wang2024energy,khedr2025advancing,almutairi2025secured}. AERIS aligns with the objective of context-awareness but deliberately maintains a simple runtime logic: it relies on fixed coefficients and explicit control paths without training-time dependencies. Alongside a broader trend toward complex AI-driven routing and sophisticated LLN management documented in recent surveys~\cite{almutairi2024survey,djennadi2025exploring,thakur2025ai}, emerging designs frequently explore reinforcement learning and federated DDQN strategies~\cite{ren2023mefi,okine2024multi,singh2025enhanced,bhukya2025hybrid}.
-
-Collection-tree and RPL-style protocols remain critical because they address the parent-selection problem through structured control planes. CTP constructs trees based on path quality~\cite{gnawali2009collection}, while RPL and MRHOF standardize DAG construction for lossy networks~\cite{tsvetkov2011rpl,gnawali2012minimum}. Opportunistic variants like ORW and ORPL further exploit link diversity~\cite{landsiedel2012low,duquennoy2013let}. This paper does not seek to replace these mature families. Instead, it investigates where a simpler fixed-rule design provides a sufficient reliability gain and where the established collection-tree paradigm should remain the default choice.
-
 \begin{figure*}[t]
 \centering
 \includegraphics[width=0.92\textwidth]{AERIS_fig1_flow_chart.pdf}
@@ -64,28 +57,74 @@ Collection-tree and RPL-style protocols remain critical because they address the
 \label{fig:aeris_workflow}
 \end{figure*}
 
+\section{RELATED WORK}
+Classical low-overhead WSN protocols continue to define the primary engineering operating points. LEACH and HEED mitigate long-range transmission costs via clustering, though their uplink quality remains highly sensitive to head placement and channel degradation~\cite{heinzelman2002application,younis2004heed}. PEGASIS distributes load through chain forwarding, but this robustness incurs the cost of increased latency and serialization~\cite{lindsey2002pegasis}. While TEEN suppresses redundant transmissions, its logic makes performance metrics sensitive to the specific definition of ``expected'' delivery~\cite{manjeshwar2001teen}. Collectively, these protocols represent the reliability-energy-latency trade-off that any contemporary design must confront.
+
+Recent research has sought to improve reliability through machine learning, hybrid control, and context-aware adaptation~\cite{kumar2019machine,hu2024security,pushpa2025optimizing,tossa2025wireless,wang2024energy,khedr2025advancing,almutairi2025secured}. AERIS aligns with the objective of context-awareness but deliberately maintains a simple runtime logic: it relies on fixed coefficients and explicit control paths without training-time dependencies. Alongside a broader trend toward complex AI-driven routing and sophisticated LLN management documented in recent surveys~\cite{almutairi2024survey,djennadi2025exploring,thakur2025ai}, emerging designs frequently explore reinforcement learning and federated DDQN strategies~\cite{ren2023mefi,okine2024multi,singh2025enhanced,bhukya2025hybrid}.
+
+Collection-tree and RPL-style protocols remain critical because they address the parent-selection problem through structured control planes. CTP constructs trees based on path quality~\cite{gnawali2009collection}, while RPL and MRHOF standardize DAG construction for lossy networks~\cite{tsvetkov2011rpl,gnawali2012minimum}. Opportunistic variants like ORW and ORPL further exploit link diversity~\cite{landsiedel2012low,duquennoy2013let}. This paper does not seek to replace these mature families. Instead, it investigates where a simpler fixed-rule design provides a sufficient reliability gain and where the established collection-tree paradigm should remain the default choice.
+
 \section{METHOD}
 AERIS integrates CAS for intra-cluster mode selection, Gateway reinforcement for cluster-head-to-base-station uplinks, and a sparse Skeleton relay backbone as a reserve fallback. The design adds redundancy only where direct forwarding becomes fragile, while keeping the online control path deterministic and auditable. Figure~\ref{fig:aeris_workflow} summarizes the framework in the same order: cluster formation, intra-cluster communication, and pre-transmission uplink selection to the BS.
 
+CH candidates are scored by the fuzzy \texttt{cluster\_head\_chance} output of \texttt{FuzzyLogicSystem}, which combines residual energy, node centrality, node degree, distance-to-BS, and link quality. The CH fraction starts from 0.08, increases under weak mean LQI, is adjusted for density, and is clipped to $[0.05,0.20]$. A fairness penalty reduces repeated CH duty by multiplying the fuzzy score by $1-0.25p_i$, where $p_i$ is the historical CH-use penalty.
+
 Gateway candidates are ranked by a fixed linear score,
 \begin{equation}
-\mathrm{Score}_i = \alpha \hat{E}_i + \beta \hat{C}_i + \gamma \hat{L}_i + \delta \hat{D}_i,
+\mathrm{Score}_i =
+w_D \bar{D}_i+w_C \hat{C}_i+w_L \hat{L}_i+w_E \hat{E}_i ,
 \end{equation}
-where $\hat{E}_i$, $\hat{C}_i$, $\hat{L}_i$, and $\hat{D}_i$ denote normalized residual energy, centrality, link quality, and CH-to-BS distance. Centrality is a distance-aware neighborhood surrogate computed from local geometry; link quality is the current channel-estimated success probability for the candidate hop; and all scalar features are normalized to $[0,1]$ before scoring. Here $\hat{D}_i$ is the inverted normalized CH-to-BS distance score, so larger values indicate shorter distance.
+where $\bar{D}_i$ is normalized CH-to-BS distance, and $\hat{C}_i$, $\hat{L}_i$, and $\hat{E}_i$ are normalized centrality, link quality, and residual energy. The publication setting uses $w_D=-0.7$, $w_C=0.3$, $w_L=0$, and $w_E=0$, so closer and more central CHs are preferred unless later configurations explicitly enable link or energy terms.
 
-CH candidates are scored separately by the fuzzy \texttt{cluster\_head\_chance} output of \texttt{FuzzyLogicSystem}, which combines residual energy, node centrality, node degree, distance-to-BS, and link quality; the top \texttt{cluster\_head\_ratio} fraction of alive nodes is then selected as CHs after a fairness penalty.
-
-CAS uses another fixed linear rule over \{\text{direct, chain, two-hop}\}; the shared coefficients are fixed before all runs and are not tuned per environment:
+CAS uses fixed linear scores over \{\text{direct, chain, two-hop}\}:
 \begin{equation}
-m^{\star}=\arg\max_{m \in \{\mathrm{direct},\mathrm{chain},\mathrm{two\mbox{-}hop}\}} \left( a_m \hat{q} + b_m \hat{e} + c_m \hat{u} \right),
+\begin{aligned}
+m^{\star}=\arg\max_m
+(&w^m_E\hat{E}+w^m_L\hat{L}+w^m_B\hat{D}_B\\
+&+w^m_R\hat{R}+w^m_\rho\hat{\rho}+w^m_F\hat{F}),
+\end{aligned}
 \end{equation}
-where $\hat{q}$, $\hat{e}$, and $\hat{u}$ are normalized local channel quality, residual energy, and a per-CH utilization summary computed from local density and forward-buffer occupancy, and the coefficients $\{a_m,b_m,c_m\}$ are fixed for each candidate mode.
+where $\hat{E}$, $\hat{L}$, $\hat{D}_B$, $\hat{R}$, $\hat{\rho}$, and $\hat{F}$ denote residual energy, local link quality, distance-to-BS, cluster radius, density, and fairness penalty. Two-hop also receives a tail bonus $0.2\max(0,\hat{T}-0.6)$. Rule overrides force two-hop when distance or tail length is high and link quality is below 0.55, and force chain only in dense mid-distance clusters.
 
-All core coefficients and thresholds are fixed before evaluation; the source defaults are $w_{\mathrm{dist}}=-0.7$, $w_{\mathrm{cent}}=0.3$, $w_{\mathrm{link}}=0.0$, and $w_{\mathrm{energy}}=0.0$ for Gateway, and \texttt{ema\_alpha}=0.2, \texttt{min\_confidence}=0.2, \texttt{lambda\_uncertainty}=0.0, and \texttt{uncertainty\_conf\_threshold}=0.4 for CAS, with the remaining mode weights and thresholds left unchanged from \texttt{CASConfig}; none are selected using environment-level test results. Skeleton forwarding is built as a sparse CH relay backbone after clustering and refreshed with the CH set; in this publication configuration it acts as a reserve fallback rather than an actively exercised mechanism.
+\noindent\begin{minipage}{\columnwidth}
+\footnotesize
+\textbf{Fixed AERIS parameters used in all reported runs.}
+\setlength{\tabcolsep}{2pt}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}p{0.28\columnwidth}p{0.66\columnwidth}@{}}
+\toprule
+Block & Fixed value / rule \\
+\midrule
+CH election & base ratio 0.08, LQI/density adjusted, clipped to $[0.05,0.20]$; fairness factor $1-0.25p_i$ \\
+Cluster join & distance/link/energy weights $0.45/0.40/0.15$; minimum PRR 0.20 \\
+Gateway & $w_D/w_C/w_L/w_E=-0.7/0.3/0/0$; one Gateway retry and direct rescue enabled \\
+CAS stability & EMA 0.2; minimum confidence 0.2; uncertainty penalty disabled; rule override enabled \\
+Skeleton & PCA-axis CH backbone, weights 0.7/0.3, far-CH quantile 0.75; reserve fallback only \\
+\bottomrule
+\end{tabular*}
+\vspace{1pt}
+\scriptsize
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lrrrrrr@{}}
+\toprule
+CAS mode & $E$ & $L$ & $D_B$ & $R$ & $\rho$ & $F$ \\
+\midrule
+Direct & .35 & .65 & -.25 & -.05 & .10 & -.05 \\
+Chain & .30 & .40 & .20 & .20 & .20 & -.05 \\
+Two-hop & .20 & .25 & .50 & .15 & .05 & -.05 \\
+\bottomrule
+\end{tabular*}
+\vspace{2pt}
+\textbf{Algorithm 1: AERIS round.}
+\begin{enumerate}
+\setlength{\itemsep}{0pt}
+\item Estimate normalized energy, LQI, neighborhood geometry, density, and queue/use summaries.
+\item Select CHs with fuzzy score plus fairness penalty; associate each member to the best CH by distance, link quality, and CH energy.
+\item For each cluster, choose direct, chain, or two-hop CAS forwarding from Eq.~(2) and rule overrides; aggregate at the CH.
+\item Rank Gateway candidates using Eq.~(1); build the sparse Skeleton reserve over current CHs.
+\item For each CH uplink, try direct, then Gateway, then Skeleton, then one final direct attempt; update energy, link statistics, alive state, and metrics.
+\end{enumerate}
+\end{minipage}
 
-The uplink logic is a first-hit selector rather than multipath routing. A cluster head checks direct uplink quality first, then tries Gateway support if a valid candidate exists, then Skeleton support if a reserve path is valid, and finally makes one last direct attempt. In the stress layer, this ``best-effort direct fallback'' is a single direct transmission attempt without protocol-level retransmission or transmit-power escalation.
-
-In practice, CAS decides whether a sensor-to-CH transfer stays direct, switches to a short chain, or uses a two-hop relay; Gateway support then targets the more fragile CH-to-BS segment; Skeleton remains a reserve fallback if Gateway support is unavailable. AERIS is therefore evaluated as an engineering mechanism rather than claimed as a formal routing optimum: the same inputs trigger the same routing decisions, and the design is judged by how those decisions change delivery and cost in deployment.
+This specification is deliberately rule-based: the same state produces the same routing decision, and no coefficient is selected using environment-level test results. AERIS is therefore evaluated as an engineering mechanism rather than as a formal routing optimum.
 
 \section{EXPERIMENTS}
 \subsection{Experimental Setup}
@@ -99,34 +138,34 @@ We use four complementary settings. A five-protocol NS-3 comparison evaluates AE
 
 A 3360-run NS-3 ablation compares full AERIS with no-Gateway, no-CAS, and no-CH-score variants. A collision-aware Python stress layer adds explicit collision and relay contention; LEACH, HEED, and TEEN are minimally relay-enabled there for multi-hop comparability. The fixed 100-node block reports PDR, total energy, lifetime, first-node death, and hop count, while a 400-replicate-per-cell mechanism matrix explains which AERIS mechanisms actually fire.
 
-For the NS-3 sweeps, nodes are uniformly placed in a 200 m $\times$ 200 m field with the sink at the top-center boundary; runs use 300 rounds, 512-byte packets, 2.0 J initial energy, 10 dBm transmit power, and seeds 42001--42030. The channel combines log-distance loss, shadowing, fading, receiver sensitivity, and packet-error probability. The path-loss/shadowing pairs are office (2.0, 4.5 dB), factory (2.7, 8.5 dB), suburban (2.8, 7.5 dB), and urban (3.4, 12.0 dB). The harness operates above an idealized contention-free MAC abstraction rather than the full IEEE 802.15.4 stack \cite{compatibility2023ieee}; the collision-aware Python stress layer adds explicit collision and relay contention on top of this abstraction.
+The NS-3 evidence uses a standalone ns-3.40 validation harness. Nodes are uniformly placed in a 200 m $\times$ 200 m field with the sink at the top-center boundary; runs use 300 rounds, 512-byte packets, 2.0 J initial energy, 10 dBm transmit power, and seeds 42001--42030. The channel combines log-distance loss, shadowing, fading, receiver sensitivity, and packet-error probability. The path-loss/shadowing pairs are office (2.0, 4.5 dB), factory (2.7, 8.5 dB), suburban (2.8, 7.5 dB), and urban (3.4, 12.0 dB). The harness operates above an idealized contention-free MAC abstraction rather than the full IEEE 802.15.4 stack \cite{compatibility2023ieee}; the collision-aware Python stress layer adds explicit collision and relay contention on top of this abstraction.
 
-The five-protocol NS-3 comparison anchors the classical-baseline ranking; the seven-protocol sweep maps the boundary against simplified collection-style baselines; the ablation attributes the gain; and the collision-aware stress layer provides stress evidence rather than a second canonical ranking. Lifetime, FND, hops, and energy expose load concentration. In Fig.~\ref{fig:ablation}, dots use Welch-type cell tests with Hedges' $g$ and Holm correction; in Fig.~\ref{fig:ns3_boundary}, gaps below 0.1 percentage point are treated as near-ties.
+The five-protocol NS-3 comparison anchors the classical-baseline ranking; the seven-protocol sweep maps the boundary against simplified collection-style baselines; the ablation attributes the gain; and the collision-aware stress layer provides stress evidence rather than a second canonical ranking. Lifetime, FND, hops, and energy expose load concentration. In Fig.~\ref{fig:ablation}, dots use Welch-type cell tests with Hedges' $g$ and Holm correction; in Fig.~\ref{fig:ns3_boundary}, gaps below 0.1 percentage point are treated as practical near-ties, and winner labels alone should not be read as significance claims.
 
 \begin{table}[t]
 \caption{Experimental settings used in the paper.}
 \label{tbl:exp_settings}
 \centering
 \scriptsize
-\setlength{\tabcolsep}{3pt}
-\begin{tabular}{lcccc}
+\setlength{\tabcolsep}{2pt}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lcccc@{}}
 \toprule
-Layer & Platform & Protocols & Cells & Role \\
+Layer & Platform & Prot. & Cells & Role \\
 \midrule
-Classical NS-3 & NS-3 & 5 protocols & $4 \times 3$ & anchor \\
-Boundary sweep & NS-3 & 7 protocols & $4 \times 7$ & boundary \\
-Module ablation & NS-3 & 4 AERIS variants & $4 \times 7$ & attribution \\
-Collision-aware stress & Python & adapted 5-protocol & $4 \times 6$ & stress \\
-Mechanism & Python & AERIS-only grid & $4 \times 3$ & attribution \\
-Frozen block & pooled stats & 5-protocol summary & 100-node only & trade-off \\
+Classical NS-3 & NS-3 & 5 & $4 \times 3$ & anchor \\
+Boundary sweep & NS-3 & 7 & $4 \times 7$ & boundary \\
+Module ablation & NS-3 & 4 var. & $4 \times 7$ & attribution \\
+Stress layer & Python & 5 adapted & $4 \times 6$ & stress \\
+Mechanism & Python & AERIS & $4 \times 3$ & attribution \\
+Frozen block & pooled & 5 & 100-node & trade-off \\
 \bottomrule
-\end{tabular}
+\end{tabular*}
 \end{table}
 \subsection{Expanded Boundary Sweep}
 \begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{fig_lcn26_ns3_expanded_boundary.pdf}
-\caption{Expanded NS-3 boundary sweep across four environments and 50--1000 nodes ($n=30$ per cell). Panel (a) reports AERIS rank-1 cells per environment under the classical-only and all-baseline comparisons; panel (b) reports the mean signed PDR gap to the best non-AERIS baseline after adding the simplified collection-style baselines. The totals are 21/28 rank-1 and 28/28 top-2 cells for the classical-only comparison, and 7/28 rank-1 and 8/28 top-2 cells after adding the collection-style baselines.}
+\caption{Expanded NS-3 boundary sweep across four environments and 50--1000 nodes ($n=30$ per cell). Panel (a) reports AERIS rank-1 cells under the classical-only and all-baseline comparisons; panel (b) preserves the full 4-by-7 node-scale grid as the signed PDR gap to the best non-AERIS baseline. Gaps below 0.1 percentage point are near-ties.}
 \label{fig:ns3_boundary}
 \end{figure}
 
@@ -158,7 +197,7 @@ Figure~\ref{fig:ablation} gives the expanded NS-3 module attribution test. It co
 \begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{fig_lcn26_ns3_ablation_expanded.pdf}
-\caption{Expanded NS-3 AERIS ablation summary across four environments and 50--1000 nodes ($n=30$ per cell). Horizontal bars show mean PDR contribution of each module across the seven node scales; whiskers give the per-environment min/max range. Positive values indicate that the module improves PDR; negative values indicate that removing the module improves PDR. Labels append $(k/7)$, the number of node scales with significant full-minus-ablated differences after Welch tests with Holm correction.}
+\caption{Expanded NS-3 AERIS ablation across four environments and 50--1000 nodes ($n=30$ per cell). Each heatmap cell reports the full-minus-ablated PDR contribution for one module, environment, and node scale. White circles mark significant full-minus-ablated differences after Welch tests with Holm correction.}
 \label{fig:ablation}
 \end{figure}
 
@@ -170,19 +209,19 @@ The 400-replicate-per-cell mechanism matrix is summarized in Fig.~\ref{fig:mecha
 \begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{fig_lcn26_mechanism_compact.pdf}
-\caption{AERIS mechanism matrix from 400 replicates per environment-node cell across 12 cells (4800 runs total). Panels report end-to-end PDR, Gateway-uplink PDR, first-node death (FND), and CAS two-hop share without shared secondary axes. Early FND exposes the reliability-lifetime cost of concentrated relay roles.}
+\caption{AERIS mechanism matrix from 400 replicates per environment-node cell across 12 cells (4800 runs total). Each cell reports the mean end-to-end PDR, Gateway-uplink PDR, first-node death (FND), or CAS two-hop share.}
 \label{fig:mechanism}
 \end{figure}
 
 \begin{table}[t]
-\caption{Fixed 100-node block. Bold = proposed. AERIS has the highest pooled PDR; its lowest consumed energy reflects forwarding-role exhaustion (shortest lifetime, earliest FND), not isolated efficiency. FND right-censored at 300 rounds; NR = no first-node death observed before horizon.}
+\caption{Fixed 100-node summary. Bold indicates AERIS. NR = no first-node death before the 300-round horizon.}
 \label{tbl:pooled_summary}
 \centering
 \scriptsize
 \setlength{\tabcolsep}{2pt}
 \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lccccc@{}}
 \toprule
-Method & PDR$\uparrow$ & Consumed J$\downarrow$ & Lifetime$\uparrow$ & FND$\uparrow$ & Hops$\downarrow$ \\
+Method & PDR$\uparrow$ & Energy J$\downarrow$ & Lifetime$\uparrow$ & FND$\uparrow$ & Hops$\downarrow$ \\
 \midrule
 LEACH & 0.260 & 165.4 & 300.0 & NR & 1.71 \\
 HEED & 0.414 & 165.2 & 300.0 & 11.4 & 2.00 \\

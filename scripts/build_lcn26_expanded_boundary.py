@@ -10,6 +10,7 @@ from collections import defaultdict
 from pathlib import Path
 
 import matplotlib
+from matplotlib.colors import TwoSlopeNorm
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -173,12 +174,12 @@ def build_plot(
     apply_lcn26_style()
     plt.rcParams.update(
         {
-            "font.size": 6.6,
-            "axes.labelsize": 6.9,
-            "axes.titlesize": 6.9,
-            "xtick.labelsize": 6.1,
-            "ytick.labelsize": 6.3,
-            "legend.fontsize": 5.8,
+            "font.size": 6.4,
+            "axes.labelsize": 6.6,
+            "axes.titlesize": 6.7,
+            "xtick.labelsize": 5.9,
+            "ytick.labelsize": 6.0,
+            "legend.fontsize": 5.5,
         }
     )
 
@@ -200,8 +201,8 @@ def build_plot(
     fig, (ax_counts, ax_gap) = plt.subplots(
         2,
         1,
-        figsize=(COLUMN_WIDTH_IN, 2.70),
-        gridspec_kw={"height_ratios": [1.0, 1.0]},
+        figsize=(COLUMN_WIDTH_IN, 2.58),
+        gridspec_kw={"height_ratios": [0.70, 1.16]},
     )
 
     height = 0.34
@@ -209,23 +210,24 @@ def build_plot(
     all_vals = np.asarray([env_rank[env]["all_rank1"] for env in ENV_ORDER], dtype=float)
     ax_counts.barh(y - height / 2, classical_vals, height=height, color=PALETTE["AERIS"], edgecolor="black", linewidth=0.35, label="Classical only")
     ax_counts.barh(y + height / 2, all_vals, height=height, color=PALETTE["RPL-MRHOF"], edgecolor="black", linewidth=0.35, label="All baselines")
-    for yi, val in zip(y - height / 2, classical_vals):
-        if val > 0:
-            ax_counts.text(val + 0.08, yi, f"{int(val)}/7", va="center", ha="left", fontsize=5.7)
-    for yi, val in zip(y + height / 2, all_vals):
-        if val > 0:
-            ax_counts.text(val + 0.08, yi, f"{int(val)}/7", va="center", ha="left", fontsize=5.7)
+    for idx, (base_val, all_val) in enumerate(zip(classical_vals, all_vals)):
+        if base_val == 0 and all_val == 0:
+            ax_counts.text(0.08, y[idx], "0/7", va="center", ha="left", fontsize=5.2)
+            continue
+        for yi, val in ((y[idx] - height / 2, base_val), (y[idx] + height / 2, all_val)):
+            ax_counts.text((val + 0.08) if val > 0 else 0.08, yi, f"{int(val)}/7", va="center", ha="left", fontsize=5.2)
     ax_counts.set_xlim(0, 7.6)
     ax_counts.set_xticks([0, 2, 4, 6, 7])
     ax_counts.set_yticks(y)
     ax_counts.set_yticklabels(labels)
     ax_counts.invert_yaxis()
-    ax_counts.set_xlabel("AERIS rank-1 cells")
-    ax_counts.text(0.0, 1.04, "(a) Rank-1 coverage", transform=ax_counts.transAxes, ha="left", va="bottom", fontsize=6.6, fontweight="bold")
+    ax_counts.set_xlabel("")
+    ax_counts.text(0.0, 1.035, "(a) Rank-1 coverage", transform=ax_counts.transAxes, ha="left", va="bottom", fontsize=6.4, fontweight="bold")
     ax_counts.grid(axis="x", linestyle="--", linewidth=0.5, color=PALETTE["grid"])
     ax_counts.grid(axis="y", visible=False)
     ax_counts.legend(
-        loc="upper right",
+        loc="lower right",
+        bbox_to_anchor=(1.0, 1.02),
         frameon=True,
         facecolor="white",
         edgecolor=PALETTE["grid"],
@@ -235,24 +237,47 @@ def build_plot(
         columnspacing=0.7,
     )
 
-    gap_vals = np.asarray([env_rank[env]["mean_gap"] for env in ENV_ORDER], dtype=float)
-    gap_colors = [PALETTE["AERIS"] if val >= 0 else PALETTE["collection"] for val in gap_vals]
-    ax_gap.axvline(0, color=PALETTE["zero_line"], linewidth=0.8, linestyle="--")
-    ax_gap.barh(y, gap_vals, height=0.42, color=gap_colors, edgecolor="black", linewidth=0.35)
-    for yi, val in zip(y, gap_vals):
-        ha = "left" if val >= 0 else "right"
-        dx = 0.12 if val >= 0 else -0.12
-        ax_gap.text(val + dx, yi, f"{val:+.1f}", va="center", ha=ha, fontsize=5.8)
-    ax_gap.set_xlim(-9.4, 2.8)
-    ax_gap.set_yticks(y)
+    gap_matrix = np.asarray(
+        [
+            [
+                float(
+                    next(
+                        row["gap_pp"]
+                        for row in rows
+                        if row["environment"] == env and int(row["num_nodes"]) == node
+                    )
+                )
+                for node in NODE_ORDER
+            ]
+            for env in ENV_ORDER
+        ],
+        dtype=float,
+    )
+    norm = TwoSlopeNorm(vmin=-9.0, vcenter=0.0, vmax=2.0)
+    heat = ax_gap.imshow(gap_matrix, aspect="auto", cmap="RdBu", norm=norm)
+    ax_gap.set_xticks(np.arange(len(NODE_ORDER)))
+    ax_gap.set_xticklabels(NODE_LABELS)
+    ax_gap.set_yticks(np.arange(len(ENV_ORDER)))
     ax_gap.set_yticklabels(labels)
-    ax_gap.invert_yaxis()
-    ax_gap.set_xlabel("Mean gap to best non-AERIS baseline (pp)")
-    ax_gap.text(0.0, 1.04, "(b) Mean gap after collection-style baselines", transform=ax_gap.transAxes, ha="left", va="bottom", fontsize=6.6, fontweight="bold")
-    ax_gap.grid(axis="x", linestyle="--", linewidth=0.5, color=PALETTE["grid"])
-    ax_gap.grid(axis="y", visible=False)
+    ax_gap.set_xlabel("")
+    ax_gap.text(0.0, 1.035, "(b) Gap to best non-AERIS baseline (pp)", transform=ax_gap.transAxes, ha="left", va="bottom", fontsize=6.4, fontweight="bold")
+    for row_idx, env in enumerate(ENV_ORDER):
+        for col_idx, node in enumerate(NODE_ORDER):
+            val = gap_matrix[row_idx, col_idx]
+            label = r"$\approx$0" if abs(val) < 0.1 else f"{val:+.1f}"
+            text_color = "white" if abs(val) > 4.5 else PALETTE["axis"]
+            ax_gap.text(col_idx, row_idx, label, ha="center", va="center", fontsize=4.7, color=text_color)
+    ax_gap.set_xticks(np.arange(-0.5, len(NODE_ORDER), 1), minor=True)
+    ax_gap.set_yticks(np.arange(-0.5, len(ENV_ORDER), 1), minor=True)
+    ax_gap.grid(which="minor", color="white", linewidth=0.55)
+    ax_gap.tick_params(which="minor", bottom=False, left=False)
+    for spine in ["top", "right", "left", "bottom"]:
+        ax_gap.spines[spine].set_visible(False)
+    cbar = fig.colorbar(heat, ax=ax_gap, orientation="horizontal", fraction=0.095, pad=0.18)
+    cbar.set_label("AERIS - best baseline PDR (pp)", fontsize=5.5, labelpad=1)
+    cbar.ax.tick_params(labelsize=5.2, length=2.0, pad=1)
 
-    fig.subplots_adjust(left=0.20, right=0.985, top=0.94, bottom=0.13, hspace=0.66)
+    fig.subplots_adjust(left=0.20, right=0.985, top=0.90, bottom=0.18, hspace=0.42)
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     fig.savefig(OUTPUT_PDF)
