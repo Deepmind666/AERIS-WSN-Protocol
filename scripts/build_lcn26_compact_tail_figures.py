@@ -148,7 +148,16 @@ def build_mechanism_compact() -> None:
                     capsize=1.8,
                     zorder=4,
                 )
-        ax.set_title(title, loc="left", pad=1.3, fontsize=6.8, fontweight="bold")
+        ax.text(
+            0.5,
+            1.01,
+            title,
+            transform=ax.transAxes,
+            ha="center",
+            va="bottom",
+            fontsize=6.8,
+            fontweight="bold",
+        )
         ax.set_ylabel(ylabel)
         ax.set_ylim(*ylim)
         ax.set_xlim(-0.40, len(NODE_ORDER) - 0.12)

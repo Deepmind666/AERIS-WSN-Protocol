@@ -11,7 +11,7 @@
 \usepackage{url}
 \usepackage[justification=centering,labelsep=period,font=footnotesize,skip=2pt]{caption}
 
-\graphicspath{{generated/}}
+\graphicspath{{figures/}}
 \DeclareGraphicsExtensions{.pdf,.png}
 \setlength{\textfloatsep}{5pt plus 2pt minus 2pt}
 \setlength{\dbltextfloatsep}{5pt plus 2pt minus 2pt}
@@ -52,7 +52,7 @@ We make three primary contributions:
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=0.92\textwidth]{generated/6cbd7cf8e4b3459543122fbbc942ad14.png}
+\includegraphics[width=0.92\textwidth]{figures/fig1_workflow.png}
 \caption{AERIS round framework. The protocol first forms clusters and scores CH/Gateway candidates, then selects one CAS intra-cluster forwarding mode, and finally applies a first-hit uplink selector over direct, Gateway-assisted, Skeleton-reserve, and one-shot fallback paths.}
 \label{fig:aeris_workflow}
 \end{figure*}
@@ -127,7 +127,7 @@ Frozen block & pooled & 5 & 100-node & trade-off \\
 \subsection{Expanded Boundary Sweep}
 \begin{figure}[t]
 \centering
-\includegraphics[width=\columnwidth]{generated/fig_lcn26_ns3_expanded_boundary.pdf}
+\includegraphics[width=\columnwidth]{figures/fig2_boundary.pdf}
 \caption{Expanded NS-3 boundary sweep across four environments and 50--1000 nodes ($n=30$ per cell). Each panel plots mean PDR for AERIS and the strongest boundary-relevant baselines. The title reports AERIS rank-1 coverage against classical/all baselines (C/A), and the panel note reports the mean signed gap to the best non-AERIS baseline. Gaps below 0.1 percentage point are near-ties.}
 \label{fig:ns3_boundary}
 \end{figure}
@@ -149,7 +149,7 @@ Because LEACH, HEED, and TEEN are minimally augmented with a simple relay layer 
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=\columnwidth]{generated/fig_lcn26_strict_compact.pdf}
+\includegraphics[width=\columnwidth]{figures/fig3_stress.pdf}
 \caption{Collision-aware adapted Python stress test across four environments and 100--1000 nodes ($n=3200$ per cell). LEACH, HEED, and TEEN are minimally relay-enabled; this layer tests collision-and-relay stress and is not canonical ranking evidence.}
 \label{fig:strict_python}
 \end{figure}
@@ -159,7 +159,7 @@ Figure~\ref{fig:ablation} summarizes the expanded NS-3 module attribution test. 
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=\columnwidth]{generated/fig_lcn26_ns3_ablation_expanded.pdf}
+\includegraphics[width=\columnwidth]{figures/fig4_ablation.pdf}
 \caption{Expanded NS-3 AERIS ablation across four environments and 50--1000 nodes ($n=30$ per cell). Each panel summarizes one ablated module as the mean full-minus-ablated PDR contribution by environment; whiskers show the observed node-scale range, and the counts in parentheses give the number of significant node-scale cells after Welch tests with Holm correction.}
 \label{fig:ablation}
 \end{figure}
@@ -171,7 +171,7 @@ The 400-replicate-per-cell mechanism study is summarized in Fig.~\ref{fig:mechan
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=\columnwidth]{generated/fig_lcn26_mechanism_compact.pdf}
+\includegraphics[width=\columnwidth]{figures/fig5_mechanism.pdf}
 \caption{AERIS mechanism study from 400 replicates per environment-node cell across 12 cells (4800 runs total). The four panels use grouped bars to show end-to-end PDR, Gateway-uplink PDR, first-node death (FND), and CAS two-hop share by environment and node scale.}
 \label{fig:mechanism}
 \end{figure}

@@ -5,12 +5,11 @@ Included files:
 - ref.bib
 - aeris_lcn2026.pdf
 - IEEEtran.cls
-- generated/AERIS_fig1_flow_chart.pdf
-- generated/AERIS_fig1_flow_chart.drawio
-- generated/fig_lcn26_ns3_expanded_boundary.pdf
-- generated/fig_lcn26_strict_compact.pdf
-- generated/fig_lcn26_ns3_ablation_expanded.pdf
-- generated/fig_lcn26_mechanism_compact.pdf
+- figures/fig1_workflow.png
+- figures/fig2_boundary.pdf
+- figures/fig3_stress.pdf
+- figures/fig4_ablation.pdf
+- figures/fig5_mechanism.pdf
 
 Compile recipe used locally:
 pdflatex -> bibtex -> pdflatex -> pdflatex
@@ -18,5 +17,5 @@ pdflatex -> bibtex -> pdflatex -> pdflatex
 Notes:
 - Final PDF length: 6 pages.
 - No unresolved citations or references remain.
-- Remaining warnings are the IEEEtran/caption class warning and the harmless PDF 1.7 flowchart inclusion warning.
-- The hand-drawn flowchart was not edited.
+- Remaining warnings are IEEEtran/caption class and column-balance warnings.
+- Fig. 1 uses the hand-drawn workflow PNG provided by the author.
