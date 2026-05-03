@@ -281,22 +281,13 @@ def build_plot(
     fig.legend(
         handles=handles,
         ncol=3,
-        loc="upper center",
-        bbox_to_anchor=(0.5, 0.997),
+        loc="upper left",
+        bbox_to_anchor=(0.015, 0.995),
         frameon=False,
         columnspacing=0.80,
         handletextpad=0.35,
     )
-    fig.text(
-        0.50,
-        0.017,
-        "Bars show mean PDR(AERIS) minus the strongest non-AERIS baseline; whiskers are approximate 95% CIs.",
-        ha="center",
-        va="bottom",
-        fontsize=5.0,
-        color=PALETTE["muted"],
-    )
-    fig.subplots_adjust(left=0.16, right=0.985, top=0.82, bottom=0.17, wspace=0.20, hspace=0.38)
+    fig.subplots_adjust(left=0.16, right=0.985, top=0.83, bottom=0.14, wspace=0.20, hspace=0.38)
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     fig.savefig(OUTPUT_PDF)
