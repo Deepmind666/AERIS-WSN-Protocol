@@ -23,7 +23,7 @@ ABLATION_DIR = (
     / "lcn26_ns3_ablation_combined_20260501_010355_011001"
     / "summary"
 )
-SUMMARY_FILE = ABLATION_DIR / "ns3_ablation_environment_summary.csv"
+DELTA_FILE = ABLATION_DIR / "ns3_ablation_delta.csv"
 OUTPUT_PDF = OUT_DIR / "fig_lcn26_ns3_ablation_expanded.pdf"
 OUTPUT_PNG = OUT_DIR / "fig_lcn26_ns3_ablation_expanded.png"
 
@@ -34,16 +34,21 @@ ENV_LABEL = {
     "outdoor_suburban": "Suburban",
     "outdoor_urban": "Urban",
 }
-MODULES = [
-    ("AERIS-noGW", "Gateway", "#C13136"),
-    ("AERIS-noCAS", "CAS", "#1C7ABA"),
-    ("AERIS-noFair", "CH score", "#9E9E9E"),
+SERIES = [
+    ("Full", "#C8C8C8"),
+    ("-GW", "#F1D5B3"),
+    ("-CAS", "#F29440"),
+]
+DELTA_SERIES = [
+    ("-GW", "AERIS-noGW", "#F1D5B3", "o"),
+    ("-CAS", "AERIS-noCAS", "#F29440", "s"),
 ]
 COLORS = {
-    "axis": "#111111",
-    "grid": "#CFCFCF",
+    "axis": "#4F5D6A",
+    "grid": "#E1E6EA",
     "text": "#111111",
     "muted": "#555555",
+    "err": "#333A40",
 }
 
 
@@ -61,12 +66,12 @@ def apply_style() -> None:
             "font.family": "serif",
             "font.serif": ["Times New Roman", "Times", "DejaVu Serif"],
             "mathtext.fontset": "stix",
-            "font.size": 6.4,
-            "axes.labelsize": 6.6,
-            "axes.titlesize": 6.8,
-            "xtick.labelsize": 5.9,
-            "ytick.labelsize": 5.9,
-            "legend.fontsize": 5.6,
+            "font.size": 6.6,
+            "axes.labelsize": 7.0,
+            "axes.titlesize": 7.0,
+            "xtick.labelsize": 6.2,
+            "ytick.labelsize": 6.2,
+            "legend.fontsize": 6.2,
             "figure.facecolor": "white",
             "axes.facecolor": "white",
             "savefig.facecolor": "white",
@@ -85,121 +90,135 @@ def apply_style() -> None:
     )
 
 
-def load_summary() -> dict[tuple[str, str], tuple[float, float, float, int, int]]:
-    summary: dict[tuple[str, str], tuple[float, float, float, int, int]] = {}
-    for row in load_rows(SUMMARY_FILE):
-        # Stored delta is ablated-full. Contribution is full-ablated.
-        contribution = -float(row["mean_delta_points"])
-        min_contribution = -float(row["max_delta_points"])
-        max_contribution = -float(row["min_delta_points"])
-        summary[(row["environment"], row["variant"])] = (
-            contribution,
-            min_contribution,
-            max_contribution,
-            int(row["significant_cells"]),
-            int(row["cells"]),
-        )
-    return summary
+def mean_ci(values: list[float]) -> tuple[float, float]:
+    arr = np.asarray(values, dtype=float)
+    if arr.size <= 1:
+        return float(arr.mean()) if arr.size else 0.0, 0.0
+    return float(arr.mean()), float(1.96 * arr.std(ddof=1) / np.sqrt(arr.size))
+
+
+def load_ablation() -> dict[str, dict[str, tuple[float, float]]]:
+    rows = load_rows(DELTA_FILE)
+    data: dict[str, dict[str, tuple[float, float]]] = {}
+    for env in ENV_ORDER:
+        full_vals: list[float] = []
+        no_gw_vals: list[float] = []
+        no_cas_vals: list[float] = []
+        delta_gw: list[float] = []
+        delta_cas: list[float] = []
+        for row in rows:
+            if row["environment"] != env:
+                continue
+            if row["variant"] == "AERIS-noGW":
+                full_vals.append(float(row["full_mean"]))
+                no_gw_vals.append(float(row["variant_mean"]))
+                delta_gw.append(float(row["delta_points"]))
+            elif row["variant"] == "AERIS-noCAS":
+                no_cas_vals.append(float(row["variant_mean"]))
+                delta_cas.append(float(row["delta_points"]))
+        data[env] = {
+            "Full": mean_ci(full_vals),
+            "-GW": mean_ci(no_gw_vals),
+            "-CAS": mean_ci(no_cas_vals),
+            "delta_-GW": mean_ci(delta_gw),
+            "delta_-CAS": mean_ci(delta_cas),
+        }
+    return data
 
 
 def build() -> None:
     apply_style()
-    summary = load_summary()
-    fig, ax = plt.subplots(figsize=(3.50, 2.56))
+    data = load_ablation()
+    fig, (ax_top, ax_delta) = plt.subplots(
+        2,
+        1,
+        figsize=(3.50, 3.40),
+        gridspec_kw={"height_ratios": [1.18, 1.0], "hspace": 0.42},
+    )
     x = np.arange(len(ENV_ORDER), dtype=float)
-    group_width = 0.72
-    bar_width = group_width / len(MODULES)
-    offsets = (np.arange(len(MODULES)) - (len(MODULES) - 1) / 2.0) * bar_width
-    module_handles = []
+    env_labels = [ENV_LABEL[e] for e in ENV_ORDER]
+    bar_width = 0.22
+    offsets = [-bar_width, 0.0, bar_width]
+    handles: list[Patch] = []
 
-    def label_value(value: float) -> str:
-        return "+0.0" if abs(value) < 0.05 else f"{value:+.1f}"
-
-    ax.axhline(0.0, color=COLORS["axis"], linewidth=0.75, zorder=1)
-    ax.axhspan(-0.12, 0.12, color="#F3F3F3", zorder=0)
-
-    all_lows: list[float] = []
-    all_highs: list[float] = []
-
-    for offset, (variant, label, color) in zip(offsets, MODULES):
-        vals = np.asarray([summary[(env, variant)][0] for env in ENV_ORDER], dtype=float)
-        lo = np.asarray([summary[(env, variant)][1] for env in ENV_ORDER], dtype=float)
-        hi = np.asarray([summary[(env, variant)][2] for env in ENV_ORDER], dtype=float)
-        all_lows.append(float(np.min(lo)))
-        all_highs.append(float(np.max(hi)))
-        module_handles.append(
-            Patch(facecolor=color, edgecolor="#666666", label=label)
-        )
-
-        ax.bar(
+    for offset, (label, color) in zip(offsets, SERIES):
+        vals = np.asarray([data[env][label][0] for env in ENV_ORDER], dtype=float)
+        ci = np.asarray([data[env][label][1] for env in ENV_ORDER], dtype=float)
+        handles.append(Patch(facecolor=color, edgecolor="white", label=label))
+        ax_top.bar(
             x + offset,
             vals,
-            width=bar_width * 0.90,
+            width=bar_width * 0.95,
             color=color,
-            alpha=0.92,
             edgecolor="white",
-            linewidth=0.45,
+            linewidth=0.35,
             zorder=3,
         )
-        err_low = np.maximum(vals - lo, 0.0)
-        err_high = np.maximum(hi - vals, 0.0)
-        ax.errorbar(
+        ax_top.errorbar(
             x + offset,
             vals,
-            yerr=[err_low, err_high],
+            yerr=ci,
             fmt="none",
-            ecolor="#333333",
-            elinewidth=0.70,
-            capsize=2.0,
+            ecolor=COLORS["err"],
+            elinewidth=0.75,
+            capsize=2.2,
+            capthick=0.75,
             zorder=4,
         )
 
-        for xi, val in zip(x + offset, vals):
-            text_y = val + (0.20 if val >= 0 else -0.20)
-            ax.text(
-                xi,
-                text_y,
-                label_value(val),
-                ha="center",
-                va="bottom" if val >= 0 else "top",
-                fontsize=5.35,
-                color=COLORS["text"],
-                bbox={
-                    "boxstyle": "round,pad=0.05",
-                    "facecolor": "white",
-                    "edgecolor": "none",
-                    "alpha": 0.74,
-                },
-                zorder=5,
-            )
-
-    low = float(min(min(all_lows), 0.0))
-    high = float(max(max(all_highs), 0.0))
-    span = max(high - low, 1.0)
-    pad = 0.17 * span
-    ax.set_ylim(low - pad, high + pad)
-    ax.set_xticks(x)
-    ax.set_xticklabels([ENV_LABEL[e] for e in ENV_ORDER])
-    ax.set_xlabel("Environment")
-    ax.set_ylabel("Full minus ablated PDR (pp)")
-    ax.grid(axis="y", linestyle="--", linewidth=0.50, color=COLORS["grid"])
-    ax.grid(axis="x", visible=False)
-    ax.tick_params(length=2.0, pad=1.3)
-    for spine in ["top", "right"]:
-        ax.spines[spine].set_visible(False)
-    ax.spines["left"].set_color(COLORS["axis"])
-    ax.spines["bottom"].set_color(COLORS["axis"])
-
-    fig.legend(
-        handles=module_handles,
+    ax_top.legend(
+        handles=handles,
         ncol=3,
-        loc="upper center",
-        bbox_to_anchor=(0.5, 0.985),
+        loc="upper right",
+        bbox_to_anchor=(1.0, 1.02),
         frameon=False,
-        columnspacing=0.90,
+        columnspacing=0.80,
         handletextpad=0.35,
     )
-    fig.subplots_adjust(left=0.15, right=0.985, top=0.82, bottom=0.20)
+    ax_top.set_ylabel("Mean PDR")
+    ax_top.set_xticks(x)
+    ax_top.set_xticklabels(env_labels)
+    ax_top.set_ylim(0.0, 1.03)
+    ax_top.grid(axis="y", color=COLORS["grid"], linestyle="-", linewidth=0.65)
+
+    y_pos = np.arange(len(ENV_ORDER), dtype=float)
+    for label, variant, color, marker in DELTA_SERIES:
+        vals = np.asarray([data[env][f"delta_{label}"][0] for env in ENV_ORDER], dtype=float)
+        ci = np.asarray([data[env][f"delta_{label}"][1] for env in ENV_ORDER], dtype=float)
+        for yi, val, err in zip(y_pos, vals, ci):
+            ax_delta.hlines(yi, 0.0, val, color=color, linewidth=1.75, zorder=2)
+            ax_delta.errorbar(
+                val,
+                yi,
+                xerr=err,
+                fmt=marker,
+                color=color,
+                markeredgecolor=color,
+                markersize=4.8,
+                ecolor=COLORS["err"],
+                elinewidth=0.70,
+                capsize=1.8,
+                zorder=3,
+            )
+    ax_delta.axvline(0.0, color="#6E7781", linewidth=0.85, linestyle="--", zorder=1)
+    ax_delta.set_yticks(y_pos)
+    ax_delta.set_yticklabels(env_labels)
+    ax_delta.invert_yaxis()
+    ax_delta.set_xlabel("Delta vs. full (pp)")
+    ax_delta.set_xlim(-8.4, 2.0)
+    ax_delta.set_xticks([-8, -6, -4, -2, 0, 2])
+    ax_delta.grid(axis="both", color=COLORS["grid"], linestyle="-", linewidth=0.65)
+
+    for ax in [ax_top, ax_delta]:
+        ax.spines["top"].set_visible(False)
+        ax.spines["right"].set_visible(False)
+        ax.spines["left"].set_color(COLORS["axis"])
+        ax.spines["bottom"].set_color(COLORS["axis"])
+        ax.spines["left"].set_linewidth(0.85)
+        ax.spines["bottom"].set_linewidth(0.85)
+        ax.tick_params(length=2.5, width=0.75, colors=COLORS["axis"], pad=1.5)
+
+    fig.subplots_adjust(left=0.17, right=0.985, top=0.95, bottom=0.12)
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     fig.savefig(OUTPUT_PDF)

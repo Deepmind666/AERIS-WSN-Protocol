@@ -281,8 +281,8 @@ def build_plot(
     fig.legend(
         handles=handles,
         ncol=3,
-        loc="upper left",
-        bbox_to_anchor=(0.015, 0.995),
+        loc="upper center",
+        bbox_to_anchor=(0.5, 0.995),
         frameon=False,
         columnspacing=0.80,
         handletextpad=0.35,
