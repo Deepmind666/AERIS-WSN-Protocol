@@ -29,11 +29,11 @@ NODE_ORDER = [100, 200, 300, 500, 800, 1000]
 PROTO_ORDER = ["AERIS", "PEGASIS", "LEACH", "HEED", "TEEN"]
 DRAW_ORDER = ["LEACH", "HEED", "TEEN", "PEGASIS", "AERIS"]
 COLORS = {
-    "AERIS": "#5A5A5A",
-    "PEGASIS": "#36A657",
-    "LEACH": "#2D83BD",
-    "HEED": "#C6373D",
-    "TEEN": "#D15B9A",
+    "AERIS": "#6D6D6D",
+    "PEGASIS": "#32A344",
+    "LEACH": "#1C7ABA",
+    "HEED": "#D774A8",
+    "TEEN": "#C13136",
     "grid": "#D9DEE5",
     "axis": "#556270",
     "text": "#24323F",
