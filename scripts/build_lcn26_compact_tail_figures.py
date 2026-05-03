@@ -26,10 +26,10 @@ COLORS = {
     "PEGASIS": "#1C7ABA",
     "GW": "#1C7ABA",
     "CAS": "#FF7F0E",
-    "Office": "#6D6D6D",
-    "Factory": "#1C7ABA",
-    "Suburb": "#32A344",
-    "Urban": "#C13136",
+    "Office": "#FF7F0E",
+    "Factory": "#F2A65A",
+    "Suburb": "#1F77B4",
+    "Urban": "#A9C8E8",
     "grid": "#D9DEE5",
     "axis": "#556270",
     "text": "#24323F",
@@ -151,7 +151,7 @@ def build_mechanism_compact() -> None:
         ax.set_title(title, loc="left", pad=1.3, fontsize=6.8, fontweight="bold")
         ax.set_ylabel(ylabel)
         ax.set_ylim(*ylim)
-        ax.set_xlim(-0.40, len(NODE_ORDER) - 0.60)
+        ax.set_xlim(-0.40, len(NODE_ORDER) - 0.12)
         ax.set_xticks(x)
         ax.set_xticklabels(xticklabels)
         ax.grid(axis="y", linestyle="--", linewidth=0.50, color=COLORS["grid"])
@@ -165,11 +165,11 @@ def build_mechanism_compact() -> None:
     axes[0, 1].annotate(
         "urban-1k\nbottleneck",
         xy=(x[-1] + offsets[3], gw[ENV_ORDER.index("outdoor_urban"), -1]),
-        xytext=(x[-1] - 0.55, 0.50),
-        arrowprops={"arrowstyle": "-", "color": COLORS["Urban"], "linewidth": 0.55},
+        xytext=(x[-1] + 0.48, 0.50),
+        arrowprops={"arrowstyle": "-", "color": COLORS["Urban"], "linewidth": 0.60},
         fontsize=5.1,
-        color=COLORS["Urban"],
-        ha="right",
+        color=COLORS["axis"],
+        ha="left",
         va="center",
     )
     axes[1, 0].annotate(
