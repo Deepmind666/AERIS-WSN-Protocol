@@ -22,18 +22,18 @@ ENV_ORDER = ["indoor_office", "indoor_factory", "outdoor_suburban", "outdoor_urb
 ENV_LABELS = {
     "indoor_office": "Office",
     "indoor_factory": "Factory",
-    "outdoor_suburban": "Suburb",
+    "outdoor_suburban": "Suburban",
     "outdoor_urban": "Urban",
 }
 NODE_ORDER = [100, 200, 300, 500, 800, 1000]
 PROTO_ORDER = ["AERIS", "PEGASIS", "LEACH", "HEED", "TEEN"]
 DRAW_ORDER = ["LEACH", "HEED", "TEEN", "PEGASIS", "AERIS"]
 COLORS = {
-    "AERIS": "#2F5D7C",
-    "PEGASIS": "#B07A8F",
-    "LEACH": "#D58A5B",
-    "HEED": "#7AA08D",
-    "TEEN": "#C7A74D",
+    "AERIS": "#C13136",
+    "PEGASIS": "#1C7ABA",
+    "LEACH": "#6D6D6D",
+    "HEED": "#D774A8",
+    "TEEN": "#32A344",
     "grid": "#D9DEE5",
     "axis": "#556270",
     "text": "#24323F",
@@ -42,10 +42,10 @@ COLORS = {
 MARKERS = {"AERIS": "o", "PEGASIS": "s", "LEACH": "^", "HEED": "D", "TEEN": "P"}
 LINESTYLES = {
     "AERIS": "-",
-    "PEGASIS": "--",
-    "LEACH": (0, (4, 2)),
-    "HEED": (0, (2, 2)),
-    "TEEN": (0, (1.5, 1.5)),
+    "PEGASIS": "-",
+    "LEACH": "-",
+    "HEED": "-",
+    "TEEN": "-",
 }
 
 
@@ -58,15 +58,17 @@ def apply_style() -> None:
     plt.style.use("default")
     plt.rcParams.update(
         {
+            "pdf.fonttype": 42,
+            "ps.fonttype": 42,
             "font.family": "sans-serif",
             "font.sans-serif": ["Arial", "Helvetica", "DejaVu Sans"],
             "mathtext.fontset": "stixsans",
-            "font.size": 8.0,
-            "axes.labelsize": 8.4,
-            "axes.titlesize": 8.8,
-            "xtick.labelsize": 6.6,
-            "ytick.labelsize": 7.0,
-            "legend.fontsize": 6.2,
+            "font.size": 7.0,
+            "axes.labelsize": 7.2,
+            "axes.titlesize": 7.4,
+            "xtick.labelsize": 6.2,
+            "ytick.labelsize": 6.2,
+            "legend.fontsize": 5.8,
             "figure.facecolor": "white",
             "axes.facecolor": "white",
             "savefig.facecolor": "white",
@@ -109,7 +111,7 @@ def load_data() -> dict[tuple[str, int, str], tuple[float, float, int]]:
 
 def build() -> None:
     data = load_data()
-    fig, axes = plt.subplots(2, 2, figsize=(3.52, 3.62), sharex=True, sharey=True)
+    fig, axes = plt.subplots(2, 2, figsize=(3.50, 2.78), sharex=True, sharey=True)
     axes = axes.flatten()
     x = np.arange(len(NODE_ORDER), dtype=float)
     compact_ticks = ["100", "", "300", "500", "", "1000"]
@@ -120,20 +122,19 @@ def build() -> None:
             s = np.asarray([data[(env, n, proto)][1] for n in NODE_ORDER], dtype=float)
             nrep = np.asarray([data[(env, n, proto)][2] for n in NODE_ORDER], dtype=float)
             band = np.asarray([ci95(si, int(ni)) for si, ni in zip(s, nrep)], dtype=float)
-            if proto in {"AERIS", "PEGASIS"}:
-                ax.fill_between(x, y - band, y + band, color=COLORS[proto], alpha=0.14 if proto == "AERIS" else 0.10, linewidth=0)
+            ax.fill_between(x, y - band, y + band, color=COLORS[proto], alpha=0.070 if proto == "AERIS" else 0.045, linewidth=0)
             ax.plot(
                 x,
                 y,
                 color=COLORS[proto],
                 marker=MARKERS[proto],
-                markersize=2.6 if proto in {"AERIS", "PEGASIS"} else 2.2,
-                linewidth=1.4 if proto == "AERIS" else 1.2 if proto == "PEGASIS" else 0.95,
+                markersize=2.05,
+                linewidth=1.50 if proto == "AERIS" else 1.15,
                 linestyle=LINESTYLES[proto],
-                alpha=1.0 if proto in {"AERIS", "PEGASIS"} else 0.72,
+                alpha=0.98,
             )
         style_axes(ax)
-        ax.set_title(ENV_LABELS[env], pad=3)
+        ax.set_title(ENV_LABELS[env], pad=1.5)
         ax.set_ylim(0.0, 1.02)
         ax.set_xlim(-0.12, len(NODE_ORDER) - 0.42)
         ax.set_xticks(x)
@@ -150,7 +151,7 @@ def build() -> None:
                 f"{y_last:.2f}",
                 ha="left",
                 va="center",
-                fontsize=5.7,
+                fontsize=5.1,
                 color=COLORS[proto],
                 fontweight="semibold",
                 clip_on=False,
@@ -160,11 +161,11 @@ def build() -> None:
     axes[2].set_xlabel("Nodes")
     axes[3].set_xlabel("Nodes")
     handles = [
-        Line2D([0], [0], color=COLORS[p], marker=MARKERS[p], linestyle=LINESTYLES[p], linewidth=1.4 if p == "AERIS" else 1.2 if p == "PEGASIS" else 0.95, label=p)
+        Line2D([0], [0], color=COLORS[p], marker=MARKERS[p], linestyle=LINESTYLES[p], linewidth=1.35 if p == "AERIS" else 1.1, markersize=3.0, label=p)
         for p in PROTO_ORDER
     ]
-    fig.legend(handles=handles, labels=PROTO_ORDER, ncol=5, loc="upper center", bbox_to_anchor=(0.5, 1.01), frameon=False, columnspacing=0.55, handletextpad=0.22)
-    fig.subplots_adjust(top=0.79, left=0.12, right=0.98, bottom=0.14, wspace=0.16, hspace=0.30)
+    fig.legend(handles=handles, labels=PROTO_ORDER, ncol=5, loc="upper center", bbox_to_anchor=(0.5, 0.995), frameon=False, columnspacing=0.46, handletextpad=0.20)
+    fig.subplots_adjust(top=0.86, left=0.13, right=0.985, bottom=0.15, wspace=0.16, hspace=0.26)
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     fig.savefig(OUT_DIR / "fig_lcn26_strict_compact.pdf")
     fig.savefig(OUT_DIR / "fig_lcn26_strict_compact.png")

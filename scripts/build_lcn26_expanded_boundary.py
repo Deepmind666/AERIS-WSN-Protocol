@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
-"""Build the seven-protocol NS-3 boundary figure for the LCN26 draft."""
+"""Build the NS-3 boundary-gap figure for the LCN26 draft."""
 
 from __future__ import annotations
 
 import csv
+import json
+import math
+from collections import defaultdict
 from pathlib import Path
 
 import matplotlib
@@ -11,333 +14,299 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.colors import LinearSegmentedColormap, Normalize
 from matplotlib.lines import Line2D
-from matplotlib.patches import Rectangle
-
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT_DIR = ROOT / "_LCN26_AERIS" / "generated"
-DUAL_FILE = (
+RAW_FILE = (
     ROOT
     / "ns3_validation"
     / "results"
     / "lcn26_ns3_dual_combined_20260430_191527_191528"
     / "summary"
-    / "ns3_focused_descriptive.csv"
+    / "ns3_focused_merged.json"
 )
+SUMMARY_CSV = OUT_DIR / "ns3_boundary_gap_summary.csv"
+OUTPUT_PDF = OUT_DIR / "fig_lcn26_ns3_expanded_boundary.pdf"
+OUTPUT_PNG = OUT_DIR / "fig_lcn26_ns3_expanded_boundary.png"
 
-ENV_ORDER = ["indoor_office", "indoor_factory", "outdoor_suburban", "outdoor_urban"]
-ENV_LABELS = {
+import sys
+
+sys.path.insert(0, str(ROOT / "scripts"))
+from lcn26_style import COLUMN_WIDTH_IN, PALETTE, apply_lcn26_style  # noqa: E402
+
+ENV_ORDER = [
+    "indoor_office",
+    "indoor_factory",
+    "outdoor_suburban",
+    "outdoor_urban",
+]
+ENV_TITLES = {
     "indoor_office": "Office",
     "indoor_factory": "Factory",
     "outdoor_suburban": "Suburban",
     "outdoor_urban": "Urban",
 }
 NODE_ORDER = [50, 100, 200, 300, 500, 800, 1000]
-PROTO_ORDER = ["AERIS", "CTP", "RPL-MRHOF", "PEGASIS", "LEACH", "HEED", "TEEN"]
-CLASSICAL = {"AERIS", "PEGASIS", "LEACH", "HEED", "TEEN"}
-
-COLORS = {
-    "AERIS": "#2F6F7E",
-    "RPL-MRHOF": "#5D638E",
-    "CTP": "#778A9C",
-    "PEGASIS": "#B65F6B",
-    "LEACH": "#D59A61",
-    "HEED": "#7FA58B",
-    "TEEN": "#C5A447",
-    "grid": "#D7DEE7",
-    "axis": "#52616E",
-    "text": "#24323F",
-    "muted": "#7C8792",
-    "panel": "#F7F9FB",
-}
-
-PROTO_SHORT = {
-    "AERIS": "AERIS",
-    "RPL-MRHOF": "RPL",
-    "CTP": "CTP",
-    "PEGASIS": "PEG",
-    "LEACH": "LEA",
-    "HEED": "HEE",
-    "TEEN": "TEE",
-}
+NODE_LABELS = ["50", "100", "200", "300", "500", "800", "1k"]
+CLASSICAL_PROTOCOLS = ["AERIS", "LEACH", "HEED", "TEEN", "PEGASIS"]
+ALL_PROTOCOLS = [
+    "AERIS",
+    "LEACH",
+    "HEED",
+    "TEEN",
+    "PEGASIS",
+    "RPL-MRHOF",
+    "CTP",
+]
+BASELINE_PROTOCOLS = [proto for proto in ALL_PROTOCOLS if proto != "AERIS"]
+PLOT_PROTOCOLS = ["AERIS", "RPL-MRHOF", "CTP", "PEGASIS", "TEEN"]
 
 
-def load_rows() -> list[dict[str, object]]:
-    with DUAL_FILE.open("r", encoding="utf-8", newline="") as handle:
-        rows: list[dict[str, object]] = []
-        for row in csv.DictReader(handle):
+def load_grouped_values() -> dict[tuple[str, int, str], list[float]]:
+    grouped: dict[tuple[str, int, str], list[float]] = defaultdict(list)
+    payload = json.loads(RAW_FILE.read_text(encoding="utf-8"))
+    for rec in payload["experiments"]:
+        key = (rec["environment"], int(rec["num_nodes"]), rec["protocol"])
+        grouped[key].append(float(rec["pdr"]))
+    return grouped
+
+
+def mean_std(values: list[float]) -> tuple[float, float, int]:
+    arr = np.asarray(values, dtype=float)
+    if arr.size == 0:
+        return 0.0, 0.0, 0
+    if arr.size == 1:
+        return float(arr[0]), 0.0, 1
+    return float(arr.mean()), float(arr.std(ddof=1)), int(arr.size)
+
+
+def ci95(std: float, n: int) -> float:
+    return 1.96 * std / math.sqrt(max(n, 1))
+
+
+def rank_of_aeris(means: dict[str, float], protocols: list[str]) -> int:
+    ordered = sorted(protocols, key=lambda proto: means[proto], reverse=True)
+    return ordered.index("AERIS") + 1
+
+
+def summarise_gap_rows(
+    grouped: dict[tuple[str, int, str], list[float]]
+) -> tuple[list[dict[str, float | int | str]], dict[str, float], tuple[int, int, int, int]]:
+    rows: list[dict[str, float | int | str]] = []
+    env_gap_means: dict[str, float] = {}
+    classical_rank1 = 0
+    classical_top2 = 0
+    all_rank1 = 0
+    all_top2 = 0
+
+    for env in ENV_ORDER:
+        env_gaps: list[float] = []
+        for node in NODE_ORDER:
+            means: dict[str, float] = {}
+            stds: dict[str, float] = {}
+            ns: dict[str, int] = {}
+            for proto in ALL_PROTOCOLS:
+                mean, std, n = mean_std(grouped[(env, node, proto)])
+                means[proto] = mean
+                stds[proto] = std
+                ns[proto] = n
+
+            best_baseline = max(BASELINE_PROTOCOLS, key=lambda proto: means[proto])
+            gap_pp = (means["AERIS"] - means[best_baseline]) * 100.0
+            gap_ci95 = 1.96 * math.sqrt(
+                (stds["AERIS"] ** 2) / max(ns["AERIS"], 1)
+                + (stds[best_baseline] ** 2) / max(ns[best_baseline], 1)
+            ) * 100.0
+
+            classical_rank = rank_of_aeris(means, CLASSICAL_PROTOCOLS)
+            all_rank = rank_of_aeris(means, ALL_PROTOCOLS)
+            classical_rank1 += int(classical_rank == 1)
+            classical_top2 += int(classical_rank <= 2)
+            all_rank1 += int(all_rank == 1)
+            all_top2 += int(all_rank <= 2)
+            env_gaps.append(gap_pp)
+
             rows.append(
                 {
-                    "protocol": row["protocol"],
-                    "environment": row["environment"],
-                    "num_nodes": int(row["num_nodes"]),
-                    "n": int(row["n"]),
-                    "pdr_mean": float(row["pdr_mean"]),
-                    "pdr_std": float(row["pdr_std"]),
+                    "environment": env,
+                    "num_nodes": node,
+                    "aeris_mean": means["AERIS"],
+                    "best_baseline": best_baseline,
+                    "best_baseline_mean": means[best_baseline],
+                    "gap_pp": gap_pp,
+                    "gap_ci95_pp": gap_ci95,
+                    "classical_rank": classical_rank,
+                    "all_rank": all_rank,
                 }
             )
-        return rows
+
+        env_gap_means[env] = float(np.mean(env_gaps))
+
+    return rows, env_gap_means, (classical_rank1, classical_top2, all_rank1, all_top2)
 
 
-def apply_style() -> None:
+def write_summary_csv(rows: list[dict[str, float | int | str]]) -> None:
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    fieldnames = [
+        "environment",
+        "num_nodes",
+        "aeris_mean",
+        "best_baseline",
+        "best_baseline_mean",
+        "gap_pp",
+        "gap_ci95_pp",
+        "classical_rank",
+        "all_rank",
+    ]
+    with SUMMARY_CSV.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer.writeheader()
+        for row in rows:
+            writer.writerow(row)
+
+
+def build_plot(
+    rows: list[dict[str, float | int | str]],
+    env_gap_means: dict[str, float],
+    rank_counts: tuple[int, int, int, int],
+) -> None:
     plt.style.use("default")
+    apply_lcn26_style()
     plt.rcParams.update(
         {
-            "font.family": "sans-serif",
-            "font.sans-serif": ["Arial", "Helvetica", "DejaVu Sans"],
-            "mathtext.fontset": "stixsans",
-            "font.size": 8.6,
-            "axes.labelsize": 8.8,
-            "axes.titlesize": 9.4,
-            "xtick.labelsize": 7.5,
-            "ytick.labelsize": 8.1,
-            "legend.fontsize": 7.4,
-            "figure.facecolor": "white",
-            "axes.facecolor": "white",
-            "savefig.facecolor": "white",
-            "savefig.edgecolor": "white",
-            "savefig.bbox": "tight",
-            "savefig.dpi": 300,
-            "axes.edgecolor": COLORS["axis"],
-            "xtick.color": COLORS["axis"],
-            "ytick.color": COLORS["axis"],
-            "text.color": COLORS["text"],
+            "font.size": 6.4,
+            "axes.labelsize": 6.6,
+            "axes.titlesize": 6.7,
+            "xtick.labelsize": 5.9,
+            "ytick.labelsize": 6.0,
+            "legend.fontsize": 5.5,
         }
     )
 
+    del env_gap_means
+    del rank_counts
+    grouped = load_grouped_values()
+    row_lookup = {(str(row["environment"]), int(row["num_nodes"])): row for row in rows}
+    x = np.arange(len(NODE_ORDER), dtype=float)
+    fig, axes = plt.subplots(2, 2, figsize=(COLUMN_WIDTH_IN, 2.70), sharex=True, sharey=True)
+    axes = axes.flatten()
+    compact_ticks = ["50", "100", "200", "300", "500", "800", "1k"]
 
-def panel_label(ax: plt.Axes, label: str) -> None:
-    ax.text(
-        -0.015,
-        1.12,
-        label,
-        transform=ax.transAxes,
-        ha="left",
-        va="bottom",
-        fontsize=8.8,
-        fontweight="bold",
-        color=COLORS["text"],
-    )
-
-
-def grouped(rows: list[dict[str, object]], protocols: set[str] | None = None) -> dict[tuple[str, int], list[dict[str, object]]]:
-    out: dict[tuple[str, int], list[dict[str, object]]] = {}
-    for row in rows:
-        if protocols is not None and row["protocol"] not in protocols:
-            continue
-        key = (str(row["environment"]), int(row["num_nodes"]))
-        out.setdefault(key, []).append(row)
-    return out
-
-
-def best_row(rows: list[dict[str, object]]) -> dict[str, object]:
-    return max(rows, key=lambda row: float(row["pdr_mean"]))
-
-
-def aeris_row(rows: list[dict[str, object]]) -> dict[str, object]:
-    return next(row for row in rows if row["protocol"] == "AERIS")
-
-
-def compute_rank_stats(rows: list[dict[str, object]], protocols: set[str]) -> tuple[int, int, int]:
-    wins = 0
-    top2 = 0
-    total = 0
-    for cell_rows in grouped(rows, protocols).values():
-        ordered = sorted(cell_rows, key=lambda row: float(row["pdr_mean"]), reverse=True)
-        rank = 1 + next(idx for idx, row in enumerate(ordered) if row["protocol"] == "AERIS")
-        wins += int(rank == 1)
-        top2 += int(rank <= 2)
-        total += 1
-    return wins, top2, total
-
-
-def style_matrix_axis(ax: plt.Axes) -> None:
-    ax.set_xlim(0, len(NODE_ORDER))
-    ax.set_ylim(0, len(ENV_ORDER))
-    ax.invert_yaxis()
-    ax.set_xticks(np.arange(len(NODE_ORDER)) + 0.5)
-    ax.set_xticklabels([str(n) for n in NODE_ORDER])
-    ax.set_yticks(np.arange(len(ENV_ORDER)) + 0.5)
-    ax.set_yticklabels([ENV_LABELS[e] for e in ENV_ORDER])
-    ax.tick_params(length=0)
-    for spine in ax.spines.values():
-        spine.set_visible(False)
-
-
-def draw_winner_map(ax: plt.Axes, rows: list[dict[str, object]]) -> None:
-    data = grouped(rows)
-    for y, env in enumerate(ENV_ORDER):
-        for x, nodes in enumerate(NODE_ORDER):
-            cell = data[(env, nodes)]
-            best = best_row(cell)
-            proto = str(best["protocol"])
-            pdr = float(best["pdr_mean"])
-            rect = Rectangle((x, y), 1, 1, facecolor=COLORS[proto], edgecolor="white", linewidth=1.0)
-            ax.add_patch(rect)
-            txt_color = "white" if proto in {"AERIS", "RPL-MRHOF", "CTP", "PEGASIS"} else COLORS["text"]
-            ax.text(
-                x + 0.5,
-                y + 0.43,
-                PROTO_SHORT[proto],
-                ha="center",
-                va="center",
-                fontsize=7.1,
-                fontweight="bold",
-                color=txt_color,
+    for idx, env in enumerate(ENV_ORDER):
+        ax = axes[idx]
+        for proto in PLOT_PROTOCOLS:
+            means = []
+            errs = []
+            for node in NODE_ORDER:
+                mean, std, n = mean_std(grouped[(env, node, proto)])
+                means.append(mean)
+                errs.append(ci95(std, n))
+            means_arr = np.asarray(means, dtype=float)
+            errs_arr = np.asarray(errs, dtype=float)
+            if proto == "AERIS":
+                ax.fill_between(
+                    x,
+                    means_arr - errs_arr,
+                    means_arr + errs_arr,
+                    color=PALETTE["AERIS"],
+                    alpha=0.08,
+                    linewidth=0,
+                )
+            ax.plot(
+                x,
+                means_arr,
+                color=PALETTE[proto],
+                marker="o" if proto == "AERIS" else "^" if proto == "RPL-MRHOF" else "s",
+                linewidth=1.55 if proto == "AERIS" else 0.95,
+                markersize=2.3 if proto == "AERIS" else 2.0,
+                alpha=1.0 if proto == "AERIS" else 0.82,
+                zorder=4 if proto == "AERIS" else 3,
             )
-            ax.text(
-                x + 0.5,
-                y + 0.68,
-                f"{pdr:.3f}",
-                ha="center",
-                va="center",
-                fontsize=6.2,
-                color=txt_color,
-            )
-    style_matrix_axis(ax)
-    ax.set_xlabel("Nodes")
-    ax.set_title("Cell winner and mean PDR")
-    panel_label(ax, "(a)")
 
+        env_rows = [row_lookup[(env, node)] for node in NODE_ORDER]
+        wins_all = sum(int(row["all_rank"] == 1) for row in env_rows)
+        wins_classical = sum(int(row["classical_rank"] == 1) for row in env_rows)
+        mean_gap = float(np.mean([float(row["gap_pp"]) for row in env_rows]))
+        ax.set_title(
+            f"{ENV_TITLES[env]}  C:{wins_classical}/7 A:{wins_all}/7",
+            loc="left",
+            pad=1.5,
+            fontsize=6.7,
+            fontweight="bold",
+        )
+        ax.axhline(0.5, color=PALETTE["grid"], linewidth=0.45, linestyle=":", zorder=0)
+        ax.text(
+            0.02,
+            0.04,
+            f"gap {mean_gap:+.1f} pp",
+            transform=ax.transAxes,
+            ha="left",
+            va="bottom",
+            fontsize=5.4,
+            color=PALETTE["muted"],
+        )
+        ax.set_ylim(0.0, 1.03)
+        ax.set_xlim(-0.10, len(NODE_ORDER) - 0.65)
+        ax.set_xticks(x)
+        ax.set_xticklabels(compact_ticks)
+        ax.grid(axis="y", linestyle="--", linewidth=0.45, color=PALETTE["grid"])
+        ax.spines["top"].set_visible(False)
+        ax.spines["right"].set_visible(False)
+        ax.tick_params(length=2.2, pad=1.5)
 
-def draw_gap_map(ax: plt.Axes, rows: list[dict[str, object]]) -> None:
-    data = grouped(rows)
-    gap_cmap = LinearSegmentedColormap.from_list("aeris_gap", ["#B65F6B", "#F6F8FA", COLORS["AERIS"]])
-    norm = Normalize(vmin=-9.0, vmax=1.0)
-    for y, env in enumerate(ENV_ORDER):
-        for x, nodes in enumerate(NODE_ORDER):
-            cell = data[(env, nodes)]
-            best = best_row(cell)
-            aeris = aeris_row(cell)
-            gap = (float(aeris["pdr_mean"]) - float(best["pdr_mean"])) * 100.0
-            rect = Rectangle((x, y), 1, 1, facecolor=gap_cmap(norm(gap)), edgecolor="white", linewidth=1.0)
-            ax.add_patch(rect)
-            label = f"{gap:+.1f}"
-            ax.text(
-                x + 0.5,
-                y + 0.55,
-                label,
-                ha="center",
-                va="center",
-                fontsize=7.2,
-                fontweight="bold" if gap >= -0.2 else "normal",
-                color=COLORS["text"],
-            )
-    style_matrix_axis(ax)
-    ax.set_xlabel("Nodes")
-    ax.set_title("AERIS gap to cell winner (percentage points)")
-    panel_label(ax, "(b)")
-
-
-def draw_rank_summary(ax: plt.Axes, rows: list[dict[str, object]]) -> None:
-    all_protocols = set(PROTO_ORDER)
-    regimes = [
-        ("Classical only", CLASSICAL),
-        ("AERIS+LLN", {"AERIS", "CTP", "RPL-MRHOF"}),
-        ("All 7 protocols", all_protocols),
-    ]
-    y = np.arange(len(regimes), dtype=float)
-    wins = []
-    top2 = []
-    totals = []
-    for _, protos in regimes:
-        w, t2, total = compute_rank_stats(rows, protos)
-        wins.append(w)
-        top2.append(t2)
-        totals.append(total)
-
-    ax.barh(y, totals, height=0.56, color="#EEF2F5", edgecolor="none", label="Cells")
-    ax.barh(y, top2, height=0.56, color="#BDD2D8", edgecolor="white", linewidth=0.8, label="AERIS top-2")
-    ax.barh(y, wins, height=0.56, color=COLORS["AERIS"], edgecolor="white", linewidth=0.8, label="AERIS rank-1")
-    for yi, w, t2, total in zip(y, wins, top2, totals):
-        ax.text(w + 0.35, yi - 0.12, f"{w}/{total}", ha="left", va="center", fontsize=7.4, color=COLORS["AERIS"], fontweight="bold")
-        ax.text(t2 + 0.35, yi + 0.14, f"top-2 {t2}/{total}", ha="left", va="center", fontsize=6.8, color=COLORS["muted"])
-    ax.set_xlim(0, 30.5)
-    ax.set_yticks(y)
-    ax.set_yticklabels([name for name, _ in regimes])
-    ax.invert_yaxis()
-    ax.set_xlabel("Environment-node cells")
-    ax.set_title("AERIS rank sensitivity")
-    ax.grid(axis="x", color=COLORS["grid"], linewidth=0.55, alpha=0.8)
-    for spine in ["top", "right", "left"]:
-        ax.spines[spine].set_visible(False)
-    ax.spines["bottom"].set_color(COLORS["axis"])
-    ax.tick_params(axis="y", length=0)
-    panel_label(ax, "(c)")
-
-
-def draw_env_gap_summary(ax: plt.Axes, rows: list[dict[str, object]]) -> None:
-    data = grouped(rows)
-    env_gap = []
-    for env in ENV_ORDER:
-        gaps = []
-        for nodes in NODE_ORDER:
-            cell = data[(env, nodes)]
-            gaps.append((float(aeris_row(cell)["pdr_mean"]) - float(best_row(cell)["pdr_mean"])) * 100.0)
-        env_gap.append(float(np.mean(gaps)))
-    y = np.arange(len(ENV_ORDER), dtype=float)
-    colors = [COLORS["AERIS"] if gap > -0.2 else "#B65F6B" for gap in env_gap]
-    ax.axvline(0.0, color=COLORS["axis"], linewidth=0.8, linestyle="--")
-    ax.barh(y, env_gap, color=colors, alpha=0.86, height=0.55)
-    for yi, gap in zip(y, env_gap):
-        if gap < -1.0:
-            ax.text(gap + 0.18, yi, f"{gap:+.2f}", ha="left", va="center", fontsize=7.5, color="white", fontweight="bold")
-        else:
-            ax.text(gap - 0.12, yi, f"{gap:+.2f}", ha="right", va="center", fontsize=7.5, color=COLORS["text"])
-    ax.set_yticks(y)
-    ax.set_yticklabels([ENV_LABELS[e] for e in ENV_ORDER])
-    ax.invert_yaxis()
-    ax.set_xlim(-9.2, 1.0)
-    ax.set_xlabel("Mean gap to winner (points)")
-    ax.set_title("Environment-level boundary")
-    ax.grid(axis="x", color=COLORS["grid"], linewidth=0.55, alpha=0.8)
-    for spine in ["top", "right", "left"]:
-        ax.spines[spine].set_visible(False)
-    ax.spines["bottom"].set_color(COLORS["axis"])
-    ax.tick_params(axis="y", length=0)
-    panel_label(ax, "(d)")
-
-
-def build() -> None:
-    rows = load_rows()
-    fig = plt.figure(figsize=(7.25, 4.28))
-    outer = fig.add_gridspec(1, 2, width_ratios=[1.50, 0.98], wspace=0.36)
-    left = outer[0].subgridspec(2, 1, hspace=0.44)
-    right = outer[1].subgridspec(2, 1, hspace=0.42)
-
-    ax_winner = fig.add_subplot(left[0])
-    ax_gap = fig.add_subplot(left[1])
-    ax_rank = fig.add_subplot(right[0])
-    ax_env = fig.add_subplot(right[1])
-
-    draw_winner_map(ax_winner, rows)
-    draw_gap_map(ax_gap, rows)
-    draw_rank_summary(ax_rank, rows)
-    draw_env_gap_summary(ax_env, rows)
-
-    legend_handles = [
-        Line2D([0], [0], marker="s", linestyle="none", markersize=7, markerfacecolor=COLORS[p], markeredgecolor="none", label=label)
-        for p, label in [("AERIS", "AERIS"), ("RPL-MRHOF", "RPL-MRHOF"), ("CTP", "CTP"), ("PEGASIS", "PEGASIS")]
+    axes[0].set_ylabel("Mean PDR")
+    axes[2].set_ylabel("Mean PDR")
+    axes[2].set_xlabel("Nodes")
+    axes[3].set_xlabel("Nodes")
+    handles = [
+        Line2D(
+            [0],
+            [0],
+            color=PALETTE[proto],
+            marker="o" if proto == "AERIS" else "^" if proto == "RPL-MRHOF" else "s",
+            linewidth=1.55 if proto == "AERIS" else 0.95,
+            markersize=2.8,
+            label=proto,
+        )
+        for proto in PLOT_PROTOCOLS
     ]
     fig.legend(
-        handles=legend_handles,
-        ncol=4,
-        frameon=False,
+        handles=handles,
+        labels=PLOT_PROTOCOLS,
+        ncol=5,
         loc="upper center",
-        bbox_to_anchor=(0.50, 1.02),
-        columnspacing=1.0,
-        handletextpad=0.35,
+        bbox_to_anchor=(0.5, 0.997),
+        frameon=False,
+        columnspacing=0.60,
+        handletextpad=0.25,
     )
-    fig.subplots_adjust(top=0.87, bottom=0.12, left=0.08, right=0.985)
+    fig.text(
+        0.50,
+        0.017,
+        "C/A = AERIS rank-1 cells against classical/all baselines; gap = mean AERIS minus best non-AERIS.",
+        ha="center",
+        va="bottom",
+        fontsize=5.2,
+        color=PALETTE["muted"],
+    )
+    fig.subplots_adjust(left=0.13, right=0.985, top=0.84, bottom=0.17, wspace=0.16, hspace=0.26)
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    fig.savefig(OUT_DIR / "fig_lcn26_ns3_expanded_boundary.pdf")
-    fig.savefig(OUT_DIR / "fig_lcn26_ns3_expanded_boundary.png")
+    fig.savefig(OUTPUT_PDF)
+    fig.savefig(OUTPUT_PNG, dpi=320)
     plt.close(fig)
 
 
+def main() -> None:
+    grouped = load_grouped_values()
+    rows, env_gap_means, rank_counts = summarise_gap_rows(grouped)
+    write_summary_csv(rows)
+    build_plot(rows, env_gap_means, rank_counts)
+    print(f"[LCN26] Wrote {OUTPUT_PDF}")
+    print(f"[LCN26] Wrote {OUTPUT_PNG}")
+    print(f"[LCN26] Wrote {SUMMARY_CSV}")
+
+
 if __name__ == "__main__":
-    apply_style()
-    build()
+    main()
