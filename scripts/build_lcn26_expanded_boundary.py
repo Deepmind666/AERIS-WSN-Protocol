@@ -62,6 +62,22 @@ ALL_PROTOCOLS = [
 BASELINE_PROTOCOLS = [proto for proto in ALL_PROTOCOLS if proto != "AERIS"]
 PLOT_PROTOCOLS = ["AERIS", "RPL-MRHOF", "CTP", "PEGASIS", "TEEN"]
 
+BOUNDARY_COLORS = {
+    "AERIS": "#C13136",
+    "PEGASIS": "#1C7ABA",
+    "RPL-MRHOF": "#6D6D6D",
+    "CTP": "#D774A8",
+    "TEEN": "#32A344",
+}
+
+BOUNDARY_MARKERS = {
+    "AERIS": "o",
+    "PEGASIS": "s",
+    "RPL-MRHOF": "^",
+    "CTP": "D",
+    "TEEN": "P",
+}
+
 
 def load_grouped_values() -> dict[tuple[str, int, str], list[float]]:
     grouped: dict[tuple[str, int, str], list[float]] = defaultdict(list)
@@ -189,7 +205,7 @@ def build_plot(
     grouped = load_grouped_values()
     row_lookup = {(str(row["environment"]), int(row["num_nodes"])): row for row in rows}
     x = np.arange(len(NODE_ORDER), dtype=float)
-    fig, axes = plt.subplots(2, 2, figsize=(COLUMN_WIDTH_IN, 2.70), sharex=True, sharey=True)
+    fig, axes = plt.subplots(2, 2, figsize=(COLUMN_WIDTH_IN, 2.84), sharex=True, sharey=True)
     axes = axes.flatten()
     compact_ticks = ["50", "100", "200", "300", "500", "800", "1k"]
 
@@ -209,18 +225,18 @@ def build_plot(
                     x,
                     means_arr - errs_arr,
                     means_arr + errs_arr,
-                    color=PALETTE["AERIS"],
-                    alpha=0.08,
+                    color=BOUNDARY_COLORS["AERIS"],
+                    alpha=0.075,
                     linewidth=0,
                 )
             ax.plot(
                 x,
                 means_arr,
-                color=PALETTE[proto],
-                marker="o" if proto == "AERIS" else "^" if proto == "RPL-MRHOF" else "s",
-                linewidth=1.55 if proto == "AERIS" else 0.95,
-                markersize=2.3 if proto == "AERIS" else 2.0,
-                alpha=1.0 if proto == "AERIS" else 0.82,
+                color=BOUNDARY_COLORS[proto],
+                marker=BOUNDARY_MARKERS[proto],
+                linewidth=1.55 if proto == "AERIS" else 1.00,
+                markersize=2.3 if proto == "AERIS" else 2.05,
+                alpha=1.0 if proto == "AERIS" else 0.88,
                 zorder=4 if proto == "AERIS" else 3,
             )
 
@@ -229,23 +245,12 @@ def build_plot(
         wins_classical = sum(int(row["classical_rank"] == 1) for row in env_rows)
         mean_gap = float(np.mean([float(row["gap_pp"]) for row in env_rows]))
         ax.set_title(
-            f"{ENV_TITLES[env]}  C:{wins_classical}/7 A:{wins_all}/7",
-            loc="left",
-            pad=1.5,
-            fontsize=6.7,
+            f"{ENV_TITLES[env]}\nC:{wins_classical}/7 A:{wins_all}/7; gap {mean_gap:+.1f} pp",
+            pad=1.2,
+            fontsize=6.2,
             fontweight="bold",
         )
         ax.axhline(0.5, color=PALETTE["grid"], linewidth=0.45, linestyle=":", zorder=0)
-        ax.text(
-            0.02,
-            0.04,
-            f"gap {mean_gap:+.1f} pp",
-            transform=ax.transAxes,
-            ha="left",
-            va="bottom",
-            fontsize=5.4,
-            color=PALETTE["muted"],
-        )
         ax.set_ylim(0.0, 1.03)
         ax.set_xlim(-0.10, len(NODE_ORDER) - 0.65)
         ax.set_xticks(x)
@@ -263,9 +268,9 @@ def build_plot(
         Line2D(
             [0],
             [0],
-            color=PALETTE[proto],
-            marker="o" if proto == "AERIS" else "^" if proto == "RPL-MRHOF" else "s",
-            linewidth=1.55 if proto == "AERIS" else 0.95,
+            color=BOUNDARY_COLORS[proto],
+            marker=BOUNDARY_MARKERS[proto],
+            linewidth=1.55 if proto == "AERIS" else 1.00,
             markersize=2.8,
             label=proto,
         )
@@ -287,10 +292,10 @@ def build_plot(
         "C/A = AERIS rank-1 cells against classical/all baselines; gap = mean AERIS minus best non-AERIS.",
         ha="center",
         va="bottom",
-        fontsize=5.2,
+        fontsize=5.0,
         color=PALETTE["muted"],
     )
-    fig.subplots_adjust(left=0.13, right=0.985, top=0.84, bottom=0.17, wspace=0.16, hspace=0.26)
+    fig.subplots_adjust(left=0.13, right=0.985, top=0.82, bottom=0.17, wspace=0.16, hspace=0.36)
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     fig.savefig(OUTPUT_PDF)

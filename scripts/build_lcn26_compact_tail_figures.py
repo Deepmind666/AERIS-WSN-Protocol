@@ -51,9 +51,9 @@ def apply_style() -> None:
         {
             "pdf.fonttype": 42,
             "ps.fonttype": 42,
-            "font.family": "sans-serif",
-            "font.sans-serif": ["Arial", "Helvetica", "DejaVu Sans"],
-            "mathtext.fontset": "stixsans",
+            "font.family": "serif",
+            "font.serif": ["Times New Roman", "Times", "DejaVu Serif"],
+            "mathtext.fontset": "stix",
             "font.size": 8.2,
             "axes.labelsize": 8.6,
             "axes.titlesize": 9.0,

@@ -70,9 +70,9 @@ def apply_lcn26_style() -> None:
             # TrueType embedding avoids Type 3 text in generated PDF figures.
             "pdf.fonttype": 42,
             "ps.fonttype": 42,
-            "font.family": "sans-serif",
-            "font.sans-serif": ["Arial", "Helvetica", "DejaVu Sans"],
-            "mathtext.fontset": "stixsans",
+            "font.family": "serif",
+            "font.serif": ["Times New Roman", "Times", "DejaVu Serif"],
+            "mathtext.fontset": "stix",
             "font.size": 8.0,
             "axes.labelsize": 8.4,
             "axes.titlesize": 8.8,

@@ -34,9 +34,10 @@ VARIANTS = [
 NODE_ORDER = [50, 100, 200, 300, 500, 800, 1000]
 NODE_LABELS = ["50", "100", "200", "300", "500", "800", "1k"]
 COLORS = {
-    "Gateway": "#1C7ABA",
-    "CAS": "#FF7F0E",
-    "CH score": "#9E9E9E",
+    "Office": "#FF7F0E",
+    "Factory": "#F2A65A",
+    "Suburban": "#1F77B4",
+    "Urban": "#A9C8E8",
     "AERIS": "#C13136",
     "axis": "#111111",
     "grid": "#CFCFCF",
@@ -56,9 +57,9 @@ def apply_style() -> None:
         {
             "pdf.fonttype": 42,
             "ps.fonttype": 42,
-            "font.family": "sans-serif",
-            "font.sans-serif": ["Arial", "Helvetica", "DejaVu Sans"],
-            "mathtext.fontset": "stixsans",
+            "font.family": "serif",
+            "font.serif": ["Times New Roman", "Times", "DejaVu Serif"],
+            "mathtext.fontset": "stix",
             "font.size": 6.4,
             "axes.labelsize": 6.6,
             "axes.titlesize": 6.8,
@@ -116,9 +117,10 @@ def load_cell_deltas() -> dict[tuple[str, str, int], tuple[float, bool]]:
 def build() -> None:
     apply_style()
     summary = load_summary()
-    fig, axes = plt.subplots(3, 1, figsize=(3.50, 2.72), sharex=True)
+    fig, axes = plt.subplots(3, 1, figsize=(3.50, 2.82), sharex=True)
     x = np.arange(len(ENV_ORDER), dtype=float)
     env_labels = [ENV_LABEL[e] for e in ENV_ORDER]
+    env_colors = [COLORS[ENV_LABEL[e]] for e in ENV_ORDER]
 
     def pretty_value(value: float) -> str:
         return "+0.0" if abs(value) < 0.05 else f"{value:+.1f}"
@@ -129,10 +131,9 @@ def build() -> None:
         hi = np.asarray([summary[(env, variant)][2] for env in ENV_ORDER], dtype=float)
         sig = [summary[(env, variant)][3] for env in ENV_ORDER]
         total = [summary[(env, variant)][4] for env in ENV_ORDER]
-        color = COLORS[label]
 
         ax.axhline(0.0, color=COLORS["axis"], linewidth=0.70, zorder=1)
-        ax.bar(x, vals, width=0.58, color=color, alpha=0.88, edgecolor="white", linewidth=0.45, zorder=3)
+        ax.bar(x, vals, width=0.58, color=env_colors, alpha=0.92, edgecolor="white", linewidth=0.45, zorder=3)
         err_low = np.maximum(vals - lo, 0.0)
         err_high = np.maximum(hi - vals, 0.0)
         ax.errorbar(
@@ -146,22 +147,25 @@ def build() -> None:
             zorder=4,
         )
 
-        for xi, val, sc, tc in zip(x, vals, sig, total):
-            ax.text(
-                xi,
-                val + (0.16 if val >= 0 else -0.16),
-                f"{pretty_value(val)} ({sc}/{tc})",
-                ha="center",
-                va="bottom" if val >= 0 else "top",
-                fontsize=5.3,
-                color=COLORS["text"],
-            )
-
         low = float(min(np.min(lo), 0.0))
         high = float(max(np.max(hi), 0.0))
         span = max(high - low, 1.0)
-        pad = 0.22 * span
+        pad = 0.28 * span
         ax.set_ylim(low - pad, high + pad)
+
+        for xi, val, sc, tc in zip(x, vals, sig, total):
+            offset = 0.075 * span
+            ax.text(
+                xi,
+                val + (offset if val >= 0 else -offset),
+                f"{pretty_value(val)} ({sc}/{tc})",
+                ha="center",
+                va="bottom" if val >= 0 else "top",
+                fontsize=5.2,
+                color=COLORS["text"],
+                bbox={"boxstyle": "round,pad=0.08", "facecolor": "white", "edgecolor": "none", "alpha": 0.72},
+            )
+
         ax.set_xticks(x)
         ax.set_xticklabels(env_labels)
         ax.grid(axis="y", linestyle="--", linewidth=0.50, color=COLORS["grid"])
@@ -173,9 +177,9 @@ def build() -> None:
         ax.spines["left"].set_color(COLORS["axis"])
         ax.spines["bottom"].set_color(COLORS["axis"])
 
-    axes[1].set_ylabel("Full AERIS minus ablated PDR (percentage points)")
+    fig.text(0.025, 0.54, "Full minus ablated PDR (pp)", rotation=90, ha="center", va="center", fontsize=6.6)
     axes[-1].set_xlabel("Environment")
-    fig.subplots_adjust(left=0.16, right=0.98, top=0.965, bottom=0.14, hspace=0.31)
+    fig.subplots_adjust(left=0.15, right=0.985, top=0.965, bottom=0.14, hspace=0.33)
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     fig.savefig(OUT_DIR / "fig_lcn26_ns3_ablation_expanded.pdf")
