@@ -6,7 +6,6 @@
 \usepackage{graphicx}
 \usepackage{placeins}
 \usepackage{float}
-\usepackage{balance}
 \usepackage{array}
 \usepackage{url}
 
@@ -71,27 +70,6 @@ AERIS is a round-based protocol. At the start of each round, every live node exp
 $(\hat{E}_i,\hat{L}_i,\hat{D}_{iB},\hat{C}_i,\hat{\rho}_i,\hat{U}_i,p_i)$.
 Here $\hat{E}_i$ is normalized residual energy, $\hat{L}_i$ is the current link-quality estimate, $\hat{D}_{iB}$ is normalized distance to the base station (BS), $\hat{C}_i$ is a neighborhood-centrality surrogate, $\hat{\rho}_i$ represents local density, $\hat{U}_i$ denotes recent forwarding utilization, and $p_i$ is the historical cluster-head (CH) duty penalty. All variables are normalized to $[0,1]$ before scoring. The protocol does not solve a global optimization problem; instead, it applies fixed scores and deterministic eligibility checks. This choice is intentional: the goal is to expose why a path was selected and to keep the routing behavior reproducible across environments.
 
-\begin{table}[t]
-\caption{AERIS state variables and their protocol roles.}
-\label{tbl:aeris_state}
-\centering
-\scriptsize
-\setlength{\tabcolsep}{2pt}
-\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lll@{}}
-\toprule
-Symbol & Meaning & Used by \\
-\midrule
-$\hat{E}_i$ & residual energy & CH, Gateway, CAS \\
-$\hat{L}_i$ & link-quality estimate & CH, join, CAS \\
-$\hat{D}_{iB}$ & distance-to-BS feature & CH, Gateway, CAS \\
-$\hat{C}_i$ & local centrality surrogate & CH, Gateway \\
-$\hat{\rho}_i$ & neighborhood density & CH fraction, CAS \\
-$\hat{U}_i$ & recent forwarding utilization & load control \\
-$p_i$ & historical CH-duty penalty & CH fairness \\
-\bottomrule
-\end{tabular*}
-\end{table}
-
 A live source generates one sensing report per round. A report is counted as delivered only if it reaches the BS after both the intra-cluster step and the CH-to-BS uplink step succeed. AERIS therefore optimizes complete collection delivery rather than hop-local reception. The routing decision is constrained to local state: nodes do not exchange global topology maps, and CHs do not maintain multi-parent routing tables. This is weaker than a full collection-tree control plane, but it makes each routing transition inspectable.
 
 \subsection{AERIS Framework}
@@ -149,27 +127,6 @@ AERIS keeps per-round control state bounded by local summaries and CH-level rela
 
 Let $N$ be the number of live nodes, $K$ the number of CHs, and $d_i$ the local neighbor count of node $i$. CH election is $O(N)$ after local feature refresh, cluster association is $O(NK)$ in the standalone harness, Gateway ranking is $O(K)$ per source CH, and CAS is $O(1)$ because only three modes are scored. The memory footprint is also local: ordinary nodes keep one association and a small feature vector, while CHs keep member summaries and relay candidates. These bounds are not presented as a theoretical optimality claim; they specify the implementation envelope used in the experiments and clarify why AERIS is simpler than a full collection-tree stack.
 
-\begin{table}[t]
-\caption{AERIS decision stages in one round.}
-\label{tbl:aeris_round}
-\centering
-\scriptsize
-\setlength{\tabcolsep}{2pt}
-\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lll@{}}
-\toprule
-Stage & Main rule & Output \\
-\midrule
-Feature refresh & update energy/link/neighborhood & node state \\
-CH election & fuzzy CH score with duty penalty & CH set \\
-Association & distance/link/energy join score & clusters \\
-CAS & direct/chain/two-hop fixed scores & local mode \\
-Gateway & fixed CH relay score & uplink relay \\
-Skeleton & sparse reserve eligibility & fallback path \\
-Accounting & delivery and energy update & next-round state \\
-\bottomrule
-\end{tabular*}
-\end{table}
-
 \subsection{Decision Precedence}
 The most important implementation detail is the precedence among modules. CAS and Gateway do not compete for the same decision. CAS only determines how non-CH nodes deliver data to their CH. Gateway and Skeleton operate after intra-cluster delivery, when the CH must forward aggregated traffic to the BS. This separation prevents a local CAS choice from masking an uplink failure and prevents the Gateway mechanism from changing member-to-CH routing. The resulting behavior is easier to diagnose: if end-to-end delivery falls, the failure can be attributed to intra-cluster delivery, Gateway uplink delivery, Skeleton fallback, or final direct rescue.
 
@@ -198,26 +155,6 @@ The primary metric is packet delivery ratio over expected application-layer tran
 where $N_{\mathrm{expected}}$ counts one packet per alive source node per round even if a protocol suppresses actual transmission. The denominator is kept fixed across protocols so that the reliability comparison is not confounded by protocol-specific reporting logic.
 
 We use four complementary settings. A five-protocol NS-3 comparison evaluates AERIS against LEACH, PEGASIS, HEED, and TEEN across four environments and 100, 500, and 1000 nodes ($n=30$ per cell). An expanded NS-3 boundary sweep adds simplified CTP- and RPL-MRHOF-style collection baselines over 50--1000 nodes. In this standalone harness, CTP and RPL-MRHOF are simplified collection-style baselines rather than complete LLN stacks. Our CTP variant follows the link-cost forwarding rule of \cite{gnawali2009collection} but omits the 4-bit beacon-driven link estimator, dynamic beacon timer, and datapath validation. Our RPL-MRHOF variant follows the path-cost parent selection of \cite{tsvetkov2011rpl,gnawali2012minimum} but omits trickle-driven DIO/DAO, full DODAG repair, and rank-based loop avoidance. These simplifications remove parts of the standards-compliant control plane and repair machinery, so the AERIS--baseline results should be read as a controlled collection-style boundary comparison. Full Contiki-NG/TinyOS stacks may shift the boundary in either direction. Opportunistic variants such as ORW/ORPL \cite{landsiedel2012low,duquennoy2013let} and TSCH-based stacks \cite{duquennoy2015orchestra} are deferred to future work.
-
-\begin{table}[t]
-\caption{Baseline roles in the evaluation harness.}
-\label{tbl:baseline_roles}
-\centering
-\scriptsize
-\setlength{\tabcolsep}{2pt}
-\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lll@{}}
-\toprule
-Protocol & Routing rule & Role \\
-\midrule
-LEACH & randomized clustering & classical cluster baseline \\
-PEGASIS & chain aggregation & lifetime-oriented baseline \\
-HEED & residual-energy CH election & energy-aware cluster baseline \\
-TEEN & threshold-triggered reporting & event-style baseline \\
-CTP-style & link-cost forwarding & collection-tree boundary \\
-RPL-MRHOF-style & accumulated path cost & RPL-style boundary \\
-\bottomrule
-\end{tabular*}
-\end{table}
 
 The baselines are therefore not used for a single leaderboard claim. LEACH, PEGASIS, HEED, and TEEN define the classical WSN comparison. The CTP- and RPL-MRHOF-style variants define a harder boundary test by introducing stronger parent/path selection. The stress layer is kept separate because the classical protocols are minimally relay-enabled there for multi-hop comparability. This separation prevents the paper from mixing canonical baseline ranking, adapted stress behavior, and mechanism diagnosis.
 
@@ -286,25 +223,6 @@ The ablation uses the same seed structure and environment-scale grid, but compar
 
 The five-protocol NS-3 comparison anchors the classical-baseline ranking; the seven-protocol sweep maps the boundary against simplified collection-style baselines; the ablation attributes the gain; and the collision-aware stress layer provides stress evidence rather than a second canonical ranking. Lifetime, FND, hops, and energy expose load concentration. In Fig.~\ref{fig:ablation}, each significance count summarizes Welch-type cell tests with Hedges' $g$ and Holm correction. In Fig.~\ref{fig:ns3_boundary}, winner labels alone should not be read as significance claims.
 
-\begin{table}[t]
-\caption{Experimental settings used in the paper.}
-\label{tbl:exp_settings}
-\centering
-\scriptsize
-\setlength{\tabcolsep}{2pt}
-\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lcccc@{}}
-\toprule
-Layer & Platform & Prot. & Cells & Role \\
-\midrule
-Classical NS-3 & NS-3 & 5 & $4 \times 3$ & anchor \\
-Boundary sweep & NS-3 & 7 & $4 \times 7$ & boundary \\
-Module ablation & NS-3 & 4 var. & $4 \times 7$ & attribution \\
-Stress layer & Python & 5 adapted & $4 \times 6$ & stress \\
-Mechanism & Python & AERIS & $4 \times 3$ & attribution \\
-Frozen block & pooled & 5 & 100-node & trade-off \\
-\bottomrule
-\end{tabular*}
-\end{table}
 \subsection{Expanded Boundary Sweep}
 \begin{figure}[t]
 \centering
@@ -390,7 +308,6 @@ Because TEEN is event-triggered, $\mathrm{PDR}_{\mathrm{expected}}$ should be re
 This paper evaluates AERIS through a five-protocol NS-3 comparison, a seven-protocol boundary sweep, a collision-aware stress layer, and a mechanism study. The claim is deliberately bounded: AERIS is a reliability-first alternative to classical WSN baselines, but richer collection-tree routing narrows or removes that advantage in office, factory, and urban regimes. Its main contribution is a visible deployment boundary, not a universal ranking. Future work should compare against full RPL/ORW/ORPL-style stacks and more realistic MAC behavior, and test whether Gateway-style reinforcement can coexist with collection-tree parent selection without reproducing the early-node-death cost.
 
 \FloatBarrier
-\balance
 \bibliographystyle{IEEEtran}
 \bibliography{ref}
 
