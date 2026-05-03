@@ -1,0 +1,13 @@
+environment,variant,mean_delta_points,min_delta_points,max_delta_points,significant_cells,cells
+indoor_factory,AERIS-noGW,-5.8224,-6.5543,-5.226,7,7
+indoor_factory,AERIS-noCAS,0.0726,-0.3167,0.473,0,7
+indoor_factory,AERIS-noFair,0.0392,-0.3463,0.522,0,7
+indoor_office,AERIS-noGW,0.0042,-0.0903,0.1287,0,7
+indoor_office,AERIS-noCAS,1.3944,0.9447,1.8877,7,7
+indoor_office,AERIS-noFair,0.0131,-0.1303,0.1383,0,7
+outdoor_suburban,AERIS-noGW,-7.5816,-7.9663,-7.1757,7,7
+outdoor_suburban,AERIS-noCAS,0.7552,0.449,1.2147,6,7
+outdoor_suburban,AERIS-noFair,-0.0114,-0.2377,0.381,1,7
+outdoor_urban,AERIS-noGW,-0.4099,-0.909,0.0243,0,7
+outdoor_urban,AERIS-noCAS,-0.9071,-1.5497,-0.7217,5,7
+outdoor_urban,AERIS-noFair,-0.1152,-0.8507,0.5947,0,7
