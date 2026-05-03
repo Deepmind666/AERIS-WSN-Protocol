@@ -10,11 +10,11 @@ from collections import defaultdict
 from pathlib import Path
 
 import matplotlib
-from matplotlib.colors import TwoSlopeNorm
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.lines import Line2D
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT_DIR = ROOT / "_LCN26_AERIS" / "generated"
@@ -60,6 +60,7 @@ ALL_PROTOCOLS = [
     "CTP",
 ]
 BASELINE_PROTOCOLS = [proto for proto in ALL_PROTOCOLS if proto != "AERIS"]
+PLOT_PROTOCOLS = ["AERIS", "RPL-MRHOF", "CTP", "PEGASIS", "TEEN"]
 
 
 def load_grouped_values() -> dict[tuple[str, int, str], list[float]]:
@@ -183,101 +184,113 @@ def build_plot(
         }
     )
 
-    classical_rank1, classical_top2, all_rank1, all_top2 = rank_counts
-    env_rank = {}
-    for env in ENV_ORDER:
-        env_rows = [row for row in rows if row["environment"] == env]
-        env_rank[env] = {
-            "classical_rank1": sum(int(row["classical_rank"] == 1) for row in env_rows),
-            "all_rank1": sum(int(row["all_rank"] == 1) for row in env_rows),
-            "classical_top2": sum(int(row["classical_rank"] <= 2) for row in env_rows),
-            "all_top2": sum(int(row["all_rank"] <= 2) for row in env_rows),
-            "mean_gap": env_gap_means[env],
-        }
+    del env_gap_means
+    del rank_counts
+    grouped = load_grouped_values()
+    row_lookup = {(str(row["environment"]), int(row["num_nodes"])): row for row in rows}
+    x = np.arange(len(NODE_ORDER), dtype=float)
+    fig, axes = plt.subplots(2, 2, figsize=(COLUMN_WIDTH_IN, 2.70), sharex=True, sharey=True)
+    axes = axes.flatten()
+    compact_ticks = ["50", "100", "200", "300", "500", "800", "1k"]
 
-    labels = [ENV_TITLES[env] for env in ENV_ORDER]
-    y = np.arange(len(ENV_ORDER), dtype=float)
-
-    fig, (ax_counts, ax_gap) = plt.subplots(
-        2,
-        1,
-        figsize=(COLUMN_WIDTH_IN, 2.58),
-        gridspec_kw={"height_ratios": [0.70, 1.16]},
-    )
-
-    height = 0.34
-    classical_vals = np.asarray([env_rank[env]["classical_rank1"] for env in ENV_ORDER], dtype=float)
-    all_vals = np.asarray([env_rank[env]["all_rank1"] for env in ENV_ORDER], dtype=float)
-    ax_counts.barh(y - height / 2, classical_vals, height=height, color=PALETTE["AERIS"], edgecolor="black", linewidth=0.35, label="Classical only")
-    ax_counts.barh(y + height / 2, all_vals, height=height, color=PALETTE["RPL-MRHOF"], edgecolor="black", linewidth=0.35, label="All baselines")
-    for idx, (base_val, all_val) in enumerate(zip(classical_vals, all_vals)):
-        if base_val == 0 and all_val == 0:
-            ax_counts.text(0.08, y[idx], "0/7", va="center", ha="left", fontsize=5.2)
-            continue
-        for yi, val in ((y[idx] - height / 2, base_val), (y[idx] + height / 2, all_val)):
-            ax_counts.text((val + 0.08) if val > 0 else 0.08, yi, f"{int(val)}/7", va="center", ha="left", fontsize=5.2)
-    ax_counts.set_xlim(0, 7.6)
-    ax_counts.set_xticks([0, 2, 4, 6, 7])
-    ax_counts.set_yticks(y)
-    ax_counts.set_yticklabels(labels)
-    ax_counts.invert_yaxis()
-    ax_counts.set_xlabel("")
-    ax_counts.text(0.0, 1.035, "(a) Rank-1 coverage", transform=ax_counts.transAxes, ha="left", va="bottom", fontsize=6.4, fontweight="bold")
-    ax_counts.grid(axis="x", linestyle="--", linewidth=0.5, color=PALETTE["grid"])
-    ax_counts.grid(axis="y", visible=False)
-    ax_counts.legend(
-        loc="lower right",
-        bbox_to_anchor=(1.0, 1.02),
-        frameon=True,
-        facecolor="white",
-        edgecolor=PALETTE["grid"],
-        framealpha=0.95,
-        ncol=2,
-        handlelength=1.1,
-        columnspacing=0.7,
-    )
-
-    gap_matrix = np.asarray(
-        [
-            [
-                float(
-                    next(
-                        row["gap_pp"]
-                        for row in rows
-                        if row["environment"] == env and int(row["num_nodes"]) == node
-                    )
+    for idx, env in enumerate(ENV_ORDER):
+        ax = axes[idx]
+        for proto in PLOT_PROTOCOLS:
+            means = []
+            errs = []
+            for node in NODE_ORDER:
+                mean, std, n = mean_std(grouped[(env, node, proto)])
+                means.append(mean)
+                errs.append(ci95(std, n))
+            means_arr = np.asarray(means, dtype=float)
+            errs_arr = np.asarray(errs, dtype=float)
+            if proto == "AERIS":
+                ax.fill_between(
+                    x,
+                    means_arr - errs_arr,
+                    means_arr + errs_arr,
+                    color=PALETTE["AERIS"],
+                    alpha=0.08,
+                    linewidth=0,
                 )
-                for node in NODE_ORDER
-            ]
-            for env in ENV_ORDER
-        ],
-        dtype=float,
-    )
-    norm = TwoSlopeNorm(vmin=-9.0, vcenter=0.0, vmax=2.0)
-    heat = ax_gap.imshow(gap_matrix, aspect="auto", cmap="RdBu", norm=norm)
-    ax_gap.set_xticks(np.arange(len(NODE_ORDER)))
-    ax_gap.set_xticklabels(NODE_LABELS)
-    ax_gap.set_yticks(np.arange(len(ENV_ORDER)))
-    ax_gap.set_yticklabels(labels)
-    ax_gap.set_xlabel("")
-    ax_gap.text(0.0, 1.035, "(b) Gap to best non-AERIS baseline (pp)", transform=ax_gap.transAxes, ha="left", va="bottom", fontsize=6.4, fontweight="bold")
-    for row_idx, env in enumerate(ENV_ORDER):
-        for col_idx, node in enumerate(NODE_ORDER):
-            val = gap_matrix[row_idx, col_idx]
-            label = r"$\approx$0" if abs(val) < 0.1 else f"{val:+.1f}"
-            text_color = "white" if abs(val) > 4.5 else PALETTE["axis"]
-            ax_gap.text(col_idx, row_idx, label, ha="center", va="center", fontsize=4.7, color=text_color)
-    ax_gap.set_xticks(np.arange(-0.5, len(NODE_ORDER), 1), minor=True)
-    ax_gap.set_yticks(np.arange(-0.5, len(ENV_ORDER), 1), minor=True)
-    ax_gap.grid(which="minor", color="white", linewidth=0.55)
-    ax_gap.tick_params(which="minor", bottom=False, left=False)
-    for spine in ["top", "right", "left", "bottom"]:
-        ax_gap.spines[spine].set_visible(False)
-    cbar = fig.colorbar(heat, ax=ax_gap, orientation="horizontal", fraction=0.095, pad=0.18)
-    cbar.set_label("AERIS - best baseline PDR (pp)", fontsize=5.5, labelpad=1)
-    cbar.ax.tick_params(labelsize=5.2, length=2.0, pad=1)
+            ax.plot(
+                x,
+                means_arr,
+                color=PALETTE[proto],
+                marker="o" if proto == "AERIS" else "^" if proto == "RPL-MRHOF" else "s",
+                linewidth=1.55 if proto == "AERIS" else 0.95,
+                markersize=2.3 if proto == "AERIS" else 2.0,
+                alpha=1.0 if proto == "AERIS" else 0.82,
+                zorder=4 if proto == "AERIS" else 3,
+            )
 
-    fig.subplots_adjust(left=0.20, right=0.985, top=0.90, bottom=0.18, hspace=0.42)
+        env_rows = [row_lookup[(env, node)] for node in NODE_ORDER]
+        wins_all = sum(int(row["all_rank"] == 1) for row in env_rows)
+        wins_classical = sum(int(row["classical_rank"] == 1) for row in env_rows)
+        mean_gap = float(np.mean([float(row["gap_pp"]) for row in env_rows]))
+        ax.set_title(
+            f"{ENV_TITLES[env]}  C:{wins_classical}/7 A:{wins_all}/7",
+            loc="left",
+            pad=1.5,
+            fontsize=6.7,
+            fontweight="bold",
+        )
+        ax.axhline(0.5, color=PALETTE["grid"], linewidth=0.45, linestyle=":", zorder=0)
+        ax.text(
+            0.02,
+            0.04,
+            f"gap {mean_gap:+.1f} pp",
+            transform=ax.transAxes,
+            ha="left",
+            va="bottom",
+            fontsize=5.4,
+            color=PALETTE["muted"],
+        )
+        ax.set_ylim(0.0, 1.03)
+        ax.set_xlim(-0.10, len(NODE_ORDER) - 0.65)
+        ax.set_xticks(x)
+        ax.set_xticklabels(compact_ticks)
+        ax.grid(axis="y", linestyle="--", linewidth=0.45, color=PALETTE["grid"])
+        ax.spines["top"].set_visible(False)
+        ax.spines["right"].set_visible(False)
+        ax.tick_params(length=2.2, pad=1.5)
+
+    axes[0].set_ylabel("Mean PDR")
+    axes[2].set_ylabel("Mean PDR")
+    axes[2].set_xlabel("Nodes")
+    axes[3].set_xlabel("Nodes")
+    handles = [
+        Line2D(
+            [0],
+            [0],
+            color=PALETTE[proto],
+            marker="o" if proto == "AERIS" else "^" if proto == "RPL-MRHOF" else "s",
+            linewidth=1.55 if proto == "AERIS" else 0.95,
+            markersize=2.8,
+            label=proto,
+        )
+        for proto in PLOT_PROTOCOLS
+    ]
+    fig.legend(
+        handles=handles,
+        labels=PLOT_PROTOCOLS,
+        ncol=5,
+        loc="upper center",
+        bbox_to_anchor=(0.5, 0.997),
+        frameon=False,
+        columnspacing=0.60,
+        handletextpad=0.25,
+    )
+    fig.text(
+        0.50,
+        0.017,
+        "C/A = AERIS rank-1 cells against classical/all baselines; gap = mean AERIS minus best non-AERIS.",
+        ha="center",
+        va="bottom",
+        fontsize=5.2,
+        color=PALETTE["muted"],
+    )
+    fig.subplots_adjust(left=0.13, right=0.985, top=0.84, bottom=0.17, wspace=0.16, hspace=0.26)
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     fig.savefig(OUTPUT_PDF)

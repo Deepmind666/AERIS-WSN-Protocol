@@ -25,10 +25,14 @@ ENV_SHORT = {"indoor_office": "Office", "indoor_factory": "Factory", "outdoor_su
 ENV_TAG = {"indoor_office": "O", "indoor_factory": "F", "outdoor_suburban": "S", "outdoor_urban": "U"}
 NODE_ORDER = [100, 500, 1000]
 COLORS = {
-    "AERIS": "#5A5A5A",
-    "PEGASIS": "#C6373D",
-    "GW": "#36A657",
-    "CAS": "#2D83BD",
+    "AERIS": "#C13136",
+    "PEGASIS": "#1C7ABA",
+    "GW": "#1C7ABA",
+    "CAS": "#FF7F0E",
+    "Office": "#6D6D6D",
+    "Factory": "#1C7ABA",
+    "Suburb": "#32A344",
+    "Urban": "#C13136",
     "grid": "#D9DEE5",
     "axis": "#556270",
     "text": "#24323F",
@@ -167,42 +171,69 @@ def build_mechanism_compact() -> None:
     cas_total = np.maximum(cas_direct + cas_twohop + cas_chain, 1e-9)
     twohop_share = cas_twohop / cas_total * 100.0
 
-    fig, axes = plt.subplots(2, 2, figsize=(3.50, 2.52))
+    fig, axes = plt.subplots(2, 2, figsize=(3.50, 2.62), sharex=True)
+    x = np.arange(len(NODE_ORDER), dtype=float)
+    xticklabels = ["100", "500", "1k"]
+    env_labels = [ENV_SHORT[e] for e in ENV_ORDER]
+    markers = {"Office": "o", "Factory": "s", "Suburb": "^", "Urban": "D"}
     panels = [
-        (axes[0, 0], "(a) End-to-end PDR", pdr, "Blues", 0.0, 1.0, "{:.2f}"),
-        (axes[0, 1], "(b) Gateway PDR", gw, "Greens", 0.0, 1.0, "{:.2f}"),
-        (axes[1, 0], "(c) FND rounds", fnd, "Reds", 0.0, max(15.0, float(np.max(fnd))), "{:.1f}"),
-        (axes[1, 1], "(d) CAS two-hop %", twohop_share, "Oranges", 0.0, 80.0, "{:.0f}"),
+        (axes[0, 0], "(a) End-to-end PDR", pdr, "Mean PDR", (0.0, 1.03)),
+        (axes[0, 1], "(b) Gateway uplink PDR", gw, "Mean PDR", (0.0, 1.03)),
+        (axes[1, 0], "(c) First-node death", fnd, "Round", (0.0, max(15.0, float(np.max(fnd)) + 1.0))),
+        (axes[1, 1], "(d) CAS two-hop share", twohop_share, "Share (%)", (0.0, 80.0)),
     ]
 
-    for ax, title, matrix, cmap, vmin, vmax, fmt in panels:
-        image = ax.imshow(matrix, aspect="auto", cmap=cmap, vmin=vmin, vmax=vmax)
-        del image
-        ax.set_title(title, loc="left", pad=1.5, fontsize=6.8, fontweight="bold")
-        ax.set_xticks(np.arange(len(NODE_ORDER)))
-        ax.set_xticklabels(["100", "500", "1k"])
-        ax.set_yticks(np.arange(len(ENV_ORDER)))
-        ax.set_yticklabels([ENV_SHORT[e] for e in ENV_ORDER])
-        ax.set_xticks(np.arange(-0.5, len(NODE_ORDER), 1), minor=True)
-        ax.set_yticks(np.arange(-0.5, len(ENV_ORDER), 1), minor=True)
-        ax.grid(which="minor", color="white", linewidth=0.7)
-        ax.tick_params(which="minor", bottom=False, left=False)
-        ax.tick_params(axis="both", length=0, pad=1.4, labelsize=5.8)
-        for row_idx in range(matrix.shape[0]):
-            for col_idx in range(matrix.shape[1]):
-                val = float(matrix[row_idx, col_idx])
-                normed = (val - vmin) / max(vmax - vmin, 1e-9)
-                txt_color = "white" if normed > 0.58 else "#222222"
-                ax.text(col_idx, row_idx, fmt.format(val), ha="center", va="center", fontsize=5.4, color=txt_color)
-        for spine in ax.spines.values():
-            spine.set_visible(False)
+    for ax, title, matrix, ylabel, ylim in panels:
+        for env_idx, env_name in enumerate(env_labels):
+            ax.plot(
+                x,
+                matrix[env_idx],
+                color=COLORS[env_name],
+                marker=markers[env_name],
+                linewidth=1.18 if env_name != "Urban" else 1.34,
+                markersize=2.7,
+                alpha=0.96,
+                label=env_name,
+            )
+        ax.set_title(title, loc="left", pad=1.4, fontsize=6.8, fontweight="bold")
+        ax.set_ylabel(ylabel)
+        ax.set_ylim(*ylim)
+        ax.set_xlim(-0.08, len(NODE_ORDER) - 0.70)
+        ax.set_xticks(x)
+        ax.set_xticklabels(xticklabels)
+        ax.grid(axis="y", linestyle="--", linewidth=0.50, color=COLORS["grid"])
+        ax.spines["top"].set_visible(False)
+        ax.spines["right"].set_visible(False)
+        ax.spines["left"].set_color(COLORS["axis"])
+        ax.spines["bottom"].set_color(COLORS["axis"])
+        ax.tick_params(length=2.1, pad=1.4, labelsize=5.8)
 
-    for ax in axes[0, :]:
-        ax.tick_params(axis="x", labelbottom=False)
-    for ax in axes[:, 1]:
-        ax.tick_params(axis="y", labelleft=False)
-    fig.text(0.50, 0.03, "Node scale", ha="center", va="center", fontsize=6.5, color=COLORS["text"])
-    fig.subplots_adjust(left=0.14, right=0.985, top=0.93, bottom=0.12, wspace=0.12, hspace=0.25)
+    axes[0, 1].annotate(
+        "urban-1k\nbottleneck",
+        xy=(x[-1], gw[ENV_ORDER.index("outdoor_urban"), -1]),
+        xytext=(x[-1] - 0.45, 0.50),
+        arrowprops={"arrowstyle": "-", "color": COLORS["Urban"], "linewidth": 0.55},
+        fontsize=5.1,
+        color=COLORS["Urban"],
+        ha="right",
+        va="center",
+    )
+    axes[1, 0].annotate(
+        "early FND",
+        xy=(x[1], fnd[ENV_ORDER.index("outdoor_suburban"), 1]),
+        xytext=(x[1] + 0.16, 7.2),
+        arrowprops={"arrowstyle": "-", "color": COLORS["muted"], "linewidth": 0.55},
+        fontsize=5.1,
+        color=COLORS["muted"],
+        ha="left",
+        va="center",
+    )
+
+    handles, labels = axes[0, 0].get_legend_handles_labels()
+    fig.legend(handles, labels, ncol=4, loc="upper center", bbox_to_anchor=(0.52, 0.995), frameon=False, columnspacing=0.85, handletextpad=0.25)
+    axes[1, 0].set_xlabel("Nodes")
+    axes[1, 1].set_xlabel("Nodes")
+    fig.subplots_adjust(left=0.13, right=0.985, top=0.84, bottom=0.15, wspace=0.28, hspace=0.38)
     save(fig, "fig_lcn26_mechanism_compact")
 
 

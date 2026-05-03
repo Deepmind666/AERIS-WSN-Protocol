@@ -15,16 +15,16 @@ COLUMN_WIDTH_IN = 3.5
 TEXT_WIDTH_IN = 7.16
 
 PALETTE = {
-    "AERIS": "#5A5A5A",
-    "AERIS_dark": "#333333",
-    "AERIS_band": "#5A5A5A",
-    "PEGASIS": "#36A657",
+    "AERIS": "#C13136",
+    "AERIS_dark": "#8F1E25",
+    "AERIS_band": "#C13136",
+    "PEGASIS": "#1C7ABA",
     "RPL-MRHOF": "#FF7F0E",
     "RPL": "#FF7F0E",
     "CTP": "#4D4D4D",
-    "LEACH": "#2D83BD",
-    "HEED": "#C6373D",
-    "TEEN": "#D15B9A",
+    "LEACH": "#6D6D6D",
+    "HEED": "#D774A8",
+    "TEEN": "#32A344",
     "classical": "#BDBDBD",
     "collection": "#4D4D4D",
     "GW": "#36A657",
