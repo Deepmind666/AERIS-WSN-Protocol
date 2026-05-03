@@ -14,7 +14,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.lines import Line2D
+from matplotlib.patches import Patch
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT_DIR = ROOT / "_LCN26_AERIS" / "generated"
@@ -202,56 +202,65 @@ def build_plot(
 
     del env_gap_means
     del rank_counts
-    grouped = load_grouped_values()
     row_lookup = {(str(row["environment"]), int(row["num_nodes"])): row for row in rows}
     x = np.arange(len(NODE_ORDER), dtype=float)
-    fig, axes = plt.subplots(2, 2, figsize=(COLUMN_WIDTH_IN, 2.84), sharex=True, sharey=True)
+    fig, axes = plt.subplots(2, 2, figsize=(COLUMN_WIDTH_IN, 2.76), sharex=True, sharey=True)
     axes = axes.flatten()
     compact_ticks = ["50", "100", "200", "300", "500", "800", "1k"]
 
     for idx, env in enumerate(ENV_ORDER):
         ax = axes[idx]
-        for proto in PLOT_PROTOCOLS:
-            means = []
-            errs = []
-            for node in NODE_ORDER:
-                mean, std, n = mean_std(grouped[(env, node, proto)])
-                means.append(mean)
-                errs.append(ci95(std, n))
-            means_arr = np.asarray(means, dtype=float)
-            errs_arr = np.asarray(errs, dtype=float)
-            if proto == "AERIS":
-                ax.fill_between(
-                    x,
-                    means_arr - errs_arr,
-                    means_arr + errs_arr,
-                    color=BOUNDARY_COLORS["AERIS"],
-                    alpha=0.075,
-                    linewidth=0,
-                )
-            ax.plot(
-                x,
-                means_arr,
-                color=BOUNDARY_COLORS[proto],
-                marker=BOUNDARY_MARKERS[proto],
-                linewidth=1.55 if proto == "AERIS" else 1.00,
-                markersize=2.3 if proto == "AERIS" else 2.05,
-                alpha=1.0 if proto == "AERIS" else 0.88,
-                zorder=4 if proto == "AERIS" else 3,
-            )
-
         env_rows = [row_lookup[(env, node)] for node in NODE_ORDER]
+        gaps = np.asarray([float(row["gap_pp"]) for row in env_rows], dtype=float)
+        gap_ci = np.asarray([float(row["gap_ci95_pp"]) for row in env_rows], dtype=float)
+        leaders = [str(row["best_baseline"]) for row in env_rows]
+        bar_colors = [
+            BOUNDARY_COLORS["AERIS"] if gap > 0.1 else BOUNDARY_COLORS.get(leader, "#6D6D6D")
+            for gap, leader in zip(gaps, leaders)
+        ]
+        edge_colors = [
+            "#8F1F24" if gap > 0.1 else "#4A4A4A"
+            for gap in gaps
+        ]
+        hatches = ["///" if abs(gap) <= 0.1 else "" for gap in gaps]
+
+        ax.axhspan(-0.1, 0.1, color="#ECECEC", zorder=0)
+        ax.axhline(0, color="#222222", linewidth=0.65, zorder=1)
+        ax.bar(
+            x,
+            gaps,
+            yerr=gap_ci,
+            width=0.62,
+            color=bar_colors,
+            edgecolor=edge_colors,
+            linewidth=0.55,
+            hatch=hatches,
+            error_kw={"elinewidth": 0.55, "capthick": 0.55, "capsize": 1.6, "ecolor": "#333333"},
+            zorder=3,
+        )
+
         wins_all = sum(int(row["all_rank"] == 1) for row in env_rows)
         wins_classical = sum(int(row["classical_rank"] == 1) for row in env_rows)
-        mean_gap = float(np.mean([float(row["gap_pp"]) for row in env_rows]))
+        mean_gap = float(np.mean(gaps))
         ax.set_title(
-            f"{ENV_TITLES[env]}\nC:{wins_classical}/7 A:{wins_all}/7; gap {mean_gap:+.1f} pp",
+            f"{ENV_TITLES[env]}\nC/A wins {wins_classical}/7, {wins_all}/7; mean {mean_gap:+.1f} pp",
             pad=1.2,
             fontsize=6.2,
             fontweight="bold",
         )
-        ax.axhline(0.5, color=PALETTE["grid"], linewidth=0.45, linestyle=":", zorder=0)
-        ax.set_ylim(0.0, 1.03)
+        for xpos, gap in zip(x, gaps):
+            if abs(gap) <= 0.1:
+                ax.text(
+                    xpos,
+                    0.38 if gap >= 0 else -0.48,
+                    "tie",
+                    ha="center",
+                    va="center",
+                    fontsize=5.0,
+                    color=PALETTE["muted"],
+                    zorder=5,
+                )
+        ax.set_ylim(-9.6, 3.0)
         ax.set_xlim(-0.10, len(NODE_ORDER) - 0.65)
         ax.set_xticks(x)
         ax.set_xticklabels(compact_ticks)
@@ -260,42 +269,34 @@ def build_plot(
         ax.spines["right"].set_visible(False)
         ax.tick_params(length=2.2, pad=1.5)
 
-    axes[0].set_ylabel("Mean PDR")
-    axes[2].set_ylabel("Mean PDR")
+    axes[0].set_ylabel("AERIS margin (pp)")
+    axes[2].set_ylabel("AERIS margin (pp)")
     axes[2].set_xlabel("Nodes")
     axes[3].set_xlabel("Nodes")
     handles = [
-        Line2D(
-            [0],
-            [0],
-            color=BOUNDARY_COLORS[proto],
-            marker=BOUNDARY_MARKERS[proto],
-            linewidth=1.55 if proto == "AERIS" else 1.00,
-            markersize=2.8,
-            label=proto,
-        )
-        for proto in PLOT_PROTOCOLS
+        Patch(facecolor=BOUNDARY_COLORS["AERIS"], edgecolor="#8F1F24", label="AERIS leads"),
+        Patch(facecolor=BOUNDARY_COLORS["RPL-MRHOF"], edgecolor="#4A4A4A", label="RPL-MRHOF leads"),
+        Patch(facecolor="#ECECEC", edgecolor="#AAAAAA", label="near-tie band"),
     ]
     fig.legend(
         handles=handles,
-        labels=PLOT_PROTOCOLS,
-        ncol=5,
+        ncol=3,
         loc="upper center",
         bbox_to_anchor=(0.5, 0.997),
         frameon=False,
-        columnspacing=0.60,
-        handletextpad=0.25,
+        columnspacing=0.80,
+        handletextpad=0.35,
     )
     fig.text(
         0.50,
         0.017,
-        "C/A = AERIS rank-1 cells against classical/all baselines; gap = mean AERIS minus best non-AERIS.",
+        "Bars show mean PDR(AERIS) minus the strongest non-AERIS baseline; whiskers are approximate 95% CIs.",
         ha="center",
         va="bottom",
         fontsize=5.0,
         color=PALETTE["muted"],
     )
-    fig.subplots_adjust(left=0.13, right=0.985, top=0.82, bottom=0.17, wspace=0.16, hspace=0.36)
+    fig.subplots_adjust(left=0.16, right=0.985, top=0.82, bottom=0.17, wspace=0.20, hspace=0.38)
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     fig.savefig(OUTPUT_PDF)
