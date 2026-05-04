@@ -13,9 +13,19 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-ROOT = Path(__file__).resolve().parents[1]
+def find_repo_root() -> Path:
+    current = Path(__file__).resolve()
+    for parent in [current.parent, *current.parents]:
+        if (parent / "fig2_fig5_data").exists() and (parent / "scripts").exists():
+            return parent
+    return current.parents[1]
+
+
+ROOT = find_repo_root()
 OUT_DIR = ROOT / "_LCN26_AERIS" / "generated"
-MECH_FILE = ROOT / "results" / "lcn26_targeted_20260420" / "mechanism_grid_fat" / "mechanism_summary.csv"
+PACKED_MECH_FILE = ROOT / "fig2_fig5_data" / "fig5_mechanism" / "source" / "mechanism_summary.csv"
+LEGACY_MECH_FILE = ROOT / "results" / "lcn26_targeted_20260420" / "mechanism_grid_fat" / "mechanism_summary.csv"
+MECH_FILE = PACKED_MECH_FILE if PACKED_MECH_FILE.exists() else LEGACY_MECH_FILE
 
 ENV_ORDER = ["indoor_office", "indoor_factory", "outdoor_suburban", "outdoor_urban"]
 ENV_SHORT = {"indoor_office": "Office", "indoor_factory": "Factory", "outdoor_suburban": "Suburb", "outdoor_urban": "Urban"}

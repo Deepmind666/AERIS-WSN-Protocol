@@ -15,9 +15,19 @@ import numpy as np
 from matplotlib.lines import Line2D
 
 
-ROOT = Path(__file__).resolve().parents[1]
+def find_repo_root() -> Path:
+    current = Path(__file__).resolve()
+    for parent in [current.parent, *current.parents]:
+        if (parent / "fig2_fig5_data").exists() and (parent / "scripts").exists():
+            return parent
+    return current.parents[1]
+
+
+ROOT = find_repo_root()
 OUT_DIR = ROOT / "_LCN26_AERIS" / "generated"
-STRICT_FILE = ROOT / "results" / "mega_experiments" / "scalability_4env_v50rigor_20260222_descriptive.csv"
+PACKED_STRICT_FILE = ROOT / "fig2_fig5_data" / "fig3_stress" / "scalability_4env_v50rigor_20260222_descriptive.csv"
+LEGACY_STRICT_FILE = ROOT / "results" / "mega_experiments" / "scalability_4env_v50rigor_20260222_descriptive.csv"
+STRICT_FILE = PACKED_STRICT_FILE if PACKED_STRICT_FILE.exists() else LEGACY_STRICT_FILE
 ENV_ORDER = ["indoor_office", "indoor_factory", "outdoor_suburban", "outdoor_urban"]
 ENV_LABELS = {
     "indoor_office": "Office",
@@ -29,11 +39,11 @@ NODE_ORDER = [100, 200, 300, 500, 800, 1000]
 PROTO_ORDER = ["AERIS", "PEGASIS", "LEACH", "HEED", "TEEN"]
 DRAW_ORDER = ["LEACH", "HEED", "TEEN", "PEGASIS", "AERIS"]
 COLORS = {
-    "AERIS": "#5A5A5A",
-    "PEGASIS": "#36A657",
-    "LEACH": "#2D83BD",
-    "HEED": "#C6373D",
-    "TEEN": "#D15B9A",
+    "AERIS": "#C13136",
+    "PEGASIS": "#1C7ABA",
+    "LEACH": "#6D6D6D",
+    "HEED": "#D774A8",
+    "TEEN": "#32A344",
     "grid": "#D9DEE5",
     "axis": "#556270",
     "text": "#24323F",
@@ -60,9 +70,9 @@ def apply_style() -> None:
         {
             "pdf.fonttype": 42,
             "ps.fonttype": 42,
-            "font.family": "sans-serif",
-            "font.sans-serif": ["Arial", "Helvetica", "DejaVu Sans"],
-            "mathtext.fontset": "stixsans",
+            "font.family": "serif",
+            "font.serif": ["Times New Roman", "Times", "DejaVu Serif"],
+            "mathtext.fontset": "stix",
             "font.size": 7.0,
             "axes.labelsize": 7.2,
             "axes.titlesize": 7.4,

@@ -15,9 +15,19 @@ import numpy as np
 from matplotlib.lines import Line2D
 
 
-ROOT = Path(__file__).resolve().parents[1]
+def find_repo_root() -> Path:
+    current = Path(__file__).resolve()
+    for parent in [current.parent, *current.parents]:
+        if (parent / "fig2_fig5_data").exists() and (parent / "scripts").exists():
+            return parent
+    return current.parents[1]
+
+
+ROOT = find_repo_root()
 OUT_DIR = ROOT / "_LCN26_AERIS" / "generated"
-STRICT_FILE = ROOT / "results" / "mega_experiments" / "scalability_4env_v50rigor_20260222_descriptive.csv"
+PACKED_STRICT_FILE = ROOT / "fig2_fig5_data" / "fig3_stress" / "scalability_4env_v50rigor_20260222_descriptive.csv"
+LEGACY_STRICT_FILE = ROOT / "results" / "mega_experiments" / "scalability_4env_v50rigor_20260222_descriptive.csv"
+STRICT_FILE = PACKED_STRICT_FILE if PACKED_STRICT_FILE.exists() else LEGACY_STRICT_FILE
 ENV_ORDER = ["indoor_office", "indoor_factory", "outdoor_suburban", "outdoor_urban"]
 ENV_LABELS = {
     "indoor_office": "Office",

@@ -15,15 +15,25 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 
-ROOT = Path(__file__).resolve().parents[1]
+def find_repo_root() -> Path:
+    current = Path(__file__).resolve()
+    for parent in [current.parent, *current.parents]:
+        if (parent / "fig2_fig5_data").exists() and (parent / "scripts").exists():
+            return parent
+    return current.parents[1]
+
+
+ROOT = find_repo_root()
 OUT_DIR = ROOT / "_LCN26_AERIS" / "generated"
-ABLATION_DIR = (
+PACKED_ABLATION_DIR = ROOT / "fig2_fig5_data" / "fig4_ablation" / "source"
+LEGACY_ABLATION_DIR = (
     ROOT
     / "ns3_validation"
     / "results"
     / "lcn26_ns3_ablation_combined_20260501_010355_011001"
     / "summary"
 )
+ABLATION_DIR = PACKED_ABLATION_DIR if PACKED_ABLATION_DIR.exists() else LEGACY_ABLATION_DIR
 DELTA_FILE = ABLATION_DIR / "ns3_ablation_delta.csv"
 
 sys.path.insert(0, str(ROOT / "scripts"))

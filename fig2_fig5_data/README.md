@@ -1,95 +1,136 @@
-# Fig. 2--Fig. 5 Data Pack
+# AERIS LCN 2026 Figure and Table Data Pack
 
-This directory groups the data, plotting scripts, and exported figures used for
-the current Fig. 2--Fig. 5 redraw.
+This directory stores the data, plotting scripts, and exported artifacts needed
+to reproduce the current manuscript figures and the data-backed trade-off table.
+The package is intentionally self-contained: the plotting scripts first read the
+copies in this directory and only fall back to the original experiment folders if
+the packed copies are absent.
 
-## Exported Figures
+## Reproduction Commands
 
-Stored in `exported_figures/`:
+For the full figure rebuild and mirroring step, run:
 
-- `fig_lcn26_ns3_expanded_boundary.pdf/png`
-- `fig_lcn26_strict_compact.pdf/png`
-- `fig_lcn26_ns3_ablation_expanded.pdf/png`
-- `fig_lcn26_mechanism_compact.pdf/png`
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File fig2_fig5_data\rebuild_figures_from_pack.ps1
+```
 
-## Plotting Scripts
+The script regenerates Fig. 2--Fig. 5, mirrors the PDFs into
+`overleaf_upload_ready_20260503/figures/`, and updates `exported_figures/`.
 
-Stored in `plot_scripts/`:
+The individual plotting commands are:
 
-- `lcn26_style.py`
-- `build_lcn26_expanded_boundary.py`
-- `build_lcn26_strict_compact.py`
-- `build_lcn26_ns3_ablation_figure.py`
-- `build_lcn26_compact_tail_figures.py`
+```powershell
+C:\Users\admin\anaconda3\python.exe fig2_fig5_data\plot_scripts\build_lcn26_ns3_canonical_margin.py
+C:\Users\admin\anaconda3\python.exe fig2_fig5_data\plot_scripts\build_lcn26_strict_compact.py
+C:\Users\admin\anaconda3\python.exe fig2_fig5_data\plot_scripts\build_lcn26_ns3_ablation_figure.py
+C:\Users\admin\anaconda3\python.exe fig2_fig5_data\plot_scripts\build_lcn26_compact_tail_figures.py
+```
 
-The scripts are copied for auditability. In the working repository they still
-expect the original project-relative data paths.
+The individual commands write regenerated PDFs/PNGs to `_LCN26_AERIS/generated/`.
 
-## Fig. 2: Expanded Boundary Sweep
+## Exported Manuscript Figures
 
-`fig2_boundary/source/` contains the original summary outputs from:
+`exported_figures/` contains current figure exports using the paper filenames:
 
-`ns3_validation/results/lcn26_ns3_dual_combined_20260430_191527_191528/summary/`
+- `fig1_workflow.png`
+- `fig2_classical_margin.pdf/png`
+- `fig3_stress.pdf/png`
+- `fig4_ablation.pdf/png`
+- `fig5_mechanism.pdf/png`
 
-Files:
+Older exported files are left in the directory only as audit history; the files
+listed above are the current manuscript figures.
 
-- `ns3_focused_merged.json`
-- `ns3_focused_descriptive.csv`
-- `ns3_focused_significance.csv`
-- `ns3_focused_summary.md`
+## Fig. 1: AERIS Workflow
 
-`fig2_boundary/derived/ns3_boundary_gap_summary.csv` is the derived gap table
-written by the current plotting script.
+`fig1_workflow/source/` contains:
 
-## Fig. 3: Collision-Aware Stress Layer
+- `fig1_workflow.png`: the current manuscript raster.
+- `AERIS_fig1_flow_chart.drawio`: editable source drawing supplied for the final workflow.
+- `AERIS_fig1_flow_chart.svg`: SVG export of the editable source.
 
-`fig3_stress/scalability_4env_v50rigor_20260222_descriptive.csv` is copied from:
+Fig. 1 is a protocol schematic, so it is not generated from numeric experiment
+data.
 
-`results/mega_experiments/scalability_4env_v50rigor_20260222_descriptive.csv`
+## Fig. 2: Canonical Classical Margin
 
-No deeper raw run file with the same experiment stem was found in the repository.
+`fig2_classical_margin/source/` contains:
 
-## Fig. 4: Expanded Ablation
+- `ns3_5proto_fullnodes_descriptive_20260226.csv`
 
-`fig4_ablation/source/` contains the summary outputs from:
+This is the five-protocol canonical NS-3 summary used by the current Fig. 2:
+AERIS, LEACH, PEGASIS, HEED, and TEEN across four environments and seven node
+scales. The plotting script computes AERIS minus the strongest classical
+baseline for each cell.
 
-`ns3_validation/results/lcn26_ns3_ablation_combined_20260501_010355_011001/summary/`
+`fig2_classical_margin/derived/` contains:
 
-Files:
+- `ns3_classical_margin_summary.csv`
 
-- `ns3_ablation_environment_summary.csv`
+This derived table records the plotted per-cell margin, approximate 95% CI,
+best classical baseline, AERIS rank, top-two flag, and near-tie flag.
+
+## Fig. 3: Collision-Aware Strict-Physics Stress Layer
+
+`fig3_stress/` contains:
+
+- `scalability_4env_v50rigor_20260222_descriptive.csv`
+
+This file is copied from the strict-physics Python stress layer. It is stress
+evidence only because the baselines are adapted with relay support.
+
+## Fig. 4: NS-3 AERIS Ablation
+
+`fig4_ablation/source/` contains the ablation summaries:
+
 - `ns3_ablation_delta.csv`
+- `ns3_ablation_environment_summary.csv`
 - `ns3_ablation_summary.md`
 - `ns3_focused_descriptive.csv`
 - `ns3_focused_merged.json`
 - `ns3_focused_significance.csv`
 - `ns3_focused_summary.md`
 
-`fig4_ablation/raw/` contains the four raw shard files from:
-
-`ns3_validation/results/lcn26_ns3_ablation_combined_20260501_010355_011001/raw/`
-
-Files:
+`fig4_ablation/raw/` contains the four raw shard files:
 
 - `shard_ABLATION_indoor_factory.json`
 - `shard_ABLATION_indoor_office.json`
 - `shard_ABLATION_outdoor_suburban.json`
 - `shard_ABLATION_outdoor_urban.json`
 
+The current figure plots full-minus-ablated PDR in percentage points, so positive
+values mean the removed module helped the full AERIS configuration.
+
 ## Fig. 5: Mechanism Matrix
 
-`fig5_mechanism/source/` contains the mechanism summary and raw merged output
-from:
-
-`results/lcn26_targeted_20260420/mechanism_grid_fat/`
-
-Files:
+`fig5_mechanism/source/` contains:
 
 - `mechanism_summary.csv`
 - `mechanism_summary.md`
 - `mechanism_raw_merged.json`
 
+The current Fig. 5 is generated from the 12-cell mechanism study: four
+environments at 100, 500, and 1000 nodes, with 400 replicates per cell.
+
+## Table III: Fixed 100-Node Trade-Off Summary
+
+`table3_pooled_summary/source/` contains the data used to compute the pooled
+100-node PDR, consumed energy, lifetime, first-node death, and hop-count table:
+
+- `energy_lifetime_stats.csv`
+- `latency_hop_v3_20260211_stats.csv`
+
+The table is pooled across the four environments and is separate from the
+50--1000 node sweeps in Fig. 2 and Fig. 4.
+
+## Legacy Boundary Data
+
+`fig2_boundary/` is retained as audit history for the earlier expanded boundary
+plot. It is not the current Fig. 2 in the manuscript. The expanded seven-protocol
+boundary result is now summarized in prose, while the plotted Fig. 2 uses the
+canonical five-protocol classical audit.
+
 ## Integrity Note
 
-The original source directories were not modified while creating this pack.
-The data files here are copies for review and audit.
+The files in this data pack are copies for review and reproducibility. The
+original experiment directories were not modified while creating the pack.
