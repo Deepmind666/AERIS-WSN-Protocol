@@ -34,7 +34,7 @@ OUT_DIR = ROOT / "_LCN26_AERIS" / "generated"
 PACKED_INPUT_CSV = (
     ROOT
     / "fig2_fig5_data"
-    / "fig2_classical_margin"
+    / "01_fig2_classical_margin"
     / "source"
     / "ns3_5proto_fullnodes_descriptive_20260226.csv"
 )
@@ -50,7 +50,7 @@ OUTPUT_PNG = OUT_DIR / "fig_lcn26_ns3_canonical_margin.png"
 DERIVED_CSV = (
     ROOT
     / "fig2_fig5_data"
-    / "fig2_classical_margin"
+    / "01_fig2_classical_margin"
     / "derived"
     / "ns3_classical_margin_summary.csv"
 )

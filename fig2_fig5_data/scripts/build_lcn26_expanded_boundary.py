@@ -16,9 +16,24 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 
-ROOT = Path(__file__).resolve().parents[1]
+def find_repo_root() -> Path:
+    current = Path(__file__).resolve()
+    for parent in [current.parent, *current.parents]:
+        if (parent / "fig2_fig5_data").exists():
+            return parent
+    return current.parents[2]
+
+
+ROOT = find_repo_root()
 OUT_DIR = ROOT / "_LCN26_AERIS" / "generated"
-RAW_FILE = (
+PACKED_RAW_FILE = (
+    ROOT
+    / "fig2_fig5_data"
+    / "90_expanded_boundary_text_evidence"
+    / "source"
+    / "ns3_focused_merged.json"
+)
+LEGACY_RAW_FILE = (
     ROOT
     / "ns3_validation"
     / "results"
@@ -26,6 +41,7 @@ RAW_FILE = (
     / "summary"
     / "ns3_focused_merged.json"
 )
+RAW_FILE = PACKED_RAW_FILE if PACKED_RAW_FILE.exists() else LEGACY_RAW_FILE
 SUMMARY_CSV = OUT_DIR / "ns3_boundary_gap_summary.csv"
 OUTPUT_PDF = OUT_DIR / "fig_lcn26_ns3_expanded_boundary.pdf"
 OUTPUT_PNG = OUT_DIR / "fig_lcn26_ns3_expanded_boundary.png"
@@ -33,6 +49,7 @@ OUTPUT_PNG = OUT_DIR / "fig_lcn26_ns3_expanded_boundary.png"
 import sys
 
 sys.path.insert(0, str(ROOT / "scripts"))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 from lcn26_style import COLUMN_WIDTH_IN, PALETTE, apply_lcn26_style  # noqa: E402
 
 ENV_ORDER = [

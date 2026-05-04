@@ -23,7 +23,7 @@ def find_repo_root() -> Path:
 
 ROOT = find_repo_root()
 OUT_DIR = ROOT / "_LCN26_AERIS" / "generated"
-PACKED_MECH_FILE = ROOT / "fig2_fig5_data" / "fig5_mechanism" / "source" / "mechanism_summary.csv"
+PACKED_MECH_FILE = ROOT / "fig2_fig5_data" / "04_fig5_mechanism" / "source" / "mechanism_summary.csv"
 LEGACY_MECH_FILE = ROOT / "results" / "lcn26_targeted_20260420" / "mechanism_grid_fat" / "mechanism_summary.csv"
 MECH_FILE = PACKED_MECH_FILE if PACKED_MECH_FILE.exists() else LEGACY_MECH_FILE
 

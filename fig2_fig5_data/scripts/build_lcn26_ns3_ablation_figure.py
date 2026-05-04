@@ -25,7 +25,7 @@ def find_repo_root() -> Path:
 
 ROOT = find_repo_root()
 OUT_DIR = ROOT / "_LCN26_AERIS" / "generated"
-PACKED_ABLATION_DIR = ROOT / "fig2_fig5_data" / "fig4_ablation" / "source"
+PACKED_ABLATION_DIR = ROOT / "fig2_fig5_data" / "03_fig4_ablation" / "source"
 LEGACY_ABLATION_DIR = (
     ROOT
     / "ns3_validation"
@@ -37,6 +37,7 @@ ABLATION_DIR = PACKED_ABLATION_DIR if PACKED_ABLATION_DIR.exists() else LEGACY_A
 DELTA_FILE = ABLATION_DIR / "ns3_ablation_delta.csv"
 
 sys.path.insert(0, str(ROOT / "scripts"))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 from lcn26_style import COLUMN_WIDTH_IN, PALETTE, apply_lcn26_style  # noqa: E402
 
 ENV_ORDER = [

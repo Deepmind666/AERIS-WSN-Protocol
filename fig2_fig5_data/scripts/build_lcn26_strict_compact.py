@@ -25,7 +25,7 @@ def find_repo_root() -> Path:
 
 ROOT = find_repo_root()
 OUT_DIR = ROOT / "_LCN26_AERIS" / "generated"
-PACKED_STRICT_FILE = ROOT / "fig2_fig5_data" / "fig3_stress" / "scalability_4env_v50rigor_20260222_descriptive.csv"
+PACKED_STRICT_FILE = ROOT / "fig2_fig5_data" / "02_fig3_stress" / "source" / "scalability_4env_v50rigor_20260222_descriptive.csv"
 LEGACY_STRICT_FILE = ROOT / "results" / "mega_experiments" / "scalability_4env_v50rigor_20260222_descriptive.csv"
 STRICT_FILE = PACKED_STRICT_FILE if PACKED_STRICT_FILE.exists() else LEGACY_STRICT_FILE
 ENV_ORDER = ["indoor_office", "indoor_factory", "outdoor_suburban", "outdoor_urban"]
