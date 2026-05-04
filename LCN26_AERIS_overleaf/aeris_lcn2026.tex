@@ -211,7 +211,7 @@ For Fig.~\ref{fig:classical_margin}, the plotted value is the signed classical m
 \end{equation}
 where $\mathcal{B}_{\mathrm{classical}}=\{\mathrm{LEACH},\mathrm{PEGASIS},\mathrm{HEED},\mathrm{TEEN}\}$. Positive values mean that AERIS outperforms the strongest classical baseline in the corresponding environment-node cell.
 
-We use four complementary settings. The five-protocol NS-3 audit compares AERIS against LEACH, PEGASIS, HEED, and TEEN over four environments and seven node scales ($n=30$ per cell). The expanded seven-protocol boundary sweep adds simplified CTP- and RPL-MRHOF-style collection baselines over the same grid. A 3360-run NS-3 ablation disables Gateway, CAS, or CH scoring one at a time. A collision-aware Python stress layer adds explicit contention with minimally relay-enabled classical baselines, while the fixed 100-node block and 400-replicate mechanism study report the trade-off and module activity.
+We use four complementary settings: a five-protocol NS-3 audit, an expanded seven-protocol boundary sweep, a 3360-run NS-3 ablation, and a collision-aware Python stress layer. A fixed 100-node block and a 400-replicate mechanism study report the trade-off and module activity.
 
 The NS-3 evidence uses a standalone ns-3.40 harness with uniformly placed nodes in a 200 m $\times$ 200 m field and the sink at the top-center boundary. Runs use 300 rounds, 512-byte packets, 2.0 J initial energy, 10 dBm transmit power, and seeds 42001--42030. The channel combines log-distance loss, shadowing, fading, receiver sensitivity, and packet-error probability; the path-loss/shadowing pairs are office (2.0, 4.5 dB), factory (2.7, 8.5 dB), suburban (2.8, 7.5 dB), and urban (3.4, 12.0 dB). The canonical harness uses an idealized contention-free MAC abstraction; the Python stress layer adds explicit collision and relay contention.
 
@@ -276,7 +276,7 @@ The expanded seven-protocol boundary sweep is summarized in text rather than as 
 
 The ablation uses the same seed structure and environment-scale grid, but compares full AERIS with one disabled component at a time. Figure~\ref{fig:ablation} reports full-minus-ablated PDR deltas in percentage points; positive values mean that removing the module hurts delivery, while negative values mean that the disabled variant delivered more packets in that cell. Statistical support is computed per environment across the seven node scales after Holm correction. This convention is deliberately conservative: it avoids using the 3360-run count as if every packet or round were an independent statistical sample.
 
-The five-protocol NS-3 comparison anchors the classical-baseline ranking; the expanded seven-protocol boundary sweep provides the deployment boundary; the ablation attributes the gain; and the collision-aware stress layer provides stress evidence rather than a second canonical ranking. Lifetime, FND, hops, and energy expose load concentration. For Fig.~\ref{fig:ablation}, module effects are checked with Welch-type cell tests, Hedges' $g$, and Holm correction. In Fig.~\ref{fig:classical_margin}, winner labels should not be over-read because the plot summarizes mean margins rather than a significance map.
+The five-protocol NS-3 comparison anchors the classical-baseline ranking; the expanded seven-protocol sweep defines the boundary; the ablation attributes the gain; and the collision-aware stress layer is stress evidence, not a second canonical ranking. Lifetime, FND, hops, and energy expose load concentration. For Fig.~\ref{fig:ablation}, module effects are checked with Welch-type cell tests, Hedges' $g$, and Holm correction.
 
 \subsection{Classical Audit and Boundary Note}
 \begin{figure}[t]
@@ -291,28 +291,6 @@ Figure~\ref{fig:classical_margin} gives the canonical five-protocol result as si
 The expanded seven-protocol boundary sweep, which is summarized in text rather than plotted, shows why that claim must still be bounded. Once simplified CTP- and RPL-MRHOF-style baselines are included, AERIS remains strongest mainly in outdoor suburban cells: it wins 6 of 7 scales and is essentially tied at 1000 nodes, where the simplified RPL-MRHOF-style baseline leads by only 0.01 percentage points. In contrast, the RPL-MRHOF-style baseline leads the office cells and most factory and urban cells. AERIS is slightly ahead at factory-50, but falls 1.3--1.8 percentage points behind the RPL-MRHOF-style baseline at larger factory scales; in urban, the average gap to the winner is 5.69 points. AERIS mitigates the fragility of clustering and chain routing by protecting uplinks with Gateway support, but collection-tree and RPL-style baselines already cover part of the same path-selection problem with richer parent choice.
 
 The strongest defensible claim is therefore not that AERIS is globally best, but that its rule-based control path delivers a large gain over classical WSN baselines and remains competitive or best in selected harsh-channel regimes, especially suburban cells.
-
-\begin{table}[!t]
-\caption{Fixed 100-node pooled trade-off summary.}
-\label{tbl:pooled_summary}
-\centering
-\scriptsize
-\setlength{\tabcolsep}{2pt}
-\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}cccccc@{}}
-\toprule
-Method & PDR$\uparrow$ & Consumed J$\downarrow$ & Lifetime$\uparrow$ & FND$\uparrow$ & Hops$\downarrow$ \\
-\midrule
-LEACH & 0.260 & 165.4 & 300.0 & NR & 1.71 \\
-HEED & 0.414 & 165.2 & 300.0 & 11.4 & 2.00 \\
-TEEN & 0.432 & 159.4 & 299.0 & NR & 1.28 \\
-PEGASIS & 0.373 & 137.6 & 300.0 & 70.7 & 32.37 \\
-\midrule
-\textbf{AERIS} & \textbf{0.674} & \textbf{131.1} & \textbf{215.5} & \textbf{15.8} & \textbf{1.98} \\
-\bottomrule
-\end{tabular*}
-\vspace{3pt}
-\parbox{\columnwidth}{\raggedright\scriptsize\emph{Note:} Values are pooled across the four environments. The broader sweeps in Figs.~\ref{fig:classical_margin}--\ref{fig:ablation} cover 50--1000 nodes. NR = no first-node death before the 300-round horizon. Bold indicates AERIS.}
-\end{table}
 
 \subsection{Collision-Aware Stress Evidence}
 The collision-aware stress layer asks whether the classical-baseline ordering survives once collision and relay contention are made explicit. Figure~\ref{fig:strict_python} suggests that the ordering is largely preserved under this adapted stress model. PEGASIS remains strongest in indoor office (0.991 at 100 nodes and 0.988 at 1000), whereas AERIS stays rank-1 in indoor factory, outdoor suburban, and outdoor urban. At 1000 nodes, AERIS remains well above PEGASIS in indoor factory (0.728 vs. 0.300) and outdoor suburban (0.728 vs. 0.473), and it still leads in outdoor urban (0.136 vs. 0.099).
@@ -348,6 +326,28 @@ The 400-replicate-per-cell mechanism study is summarized in Fig.~\ref{fig:mechan
 \caption{AERIS mechanism study from 400 replicates per environment-node cell across 12 cells (4800 runs total). The four panels use grouped bars to show end-to-end PDR, Gateway-uplink PDR, first-node death (FND), and CAS two-hop share by environment and node scale.}
 \label{fig:mechanism}
 \end{figure}
+
+\begin{table}[!t]
+\caption{Fixed 100-node pooled trade-off summary.}
+\label{tbl:pooled_summary}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{2pt}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}cccccc@{}}
+\toprule
+Method & PDR$\uparrow$ & Consumed J$\downarrow$ & Lifetime$\uparrow$ & FND$\uparrow$ & Hops$\downarrow$ \\
+\midrule
+LEACH & 0.260 & 165.4 & 300.0 & NR & 1.71 \\
+HEED & 0.414 & 165.2 & 300.0 & 11.4 & 2.00 \\
+TEEN & 0.432 & 159.4 & 299.0 & NR & 1.28 \\
+PEGASIS & 0.373 & 137.6 & 300.0 & 70.7 & 32.37 \\
+\midrule
+\textbf{AERIS} & \textbf{0.674} & \textbf{131.1} & \textbf{215.5} & \textbf{15.8} & \textbf{1.98} \\
+\bottomrule
+\end{tabular*}
+\vspace{3pt}
+\parbox{\columnwidth}{\raggedright\scriptsize\emph{Note:} Values are pooled across the four environments. The broader sweeps in Figs.~\ref{fig:classical_margin}--\ref{fig:ablation} cover 50--1000 nodes. NR = no first-node death before the 300-round horizon. Bold indicates AERIS.}
+\end{table}
 
 The trade-off is also clear. Table~\ref{tbl:pooled_summary} shows that AERIS records the lowest consumed energy (131.1 J), but this value reflects early forwarding-role exhaustion rather than an isolated efficiency advantage. It also has the shortest lifetime (215.5 rounds), confirming that delivery is obtained through concentrated relay burden. The PDR improvements quoted in the abstract are computed from the same fixed 100-node block pooled across the four environments. Fig.~\ref{fig:mechanism} localizes the cost to early node death and shrinking two-hop support in harsh cells, but its FND bars are cell-level mechanism measurements rather than the same pooled statistic used in Table~\ref{tbl:pooled_summary}.
 
