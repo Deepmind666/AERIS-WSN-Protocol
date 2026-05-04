@@ -319,7 +319,7 @@ The 400-replicate-per-cell mechanism study is summarized in Fig.~\ref{fig:mechan
 \end{figure}
 
 \begin{table}[t]
-\caption{Separate fixed 100-node trade-off summary pooled across the four environments. The broader sweeps in Figs.~\ref{fig:classical_margin}--\ref{fig:ablation} cover 50--1000 nodes; this table uses the fixed 100-node block for energy, lifetime, FND, and hop reporting. Bold indicates AERIS. NR = no first-node death before the 300-round horizon.}
+\caption{Fixed 100-node pooled trade-off summary.}
 \label{tbl:pooled_summary}
 \centering
 \scriptsize
@@ -336,6 +336,8 @@ PEGASIS & 0.373 & 137.6 & 300.0 & 70.7 & 32.37 \\
 \textbf{AERIS} & \textbf{0.674} & \textbf{131.1} & \textbf{215.5} & \textbf{15.8} & \textbf{1.98} \\
 \bottomrule
 \end{tabular*}
+\vspace{1pt}
+\parbox{\columnwidth}{\scriptsize\emph{Note:} Values are pooled across the four environments. The broader sweeps in Figs.~\ref{fig:classical_margin}--\ref{fig:ablation} cover 50--1000 nodes. NR = no first-node death before the 300-round horizon. Bold indicates AERIS.}
 \end{table}
 
 The trade-off is also clear. Table~\ref{tbl:pooled_summary} shows that AERIS records the lowest consumed energy (131.1 J), but this value reflects early forwarding-role exhaustion rather than an isolated efficiency advantage. It also has the shortest lifetime (215.5 rounds), confirming that delivery is obtained through concentrated relay burden. The PDR improvements quoted in the abstract are computed from the same fixed 100-node block pooled across the four environments. Fig.~\ref{fig:mechanism} localizes the cost to early node death and shrinking two-hop support in harsh cells, but its FND bars are cell-level mechanism measurements rather than the same pooled statistic used in Table~\ref{tbl:pooled_summary}.
