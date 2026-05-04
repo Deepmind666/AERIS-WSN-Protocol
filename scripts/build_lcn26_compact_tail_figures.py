@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
-"""Build compact single-column ablation and mechanism figures for the LCN draft."""
+"""Build the compact mechanism figure for the LCN draft."""
 
 from __future__ import annotations
 
 import csv
-import json
-from collections import defaultdict
 from pathlib import Path
 
 import matplotlib
@@ -17,7 +15,6 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT_DIR = ROOT / "_LCN26_AERIS" / "generated"
-ABLATION_FILE = ROOT / "results" / "mega_experiments" / "ablation_diag_multi_20260207_205448.json"
 MECH_FILE = ROOT / "results" / "lcn26_targeted_20260420" / "mechanism_grid_fat" / "mechanism_summary.csv"
 
 ENV_ORDER = ["indoor_office", "indoor_factory", "outdoor_suburban", "outdoor_urban"]
@@ -29,10 +26,10 @@ COLORS = {
     "PEGASIS": "#1C7ABA",
     "GW": "#1C7ABA",
     "CAS": "#FF7F0E",
-    "Office": "#6D6D6D",
-    "Factory": "#1C7ABA",
-    "Suburb": "#32A344",
-    "Urban": "#C13136",
+    "Office": "#FF7F0E",
+    "Factory": "#F2A65A",
+    "Suburb": "#1F77B4",
+    "Urban": "#A9C8E8",
     "grid": "#D9DEE5",
     "axis": "#556270",
     "text": "#24323F",
@@ -54,9 +51,9 @@ def apply_style() -> None:
         {
             "pdf.fonttype": 42,
             "ps.fonttype": 42,
-            "font.family": "sans-serif",
-            "font.sans-serif": ["Arial", "Helvetica", "DejaVu Sans"],
-            "mathtext.fontset": "stixsans",
+            "font.family": "serif",
+            "font.serif": ["Times New Roman", "Times", "DejaVu Serif"],
+            "mathtext.fontset": "stix",
             "font.size": 8.2,
             "axes.labelsize": 8.6,
             "axes.titlesize": 9.0,
@@ -95,113 +92,79 @@ def save(fig: plt.Figure, stem: str) -> None:
     plt.close(fig)
 
 
-def mean_std(values: list[float]) -> tuple[float, float]:
-    arr = np.asarray(values, dtype=float)
-    if arr.size == 0:
-        return 0.0, 0.0
-    return float(arr.mean()), float(arr.std(ddof=1)) if arr.size > 1 else 0.0
-
-
-def ci95(std: float, n: int) -> float:
-    return 1.96 * std / max(n, 1) ** 0.5
-
-
-def build_ablation_compact() -> None:
-    raw = json.loads(ABLATION_FILE.read_text(encoding="utf-8"))["raw_results"]
-    rows = [r for r in raw if r["protocol"] == "AERIS" and r["ablation_config"] in {"full", "no_gateway", "no_cas"}]
-    grouped: dict[tuple[str, str], list[float]] = defaultdict(list)
-    for row in rows:
-        grouped[(row["environment"], row["ablation_config"])].append(float(row["pdr_expected"]))
-
-    fig, (ax_bar, ax_delta) = plt.subplots(2, 1, figsize=(3.42, 4.18), gridspec_kw={"height_ratios": [1.22, 1.0]})
-
-    cfgs = ["full", "no_gateway", "no_cas"]
-    colors = [COLORS["AERIS"], COLORS["GW"], COLORS["CAS"]]
-    labels = ["Full", "-GW", "-CAS"]
-    x = np.arange(len(ENV_ORDER), dtype=float)
-    width = 0.22
-    for idx, (cfg, color, label) in enumerate(zip(cfgs, colors, labels)):
-        means, errs = [], []
-        for env in ENV_ORDER:
-            m, s = mean_std(grouped[(env, cfg)])
-            means.append(m)
-            errs.append(ci95(s, len(grouped[(env, cfg)])))
-        ax_bar.bar(x + (idx - 1) * width, means, width=width, color=color, alpha=0.78 if cfg == "full" else 0.68, edgecolor="white", linewidth=0.6, label=label, zorder=3)
-        ax_bar.errorbar(x + (idx - 1) * width, means, yerr=errs, fmt="none", ecolor="#394552", elinewidth=0.8, capsize=2.0, zorder=4)
-    style_axes(ax_bar)
-    ax_bar.set_ylim(0.0, 1.02)
-    ax_bar.set_ylabel("Mean PDR")
-    ax_bar.set_xticks(x)
-    ax_bar.set_xticklabels([ENV_SHORT[e] for e in ENV_ORDER])
-    ax_bar.legend(loc="upper right", frameon=False, ncol=3, handlelength=1.15, columnspacing=0.7)
-
-    gw_delta, cas_delta = [], []
-    for env in ENV_ORDER:
-        full_m, _ = mean_std(grouped[(env, "full")])
-        nogw_m, _ = mean_std(grouped[(env, "no_gateway")])
-        nocas_m, _ = mean_std(grouped[(env, "no_cas")])
-        gw_delta.append((nogw_m - full_m) * 100.0)
-        cas_delta.append((nocas_m - full_m) * 100.0)
-    y = np.arange(len(ENV_ORDER), dtype=float)
-    ax_delta.axvline(0.0, color="#394552", linewidth=0.9, linestyle="--", zorder=1)
-    ax_delta.hlines(y + 0.12, 0, gw_delta, color=COLORS["GW"], linewidth=1.6)
-    ax_delta.hlines(y - 0.12, 0, cas_delta, color=COLORS["CAS"], linewidth=1.6)
-    ax_delta.scatter(gw_delta, y + 0.12, color=COLORS["GW"], s=22, zorder=3)
-    ax_delta.scatter(cas_delta, y - 0.12, color=COLORS["CAS"], s=22, marker="s", zorder=3)
-    style_axes(ax_delta)
-    ax_delta.grid(axis="x")
-    ax_delta.set_yticks(y)
-    ax_delta.set_yticklabels([ENV_SHORT[e] for e in ENV_ORDER])
-    ax_delta.set_xlabel("Delta vs. full (pts)")
-    lim = max(abs(min(gw_delta + cas_delta)), abs(max(gw_delta + cas_delta))) + 0.5
-    ax_delta.set_xlim(-lim, lim)
-    ax_delta.invert_yaxis()
-    fig.subplots_adjust(hspace=0.34)
-    save(fig, "fig_lcn26_ablation_compact")
-
-
 def build_mechanism_compact() -> None:
     mech_rows = {(row["environment"], int(row["num_nodes"])): row for row in load_csv(MECH_FILE)}
     pdr = np.asarray([[float(mech_rows[(env, n)]["pdr_expected_mean"]) for n in NODE_ORDER] for env in ENV_ORDER])
+    pdr_std = np.asarray([[float(mech_rows[(env, n)]["pdr_expected_std"]) for n in NODE_ORDER] for env in ENV_ORDER])
     gw = np.asarray([[float(mech_rows[(env, n)]["gateway_uplink_pdr_total_mean"]) for n in NODE_ORDER] for env in ENV_ORDER])
+    gw_std = np.asarray([[float(mech_rows[(env, n)]["gateway_uplink_pdr_total_std"]) for n in NODE_ORDER] for env in ENV_ORDER])
     fnd = np.asarray([[float(mech_rows[(env, n)]["first_node_death_round_mean"]) for n in NODE_ORDER] for env in ENV_ORDER])
+    fnd_std = np.asarray([[float(mech_rows[(env, n)]["first_node_death_round_std"]) for n in NODE_ORDER] for env in ENV_ORDER])
     cas_direct = np.asarray([[float(mech_rows[(env, n)]["cas_DIRECT_mean"]) for n in NODE_ORDER] for env in ENV_ORDER])
     cas_twohop = np.asarray([[float(mech_rows[(env, n)]["cas_TWO_HOP_mean"]) for n in NODE_ORDER] for env in ENV_ORDER])
     cas_chain = np.asarray([[float(mech_rows[(env, n)]["cas_CHAIN_mean"]) for n in NODE_ORDER] for env in ENV_ORDER])
     cas_total = np.maximum(cas_direct + cas_twohop + cas_chain, 1e-9)
     twohop_share = cas_twohop / cas_total * 100.0
 
-    fig, axes = plt.subplots(2, 2, figsize=(3.50, 2.62), sharex=True)
+    fig, axes = plt.subplots(2, 2, figsize=(3.50, 2.76), sharex=True)
     x = np.arange(len(NODE_ORDER), dtype=float)
     xticklabels = ["100", "500", "1k"]
     env_labels = [ENV_SHORT[e] for e in ENV_ORDER]
-    markers = {"Office": "o", "Factory": "s", "Suburb": "^", "Urban": "D"}
+    env_colors = [COLORS[name] for name in env_labels]
+    env_markers = {"Office": "o", "Factory": "s", "Suburb": "^", "Urban": "D"}
+    offsets = np.linspace(-1.5, 1.5, len(ENV_ORDER)) * 0.17
+
+    def ci95(std: np.ndarray, n: int = 400) -> np.ndarray:
+        return 1.96 * std / np.sqrt(n)
+
     panels = [
-        (axes[0, 0], "(a) End-to-end PDR", pdr, "Mean PDR", (0.0, 1.03)),
-        (axes[0, 1], "(b) Gateway uplink PDR", gw, "Mean PDR", (0.0, 1.03)),
-        (axes[1, 0], "(c) First-node death", fnd, "Round", (0.0, max(15.0, float(np.max(fnd)) + 1.0))),
-        (axes[1, 1], "(d) CAS two-hop share", twohop_share, "Share (%)", (0.0, 80.0)),
+        (axes[0, 0], "(a) End-to-end PDR", pdr, ci95(pdr_std), "Mean PDR", (0.0, 1.03)),
+        (axes[0, 1], "(b) Gateway uplink PDR", gw, ci95(gw_std), "Mean PDR", (0.0, 1.03)),
+        (axes[1, 0], "(c) First-node death", fnd, ci95(fnd_std), "Round", (0.0, max(15.0, float(np.max(fnd)) + 1.0))),
+        (axes[1, 1], "(d) CAS two-hop share", twohop_share, None, "Share (%)", (0.0, 80.0)),
     ]
 
-    for ax, title, matrix, ylabel, ylim in panels:
+    for ax, title, matrix, err_matrix, ylabel, ylim in panels:
         for env_idx, env_name in enumerate(env_labels):
-            ax.plot(
-                x,
+            ax.bar(
+                x + offsets[env_idx],
                 matrix[env_idx],
-                color=COLORS[env_name],
-                marker=markers[env_name],
-                linewidth=1.18 if env_name != "Urban" else 1.34,
-                markersize=2.7,
-                alpha=0.96,
-                label=env_name,
+                width=0.17,
+                color=env_colors[env_idx],
+                edgecolor="white",
+                linewidth=0.45,
+                alpha=0.90,
+                label=env_name if ax is axes[0, 0] else None,
+                zorder=3,
             )
-        ax.set_title(title, loc="left", pad=1.4, fontsize=6.8, fontweight="bold")
+            if err_matrix is not None:
+                ax.errorbar(
+                    x + offsets[env_idx],
+                    matrix[env_idx],
+                    yerr=err_matrix[env_idx],
+                    fmt="none",
+                    ecolor="#3A4756",
+                    elinewidth=0.65,
+                    capsize=1.8,
+                    zorder=4,
+                )
+        ax.text(
+            0.5,
+            1.01,
+            title,
+            transform=ax.transAxes,
+            ha="center",
+            va="bottom",
+            fontsize=6.8,
+            fontweight="bold",
+        )
         ax.set_ylabel(ylabel)
         ax.set_ylim(*ylim)
-        ax.set_xlim(-0.08, len(NODE_ORDER) - 0.70)
+        ax.set_xlim(-0.40, len(NODE_ORDER) - 0.12)
         ax.set_xticks(x)
         ax.set_xticklabels(xticklabels)
         ax.grid(axis="y", linestyle="--", linewidth=0.50, color=COLORS["grid"])
+        ax.grid(axis="x", visible=False)
         ax.spines["top"].set_visible(False)
         ax.spines["right"].set_visible(False)
         ax.spines["left"].set_color(COLORS["axis"])
@@ -210,18 +173,18 @@ def build_mechanism_compact() -> None:
 
     axes[0, 1].annotate(
         "urban-1k\nbottleneck",
-        xy=(x[-1], gw[ENV_ORDER.index("outdoor_urban"), -1]),
-        xytext=(x[-1] - 0.45, 0.50),
-        arrowprops={"arrowstyle": "-", "color": COLORS["Urban"], "linewidth": 0.55},
+        xy=(x[-1] + offsets[3], gw[ENV_ORDER.index("outdoor_urban"), -1]),
+        xytext=(x[-1] + 0.48, 0.50),
+        arrowprops={"arrowstyle": "-", "color": COLORS["Urban"], "linewidth": 0.60},
         fontsize=5.1,
-        color=COLORS["Urban"],
-        ha="right",
+        color=COLORS["axis"],
+        ha="left",
         va="center",
     )
     axes[1, 0].annotate(
         "early FND",
-        xy=(x[1], fnd[ENV_ORDER.index("outdoor_suburban"), 1]),
-        xytext=(x[1] + 0.16, 7.2),
+        xy=(x[1] + offsets[3], fnd[ENV_ORDER.index("outdoor_urban"), 1]),
+        xytext=(x[1] + 0.22, 7.1),
         arrowprops={"arrowstyle": "-", "color": COLORS["muted"], "linewidth": 0.55},
         fontsize=5.1,
         color=COLORS["muted"],
@@ -230,7 +193,7 @@ def build_mechanism_compact() -> None:
     )
 
     handles, labels = axes[0, 0].get_legend_handles_labels()
-    fig.legend(handles, labels, ncol=4, loc="upper center", bbox_to_anchor=(0.52, 0.995), frameon=False, columnspacing=0.85, handletextpad=0.25)
+    fig.legend(handles, labels, ncol=4, loc="upper center", bbox_to_anchor=(0.52, 0.998), frameon=False, columnspacing=0.85, handletextpad=0.25)
     axes[1, 0].set_xlabel("Nodes")
     axes[1, 1].set_xlabel("Nodes")
     fig.subplots_adjust(left=0.13, right=0.985, top=0.84, bottom=0.15, wspace=0.28, hspace=0.38)
@@ -239,5 +202,4 @@ def build_mechanism_compact() -> None:
 
 if __name__ == "__main__":
     apply_style()
-    build_ablation_compact()
     build_mechanism_compact()

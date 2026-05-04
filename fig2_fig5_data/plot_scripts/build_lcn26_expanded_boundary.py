@@ -10,11 +10,11 @@ from collections import defaultdict
 from pathlib import Path
 
 import matplotlib
+from matplotlib.colors import TwoSlopeNorm
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.lines import Line2D
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT_DIR = ROOT / "_LCN26_AERIS" / "generated"
@@ -60,23 +60,6 @@ ALL_PROTOCOLS = [
     "CTP",
 ]
 BASELINE_PROTOCOLS = [proto for proto in ALL_PROTOCOLS if proto != "AERIS"]
-PLOT_PROTOCOLS = ["AERIS", "RPL-MRHOF", "CTP", "PEGASIS", "TEEN"]
-
-BOUNDARY_COLORS = {
-    "AERIS": "#C13136",
-    "PEGASIS": "#1C7ABA",
-    "RPL-MRHOF": "#6D6D6D",
-    "CTP": "#D774A8",
-    "TEEN": "#32A344",
-}
-
-BOUNDARY_MARKERS = {
-    "AERIS": "o",
-    "PEGASIS": "s",
-    "RPL-MRHOF": "^",
-    "CTP": "D",
-    "TEEN": "P",
-}
 
 
 def load_grouped_values() -> dict[tuple[str, int, str], list[float]]:
@@ -191,138 +174,110 @@ def build_plot(
     apply_lcn26_style()
     plt.rcParams.update(
         {
-            "font.size": 6.2,
-            "axes.labelsize": 6.3,
-            "axes.titlesize": 6.4,
-            "xtick.labelsize": 5.8,
-            "ytick.labelsize": 5.9,
+            "font.size": 6.4,
+            "axes.labelsize": 6.6,
+            "axes.titlesize": 6.7,
+            "xtick.labelsize": 5.9,
+            "ytick.labelsize": 6.0,
             "legend.fontsize": 5.5,
         }
     )
 
-    del env_gap_means
-    del rank_counts
-    row_lookup = {(str(row["environment"]), int(row["num_nodes"])): row for row in rows}
-    x = np.arange(len(NODE_ORDER), dtype=float)
-    fig, axes = plt.subplots(2, 2, figsize=(COLUMN_WIDTH_IN, 2.58), sharex=True, sharey=True)
-    axes = axes.flatten()
-    compact_ticks = ["50", "100", "200", "300", "500", "800", "1k"]
+    classical_rank1, classical_top2, all_rank1, all_top2 = rank_counts
+    env_rank = {}
+    for env in ENV_ORDER:
+        env_rows = [row for row in rows if row["environment"] == env]
+        env_rank[env] = {
+            "classical_rank1": sum(int(row["classical_rank"] == 1) for row in env_rows),
+            "all_rank1": sum(int(row["all_rank"] == 1) for row in env_rows),
+            "classical_top2": sum(int(row["classical_rank"] <= 2) for row in env_rows),
+            "all_top2": sum(int(row["all_rank"] <= 2) for row in env_rows),
+            "mean_gap": env_gap_means[env],
+        }
 
-    for idx, env in enumerate(ENV_ORDER):
-        ax = axes[idx]
-        env_rows = [row_lookup[(env, node)] for node in NODE_ORDER]
-        gaps = np.asarray([float(row["gap_pp"]) for row in env_rows], dtype=float)
-        gap_ci = np.asarray([float(row["gap_ci95_pp"]) for row in env_rows], dtype=float)
-        leaders = [str(row["best_baseline"]) for row in env_rows]
-        del leaders
-        point_colors = np.where(
-            np.abs(gaps) <= 0.1,
-            "#F29440",
-            np.where(gaps > 0, BOUNDARY_COLORS["AERIS"], "#6D6D6D"),
-        )
+    labels = [ENV_TITLES[env] for env in ENV_ORDER]
+    y = np.arange(len(ENV_ORDER), dtype=float)
 
-        ax.axhspan(-0.1, 0.1, color="#F1D5B3", alpha=0.38, zorder=0)
-        ax.axhline(0, color="#252525", linewidth=0.72, zorder=1)
-        for xpos, gap, color in zip(x, gaps, point_colors):
-            ax.vlines(
-                xpos,
-                0,
-                gap,
-                color=color,
-                linewidth=1.15,
-                alpha=0.92,
-                zorder=2,
-            )
-        ax.errorbar(
-            x,
-            gaps,
-            yerr=gap_ci,
-            fmt="none",
-            ecolor="#303030",
-            elinewidth=0.58,
-            capsize=1.7,
-            capthick=0.58,
-            zorder=3,
-        )
-        ax.scatter(
-            x,
-            gaps,
-            s=14.5,
-            marker="o",
-            facecolors=point_colors,
-            edgecolors="#202020",
-            linewidths=0.35,
-            zorder=4,
-        )
-
-        wins_all = sum(int(row["all_rank"] == 1) for row in env_rows)
-        wins_classical = sum(int(row["classical_rank"] == 1) for row in env_rows)
-        mean_gap = float(np.mean(gaps))
-        ax.set_title(
-            f"{ENV_TITLES[env]}\nClass. {wins_classical}/7, all {wins_all}/7; mean {mean_gap:+.1f} pp",
-            pad=1.2,
-            fontsize=5.95,
-            fontweight="bold",
-        )
-        ax.set_ylim(-9.6, 3.0)
-        ax.set_xlim(-0.10, len(NODE_ORDER) - 0.65)
-        ax.set_xticks(x)
-        ax.set_xticklabels(compact_ticks)
-        ax.grid(axis="y", linestyle="--", linewidth=0.42, color=PALETTE["grid"])
-        ax.grid(axis="x", linestyle=":", linewidth=0.28, color="#E2E2E2")
-        ax.spines["top"].set_visible(False)
-        ax.spines["right"].set_visible(False)
-        ax.tick_params(length=2.2, pad=1.5)
-
-    axes[0].set_ylabel("AERIS margin (pp)")
-    axes[2].set_ylabel("AERIS margin (pp)")
-    axes[2].set_xlabel("Nodes")
-    axes[3].set_xlabel("Nodes")
-    handles = [
-        Line2D(
-            [0],
-            [0],
-            marker="o",
-            color=BOUNDARY_COLORS["AERIS"],
-            markerfacecolor=BOUNDARY_COLORS["AERIS"],
-            markeredgecolor="#202020",
-            linewidth=1.1,
-            markersize=4.2,
-            label="AERIS lead",
-        ),
-        Line2D(
-            [0],
-            [0],
-            marker="o",
-            color="#6D6D6D",
-            markerfacecolor="#6D6D6D",
-            markeredgecolor="#202020",
-            linewidth=1.1,
-            markersize=4.2,
-            label="baseline lead",
-        ),
-        Line2D(
-            [0],
-            [0],
-            marker="o",
-            color="#F29440",
-            markerfacecolor="#F29440",
-            markeredgecolor="#202020",
-            linewidth=1.1,
-            markersize=4.2,
-            label="near-tie",
-        ),
-    ]
-    fig.legend(
-        handles=handles,
-        ncol=3,
-        loc="upper center",
-        bbox_to_anchor=(0.5, 0.995),
-        frameon=False,
-        columnspacing=0.76,
-        handletextpad=0.32,
+    fig, (ax_counts, ax_gap) = plt.subplots(
+        2,
+        1,
+        figsize=(COLUMN_WIDTH_IN, 2.58),
+        gridspec_kw={"height_ratios": [0.70, 1.16]},
     )
-    fig.subplots_adjust(left=0.16, right=0.985, top=0.82, bottom=0.145, wspace=0.20, hspace=0.40)
+
+    height = 0.34
+    classical_vals = np.asarray([env_rank[env]["classical_rank1"] for env in ENV_ORDER], dtype=float)
+    all_vals = np.asarray([env_rank[env]["all_rank1"] for env in ENV_ORDER], dtype=float)
+    ax_counts.barh(y - height / 2, classical_vals, height=height, color=PALETTE["AERIS"], edgecolor="black", linewidth=0.35, label="Classical only")
+    ax_counts.barh(y + height / 2, all_vals, height=height, color=PALETTE["RPL-MRHOF"], edgecolor="black", linewidth=0.35, label="All baselines")
+    for idx, (base_val, all_val) in enumerate(zip(classical_vals, all_vals)):
+        if base_val == 0 and all_val == 0:
+            ax_counts.text(0.08, y[idx], "0/7", va="center", ha="left", fontsize=5.2)
+            continue
+        for yi, val in ((y[idx] - height / 2, base_val), (y[idx] + height / 2, all_val)):
+            ax_counts.text((val + 0.08) if val > 0 else 0.08, yi, f"{int(val)}/7", va="center", ha="left", fontsize=5.2)
+    ax_counts.set_xlim(0, 7.6)
+    ax_counts.set_xticks([0, 2, 4, 6, 7])
+    ax_counts.set_yticks(y)
+    ax_counts.set_yticklabels(labels)
+    ax_counts.invert_yaxis()
+    ax_counts.set_xlabel("")
+    ax_counts.text(0.0, 1.035, "(a) Rank-1 coverage", transform=ax_counts.transAxes, ha="left", va="bottom", fontsize=6.4, fontweight="bold")
+    ax_counts.grid(axis="x", linestyle="--", linewidth=0.5, color=PALETTE["grid"])
+    ax_counts.grid(axis="y", visible=False)
+    ax_counts.legend(
+        loc="lower right",
+        bbox_to_anchor=(1.0, 1.02),
+        frameon=True,
+        facecolor="white",
+        edgecolor=PALETTE["grid"],
+        framealpha=0.95,
+        ncol=2,
+        handlelength=1.1,
+        columnspacing=0.7,
+    )
+
+    gap_matrix = np.asarray(
+        [
+            [
+                float(
+                    next(
+                        row["gap_pp"]
+                        for row in rows
+                        if row["environment"] == env and int(row["num_nodes"]) == node
+                    )
+                )
+                for node in NODE_ORDER
+            ]
+            for env in ENV_ORDER
+        ],
+        dtype=float,
+    )
+    norm = TwoSlopeNorm(vmin=-9.0, vcenter=0.0, vmax=2.0)
+    heat = ax_gap.imshow(gap_matrix, aspect="auto", cmap="RdBu", norm=norm)
+    ax_gap.set_xticks(np.arange(len(NODE_ORDER)))
+    ax_gap.set_xticklabels(NODE_LABELS)
+    ax_gap.set_yticks(np.arange(len(ENV_ORDER)))
+    ax_gap.set_yticklabels(labels)
+    ax_gap.set_xlabel("")
+    ax_gap.text(0.0, 1.035, "(b) Gap to best non-AERIS baseline (pp)", transform=ax_gap.transAxes, ha="left", va="bottom", fontsize=6.4, fontweight="bold")
+    for row_idx, env in enumerate(ENV_ORDER):
+        for col_idx, node in enumerate(NODE_ORDER):
+            val = gap_matrix[row_idx, col_idx]
+            label = r"$\approx$0" if abs(val) < 0.1 else f"{val:+.1f}"
+            text_color = "white" if abs(val) > 4.5 else PALETTE["axis"]
+            ax_gap.text(col_idx, row_idx, label, ha="center", va="center", fontsize=4.7, color=text_color)
+    ax_gap.set_xticks(np.arange(-0.5, len(NODE_ORDER), 1), minor=True)
+    ax_gap.set_yticks(np.arange(-0.5, len(ENV_ORDER), 1), minor=True)
+    ax_gap.grid(which="minor", color="white", linewidth=0.55)
+    ax_gap.tick_params(which="minor", bottom=False, left=False)
+    for spine in ["top", "right", "left", "bottom"]:
+        ax_gap.spines[spine].set_visible(False)
+    cbar = fig.colorbar(heat, ax=ax_gap, orientation="horizontal", fraction=0.095, pad=0.18)
+    cbar.set_label("AERIS - best baseline PDR (pp)", fontsize=5.5, labelpad=1)
+    cbar.ax.tick_params(labelsize=5.2, length=2.0, pad=1)
+
+    fig.subplots_adjust(left=0.20, right=0.985, top=0.90, bottom=0.18, hspace=0.42)
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     fig.savefig(OUTPUT_PDF)
