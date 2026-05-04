@@ -211,9 +211,9 @@ For Fig.~\ref{fig:classical_margin}, the plotted value is the signed classical m
 \end{equation}
 where $\mathcal{B}_{\mathrm{classical}}=\{\mathrm{LEACH},\mathrm{PEGASIS},\mathrm{HEED},\mathrm{TEEN}\}$. Positive values mean that AERIS outperforms the strongest classical baseline in the corresponding environment-node cell.
 
-We use four complementary settings. The five-protocol NS-3 audit compares AERIS against LEACH, PEGASIS, HEED, and TEEN across four environments and seven node scales from 50 to 1000 nodes ($n=30$ per cell). The expanded seven-protocol boundary sweep adds simplified CTP- and RPL-MRHOF-style collection baselines over the same grid; these are controlled collection-style approximations, not full LLN stacks. A 3360-run NS-3 ablation compares full AERIS with no-Gateway, no-CAS, and no-CH-score variants. A collision-aware Python stress layer adds explicit collision and relay contention; LEACH, HEED, and TEEN are minimally relay-enabled there for multi-hop comparability. A separate fixed 100-node publication block reports pooled PDR, consumed energy, lifetime, first-node death, and hop count, and a 400-replicate-per-cell mechanism study covers 12 cells and explains which AERIS mechanisms actually fire.
+We use four complementary settings. The five-protocol NS-3 audit compares AERIS against LEACH, PEGASIS, HEED, and TEEN over four environments and seven node scales ($n=30$ per cell). The expanded seven-protocol boundary sweep adds simplified CTP- and RPL-MRHOF-style collection baselines over the same grid. A 3360-run NS-3 ablation disables Gateway, CAS, or CH scoring one at a time. A collision-aware Python stress layer adds explicit contention with minimally relay-enabled classical baselines, while the fixed 100-node block and 400-replicate mechanism study report the trade-off and module activity.
 
-The NS-3 evidence uses a standalone ns-3.40 validation harness. Nodes are uniformly placed in a 200 m $\times$ 200 m field with the sink at the top-center boundary. Runs use 300 rounds, 512-byte packets, 2.0 J initial energy, 10 dBm transmit power, and seeds 42001--42030. The channel combines log-distance loss, shadowing, fading, receiver sensitivity, and packet-error probability. The path-loss/shadowing pairs are office (2.0, 4.5 dB), factory (2.7, 8.5 dB), suburban (2.8, 7.5 dB), and urban (3.4, 12.0 dB). The harness operates above an idealized contention-free MAC abstraction rather than the full IEEE 802.15.4 stack. The collision-aware Python stress layer adds explicit collision and relay contention on top of this abstraction.
+The NS-3 evidence uses a standalone ns-3.40 harness with uniformly placed nodes in a 200 m $\times$ 200 m field and the sink at the top-center boundary. Runs use 300 rounds, 512-byte packets, 2.0 J initial energy, 10 dBm transmit power, and seeds 42001--42030. The channel combines log-distance loss, shadowing, fading, receiver sensitivity, and packet-error probability; the path-loss/shadowing pairs are office (2.0, 4.5 dB), factory (2.7, 8.5 dB), suburban (2.8, 7.5 dB), and urban (3.4, 12.0 dB). The canonical harness uses an idealized contention-free MAC abstraction; the Python stress layer adds explicit collision and relay contention.
 
 \begin{table}[t]
 \caption{NS-3 harness parameters used for the canonical audit and expanded seven-protocol boundary sweep.}
@@ -243,7 +243,7 @@ MAC abstraction & idealized contention-free canonical layer \\
 \end{tabular*}
 \end{table}
 
-All AERIS coefficients are fixed once before evaluation. Table~\ref{tbl:aeris_params} lists the publication configuration; no coefficient is retuned between office, factory, suburban, and urban cells. The ablation disables one component at a time while leaving the remaining settings unchanged, so it measures module contribution under the same protocol configuration rather than a retuned variant.
+All AERIS coefficients are fixed once before evaluation. Table~\ref{tbl:aeris_params} lists the publication configuration; the ablation disables one component at a time without retuning the remaining settings.
 
 \begin{table}[t]
 \caption{Fixed AERIS configuration used in all reported experiments.}
@@ -269,13 +269,6 @@ CAS two-hop row & $(.20,.25,.50,.15,.05,-.05)$ \\
 \bottomrule
 \end{tabular*}
 \end{table}
-
-\begin{figure}[!t]
-\centering
-\includegraphics[width=\columnwidth]{figures/fig3_stress.pdf}
-\caption{Collision-aware adapted Python stress test across four environments and 100--1000 nodes ($n=3200$ per cell). LEACH, HEED, and TEEN are minimally relay-enabled; this layer tests collision-and-relay stress and is not canonical ranking evidence.}
-\label{fig:strict_python}
-\end{figure}
 
 The statistical unit is an environment-scale-protocol cell. Figure~\ref{fig:classical_margin} plots the five-protocol canonical audit as AERIS margin over the strongest classical baseline. This keeps the main classical result readable without line overlap and avoids pretending that the canonical audit is a boundary plot. Against classical WSN protocols alone, AERIS is rank-1 in 21 of 28 environment-node cells and top-2 in all 28, which is enough to justify the claim that it is a reliability-first alternative to the classical baselines.
 
@@ -326,6 +319,13 @@ The collision-aware stress layer asks whether the classical-baseline ordering su
 
 Because LEACH, HEED, and TEEN are minimally augmented with a simple relay layer for multi-hop comparability in this setting, Fig.~\ref{fig:strict_python} is stress evidence rather than a second canonical ranking. Its narrower role is to show that AERIS's harsh-channel advantage survives explicit collision-and-relay stress, even though absolute PDR falls for every protocol in the harder scales.
 
+\begin{figure}[!t]
+\centering
+\includegraphics[width=\columnwidth]{figures/fig3_stress.pdf}
+\caption{Collision-aware adapted Python stress test across four environments and 100--1000 nodes ($n=3200$ per cell). LEACH, HEED, and TEEN are minimally relay-enabled; this layer tests collision-and-relay stress and is not canonical ranking evidence.}
+\label{fig:strict_python}
+\end{figure}
+
 \subsection{Ablation}
 \begin{figure}[!t]
 \centering
@@ -352,13 +352,6 @@ The 400-replicate-per-cell mechanism study is summarized in Fig.~\ref{fig:mechan
 The trade-off is also clear. Table~\ref{tbl:pooled_summary} shows that AERIS records the lowest consumed energy (131.1 J), but this value reflects early forwarding-role exhaustion rather than an isolated efficiency advantage. It also has the shortest lifetime (215.5 rounds), confirming that delivery is obtained through concentrated relay burden. The PDR improvements quoted in the abstract are computed from the same fixed 100-node block pooled across the four environments. Fig.~\ref{fig:mechanism} localizes the cost to early node death and shrinking two-hop support in harsh cells, but its FND bars are cell-level mechanism measurements rather than the same pooled statistic used in Table~\ref{tbl:pooled_summary}.
 
 Figures~\ref{fig:classical_margin}--\ref{fig:ablation} and Table~\ref{tbl:pooled_summary} suggest a concrete deployment rule. Prefer PEGASIS-like routing when lifetime dominates in benign cells. Consider mature CTP/RPL-style stacks first when richer collection-tree control is acceptable, especially in office, factory, or urban regimes. Choose AERIS when delivery under heterogeneous harsh links is the priority and a simple auditable controller is required, especially in suburban-like cells. Office-like regimes, longevity-first deployments, and mature LLN stacks are the clearest negative cases.
-
-\subsection{Artifact Layout and Reproducibility}
-The submission is split into a paper package and a data pack so that the reported figures can be rebuilt without searching through the manuscript tree. \texttt{fig2\_fig5\_data/} contains the source CSV and JSON files together with the scripts that regenerate the classical audit, boundary evidence, stress layer, ablation heatmap, mechanism study, and pooled trade-off summary. \texttt{00\_final\_outputs/} stores the final rendered PDFs and PNGs, while \texttt{LCN26\_AERIS\_overleaf/} stores the camera-ready manuscript and the figure copies used by \LaTeX. The packaged archive \texttt{LCN26\_AERIS\_overleaf.zip} is the exact handoff unit for Overleaf upload.
-
-The workflow figure is the only manually edited asset; every other figure is rebuilt from a checked-in source file and a fixed script. This makes the canonical audit, expanded boundary note, stress evidence, ablation matrix, and mechanism study reproducible from one repository state, with the same seed blocks and environment-scale grid used for the reported results. The split also keeps the repository audit-friendly: a reviewer can inspect raw inputs, derived summaries, and final plots separately, instead of treating the PDF as the only artifact.
-
-For the boundary comparison, the manuscript intentionally keeps the simplified CTP/RPL-MRHOF variants separate from canonical ranking evidence. Their role is to bound the claim, not to replace full LLN stacks. The same separation is used throughout the paper for canonical ranking, boundary evidence, stress evidence, and mechanism diagnosis.
 
 \section{Conclusion}
 This paper evaluates AERIS through a five-protocol NS-3 comparison, an expanded seven-protocol boundary sweep against stronger collection-tree-style baselines, a collision-aware stress layer, and a mechanism study. The claim is deliberately bounded: AERIS is a reliability-first alternative to classical WSN baselines, but richer collection-tree routing narrows or removes that advantage in office, factory, and urban regimes. The current audit uses simplified CTP/RPL-MRHOF-style baselines, an idealized canonical MAC layer, static topologies, and $\mathrm{PDR}_{\mathrm{expected}}$ for the event-triggered TEEN baseline. Within those limits, AERIS's main contribution is a visible deployment boundary, not a universal ranking. Future work should compare against full RPL/ORW/ORPL-style stacks and test whether Gateway-style reinforcement can coexist with collection-tree parent selection without reproducing the early-node-death cost.
