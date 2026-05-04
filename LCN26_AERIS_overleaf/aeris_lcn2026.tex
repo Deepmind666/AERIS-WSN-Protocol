@@ -327,16 +327,16 @@ The collision-aware stress layer asks whether the classical-baseline ordering su
 Because LEACH, HEED, and TEEN are minimally augmented with a simple relay layer for multi-hop comparability in this setting, Fig.~\ref{fig:strict_python} is stress evidence rather than a second canonical ranking. Its narrower role is to show that AERIS's harsh-channel advantage survives explicit collision-and-relay stress, even though absolute PDR falls for every protocol in the harder scales.
 
 \subsection{Ablation}
-Figure~\ref{fig:ablation} compresses the full 50--1000 node sweep into a single-column heatmap instead of a wide line plot. Each panel is one disabled module; color encodes full-minus-ablated PDR in percentage points, and filled dots mark Holm-significant cells. This compact view keeps all seven node scales visible without line overlap, but it should be read as a compressed module-effect summary rather than a direct point-by-point trend plot. Gateway is still the main gain carrier in factory and suburban cells across the full grid. Removing Gateway costs 5.82 percentage points on average in factory and 7.58 points in suburban, with all seven node scales significant after Holm correction in both environments. It is essentially neutral in office and weak in urban, which matches the boundary result: office does not need extra uplink protection, while urban links can become too poor for a nearby Gateway to rescue reliably.
-
-CAS has a more mixed role. Removing CAS is beneficial in office and suburban cells, but hurts urban delivery by 0.91 points on average, with five of seven urban scales significant. CAS is therefore not a universal gain module; it is most useful when a short local detour remains viable under harsh links. Removing the CH scoring component is near-neutral in all environments. That does not make the score irrelevant to the design, but it does show that the measured delivery gain in this publication configuration should not be attributed to head scoring.
-
-\begin{figure}[!b]
+\begin{figure}[!t]
 \centering
 \includegraphics[width=\columnwidth]{figures/fig4_ablation.pdf}
 \caption{Compact NS-3 AERIS ablation over the full 50--1000 node sweep ($n=30$ per cell). Each panel is one disabled module. Color encodes full-minus-ablated PDR in percentage points; filled dots mark Holm-corrected significant cells. This single-column heatmap keeps all node scales visible without line overlap.}
 \label{fig:ablation}
 \end{figure}
+
+Figure~\ref{fig:ablation} compresses the full 50--1000 node sweep into a single-column heatmap instead of a wide line plot. Each panel is one disabled module; color encodes full-minus-ablated PDR in percentage points, and filled dots mark Holm-significant cells. This compact view keeps all seven node scales visible without line overlap, but it should be read as a compressed module-effect summary rather than a direct point-by-point trend plot. Gateway is still the main gain carrier in factory and suburban cells across the full grid. Removing Gateway costs 5.82 percentage points on average in factory and 7.58 points in suburban, with all seven node scales significant after Holm correction in both environments. It is essentially neutral in office and weak in urban, which matches the boundary result: office does not need extra uplink protection, while urban links can become too poor for a nearby Gateway to rescue reliably.
+
+CAS has a more mixed role. Removing CAS is beneficial in office and suburban cells, but hurts urban delivery by 0.91 points on average, with five of seven urban scales significant. CAS is therefore not a universal gain module; it is most useful when a short local detour remains viable under harsh links. Removing the CH scoring component is near-neutral in all environments. That does not make the score irrelevant to the design, but it does show that the measured delivery gain in this publication configuration should not be attributed to head scoring.
 
 \FloatBarrier
 \subsection{Mechanism and Trade-off}
