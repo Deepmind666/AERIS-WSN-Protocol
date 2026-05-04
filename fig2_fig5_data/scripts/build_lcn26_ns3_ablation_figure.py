@@ -120,7 +120,7 @@ def build() -> None:
         last_heat = ax.imshow(matrix, aspect="auto", cmap="RdBu_r", norm=norm)
         ax.set_yticks(np.arange(len(ENV_ORDER)))
         ax.set_yticklabels([ENV_LABEL[e] for e in ENV_ORDER])
-        ax.set_title(f"{panel} {label}", loc="left", pad=1.0, fontsize=6.9, fontweight="bold")
+        ax.set_title(f"{panel} {label}", loc="center", pad=1.0, fontsize=6.9, fontweight="bold")
         ax.set_xticks(np.arange(len(NODE_ORDER)))
         ax.set_xticklabels(NODE_LABELS)
         ax.set_xticks(np.arange(-0.5, len(NODE_ORDER), 1), minor=True)
