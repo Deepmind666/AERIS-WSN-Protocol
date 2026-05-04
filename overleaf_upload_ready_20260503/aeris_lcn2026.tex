@@ -79,7 +79,7 @@ Each round follows five steps. First, live nodes refresh their energy, link, and
 
 The round abstraction also fixes the information boundary used by AERIS. Nodes do not exchange global topology maps, and CHs do not maintain multi-parent routing tables. The only information used by a forwarding decision is the current local feature vector, the CH set, the candidate Gateway/Skeleton set, and the last-round energy/link summaries. This is weaker than a full collection-tree control plane, but it makes the protocol easier to audit: every transition in Fig.~\ref{fig:aeris_workflow} can be traced to one score or one eligibility check.
 
-Equations~(1)--(6) are intentionally ordered to mirror that control flow: state acquisition, CH election, member association, Gateway scoring, CAS mode selection, and first-hit uplink precedence. The paper is therefore not relying on a large number of equations for their own sake; instead, each equation names one routing decision that the implementation actually executes.
+The equations in this section are intentionally ordered to mirror that control flow: state acquisition, CH election, member association, Gateway eligibility, Gateway scoring, CAS mode selection, first-hit uplink precedence, delivery accounting, and energy update. The paper is therefore not relying on a large number of equations for their own sake; instead, each equation names one routing decision or accounting rule that the implementation actually executes.
 
 \subsection{Cluster Formation}
 CH election uses a normalized suitability score over residual energy, node centrality, neighborhood degree, distance to the BS, and link quality:
@@ -103,7 +103,11 @@ where $\bar{D}_i$ is normalized CH-to-BS distance, and $\hat{C}_i$, $\hat{L}_i$,
 
 The selected Gateway aggregates the originating CH's payload with its own CH traffic and forwards the resulting packet toward the BS. If the Gateway uplink fails, AERIS permits a bounded direct rescue from the originating CH. This behavior is deliberately modest: Gateway support is not a full collection tree and does not maintain a long-lived parent structure. It is a local reliability reinforcement mechanism for rounds in which the direct CH-to-BS path is weak.
 
-Gateway activation is controlled by eligibility rather than by a global route recomputation. A candidate must be a live CH, must be geometrically useful relative to the source CH and the BS, and must not already be ruled out by the current link estimate. Among eligible candidates, the highest fixed score is chosen. If no candidate satisfies the eligibility filter, the CH does not search deeper; it either uses the Skeleton reserve if available or falls back to direct transmission. This shallow decision tree is important for the paper's positioning. It explains why AERIS can be described as auditable, but it also explains why richer CTP/RPL-style baselines can dominate in regimes where repeated parent repair and path-cost updates are beneficial.
+Gateway activation is controlled by eligibility rather than by a global route recomputation. For a source CH $k$, the candidate set is
+\begin{equation}
+\mathcal{G}_k=\{g\in\mathcal{H}:E_g>0,\ D_{gB}<D_{kB},\ q_{kg}q_{gB}\ge q_{kB}\},
+\end{equation}
+where $\mathcal{H}$ is the live CH set and $q_{ab}$ is the estimated one-hop success probability between nodes $a$ and $b$. This filter requires a candidate to be live, geometrically useful relative to the BS, and not weaker than the direct uplink it replaces. Among eligible candidates, the highest fixed score is chosen. If no candidate satisfies the eligibility filter, the CH does not search deeper; it either uses the Skeleton reserve if available or falls back to direct transmission. This shallow decision tree is important for the paper's positioning. It explains why AERIS can be described as auditable, but it also explains why richer CTP/RPL-style baselines can dominate in regimes where repeated parent repair and path-cost updates are beneficial.
 
 \subsection{Context-Adaptive Intra-Cluster Forwarding}
 CAS chooses how member traffic reaches the CH before the CH attempts its uplink. It compares direct, chain, and two-hop forwarding using a fixed linear mode score:
@@ -130,7 +134,17 @@ u_k^\star=\begin{cases}
 \subsection{Failure Handling and State Update}
 AERIS treats a forwarding attempt as failed when the selected hop does not deliver under the current channel realization after the configured attempt budget. A direct CH-to-BS success ends the uplink stage. A Gateway success is counted only after both the source-CH-to-Gateway hop and the Gateway-to-BS hop succeed. Skeleton success is counted only if the reserve path reaches the BS. These definitions are used consistently in the NS-3 and stress-layer accounting so that the reported end-to-end PDR measures complete delivery rather than partial hop success.
 
-After each round, residual energy is decremented for transmission and reception events, link summaries are refreshed, and CH-duty penalties are updated. A node that exhausts its energy is removed from the candidate pool in subsequent rounds. This update rule is the source of the reliability-lifetime trade-off observed later: the Gateway path can protect delivery in harsh cells, but the same relays may accumulate forwarding load and trigger early first-node death. AERIS therefore does not hide relay concentration; it exposes the concentration through the mechanism and lifetime metrics.
+For source $i$ in round $r$, end-to-end delivery is recorded as
+\begin{equation}
+d_i^{(r)}=\mathbf{1}\{z_{i,c(i)}^{(r)}=1\}\mathbf{1}\{z_{c(i),B}^{(r)}=1\},
+\end{equation}
+where $c(i)$ is the assigned CH, $z_{i,c(i)}^{(r)}$ records successful intra-cluster delivery, and $z_{c(i),B}^{(r)}$ records successful CH-to-BS delivery through the selected uplink stage. This definition is strict: a packet that reaches an intermediate relay but not the BS is not counted as delivered.
+
+After each round, residual energy is decremented for transmission and reception events,
+\begin{equation}
+E_i^{(r+1)}=\max\{0,E_i^{(r)}-\epsilon_{\mathrm{tx}}T_i^{(r)}-\epsilon_{\mathrm{rx}}R_i^{(r)}\},
+\end{equation}
+where $T_i^{(r)}$ and $R_i^{(r)}$ are the numbers of transmit and receive events charged to node $i$ in round $r$. Link summaries are then refreshed and CH-duty penalties are updated. A node that exhausts its energy is removed from the candidate pool in subsequent rounds. This update rule is the source of the reliability-lifetime trade-off observed later: the Gateway path can protect delivery in harsh cells, but the same relays may accumulate forwarding load and trigger early first-node death. AERIS therefore does not hide relay concentration; it exposes the concentration through the mechanism and lifetime metrics.
 
 \subsection{Packet and Aggregation Semantics}
 The protocol is evaluated as a data-collection workload in which each live source is expected to contribute one application reading per round. Member nodes first send readings toward their CH according to the CAS-selected local mode. The CH then aggregates the received readings into the CH payload for that round. A successful end-to-end delivery requires that the aggregated payload reach the BS through one of the uplink paths. This convention matches the intended WSN use case: the routing rule is judged by whether source readings reach the sink, not merely by whether an intermediate relay receives a packet.
