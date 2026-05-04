@@ -15,7 +15,7 @@ Compile recipe used locally:
 pdflatex -> bibtex -> pdflatex -> pdflatex
 
 Notes:
-- Final PDF length: 10 pages.
+- Final PDF length: 9 pages.
 - No unresolved citations or references remain.
 - Remaining warnings are minor underfull boxes plus the standard IEEEtran final-column equalization reminder.
 - Fig. 1 uses the hand-drawn workflow PNG provided by the author.

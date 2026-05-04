@@ -63,23 +63,21 @@ Recent research has sought to improve reliability through machine learning, hybr
 Collection-tree and RPL-style protocols remain critical because they address the parent-selection problem through structured control planes. CTP constructs trees based on path quality~\cite{gnawali2009collection}, while RPL and MRHOF standardize DAG construction for lossy networks~\cite{tsvetkov2011rpl,gnawali2012minimum}. Opportunistic variants like ORW and ORPL further exploit link diversity~\cite{landsiedel2012low,duquennoy2013let}. This paper does not seek to replace these mature families. Instead, it investigates where a simpler fixed-rule design provides a sufficient reliability gain and where the established collection-tree paradigm should remain the default choice.
 
 \section{Method}
-This section introduces AERIS, whose architecture is illustrated in Fig.~\ref{fig:aeris_workflow}. We first define the round-level routing model, then describe the overall forwarding pipeline and its three functional components: cluster formation with context-adaptive intra-cluster forwarding, Gateway-assisted uplink reinforcement, and a sparse Skeleton reserve path. The design objective is not to build a full collection-tree stack. Instead, AERIS provides a deterministic reliability-first controller whose decisions can be traced to local channel, energy, and topology features.
+This section specifies AERIS as the deterministic round controller in Fig.~\ref{fig:aeris_workflow}. Its components are cluster formation, context-adaptive intra-cluster forwarding, Gateway-assisted uplink reinforcement, and a sparse Skeleton reserve. The objective is not full collection-tree optimality, but an auditable reliability-first rule set driven by local channel, energy, and topology features.
 
 \subsection{Problem Formulation and Round State}
 AERIS is a round-based protocol. At the start of each round, every live node exposes a compact local state vector
 \begin{equation}
 \mathbf{x}_i=[\hat{E}_i,\hat{L}_i,\hat{D}_{iB},\hat{C}_i,\hat{\rho}_i,\hat{U}_i,p_i]^\top .
 \end{equation}
-Here $\hat{E}_i$ is normalized residual energy, $\hat{L}_i$ is the current link-quality estimate, $\hat{D}_{iB}$ is normalized distance to the base station (BS), $\hat{C}_i$ is a neighborhood-centrality surrogate, $\hat{\rho}_i$ represents local density, $\hat{U}_i$ denotes recent forwarding utilization, and $p_i$ is the historical cluster-head (CH) duty penalty. All variables are normalized to $[0,1]$ before scoring. The protocol does not solve a global optimization problem; instead, it applies fixed scores and deterministic eligibility checks. This choice is intentional: the goal is to expose why a path was selected and to keep the routing behavior reproducible across environments.
-
-A live source generates one sensing report per round. A report is counted as delivered only if it reaches the BS after both the intra-cluster step and the CH-to-BS uplink step succeed. AERIS therefore optimizes complete collection delivery rather than hop-local reception. The routing decision is constrained to local state: nodes do not exchange global topology maps, and CHs do not maintain multi-parent routing tables. This is weaker than a full collection-tree control plane, but it makes each routing transition inspectable.
+Here $\hat{E}_i$ is normalized residual energy, $\hat{L}_i$ is the current link-quality estimate, $\hat{D}_{iB}$ is normalized distance to the base station (BS), $\hat{C}_i$ is a neighborhood-centrality surrogate, $\hat{\rho}_i$ represents local density, $\hat{U}_i$ denotes recent forwarding utilization, and $p_i$ is the historical cluster-head (CH) duty penalty. All variables are normalized to $[0,1]$. A live source contributes one expected sensing report per round; delivery requires both member-to-CH and CH-to-BS success, so the objective is complete collection delivery rather than hop-local reception.
 
 \subsection{AERIS Framework}
-Each round follows five steps. First, live nodes refresh their energy, link, and neighborhood summaries. Second, CHs are elected and ordinary nodes associate with eligible CHs according to local distance, link, and energy features. Third, candidate Gateways and reserve Skeleton nodes are identified from the CH set. Fourth, each cluster selects one intra-cluster forwarding mode through CAS. Fifth, CH traffic is forwarded to the BS through a first-hit uplink selector: direct transmission, Gateway-assisted relay, Skeleton reserve path, and one-shot direct fallback. The selector stops after the first eligible path succeeds, so later fallback paths are not used unless earlier paths are unavailable or fail.
-
-The round abstraction also fixes the information boundary used by AERIS. Nodes do not exchange global topology maps, and CHs do not maintain multi-parent routing tables. The only information used by a forwarding decision is the current local feature vector, the CH set, the candidate Gateway/Skeleton set, and the last-round energy/link summaries. This is weaker than a full collection-tree control plane, but it makes the protocol easier to audit: every transition in Fig.~\ref{fig:aeris_workflow} can be traced to one score or one eligibility check.
-
-The equations in this section are intentionally ordered to mirror that control flow: state acquisition, CH election, member association, Gateway eligibility, Gateway scoring, CAS mode selection, first-hit uplink precedence, delivery accounting, and energy update. The paper is therefore not relying on a large number of equations for their own sake; instead, each equation names one routing decision or accounting rule that the implementation actually executes.
+The control flow in round $r$ is
+\begin{equation}
+\mathcal{R}_r:\ \mathsf{refresh}\rightarrow\mathsf{CH/join}\rightarrow\mathsf{CAS}\rightarrow\mathsf{uplink}\rightarrow\mathsf{update}.
+\end{equation}
+After state refresh, CHs are elected, ordinary nodes associate with CHs, CAS chooses one local forwarding mode, and CH traffic is forwarded through a first-hit uplink selector: direct, Gateway, Skeleton, then one-shot fallback. The selector stops after the first eligible path succeeds; unused fallback stages consume no energy and are not counted as active mechanisms.
 
 \subsection{Cluster Formation}
 CH election uses a normalized suitability score over residual energy, node centrality, neighborhood degree, distance to the BS, and link quality:
@@ -147,40 +145,57 @@ E_i^{(r+1)}=\max\{0,E_i^{(r)}-\epsilon_{\mathrm{tx}}T_i^{(r)}-\epsilon_{\mathrm{
 where $T_i^{(r)}$ and $R_i^{(r)}$ are the numbers of transmit and receive events charged to node $i$ in round $r$. Link summaries are then refreshed and CH-duty penalties are updated. A node that exhausts its energy is removed from the candidate pool in subsequent rounds. This update rule is the source of the reliability-lifetime trade-off observed later: the Gateway path can protect delivery in harsh cells, but the same relays may accumulate forwarding load and trigger early first-node death. AERIS therefore does not hide relay concentration; it exposes the concentration through the mechanism and lifetime metrics.
 
 \subsection{Packet and Aggregation Semantics}
-The protocol is evaluated as a data-collection workload in which each live source is expected to contribute one application reading per round. Member nodes first send readings toward their CH according to the CAS-selected local mode. The CH then aggregates the received readings into the CH payload for that round. A successful end-to-end delivery requires that the aggregated payload reach the BS through one of the uplink paths. This convention matches the intended WSN use case: the routing rule is judged by whether source readings reach the sink, not merely by whether an intermediate relay receives a packet.
-
-Gateway forwarding preserves this accounting. When a source CH uses a Gateway, the source CH's aggregated payload is first delivered to the selected Gateway. The Gateway then forwards a combined uplink payload to the BS. If the source-to-Gateway hop succeeds but the Gateway-to-BS hop fails, the original source readings are not counted as delivered. Likewise, if a member packet fails before reaching its CH, that member reading cannot be recovered by a later CH-to-BS success. This end-to-end accounting is stricter than hop-local success and is why the paper reports PDR over expected application-layer transmissions.
+The protocol is evaluated as a data-collection workload in which each live source contributes one expected application reading $s_i^{(r)}$ per round. For cluster $k$, the CH payload is
+\begin{equation}
+A_k^{(r)}=\mathcal{A}\{s_i^{(r)}:c(i)=k,\ z_{i,k}^{(r)}=1\},
+\end{equation}
+where $\mathcal{A}$ is the aggregation operator and only readings that reach the CH enter the payload. A successful end-to-end delivery requires that $A_k^{(r)}$ reach the BS through one uplink path. If a source-to-Gateway hop succeeds but the Gateway-to-BS hop fails, the source readings are not counted as delivered. This strict accounting is why the paper reports PDR over expected application-layer transmissions rather than hop-local reception.
 
 The same semantics also make TEEN comparisons delicate. TEEN is event-triggered and may intentionally suppress transmissions. The evaluation uses a fixed expected denominator so that suppression is not mistaken for reliable delivery. This choice is appropriate for a reliability-first collection workload, but it is not the only possible interpretation of TEEN. A TEEN-centered study should also report event-detection success or actual-transmission PDR. In this paper, TEEN is included to represent a classical threshold-triggered WSN baseline, and its results are interpreted together with energy, lifetime, FND, and hop count.
 
-\subsection{Non-Assumptions}
-AERIS does not assume a mobile sink, synchronized channel hopping, time-slotted scheduling, or a standards-compliant 6TiSCH/RPL stack. It also does not assume that every node can hear every CH or that Gateway candidates are always available. If no eligible Gateway exists, the route selector falls through to the next reserve option. If the Skeleton reserve is also not useful, the protocol returns to direct rescue rather than inventing an unmodeled path. These non-assumptions keep the implementation aligned with the evidence: the reported gains come from fixed local routing decisions under the tested channel models, not from hidden full-stack repair behavior.
-
-This also limits the claim. In networks with stable parent sets and enough control budget, a mature collection-tree implementation can outperform AERIS because it maintains richer path information. In deployments where lifetime is the dominant metric, AERIS can be unattractive because Gateway relays concentrate load. The purpose of the method is therefore not to define a universal routing replacement. It is to specify a simple reliability-first controller whose decisions are explicit enough to be audited and whose deployment boundary can be measured.
+\subsection{Information Boundary}
+AERIS is restricted to round-local information. For node $i$ in round $r$,
+\begin{equation}
+\mathcal{I}_i^{(r)}=\{\mathbf{x}_i^{(r)},\mathbf{x}_{\mathcal{N}_i}^{(r-1)},c(i),\mathcal{H}^{(r)},\mathcal{G}_{c(i)}^{(r)},\mathcal{S}^{(r)}\},
+\end{equation}
+where $\mathcal{N}_i$ is the local neighborhood, $c(i)$ is the assigned CH, $\mathcal{H}$ is the CH set, $\mathcal{G}_{c(i)}$ is the Gateway candidate set for that CH, and $\mathcal{S}$ is the reserve Skeleton set. The executed action is
+\begin{equation}
+a_i^{(r)}=f_{\Theta}(\mathcal{I}_i^{(r)}),\qquad \Theta\ \mathrm{fixed\ for\ all}\ (e,n).
+\end{equation}
+Thus AERIS does not use a mobile sink, global topology map, synchronized channel hopping, time-slotted scheduling, DODAG repair, or Trickle dissemination. If no eligible Gateway or Skeleton path exists, the selector returns to direct rescue rather than inventing an unmodeled route.
 
 \subsection{Control Cost}
-AERIS keeps per-round control state bounded by local summaries and CH-level relay candidates. Ordinary nodes maintain their own energy/link state and one CH association. CHs maintain member summaries, one CAS mode, and at most one selected Gateway candidate in the publication configuration. The online scoring operations are linear in the number of local candidates: CH election scans live nodes, cluster association scans CHs, Gateway selection scans CH candidates, and CAS compares three fixed mode scores. No training, route-table diffusion, DODAG repair, or global path optimization is performed during the reported runs. The trade-off is that AERIS sacrifices the richer repair behavior of CTP/RPL-style stacks for a smaller and more transparent control path.
-
-Let $N$ be the number of live nodes, $K$ the number of CHs, and $d_i$ the local neighbor count of node $i$. CH election is $O(N)$ after local feature refresh, cluster association is $O(NK)$ in the standalone harness, Gateway ranking is $O(K)$ per source CH, and CAS is $O(1)$ because only three modes are scored. The memory footprint is also local: ordinary nodes keep one association and a small feature vector, while CHs keep member summaries and relay candidates. These bounds are not presented as a theoretical optimality claim; they specify the implementation envelope used in the experiments and clarify why AERIS is simpler than a full collection-tree stack.
+Let $N$ be the number of live nodes, $K$ the number of CHs, and $|\mathcal{C}_k|$ the size of cluster $k$. The standalone implementation has
+\begin{equation}
+T_{\mathrm{round}}=O(N)_{\mathrm{CH}}+O(NK)_{\mathrm{join}}+O(K^2)_{\mathrm{GW}}+O(K)_{\mathrm{CAS}},
+\end{equation}
+and local storage
+\begin{equation}
+M_i=O(1),\qquad M_k^{\mathrm{CH}}=O(|\mathcal{C}_k|+K).
+\end{equation}
+No training, route-table diffusion, DODAG repair, or global path optimization is performed during the reported runs. These bounds specify the implementation envelope rather than an optimality claim: AERIS trades the richer repair behavior of collection-tree stacks for a smaller and directly inspectable control path.
 
 \subsection{Decision Precedence}
-The most important implementation detail is the precedence among modules. CAS and Gateway do not compete for the same decision. CAS only determines how non-CH nodes deliver data to their CH. Gateway and Skeleton operate after intra-cluster delivery, when the CH must forward aggregated traffic to the BS. This separation prevents a local CAS choice from masking an uplink failure and prevents the Gateway mechanism from changing member-to-CH routing. The resulting behavior is easier to diagnose: if end-to-end delivery falls, the failure can be attributed to intra-cluster delivery, Gateway uplink delivery, Skeleton fallback, or final direct rescue.
+CAS and Gateway operate on different stages. CAS chooses member-to-CH delivery; Gateway and Skeleton operate only after the CH has an aggregated uplink payload. The uplink precedence is
+\begin{equation}
+\begin{aligned}
+\Pi_k&=(\mathrm{dir},\mathrm{GW},\mathrm{Sk},\mathrm{fb}),\\
+u_k^\star&=\min_{\ell\in\Pi_k}\{\ell:\chi_{k,\ell}=1,\ z_{k,\ell}=1\}.
+\end{aligned}
+\end{equation}
+For the two multi-hop uplink stages,
+\begin{equation}
+z_{k,\mathrm{GW}}=z_{k,g^\star}z_{g^\star,B},\qquad
+z_{k,\mathrm{Sk}}=\prod_{(a,b)\in P_k^{\mathrm{Sk}}} z_{ab}.
+\end{equation}
+A failed stage advances only this local selector; it does not flood route discovery or build a new tree. Successful Gateways are not persistent parents in later rounds. This first-hit rule also explains the mechanism results: a dormant Skeleton count means earlier Gateway decisions resolved most eligible fallback cases, not that the reserve rule is absent.
 
-The uplink selector is intentionally ordered. Direct transmission is attempted when the CH-to-BS path is eligible, because it adds no relay burden. Gateway transmission is considered next because it is the main reliability reinforcement mechanism and uses only one intermediate CH. Skeleton fallback is later because it can introduce a longer reserve path and is meant to be used sparingly. A final direct rescue is allowed after Gateway failure so that a transient relay failure does not automatically discard a packet that might still be delivered by the source CH. This order is fixed in all reported runs and is not changed per environment.
-
-The same precedence also defines how control overhead is contained. AERIS does not flood route discovery messages after every failure. A failed direct attempt does not trigger a network-wide search; it only advances the local selector to the next eligible option. A failed Gateway attempt does not build a new tree; it permits the configured rescue path and then lets the next round refresh the state. This is one reason the design should be read as a reliability-first WSN controller rather than a full LLN routing stack.
-
-\subsection{Eligibility Rules and Routing Invariants}
-The implementation enforces three routing invariants. First, a relay is never selected only because it improves a score; it must also pass an eligibility filter. Direct CH-to-BS forwarding is eligible when the current link estimate is high enough for the configured attempt budget. Gateway forwarding is eligible only if the candidate is live, belongs to the current CH set, is geometrically closer or more useful for the BS direction than the source CH, and has an estimated source-to-Gateway and Gateway-to-BS path that is not weaker than the direct uplink being replaced. Skeleton forwarding is eligible only after the direct and Gateway choices fail eligibility or delivery. These filters prevent the score from selecting a relay that is numerically attractive but topologically useless.
-
-Second, AERIS uses first-hit delivery accounting. Once a packet is delivered by an earlier eligible stage, later stages are not evaluated for that packet. This matters for energy and lifetime accounting because the protocol does not pay for unused fallback paths. It also matters for interpreting the mechanism study: a dormant Skeleton count does not mean the reserve path is absent from the design, but that earlier Gateway decisions already resolved most audited fallback cases.
-
-Third, AERIS keeps routing state round-local. A successful Gateway in one round does not become a persistent parent in the next round, and a failed Gateway does not trigger a long-lived blacklist unless the next feature refresh also lowers its score or eligibility. This design makes AERIS less adaptive than a collection tree, but it avoids hidden history-dependent behavior. The same topology and seed therefore reproduce the same score ordering, fallback order, and delivery accounting, which is important for a protocol whose main claim is auditability rather than learning-based optimality.
-
-\subsection{Relation to Collection-Tree Routing}
-AERIS and collection-tree routing both address weak multi-hop delivery, but they do so with different control assumptions, different repair costs, and different state requirements. CTP/RPL-style designs maintain parent/path-cost state and can repair routes through a richer control plane. AERIS does not maintain a DODAG, does not run Trickle-style dissemination, and does not optimize a cumulative path metric. It instead uses one-hop CH-level reinforcement and a sparse reserve path. This makes AERIS weaker than mature collection-tree stacks in some regimes, but it also keeps the decision process compact enough for direct inspection.
-
-This distinction also explains the structure of the evaluation. The classical-baseline audit tests whether AERIS improves over clustering, chain, residual-energy, and threshold-triggered WSN protocols. The expanded boundary sweep then asks whether that improvement remains once simplified collection-style baselines are added. The expected answer is not universal dominance. If CTP/RPL-style parent selection already identifies stable paths in a given cell, AERIS should not be expected to win. The relevant contribution is the deployment boundary: AERIS is useful when a simple fixed controller provides enough uplink reinforcement without the full control machinery of a collection-tree stack.
+\subsection{Collection-Tree Boundary}
+AERIS and collection-tree routing both address weak multi-hop delivery, but with different state assumptions. CTP/RPL-style designs maintain parent/path-cost state and can repair routes through a richer control plane. AERIS instead uses one-hop CH-level reinforcement and a sparse reserve path:
+\begin{equation}
+\mathcal{P}_{\mathrm{AERIS}}\subseteq\{k\!\to\!B,\ k\!\to\!g\!\to\!B,\ P_k^{\mathrm{Sk}},\ k\!\to\!B_{\mathrm{fb}}\},
+\end{equation}
+while RPL/CTP-style baselines search a larger parent/path space. The evaluation therefore separates the classical-baseline audit from the expanded collection-style boundary note. The expected result is not universal dominance; if stable parent selection already identifies good paths, a richer collection-tree baseline can remove AERIS's advantage.
 
 \section{Experiments}
 \subsection{Experimental Setup}
@@ -344,13 +359,8 @@ The trade-off is also clear. Table~\ref{tbl:pooled_summary} shows that AERIS rec
 
 Figures~\ref{fig:classical_margin}--\ref{fig:ablation} and Table~\ref{tbl:pooled_summary} suggest a concrete deployment rule. Prefer PEGASIS-like routing when lifetime dominates in benign cells. Consider mature CTP/RPL-style stacks first when richer collection-tree control is acceptable, especially in office, factory, or urban regimes. Choose AERIS when delivery under heterogeneous harsh links is the priority and a simple auditable controller is required, especially in suburban-like cells. Office-like regimes, longevity-first deployments, and mature LLN stacks are the clearest negative cases.
 
-\section{Limitations}
-Several limits remain. The expanded seven-protocol audit includes only simplified CTP- and RPL-MRHOF-style collection baselines, not opportunistic routing, ORW/ORPL-style candidate forwarding, coding-based reliability, channel hopping, or standards-compliant Contiki-NG/TinyOS RPL stacks. The AERIS--baseline ordering should therefore be read as a controlled collection-style comparison, not a direct claim against full LLN stacks. The collision-aware stress layer is deployment-stress evidence rather than real-radio-testbed ground truth, and its MAC abstraction omits full 802.15.4/TSCH/CSMA-CA behavior.
-
-Because TEEN is event-triggered, $\mathrm{PDR}_{\mathrm{expected}}$ should be read together with energy, lifetime, FND, and hops; actual-transmission PDR or event-detection success would be needed for a TEEN-centered study. Topology is static, and the environment taxonomy is bounded to the four tested regimes. Recent LLN work likewise emphasizes scalable path management and control-plane flexibility \cite{almutairi2024survey,djennadi2025exploring}. The provenance chain separates native-harness evidence from stress evidence, and a targeted replication of the three harsh 1000-node mechanism cells reproduced the key bottleneck means. All AERIS coefficients and thresholds are fixed once before evaluation; the implementation and raw results will be released publicly upon acceptance.
-
 \section{Conclusion}
-This paper evaluates AERIS through a five-protocol NS-3 comparison, a boundary note against stronger collection-tree-style baselines, a collision-aware stress layer, and a mechanism study. The claim is deliberately bounded: AERIS is a reliability-first alternative to classical WSN baselines, but richer collection-tree routing narrows or removes that advantage in office, factory, and urban regimes. Its main contribution is a visible deployment boundary, not a universal ranking. Future work should compare against full RPL/ORW/ORPL-style stacks and more realistic MAC behavior, and test whether Gateway-style reinforcement can coexist with collection-tree parent selection without reproducing the early-node-death cost.
+This paper evaluates AERIS through a five-protocol NS-3 comparison, a boundary note against stronger collection-tree-style baselines, a collision-aware stress layer, and a mechanism study. The claim is deliberately bounded: AERIS is a reliability-first alternative to classical WSN baselines, but richer collection-tree routing narrows or removes that advantage in office, factory, and urban regimes. The current audit uses simplified CTP/RPL-MRHOF-style baselines, an idealized canonical MAC layer, static topologies, and $\mathrm{PDR}_{\mathrm{expected}}$ for the event-triggered TEEN baseline. Within those limits, AERIS's main contribution is a visible deployment boundary, not a universal ranking. Future work should compare against full RPL/ORW/ORPL-style stacks and test whether Gateway-style reinforcement can coexist with collection-tree parent selection without reproducing the early-node-death cost.
 
 \FloatBarrier
 \bibliographystyle{IEEEtran}

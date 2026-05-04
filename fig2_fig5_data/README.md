@@ -15,7 +15,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File fig2_fig5_data\rebuild_figur
 ```
 
 The script regenerates Fig. 2--Fig. 5, mirrors the PDFs into
-`overleaf_upload_ready_20260503/figures/`, and updates `exported_figures/`.
+`LCN26_AERIS_overleaf/figures/`, and updates `exported_figures/`.
 
 The individual plotting commands are:
 
