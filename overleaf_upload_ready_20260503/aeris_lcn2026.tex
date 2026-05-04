@@ -79,6 +79,8 @@ Each round follows five steps. First, live nodes refresh their energy, link, and
 
 The round abstraction also fixes the information boundary used by AERIS. Nodes do not exchange global topology maps, and CHs do not maintain multi-parent routing tables. The only information used by a forwarding decision is the current local feature vector, the CH set, the candidate Gateway/Skeleton set, and the last-round energy/link summaries. This is weaker than a full collection-tree control plane, but it makes the protocol easier to audit: every transition in Fig.~\ref{fig:aeris_workflow} can be traced to one score or one eligibility check.
 
+Equations~(1)--(6) are intentionally ordered to mirror that control flow: state acquisition, CH election, member association, Gateway scoring, CAS mode selection, and first-hit uplink precedence. The paper is therefore not relying on a large number of equations for their own sake; instead, each equation names one routing decision that the implementation actually executes.
+
 \subsection{Cluster Formation}
 CH election uses a normalized suitability score over residual energy, node centrality, neighborhood degree, distance to the BS, and link quality:
 \begin{equation}
@@ -173,6 +175,12 @@ The primary metric is packet delivery ratio over expected application-layer tran
 \mathrm{PDR}_{\mathrm{expected}}=\frac{N_{\mathrm{delivered}}}{N_{\mathrm{expected}}},
 \end{equation}
 where $N_{\mathrm{expected}}$ counts one packet per alive source node per round even if a protocol suppresses actual transmission. The denominator is kept fixed across protocols so that the reliability comparison is not confounded by protocol-specific reporting logic.
+
+For Fig.~\ref{fig:classical_margin}, the plotted value is the signed classical margin
+\begin{equation}
+\Delta_{e,n}=\mathrm{PDR}_{\mathrm{AERIS}}(e,n)-\max_{b\in\mathcal{B}_{\mathrm{classical}}}\mathrm{PDR}_b(e,n),
+\end{equation}
+where $\mathcal{B}_{\mathrm{classical}}=\{\mathrm{LEACH},\mathrm{PEGASIS},\mathrm{HEED},\mathrm{TEEN}\}$. Positive values mean that AERIS outperforms the strongest classical baseline in the corresponding environment-node cell.
 
 We use four complementary settings. A five-protocol NS-3 comparison evaluates AERIS against LEACH, PEGASIS, HEED, and TEEN across four environments and 100, 500, and 1000 nodes ($n=30$ per cell). An expanded NS-3 boundary sweep adds simplified CTP- and RPL-MRHOF-style collection baselines over 50--1000 nodes. In this standalone harness, CTP and RPL-MRHOF are simplified collection-style baselines rather than complete LLN stacks. Our CTP variant follows the link-cost forwarding rule of \cite{gnawali2009collection} but omits the 4-bit beacon-driven link estimator, dynamic beacon timer, and datapath validation. Our RPL-MRHOF variant follows the path-cost parent selection of \cite{tsvetkov2011rpl,gnawali2012minimum} but omits trickle-driven DIO/DAO, full DODAG repair, and rank-based loop avoidance. These simplifications remove parts of the standards-compliant control plane and repair machinery, so the AERIS--baseline results should be read as a controlled collection-style boundary comparison. Full Contiki-NG/TinyOS stacks may shift the boundary in either direction. Opportunistic variants such as ORW/ORPL \cite{landsiedel2012low,duquennoy2013let} and TSCH-based stacks \cite{duquennoy2015orchestra} are deferred to future work.
 
