@@ -1,26 +1,12 @@
-* text=auto
-
-# Windows scripts
-*.bat text eol=crlf
-*.cmd text eol=crlf
-*.ps1 text eol=crlf
-
-# Unix scripts
-*.sh text eol=lf
-
-# Documentation classification
-docs/** linguist-documentation
-
-# Vendored/generated
-.venvs/** linguist-vendored
-results/_logs/** linguist-generated
-
-# Binary files
+*.pdf binary
 *.png binary
-*.jpg binary
-*.jpeg binary
-*.gif binary
-*.h5 binary
-*.pkl binary
-*.joblib binary
-*.onnx binary
+*.zip binary
+*.bz2 binary
+*.json text eol=lf
+*.csv text eol=lf
+*.md text eol=lf
+*.py text eol=lf
+*.tex text eol=lf
+*.bib text eol=lf
+*.sh text eol=lf
+*.ps1 text eol=crlf

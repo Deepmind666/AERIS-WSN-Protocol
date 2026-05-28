@@ -1,224 +1,34 @@
-# Byte-compiled / optimized / DLL files
+# Python
 __pycache__/
 *.py[cod]
-*$py.class
-
-# C extensions
-*.so
-
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-pip-wheel-metadata/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-
-# PyInstaller
-*.manifest
-*.spec
-
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
-.hypothesis/
 .pytest_cache/
-
-# Translations
-*.mo
-*.pot
-
-# Django stuff:
-*.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
-
-# Flask stuff:
-instance/
-.webassets-cache
-
-# Scrapy stuff:
-.scrapy
-
-# Sphinx documentation
-docs/_build/
-
-# PyBuilder
-target/
-
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# IPython
-profile_default/
-ipython_config.py
-
-# pyenv
-.python-version
-
-# pipenv
-Pipfile.lock
-
-# PEP 582
-__pypackages__/
-
-# Celery stuff
-celerybeat-schedule
-celerybeat.pid
-
-# SageMath parsed files
-*.sage.py
-
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-
-# Spyder project settings
-.spyderproject
-.spyproject
-
-# Rope project settings
-.ropeproject
-
-# mkdocs documentation
-/site
-
-# mypy
 .mypy_cache/
-.dmypy.json
-dmypy.json
+.ruff_cache/
 
-# Pyre type checker
-.pyre/
-
-# IDE files
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# OS generated files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-
-# Project specific
-# Large data files
-*.gz
-*.zip
-*.tar
-*.tar.gz
-data/raw/
-data/processed/large_datasets/
-
-# Temporary files
-temp/
-tmp/
-*.tmp
-logs/
-results/_logs/
-*_backup.*
-*.bak
-
-# Local virtual envs
-.venvs/
-.venv
+# Virtual environments and local tools
+.venv/
 venv/
-ENV/
-env.bak/
-venv.bak/
-
-# Project specific additions
-venv-cu128/
-temp/
-tmp/
-*.tmp
-logs/
-results/_logs/
-*_backup.*
-*.bak
-.venv_*/
-.venv_experiment/
-.venv_run/
-.venv_eehfr_clean/
-
-# Repo scan and runtime logs
-results/_logs/
-
-# Temp files
-temp_*
-
-# Large directories (scp to server separately)
-results/
-data/Intel_Lab_Data/
-data/cas_dataset_*/
-data/multi_datasets/
-data/real_datasets/
-data/*.npy
-data/*.npz
-models/
-contiki-ng/
-ns3_validation/
-for_submission/figures/*.png
-for_submission/figures_enhanced/
-for_submission/*.pdf
-NUL
-
-# Large binary tooling (not needed in git)
 .tools/
 node_modules/
-tmp_node_modules/
-tectonic/
-sota_algorithms/
-tmp_*.bin
-tmp_*.png
-*.exe
-*.jks
+tmp/
+temp/
+_tmp*/
+_LCN26_AERIS/
 
-# Local-only memory (not for remote)
-.claude/memory.md
-
-# LaTeX build artifacts
-*.aux
-*.bbl
-*.blg
-*.fls
-*.fdb_latexmk
-*.out
+# LaTeX local build byproducts outside the final submission package
 *.synctex.gz
+*.out
+*.toc
+*.lof
+*.lot
+*.nav
+*.snm
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Large local-only experiment dumps
+results/mega_experiments/
+logs/

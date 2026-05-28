@@ -1,0 +1,92 @@
+\relax 
+\citation{akyildiz2002survey,rault2014energy,kandris2009power}
+\citation{heinzelman2000energy}
+\citation{lindsey2002pegasis}
+\citation{younis2004heed}
+\citation{manjeshwar2001teen}
+\citation{zuniga2004analyzing,zamalloa2007analysis,baccour2012radio}
+\citation{heinzelman2002application,younis2004heed}
+\citation{lindsey2002pegasis}
+\citation{manjeshwar2001teen}
+\citation{zhong2018scalable}
+\citation{kumar2019machine,pushpa2025optimizing,ren2023mefi}
+\citation{tossa2025wireless,wang2024energy,khedr2025advancing}
+\citation{hu2024security,almutairi2025secured}
+\citation{almutairi2024survey,djennadi2025exploring,thakur2025ai}
+\citation{okine2024multi,singh2025enhanced,bhukya2025hybrid}
+\citation{gnawali2009collection}
+\citation{tsvetkov2011rpl,gnawali2012minimum}
+\citation{landsiedel2012low,duquennoy2013let}
+\@writefile{toc}{\contentsline {section}{\numberline {I}Introduction}{1}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {II}Related Work}{1}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces AERIS round framework. The protocol first forms clusters and scores CH/Gateway candidates, then selects one CAS intra-cluster forwarding mode, and finally applies a first-hit uplink selector over direct, Gateway-assisted, Skeleton-reserve, and one-shot fallback paths.}}{2}{}\protected@file@percent }
+\newlabel{fig:aeris_workflow}{{1}{2}{}{figure.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {III}Method}{2}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-A}}Problem Formulation and Round State}{2}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-B}}AERIS Framework}{2}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-C}}Cluster Formation}{2}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-D}}Gateway-Assisted Uplink}{3}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-E}}Context-Adaptive Intra-Cluster Forwarding}{3}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-F}}Skeleton Reserve Path}{3}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-G}}Failure Handling and State Update}{3}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-H}}Packet and Aggregation Semantics}{4}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-I}}Information Boundary}{4}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-J}}Control Cost}{4}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-K}}Decision Precedence}{4}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-L}}Collection-Tree Boundary}{4}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {IV}Experiments}{4}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-A}}Experimental Setup}{4}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {I}{\ignorespaces NS-3 harness parameters used for the canonical audit and expanded seven-protocol boundary sweep.}}{5}{}\protected@file@percent }
+\newlabel{tbl:ns3_params}{{I}{5}{}{table.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces Fixed AERIS configuration used in all reported experiments.}}{5}{}\protected@file@percent }
+\newlabel{tbl:aeris_params}{{II}{5}{}{table.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-B}}Classical Audit and Boundary Note}{5}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Canonical NS-3 audit across four environments and 50--1000 nodes ($n=30$ per cell). Each marker reports AERIS minus the strongest classical baseline in percentage points; whiskers show approximate 95\% confidence intervals. Red markers favor AERIS, dark gray markers favor the strongest classical baseline, and the light band marks the $\pm $0.1 percentage-point near-tie region. ``Class.'' in each panel title reports AERIS rank-1 coverage against LEACH, PEGASIS, HEED, and TEEN; ``top-2'' reports its top-two coverage in the same classical audit. Marker magnitudes encode the actual percentage-point margin, so small positive markers still indicate AERIS rank-1 cells.}}{6}{}\protected@file@percent }
+\newlabel{fig:classical_margin}{{2}{6}{}{figure.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-C}}Collision-Aware Stress Evidence}{6}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Collision-aware adapted Python stress test across four environments and 100--1000 nodes ($n=3200$ per cell). LEACH, HEED, and TEEN are minimally relay-enabled; this layer tests collision-and-relay stress and is not canonical ranking evidence.}}{6}{}\protected@file@percent }
+\newlabel{fig:strict_python}{{3}{6}{}{figure.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Compact NS-3 AERIS ablation over the full 50--1000 node sweep ($n=30$ per cell). Each panel is one disabled module. Color encodes full-minus-ablated PDR in percentage points; filled dots mark Holm-corrected significant cells. This single-column heatmap keeps all node scales visible without line overlap.}}{6}{}\protected@file@percent }
+\newlabel{fig:ablation}{{4}{6}{}{figure.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-D}}Ablation}{6}{}\protected@file@percent }
+\bibstyle{IEEEtran}
+\bibdata{ref}
+\bibcite{akyildiz2002survey}{1}
+\bibcite{rault2014energy}{2}
+\bibcite{kandris2009power}{3}
+\bibcite{heinzelman2000energy}{4}
+\@writefile{lot}{\contentsline {table}{\numberline {III}{\ignorespaces Fixed 100-node pooled trade-off summary.}}{7}{}\protected@file@percent }
+\newlabel{tbl:pooled_summary}{{III}{7}{}{table.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-E}}Mechanism and Trade-off}{7}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces AERIS mechanism study from 400 replicates per environment-node cell across 12 cells (4800 runs total). The four panels use grouped bars to show end-to-end PDR, Gateway-uplink PDR, first-node death (FND), and CAS two-hop share by environment and node scale.}}{7}{}\protected@file@percent }
+\newlabel{fig:mechanism}{{5}{7}{}{figure.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {V}Conclusion}{7}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{References}{7}{}\protected@file@percent }
+\bibcite{lindsey2002pegasis}{5}
+\bibcite{younis2004heed}{6}
+\bibcite{manjeshwar2001teen}{7}
+\bibcite{zuniga2004analyzing}{8}
+\bibcite{zamalloa2007analysis}{9}
+\bibcite{baccour2012radio}{10}
+\bibcite{heinzelman2002application}{11}
+\bibcite{zhong2018scalable}{12}
+\bibcite{kumar2019machine}{13}
+\bibcite{pushpa2025optimizing}{14}
+\bibcite{ren2023mefi}{15}
+\bibcite{tossa2025wireless}{16}
+\bibcite{wang2024energy}{17}
+\bibcite{khedr2025advancing}{18}
+\bibcite{hu2024security}{19}
+\bibcite{almutairi2025secured}{20}
+\bibcite{almutairi2024survey}{21}
+\bibcite{djennadi2025exploring}{22}
+\bibcite{thakur2025ai}{23}
+\bibcite{okine2024multi}{24}
+\bibcite{singh2025enhanced}{25}
+\bibcite{bhukya2025hybrid}{26}
+\bibcite{gnawali2009collection}{27}
+\bibcite{tsvetkov2011rpl}{28}
+\bibcite{gnawali2012minimum}{29}
+\bibcite{landsiedel2012low}{30}
+\bibcite{duquennoy2013let}{31}
+\gdef \@abspage@last{8}
